@@ -6,6 +6,10 @@ Ladder::Application.routes.draw do
   get 'logout' => 'sessions#destroy'
   resource :session, :only => [:show, :create, :destroy]
 
+  resource :home, :only => [:show]
+
+  root :to => 'homes#show'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

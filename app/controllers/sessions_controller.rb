@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
         reset_session
         session[:user_id] = @user.id
         session[:service_id] = @user.services.last.id
-        redirect_to session_path, :notice => "Signed in successfully via #{@authhash[:provider].capitalize}."
+        redirect_to root_path, :notice => "Signed in successfully via #{@authhash[:provider].capitalize}."
       else
         redirect_to session_path, :notice => "Unknown account creation error"
       end
@@ -23,7 +23,7 @@ class SessionsController < ApplicationController
 
   def destroy
     reset_session
-    redirect_to session_path, :notice => "Logged out successfully"
+    redirect_to root_path, :notice => "Logged out successfully"
   end
 
   def callback
@@ -40,7 +40,7 @@ class SessionsController < ApplicationController
       reset_session
       session[:user_id] = auth.user.id
       session[:service_id] = auth.id
-      redirect_to session_path, :notice => "Signed in successfully via #{@authhash[:provider].capitalize}."
+      redirect_to root_path, :notice => "Signed in successfully via #{@authhash[:provider].capitalize}."
     else
       render :new
     end
