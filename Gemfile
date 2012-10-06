@@ -39,7 +39,7 @@ gem 'jquery-rails'
 
 gem 'omniauth'
 
-group :test do
+group :test, :development do
   gem 'minitest-rails'
   gem 'minitest-rails-capybara'
 end

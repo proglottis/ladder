@@ -1,4 +1,11 @@
 Ladder::Application.routes.draw do
+
+  get 'auth/:service/callback' => 'sessions#callback'
+  post 'auth/:service/callback' => 'sessions#callback'
+  get 'auth/failure' => 'sessions#failure'
+  get 'logout' => 'sessions#destroy'
+  resource :session, :only => [:show, :create, :destroy]
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
