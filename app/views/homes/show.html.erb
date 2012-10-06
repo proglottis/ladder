@@ -1,0 +1,5 @@
+<% if user_logged_in? %>
+  <p>Welcome <%= current_user.name %> (<%= link_to 'Logout', logout_path %>)</p>
+<% else%>
+  <p><%= link_to 'Login', session_path %></p>
+<% end %>
