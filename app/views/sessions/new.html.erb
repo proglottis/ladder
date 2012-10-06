@@ -1,11 +1,16 @@
 <p>This authentication is new to Ladder</p>
-<div>
-  <h3><%= @authhash[:provider].capitalize %></h3>
-  <p><b>ID:</b> <%= @authhash[:uid] %></p>
-  <p><b>Name:</b> <%= @authhash[:name] %></p>
-  <p><b>Email:</b> <%= @authhash[:email] %></p>
-  <%= form_tag :controller => "sessions", :action => "create" do %>
-    <%= submit_tag "Confirm" %>
-    <%= submit_tag "Cancel" %>
-  <% end %>
-</div>
+<%= form_tag :controller => "sessions", :action => "create" do %>
+  <div class="well">
+    <h3><%= @authhash[:provider].capitalize %></h3>
+    <dl class="dl-horizontal">
+      <dt>ID</dt>
+      <dd><%= @authhash[:uid] %></dd>
+      <dt>Name</dt>
+      <dd><%= @authhash[:name] || "Unknown" %></dd>
+      <dt>Email</dt>
+      <dd><%= @authhash[:email] || "Unknown" %></dd>
+    </dl>
+    <%= submit_tag "Confirm", :class => 'btn btn-primary' %>
+    <%= submit_tag "Cancel", :class => 'btn' %>
+  </div>
+<% end %>

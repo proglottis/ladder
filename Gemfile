@@ -38,6 +38,7 @@ gem 'jquery-rails'
 # gem 'debugger'
 
 gem 'omniauth'
+gem 'twitter-bootstrap-rails'
 
 group :test, :development do
   gem 'minitest-rails'
