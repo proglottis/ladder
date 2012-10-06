@@ -41,4 +41,5 @@ gem 'omniauth'
 
 group :test do
   gem 'minitest-rails'
+  gem 'minitest-rails-capybara'
 end
