@@ -37,6 +37,8 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'debugger'
 
+gem 'omniauth'
+
 group :test do
   gem 'minitest-rails'
 end
