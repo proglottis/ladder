@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     @authhash = session[:authhash]
     if params[:commit] =~ /cancel/i
       reset_session
-      redirect_to session_path, :notice => "Sign in via #{@authhash[:provider].capitalize} canceled."
+      redirect_to session_path, :notice => "Sign in via #{@authhash[:provider].humanize} canceled."
     else
       @user = User.new(:name => @authhash[:name], :email => @authhash[:email])
       @user.services.build(@authhash)
@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
         reset_session
         session[:user_id] = @user.id
         session[:service_id] = @user.services.last.id
-        redirect_to root_path, :notice => "Signed in successfully via #{@authhash[:provider].capitalize}."
+        redirect_to root_path, :notice => "Signed in successfully via #{@authhash[:provider].humanize}."
       else
         redirect_to session_path, :notice => "Unknown account creation error"
       end
@@ -31,8 +31,8 @@ class SessionsController < ApplicationController
     @authhash = {
       :provider => omniauth['provider'],
       :uid => omniauth['uid'],
-      :name => omniauth['user_info'] ? omniauth['user_info']['name'] : nil,
-      :email => omniauth['user_info'] ? omniauth['user_info']['email'] : nil
+      :name => omniauth['info']['name'],
+      :email => omniauth['info']['email']
     }
     session[:authhash] = @authhash
     auth = Service.find_by_provider_and_uid(@authhash[:provider], @authhash[:uid])
@@ -40,7 +40,7 @@ class SessionsController < ApplicationController
       reset_session
       session[:user_id] = auth.user.id
       session[:service_id] = auth.id
-      redirect_to root_path, :notice => "Signed in successfully via #{@authhash[:provider].capitalize}."
+      redirect_to root_path, :notice => "Signed in successfully via #{@authhash[:provider].humanize}."
     else
       render :new
     end

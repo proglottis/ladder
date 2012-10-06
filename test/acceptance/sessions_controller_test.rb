@@ -3,7 +3,7 @@ require "minitest_helper"
 describe "SessionsController Acceptance Test" do
 
   before do
-    @omniauth = OmniAuth.config.add_mock(:developer, "user_info" => {"name" => "Bob Bobson", "email" => "bob@bob.com"})
+    @omniauth = OmniAuth.config.add_mock(:developer, "info" => {"name" => "Bob Bobson", "email" => "bob@bob.com"})
   end
 
   describe "existing user" do
@@ -12,8 +12,8 @@ describe "SessionsController Acceptance Test" do
       @service = @user.services.create!(
         :provider => @omniauth['provider'],
         :uid => @omniauth['uid'],
-        :name => @omniauth['user_info'] ? @omniauth['user_info']['name'] : nil,
-        :email => @omniauth['user_info'] ? @omniauth['user_info']['email'] : nil)
+        :name => @omniauth['info'] ? @omniauth['info']['name'] : nil,
+        :email => @omniauth['info'] ? @omniauth['info']['email'] : nil)
     end
 
     it "must authenticate" do
@@ -27,10 +27,10 @@ describe "SessionsController Acceptance Test" do
     it "must show new account creation" do
       visit session_path
       click_link "Developer"
-      must_have_content @omniauth["provider"].capitalize
+      must_have_content @omniauth["provider"].humanize
       must_have_content @omniauth["uid"]
-      must_have_content @omniauth["user_info"]["name"]
-      must_have_content @omniauth["user_info"]["email"]
+      must_have_content @omniauth["info"]["name"]
+      must_have_content @omniauth["info"]["email"]
       must_have_button "Confirm"
       must_have_button "Cancel"
     end

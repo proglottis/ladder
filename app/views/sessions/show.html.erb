@@ -1,1 +1,6 @@
-<%= link_to '/auth/developer', :rel => 'external' do %>Login with Developer<% end %>
+<ul class="nav nav-list">
+  <% unless Rails.env.production? %>
+    <li><%= link_to '/auth/developer', :rel => 'external' do %>Login with Developer<% end %></li>
+  <% end %>
+  <li><%= link_to '/auth/google_oauth2', :rel => 'external' do%>Login with Google<% end %></li>
+</ul>

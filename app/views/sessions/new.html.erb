@@ -1,7 +1,7 @@
 <p>This authentication is new to Ladder</p>
 <%= form_tag :controller => "sessions", :action => "create" do %>
   <div class="well">
-    <h3><%= @authhash[:provider].capitalize %></h3>
+    <h3><%= @authhash[:provider].humanize %></h3>
     <dl class="dl-horizontal">
       <dt>ID</dt>
       <dd><%= @authhash[:uid] %></dd>
