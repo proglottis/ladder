@@ -15,7 +15,7 @@
     <% @tournament.ranks.each do |rank| %>
       <tr>
         <td><%= rank.user.name %></td>
-        <td><%= rank.mu - 3.0 * rank.sigma %></td>
+        <td><%= rank.rank %></td>
       </tr>
     <% end %>
   </tbody>
