@@ -51,6 +51,8 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (2.2.0)
+      activesupport
     faraday (0.8.4)
       multipart-post (~> 1.1)
     ffi (1.1.5)
@@ -174,6 +176,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
+  factory_girl
   jquery-rails
   minitest-rails
   minitest-rails-capybara

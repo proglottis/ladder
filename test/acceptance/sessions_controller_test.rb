@@ -8,12 +8,8 @@ describe "SessionsController Acceptance Test" do
 
   describe "existing user" do
     before do
-      @user = User.create!(:name => "Bob Bobson", :email => "bob@bob.com")
-      @service = @user.services.create!(
-        :provider => @omniauth['provider'],
-        :uid => @omniauth['uid'],
-        :name => @omniauth['info'] ? @omniauth['info']['name'] : nil,
-        :email => @omniauth['info'] ? @omniauth['info']['email'] : nil)
+      @service = FactoryGirl.create(:service, :uid => @omniauth['uid'], :provider => @omniauth['provider'])
+      @user = @service.user
     end
 
     it "must authenticate" do

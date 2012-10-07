@@ -4,12 +4,8 @@ describe "TournamentsController Acceptance Test" do
 
   before do
     @omniauth = OmniAuth.config.add_mock(:developer, "info" => {"name" => "Bob Bobson", "email" => "bob@bob.com"})
-    @user = User.create!(:name => "Bob Bobson", :email => "bob@bob.com")
-    @service = @user.services.create!(
-      :provider => @omniauth['provider'],
-      :uid => @omniauth['uid'],
-      :name => @omniauth['info'] ? @omniauth['info']['name'] : nil,
-      :email => @omniauth['info'] ? @omniauth['info']['email'] : nil)
+    @service = FactoryGirl.create(:service, :uid => @omniauth['uid'], :provider => @omniauth['provider'])
+    @user = @service.user
     visit session_path
     click_link "Developer"
     must_have_content "Signed in successfully via Developer"
@@ -17,14 +13,14 @@ describe "TournamentsController Acceptance Test" do
 
   describe "listing" do
     before do
-      @tournament1 = @user.tournaments.create! :name => 'Tournament 1'
-      @tournament2 = @user.tournaments.create! :name => 'Tournament 2'
+      @tournaments = FactoryGirl.create_list(:tournament, 5, :owner => @user)
     end
 
     it "must show tournaments" do
       visit tournaments_path
-      must_have_link @tournament1.name
-      must_have_link @tournament2.name
+      @tournaments.each do |tournament|
+        must_have_link tournament.name
+      end
       must_have_link "Start tournament"
     end
   end

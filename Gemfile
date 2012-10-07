@@ -44,4 +44,5 @@ gem 'twitter-bootstrap-rails'
 group :test, :development do
   gem 'minitest-rails'
   gem 'minitest-rails-capybara'
+  gem 'factory_girl'
 end

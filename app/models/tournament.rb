@@ -6,4 +6,8 @@ class Tournament < ActiveRecord::Base
   attr_accessible :name
 
   validates_presence_of :name, :owner_id
+
+  def has_user?(user)
+    users.where(:users => {:id => user}).present?
+  end
 end
