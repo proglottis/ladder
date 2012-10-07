@@ -1,0 +1,25 @@
+<h1>Tournaments</h1>
+
+<ul class="nav">
+  <li><%= link_to "Start tournament", new_tournament_path %></li>
+</ul>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tournaments.each do |tournament| %>
+      <tr>
+        <td><%= link_to tournament.name, tournament_path(tournament) %></td>
+      </tr>
+    <% end %>
+    <% if @tournaments.empty? %>
+      <tr>
+        <td>You do not own any tournaments.</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

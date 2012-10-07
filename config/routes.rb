@@ -8,6 +8,8 @@ Ladder::Application.routes.draw do
 
   resource :home, :only => [:show]
 
+  resources :tournaments
+
   root :to => 'homes#show'
 
   # The priority is based upon order of creation:

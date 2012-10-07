@@ -11,4 +11,12 @@ class ApplicationController < ActionController::Base
     current_user != nil
   end
 
+  private
+
+  def authenticate_user!
+    unless user_logged_in?
+      redirect_to session_path, :notice => 'You need to sign in before accessing this page'
+    end
+  end
+
 end
