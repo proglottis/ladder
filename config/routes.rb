@@ -8,7 +8,11 @@ Ladder::Application.routes.draw do
 
   resource :home, :only => [:show]
 
-  resources :tournaments
+  resources :tournaments do
+    member do
+      post :join
+    end
+  end
 
   root :to => 'homes#show'
 

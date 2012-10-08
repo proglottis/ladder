@@ -1,7 +1,7 @@
 <h1><%= @tournament.name %></h1>
 
 <% unless @tournament.has_user? current_user %>
-  <p>You are not participating in this tournament, <%= link_to "join now" %>.</p>
+  <p>You are not participating in this tournament, <%= link_to "join now", join_tournament_path(@tournament), :method => :post %>.</p>
 <% end %>
 
 <table class="table">
@@ -15,7 +15,7 @@
     <% @tournament.ranks.each do |rank| %>
       <tr>
         <td><%= rank.user.name %></td>
-        <td><%= rank.rank %></td>
+        <td><%= number_with_precision rank.rank %></td>
       </tr>
     <% end %>
   </tbody>

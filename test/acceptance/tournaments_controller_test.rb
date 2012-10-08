@@ -42,4 +42,15 @@ describe "TournamentsController Acceptance Test" do
     end
   end
 
+  describe "joining" do
+    before do
+      @tournament = FactoryGirl.create(:tournament, :owner => @user)
+    end
+
+    it "must let owner join" do
+      visit tournament_path(@tournament)
+      click_link "join"
+      wont_have_content "You are not participating"
+    end
+  end
 end

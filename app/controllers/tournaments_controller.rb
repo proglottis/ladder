@@ -22,4 +22,11 @@ class TournamentsController < ApplicationController
     @tournament = current_user.tournaments.find params[:id]
   end
 
+  def join
+    @tournament = current_user.tournaments.find params[:id]
+    rank = @tournament.ranks.with_defaults.build
+    rank.user = current_user
+    rank.save!
+    redirect_to tournament_path(@tournament)
+  end
 end
