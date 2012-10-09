@@ -2,7 +2,7 @@ require "minitest_helper"
 
 describe Rank do
   describe "#rank" do
-    let(:rank) { FactoryGirl.create(:rank) }
+    let(:rank) { create(:rank) }
 
     it "must be zero with default values" do
       rank.mu = 25.0

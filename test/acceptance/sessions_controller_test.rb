@@ -8,7 +8,7 @@ describe "SessionsController Acceptance Test" do
 
   describe "existing user" do
     before do
-      @service = FactoryGirl.create(:service, :uid => @omniauth['uid'], :provider => @omniauth['provider'])
+      @service = create(:service, :uid => @omniauth['uid'], :provider => @omniauth['provider'])
       @user = @service.user
     end
 

@@ -3,9 +3,9 @@ require "minitest_helper"
 describe Tournament do
   describe "#has_user?" do
     before do
-      @tournament = FactoryGirl.create(:tournament)
-      @users = FactoryGirl.create_list(:user, 2)
-      @rank = FactoryGirl.create(:rank, :user => @users.first, :tournament => @tournament)
+      @tournament = create(:tournament)
+      @users = create_list(:user, 2)
+      @rank = create(:rank, :user => @users.first, :tournament => @tournament)
     end
 
     it "must match users who are participating" do
