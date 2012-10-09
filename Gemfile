@@ -45,4 +45,5 @@ group :test, :development do
   gem 'minitest-rails'
   gem 'minitest-rails-capybara'
   gem 'factory_girl'
+  gem 'guard-minitest'
 end
