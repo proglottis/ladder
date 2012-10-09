@@ -45,6 +45,7 @@ test:
   pool: 5
   username: ladder
   password: ladder
+  min_messages: warning
 
 production:
   adapter: postgresql
