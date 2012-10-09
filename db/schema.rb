@@ -11,7 +11,21 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121009042957) do
+ActiveRecord::Schema.define(:version => 20121009044007) do
+
+  create_table "invites", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "tournament_id"
+    t.string   "code",          :null => false
+    t.string   "email",         :null => false
+    t.datetime "expires_at",    :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "invites", ["code"], :name => "index_invites_on_code"
+  add_index "invites", ["tournament_id"], :name => "index_invites_on_tournament_id"
+  add_index "invites", ["user_id"], :name => "index_invites_on_user_id"
 
   create_table "ranks", :force => true do |t|
     t.integer  "user_id",                                      :null => false
