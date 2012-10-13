@@ -1,8 +1,9 @@
 class TournamentsController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :find_tournament, :only => [:show, :update, :join]
 
   def index
-    @tournaments = current_user.tournaments
+    @tournaments = Tournament.participant(current_user)
   end
 
   def new
@@ -19,14 +20,18 @@ class TournamentsController < ApplicationController
   end
 
   def show
-    @tournament = current_user.tournaments.find params[:id]
   end
 
   def join
-    @tournament = current_user.tournaments.find params[:id]
     rank = @tournament.ranks.with_defaults.build
     rank.user = current_user
     rank.save!
     redirect_to tournament_path(@tournament)
+  end
+
+  private
+
+  def find_tournament
+    @tournament = Tournament.participant(current_user).find(params[:id])
   end
 end
