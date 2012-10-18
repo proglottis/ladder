@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, :only => [:callback]
+
   def show
   end
 
@@ -11,10 +13,7 @@ class SessionsController < ApplicationController
       @user = User.new(:name => @authhash[:name], :email => @authhash[:email])
       @user.services.build(@authhash)
       if @user.save
-        reset_session
-        session[:user_id] = @user.id
-        session[:service_id] = @user.services.last.id
-        redirect_to root_path, :notice => "Signed in successfully via #{@authhash[:provider].humanize}."
+        authenticate_and_redirect(@user, @user.services.last)
       else
         redirect_to session_path, :notice => "Unknown account creation error"
       end
@@ -37,10 +36,7 @@ class SessionsController < ApplicationController
     session[:authhash] = @authhash
     auth = Service.find_by_provider_and_uid(@authhash[:provider], @authhash[:uid])
     if auth
-      reset_session
-      session[:user_id] = auth.user.id
-      session[:service_id] = auth.id
-      redirect_to root_path, :notice => "Signed in successfully via #{@authhash[:provider].humanize}."
+      authenticate_and_redirect(auth.user, auth)
     else
       render :new
     end
@@ -55,5 +51,15 @@ class SessionsController < ApplicationController
     else
       "Unknown authentication error"
     end
+  end
+
+  private
+
+  def authenticate_and_redirect(user, service)
+    redirect = session[:redirect] || root_path
+    reset_session
+    session[:user_id] = user.id
+    session[:service_id] = service.id
+    redirect_to redirect, :notice => "Signed in successfully via #{@authhash[:provider].humanize}."
   end
 end

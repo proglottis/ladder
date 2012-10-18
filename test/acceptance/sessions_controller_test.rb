@@ -17,6 +17,13 @@ describe "SessionsController Acceptance Test" do
       click_link "Developer"
       must_have_content "Signed in successfully via Developer"
     end
+
+    it "must redirect back after authentication" do
+      @tournament = create(:tournament, :owner => @user)
+      visit tournament_path @tournament
+      click_link "Developer"
+      must_have_content @tournament.name
+    end
   end
 
   describe "new user" do
