@@ -49,7 +49,7 @@ describe "TournamentsController Acceptance Test" do
 
     it "must let owner join" do
       visit tournament_path(@tournament)
-      click_link "join"
+      click_link "Join"
       wont_have_content "You are not participating"
     end
   end

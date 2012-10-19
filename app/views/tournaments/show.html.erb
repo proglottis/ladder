@@ -1,10 +1,9 @@
 <h1><%= @tournament.name %></h1>
 
-<% unless @tournament.has_user? current_user %>
-  <p>You are not ranked in this tournament, <%= link_to "join now", join_tournament_path(@tournament), :method => :post %>.</p>
-<% end %>
-
 <ul class="nav">
+  <% unless @tournament.has_user? current_user %>
+    <li><%= link_to "Join", join_tournament_path(@tournament), :method => :post %></li>
+  <% end %>
   <li><%= link_to "Invite player", new_tournament_invite_path(@tournament) %></li>
 </ul>
 
@@ -20,6 +19,11 @@
       <tr>
         <td><%= rank.user.name %></td>
         <td><%= number_with_precision rank.rank %></td>
+      </tr>
+    <% end %>
+    <% if @tournament.ranks.empty? %>
+      <tr colspan="2">
+        <td>There are no ranking players.</td>
       </tr>
     <% end %>
   </tbody>
