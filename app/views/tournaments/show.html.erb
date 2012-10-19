@@ -12,6 +12,7 @@
     <tr>
       <th>Player</th>
       <th>Rank</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -19,10 +20,15 @@
       <tr>
         <td><%= rank.user.name %></td>
         <td><%= number_with_precision rank.rank %></td>
+        <td>
+          <% if rank.user != current_user %>
+            <%= link_to 'Challenge', '#', :class => 'btn' %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
     <% if @tournament.ranks.empty? %>
-      <tr colspan="2">
+      <tr colspan="3">
         <td>There are no ranking players.</td>
       </tr>
     <% end %>
