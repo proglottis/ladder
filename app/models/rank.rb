@@ -8,6 +8,10 @@ class Rank < ActiveRecord::Base
     where(:mu => 25.0, :sigma => 25.0 / 3.0)
   end
 
+  def self.by_rank
+    order('(ranks.mu - 3.0 * ranks.sigma) DESC')
+  end
+
   def rank
     mu - 3.0 * sigma
   end

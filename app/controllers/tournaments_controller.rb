@@ -20,6 +20,7 @@ class TournamentsController < ApplicationController
   end
 
   def show
+    @ranks = @tournament.ranks.by_rank
   end
 
   def join

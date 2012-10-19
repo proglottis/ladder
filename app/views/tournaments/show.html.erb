@@ -16,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @tournament.ranks.each do |rank| %>
+    <% @ranks.each do |rank| %>
       <tr>
         <td><%= rank.user.name %></td>
         <td><%= number_with_precision rank.rank %></td>
