@@ -9,7 +9,6 @@ class Invite < ActiveRecord::Base
 
   before_validation :generate_code
   before_validation :generate_expires_at
-  after_create :send_invite
 
   def self.available
     invites = arel_table
@@ -18,10 +17,6 @@ class Invite < ActiveRecord::Base
 
   def to_param
     code
-  end
-
-  def send_invite
-    InviteMailer.invite_email(self).deliver
   end
 
   private
