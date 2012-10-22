@@ -11,7 +11,7 @@ class TournamentsController < ApplicationController
   end
 
   def create
-    @tournament = current_user.tournaments.build params.require(:tournament).permit(:name)
+    @tournament = current_user.tournaments.build(params.require(:tournament).permit(:name))
     if @tournament.save
       redirect_to tournament_path(@tournament)
     else
@@ -24,9 +24,8 @@ class TournamentsController < ApplicationController
   end
 
   def join
-    rank = @tournament.ranks.with_defaults.build
-    rank.user = current_user
-    rank.save!
+    @rank = @tournament.ranks.with_defaults.build(:user => current_user)
+    @rank.save
     redirect_to tournament_path(@tournament)
   end
 
