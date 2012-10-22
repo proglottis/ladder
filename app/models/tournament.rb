@@ -4,8 +4,6 @@ class Tournament < ActiveRecord::Base
   has_many :users, :through => :ranks
   has_many :invites
 
-  attr_accessible :name
-
   validates_presence_of :name, :owner_id
 
   def self.participant(user)

@@ -40,6 +40,7 @@ gem 'jquery-rails'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'twitter-bootstrap-rails'
+gem 'strong_parameters'
 
 group :test, :development do
   gem 'minitest-rails'

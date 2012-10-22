@@ -11,7 +11,7 @@ class TournamentsController < ApplicationController
   end
 
   def create
-    @tournament = current_user.tournaments.build params[:tournament]
+    @tournament = current_user.tournaments.build params.require(:tournament).permit(:name)
     if @tournament.save
       redirect_to tournament_path(@tournament)
     else

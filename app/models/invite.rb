@@ -5,7 +5,6 @@ class Invite < ActiveRecord::Base
   belongs_to :tournament
 
   validates_presence_of :tournament_id, :code, :email
-  attr_accessible :email
 
   before_validation :generate_code
   before_validation :generate_expires_at

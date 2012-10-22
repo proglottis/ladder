@@ -24,7 +24,7 @@ class InvitesController < ApplicationController
 
   def create
     @tournament = Tournament.participant(current_user).find(params[:tournament_id])
-    @invite = @tournament.invites.build(params[:invite])
+    @invite = @tournament.invites.build(params.require(:invite).permit(:email))
     if @invite.save
       InviteMailer.invite_email(@invite).deliver
       redirect_to tournament_path(@tournament)
