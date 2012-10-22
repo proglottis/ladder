@@ -28,7 +28,7 @@
           <div class="container nav-collapse">
             <ul class="nav">
               <li class="<%='active' if ['homes'].include? controller_name %>"><%= link_to "Home", root_path %></li>
-              <li class="<%='active' if ['tournaments', 'invites'].include? controller_name %>"><%= link_to "Tournaments", tournaments_path %></li>
+              <li class="<%='active' if ['tournaments', 'invites', 'challenges'].include? controller_name %>"><%= link_to "Tournaments", tournaments_path %></li>
             </ul>
             <ul class="nav pull-right">
               <% if user_logged_in? %>

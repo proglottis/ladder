@@ -22,7 +22,7 @@
         <td><%= number_with_precision rank.rank %></td>
         <td>
           <% if rank.user != current_user %>
-            <%= link_to 'Challenge', '#', :class => 'btn' %>
+            <%= link_to 'Challenge', new_tournament_challenge_path(@tournament, :rank_id => rank), :class => 'btn' %>
           <% end %>
         </td>
       </tr>
