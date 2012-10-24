@@ -1,4 +1,4 @@
-class ChallengesController < ApplicationController
+class GamesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_tournament
 

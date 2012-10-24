@@ -13,7 +13,7 @@ Ladder::Application.routes.draw do
       post :join
     end
     resources :invites, :only => [:show, :new, :create, :update]
-    resources :challenges
+    resources :games
   end
 
   root :to => 'homes#show'
