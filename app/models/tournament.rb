@@ -3,6 +3,7 @@ class Tournament < ActiveRecord::Base
   has_many :ranks
   has_many :users, :through => :ranks
   has_many :invites
+  has_many :games
 
   validates_presence_of :name, :owner_id
 

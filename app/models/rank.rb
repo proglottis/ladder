@@ -1,6 +1,8 @@
 class Rank < ActiveRecord::Base
   belongs_to :user
   belongs_to :tournament
+  has_many :game_ranks
+  has_many :games, :through => :game_ranks
 
   validates_presence_of :user_id, :tournament_id
 

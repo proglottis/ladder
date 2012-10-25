@@ -1,0 +1,28 @@
+<h1><small><%= link_to @tournament.name, tournament_path(@tournament) %> /</small> Game on <%= time_tag @game.created_at.to_date %></h1>
+
+<ul class="nav">
+  <li><%= link_to 'Confirm', confirm_tournament_game_path(@tournament, @game), :method => :post %></li>
+</ul>
+
+<table class="table">
+  <thead>
+    <th>#</th>
+    <th>Name</th>
+    <th>Status</th>
+  </thead>
+  <tbody>
+    <% @game_ranks.each do |game_rank| %>
+      <tr>
+        <td><%= game_rank.position %></td>
+        <td><%= game_rank.rank.user.name %></td>
+        <td>
+          <% if game_rank.confirmed_at.present? %>
+            Confirmed, <%= time_ago_in_words game_rank.confirmed_at %> ago
+          <% else %>
+            Unconfirmed
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
