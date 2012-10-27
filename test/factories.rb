@@ -1,6 +1,6 @@
 FactoryGirl.define do
 
-  factory :user do
+  factory :user, :aliases => [:owner] do
     name 'Bob Bobson'
     email 'bob@bobson.com'
   end
@@ -14,7 +14,7 @@ FactoryGirl.define do
   end
 
   factory :tournament do
-    association :owner, :factory => :user
+    owner
     sequence(:name) {|n| "Tournament #{n}"}
   end
 
@@ -30,6 +30,15 @@ FactoryGirl.define do
     email 'bob@bobson.com'
     sequence(:code) {|n| "code_#{n}"}
     expires_at { 1.day.from_now }
+  end
+
+  factory :game do
+    tournament
+  end
+
+  factory :game_rank do
+    rank
+    game
   end
 
 end

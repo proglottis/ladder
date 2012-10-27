@@ -16,6 +16,15 @@ class MiniTest::Rails::ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   include FactoryGirl::Syntax::Methods
+
+  def login_service
+    service = create(:service)
+    OmniAuth.config.add_mock(:developer, "uid" => service.uid, "info" => {"name" => service.name, "email" => service.email})
+    visit session_path
+    click_link "Developer"
+    must_have_content "Signed in successfully via Developer"
+    service
+  end
 end
 
 # Do you want all existing Rails tests to use MiniTest::Rails?

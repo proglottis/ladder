@@ -3,17 +3,12 @@ require "minitest_helper"
 describe "TournamentsController Acceptance Test" do
 
   before do
-    @omniauth = OmniAuth.config.add_mock(:developer, "info" => {"name" => "Bob Bobson", "email" => "bob@bob.com"})
-    @service = create(:service, :uid => @omniauth['uid'], :provider => @omniauth['provider'])
-    @user = @service.user
-    visit session_path
-    click_link "Developer"
-    must_have_content "Signed in successfully via Developer"
+    @service = login_service
   end
 
   describe "listing" do
     before do
-      @tournaments = create_list(:tournament, 5, :owner => @user)
+      @tournaments = create_list(:tournament, 5, :owner => @service.user)
     end
 
     it "must show tournaments" do
@@ -44,7 +39,7 @@ describe "TournamentsController Acceptance Test" do
 
   describe "joining" do
     before do
-      @tournament = create(:tournament, :owner => @user)
+      @tournament = create(:tournament, :owner => @service.user)
     end
 
     it "must let owner join" do

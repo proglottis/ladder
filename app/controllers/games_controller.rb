@@ -18,15 +18,19 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = @tournament.games.find(params[:id])
+    @game = @tournament.games.with_participant(current_user).find(params[:id])
     @game_ranks = @game.game_ranks.includes(:rank => :user)
   end
 
   def confirm
-    @game = @tournament.games.find(params[:id])
-    @game_rank = @game.game_ranks.joins(:rank => :user).where(:ranks => {:user_id => current_user}).readonly(false).first!
-    @game_rank.update_attributes(:confirmed_at => Time.now)
-    redirect_to tournament_game_path(@tournament, @game)
+    @game = @tournament.games.with_participant(current_user).find(params[:id])
+    @game_rank = @game.game_ranks.with_participant(current_user).readonly(false).first!
+    if @game_rank.confirm && @game.confirmed?
+      @game.process
+      redirect_to tournament_path(@tournament)
+    else
+      redirect_to tournament_game_path(@tournament, @game)
+    end
   end
 
   private

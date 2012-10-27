@@ -3,12 +3,8 @@ require "minitest_helper"
 describe "InvitesController Acceptance Test" do
 
   before do
-    @omniauth = OmniAuth.config.add_mock(:developer, "info" => {"name" => "Bob Bobson", "email" => "bob@bob.com"})
-    @service = create(:service, :uid => @omniauth['uid'], :provider => @omniauth['provider'])
+    @service = login_service
     @user = @service.user
-    visit session_path
-    click_link "Developer"
-    must_have_content "Signed in successfully via Developer"
   end
 
 
