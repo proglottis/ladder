@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121024070623) do
+ActiveRecord::Schema.define(:version => 20121027224905) do
 
   create_table "game_ranks", :force => true do |t|
     t.integer  "rank_id",      :null => false
@@ -48,12 +48,12 @@ ActiveRecord::Schema.define(:version => 20121024070623) do
   add_index "invites", ["user_id"], :name => "index_invites_on_user_id"
 
   create_table "ranks", :force => true do |t|
-    t.integer  "user_id",                                      :null => false
-    t.integer  "tournament_id",                                :null => false
-    t.decimal  "mu",            :precision => 38, :scale => 5, :null => false
-    t.decimal  "sigma",         :precision => 38, :scale => 5, :null => false
-    t.datetime "created_at",                                   :null => false
-    t.datetime "updated_at",                                   :null => false
+    t.integer  "user_id",                                       :null => false
+    t.integer  "tournament_id",                                 :null => false
+    t.decimal  "mu",            :precision => 38, :scale => 10, :null => false
+    t.decimal  "sigma",         :precision => 38, :scale => 10, :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
   end
 
   add_index "ranks", ["tournament_id"], :name => "index_ranks_on_tournament_id"
