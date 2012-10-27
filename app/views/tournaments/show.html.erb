@@ -1,6 +1,6 @@
 <h1><%= @tournament.name %></h1>
 
-<ul class="nav">
+<ul class="nav nav-list">
   <% unless @tournament.has_user? current_user %>
     <li><%= link_to "Join", join_tournament_path(@tournament), :method => :post %></li>
   <% end %>
