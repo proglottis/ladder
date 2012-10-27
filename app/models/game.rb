@@ -28,4 +28,12 @@ class Game < ActiveRecord::Base
       end
     end
   end
+
+  def name
+    tournament.name
+  end
+
+  def versus
+    game_ranks.map {|game_rank| game_rank.rank.user.name}.join(' vs ')
+  end
 end
