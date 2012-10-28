@@ -23,13 +23,13 @@ describe Invite do
 
   describe "#code" do
     it "must be generated on save when blank" do
-      create(:tournament).invites.create!(:email => "test@example.com").code.wont_be_nil
+      create(:tournament).invites.create!(:email => "test@example.com", :owner => create(:user)).code.wont_be_nil
     end
   end
 
   describe "#expires_at" do
     it "must be generated on save when blank" do
-      create(:tournament).invites.create!(:email => "test@example.com").expires_at.wont_be_nil
+      create(:tournament).invites.create!(:email => "test@example.com", :owner => create(:user)).expires_at.wont_be_nil
     end
   end
 

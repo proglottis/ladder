@@ -20,6 +20,7 @@ class InvitesController < ApplicationController
 
   def create
     @invite = @tournament.invites.build(params.require(:invite).permit(:email))
+    @invite.owner = current_user
     if @invite.save
       InviteMailer.invite_email(@invite).deliver
       redirect_to tournament_path(@tournament)

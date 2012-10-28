@@ -26,6 +26,7 @@ FactoryGirl.define do
   end
 
   factory :invite do
+    owner
     tournament
     email 'bob@bobson.com'
     sequence(:code) {|n| "code_#{n}"}
