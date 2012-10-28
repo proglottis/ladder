@@ -1,7 +1,7 @@
 <h1>Tournaments</h1>
 
 <ul class="nav nav-list">
-  <li><%= link_to "Start tournament", new_tournament_path %></li>
+  <li><%= link_to new_tournament_path do %>Start tournament (<%= current_user.tournaments.limit_left %> left)<% end %></li>
 </ul>
 
 <table class="table">

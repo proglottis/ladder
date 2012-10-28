@@ -1,6 +1,15 @@
 require "minitest_helper"
 
 describe Tournament do
+  describe ".create" do
+    it "will only allow owner to have a limited number" do
+      @user = create(:user)
+      @tournaments = create_list(:tournament, 5, :owner => @user)
+      @tournament = @user.tournaments.create(attributes_for(:tournament))
+      @tournament.errors.size.must_equal 1
+    end
+  end
+
   describe ".participant" do
     before do
       @user = create(:user)
