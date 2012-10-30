@@ -18,7 +18,7 @@
   <tbody>
     <% @ranks.each do |rank| %>
       <tr>
-        <td><%= rank.user.name %></td>
+        <td><%= gravitar_image_tag rank.user.email %> <%= rank.user.name %></td>
         <td><%= number_with_precision rank.rank %></td>
         <td>
           <% if rank.user != current_user %>

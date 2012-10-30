@@ -6,7 +6,8 @@
       <%= f.fields_for :game_ranks do |builder| %>
         <li class="well">
           <%= builder.hidden_field :rank_id %>
-          <%= builder.number_field :position, :class => 'input-mini' %><%= builder.object.rank.user.name %>
+          <%= builder.number_field :position, :class => 'input-mini' %>
+          <%= gravitar_image_tag builder.object.rank.user.email, 40 %> <%= builder.object.rank.user.name %>
         </li>
       <% end %>
     </ul>
