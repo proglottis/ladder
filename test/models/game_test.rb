@@ -3,8 +3,8 @@ require "minitest_helper"
 describe Game do
   before do
     @game = create(:game)
-    @game_rank1 = create(:game_rank, :game => @game, :confirmed_at => Time.now, :position => 1)
-    @game_rank2 = create(:game_rank, :game => @game, :confirmed_at => Time.now, :position => 2)
+    @game_rank1 = create(:game_rank, :game => @game, :confirmed_at => Time.zone.now, :position => 1)
+    @game_rank2 = create(:game_rank, :game => @game, :confirmed_at => Time.zone.now, :position => 2)
   end
 
   describe ".with_participant" do

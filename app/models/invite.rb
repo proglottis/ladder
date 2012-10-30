@@ -15,7 +15,7 @@ class Invite < ActiveRecord::Base
 
   def self.not_expired
     invites = arel_table
-    where(invites[:expires_at].gt(Time.now))
+    where(invites[:expires_at].gt(Time.zone.now))
   end
 
   def self.available

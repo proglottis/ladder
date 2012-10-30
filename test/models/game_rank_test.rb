@@ -12,7 +12,7 @@ describe GameRank do
     end
 
     it "wont match game ranks that are confirmed" do
-      @game_rank = create(:game_rank, :confirmed_at => Time.now)
+      @game_rank = create(:game_rank, :confirmed_at => Time.zone.now)
       GameRank.not_confirmed.wont_include @game_rank
     end
   end
