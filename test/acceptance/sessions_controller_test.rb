@@ -24,6 +24,14 @@ describe "SessionsController Acceptance Test" do
       click_link "Developer"
       must_have_content @tournament.name
     end
+
+    it "must update info after authentication" do
+      @omniauth['info']['image'] = 'http://localhost:3000'
+      visit session_path
+      click_link "Developer"
+      must_have_content "Signed in successfully via Developer"
+      @service.reload.image_url.must_equal 'http://localhost:3000'
+    end
   end
 
   describe "new user" do

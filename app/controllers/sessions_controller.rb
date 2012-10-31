@@ -31,11 +31,14 @@ class SessionsController < ApplicationController
       :provider => omniauth['provider'],
       :uid => omniauth['uid'],
       :name => omniauth['info']['name'],
-      :email => omniauth['info']['email']
+      :email => omniauth['info']['email'],
+      :first_name => omniauth['info']['first_name'],
+      :last_name => omniauth['info']['last_name'],
+      :image_url => omniauth['info']['image'],
     }
     session[:authhash] = @authhash
     auth = Service.find_by_provider_and_uid(@authhash[:provider], @authhash[:uid])
-    if auth
+    if auth && auth.update_attributes(@authhash)
       authenticate_and_redirect(auth.user, auth)
     else
       render :new
