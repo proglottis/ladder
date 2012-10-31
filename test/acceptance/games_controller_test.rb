@@ -16,7 +16,6 @@ describe "GamesController Acceptance Test" do
       click_button "Create"
       must_have_content @rank1.user.name
       must_have_content @rank2.user.name
-      must_have_link "Confirm"
       must_have_content "Unconfirmed"
     end
   end

@@ -11,6 +11,7 @@ class GamesController < ApplicationController
   def create
     @game = @tournament.games.build params.require(:game).permit(:game_ranks_attributes => [:rank_id, :position])
     if @game.save
+      @game.game_ranks.with_participant(current_user).readonly(false).first!.confirm
       redirect_to tournament_game_path(@tournament, @game)
     else
       render :new
