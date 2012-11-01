@@ -11,9 +11,9 @@ class SessionsController < ApplicationController
       redirect_to session_path, :notice => "Sign in via #{@authhash[:provider].humanize} canceled."
     else
       @user = User.new(:name => @authhash[:name], :email => @authhash[:email])
-      @user.build_preferred_service(@authhash)
-      if @user.save
-        authenticate_and_redirect(@user, @user.preferred_service)
+      @service = @user.build_preferred_service(@authhash)
+      if @user.save && @service.update_attributes(:user_id => @user)
+        authenticate_and_redirect(@user, @service)
       else
         redirect_to session_path, :notice => "Unknown account creation error"
       end

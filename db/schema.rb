@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121101052132) do
+ActiveRecord::Schema.define(:version => 20121101055252) do
 
   create_table "game_ranks", :force => true do |t|
     t.integer  "rank_id",      :null => false
@@ -90,7 +90,7 @@ ActiveRecord::Schema.define(:version => 20121101052132) do
     t.string   "email"
     t.datetime "created_at",           :null => false
     t.datetime "updated_at",           :null => false
-    t.integer  "preferred_service_id", :null => false
+    t.integer  "preferred_service_id"
   end
 
   add_index "users", ["preferred_service_id"], :name => "index_users_on_preferred_service_id"
