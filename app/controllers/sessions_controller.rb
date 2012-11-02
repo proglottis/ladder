@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
     else
       @user = User.new(:name => @authhash[:name], :email => @authhash[:email])
       @service = @user.build_preferred_service(@authhash)
-      if @user.save && @service.update_attributes(:user_id => @user)
+      if @user.save && @service.update_attributes(:user_id => @user.id)
         authenticate_and_redirect(@user, @service)
       else
         redirect_to session_path, :notice => "Unknown account creation error"
