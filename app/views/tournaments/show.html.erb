@@ -21,7 +21,7 @@
         <td><%= gravatar_image_tag rank.user.email %> <%= rank.user.name %></td>
         <td><%= number_with_precision rank.rank %></td>
         <td>
-          <% if rank.user != current_user %>
+          <% if rank.user != current_user && @tournament.has_user?(current_user) %>
             <%= link_to 'Game', new_tournament_game_path(@tournament, :rank_id => rank), :class => 'btn' %>
           <% end %>
         </td>
