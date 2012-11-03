@@ -2,15 +2,23 @@
 
 <%= form_for [@tournament, @game], :html => {:class => 'form-horizontal'} do |f| %>
   <div class="control-group">
-    <ul id="game_ranks">
-      <%= f.fields_for :game_ranks do |builder| %>
-        <li class="well">
-          <%= builder.hidden_field :rank_id %>
-          <%= builder.number_field :position, :class => 'input-mini' %>
-          <%= gravatar_image_tag builder.object.rank.user.email, 40 %> <%= builder.object.rank.user.name %>
-        </li>
-      <% end %>
-    </ul>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Place</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= f.fields_for :game_ranks do |builder| %>
+          <tr>
+            <%= builder.hidden_field :rank_id %>
+            <td><%= gravatar_image_tag builder.object.rank.user.email %> <%= builder.object.rank.user.name %></td>
+            <td><%= builder.number_field :position, :class => 'input-mini' %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
   <div class="control-group">
     <div class="controls">

@@ -2,16 +2,16 @@
 
 <table class="table">
   <thead>
-    <th>#</th>
     <th>Name</th>
+    <th>Place</th>
     <th>Status</th>
     <th></th>
   </thead>
   <tbody>
     <% @game_ranks.each do |game_rank| %>
       <tr>
+        <td><%= gravatar_image_tag game_rank.rank.user.email %> <%= game_rank.rank.user.name %></td>
         <td><%= game_rank.position %></td>
-        <td><%= game_rank.rank.user.name %></td>
         <td>
           <% if game_rank.confirmed? %>
             Confirmed, <%= time_ago_in_words game_rank.confirmed_at %> ago
