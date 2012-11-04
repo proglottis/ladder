@@ -2,6 +2,8 @@ class GamesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_tournament
 
+  layout 'tournaments'
+
   def new
     @game = @tournament.games.build
     @game.game_ranks.build :rank => @tournament.ranks.find_by_user_id!(current_user), :position => 1

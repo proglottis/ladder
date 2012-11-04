@@ -21,7 +21,6 @@ class TournamentsController < ApplicationController
 
   def show
     @ranks = @tournament.ranks.by_rank
-    @game_ranks = @tournament.game_ranks.not_confirmed.with_participant(current_user)
   end
 
   def join

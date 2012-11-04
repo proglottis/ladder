@@ -1,18 +1,5 @@
 <h1><%= @tournament.name %></h1>
 
-<ul class="nav nav-list">
-  <% unless @tournament.has_user? current_user %>
-    <li><%= link_to "Join", join_tournament_path(@tournament), :method => :post %></li>
-  <% end %>
-  <li><%= link_to new_tournament_invite_path(@tournament) do %>Invite player (<%= @tournament.invites.where(:owner_id => current_user).limit_left %> left)<% end %></li>
-  <% if @game_ranks.present? %>
-    <li class="nav-header">Pending Confirmation</li>
-    <% @game_ranks.each do |game_rank| %>
-      <li><%= link_to tournament_game_path(game_rank.game.tournament, game_rank.game) do %><%= game_rank.game.versus %><% end %></li>
-    <% end %>
-  <% end %>
-</ul>
-
 <table class="table">
   <thead>
     <tr>

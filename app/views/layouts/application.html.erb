@@ -48,23 +48,30 @@
     </div>
 
     <div class="container">
-      <div class="content">
-        <% if flash[:notice] %>
-          <div class="row">
-            <div class="span12">
-              <div class="alert">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                <%= flash[:notice] %>
-              </div>
+      <% if flash[:notice] %>
+        <div class="row">
+          <div class="span12">
+            <div class="alert">
+              <button type="button" class="close" data-dismiss="alert">×</button>
+              <%= flash[:notice] %>
             </div>
           </div>
-        <% end %>
-        <div class="row">
+        </div>
+      <% end %>
+      <div class="row">
+        <% if content_for?(:side) %>
+          <div class="span3">
+            <%= yield :side %>
+          </div>
+          <div class="span9">
+            <%= yield %>
+          </div>
+        <% else %>
           <div class="span12">
             <%= yield %>
           </div>
-        </div><!--/row-->
-      </div><!--/content-->
+        <% end %>
+      </div><!--/row-->
 
     </div> <!-- /container -->
 

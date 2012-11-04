@@ -1,0 +1,14 @@
+<% content_for :title do %><%= @tournament ? @tournament.name : "Tournaments" %> - Ladder<% end %>
+<% content_for :side do %>
+  <div class="sidenav">
+    <ul class="nav nav-list">
+      <% if @tournament.has_user? current_user %>
+        <li><%= link_to new_tournament_invite_path(@tournament) do %>Invite player (<%= @tournament.invites.where(:owner_id => current_user).limit_left %> left)<% end %></li>
+      <% else %>
+        <li><%= link_to "Join", join_tournament_path(@tournament), :method => :post %></li>
+      <% end %>
+      <%= pending_confirmation_items_for @tournament, current_user %>
+    </ul>
+  </div>
+<% end if @tournament && !@tournament.new_record? %>
+<%= render :template => 'layouts/application' %>
