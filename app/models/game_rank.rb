@@ -3,7 +3,7 @@ class GameRank < ActiveRecord::Base
   has_one :user, :through => :rank
   belongs_to :game
 
-  acts_as_list :scope => :game
+  validates_numericality_of :position, :greater_than => 0, :only_integer => true
 
   def self.not_confirmed
     where(:confirmed_at => nil)

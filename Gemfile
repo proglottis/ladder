@@ -41,7 +41,6 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'twitter-bootstrap-rails'
 gem 'strong_parameters'
-gem 'acts_as_list'
 gem 'trueskill', :require => 'saulabs/trueskill'
 gem 'dalli'
 

@@ -14,7 +14,7 @@
           <tr>
             <%= builder.hidden_field :rank_id %>
             <td><%= gravatar_image_tag builder.object.rank.user.email %> <%= builder.object.rank.user.name %></td>
-            <td><%= builder.number_field :position, :class => 'input-mini' %></td>
+            <td><%= builder.number_field :position, :class => 'input-mini', :min => 1 %></td>
           </tr>
         <% end %>
       </tbody>
