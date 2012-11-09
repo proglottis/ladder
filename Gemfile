@@ -43,6 +43,7 @@ gem 'twitter-bootstrap-rails'
 gem 'strong_parameters'
 gem 'trueskill', :require => 'saulabs/trueskill'
 gem 'dalli'
+gem "elo", "~> 0.1.0", :require => 'elo'
 
 group :test, :development do
   gem 'minitest-rails'

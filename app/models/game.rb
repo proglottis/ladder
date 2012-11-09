@@ -27,10 +27,35 @@ class Game < ActiveRecord::Base
         list[index].rank.update_attributes(:mu => rating[0].mean, :sigma => rating[0].deviation)
       end
     end
+
+    process_elo
+  end
+
+  def process_elo
+    with_lock do
+      winner_rating = winner.elo_ratings.where(:tournament_id => tournament).first
+      loser_rating = loser.elo_ratings.where(:tournament_id => tournament).first
+
+      winning_player = Elo::Player.new(winner_rating.attributes)
+      losing_player = Elo::Player.new(loser_rating.attributes)
+
+      winning_player.wins_from(losing_player)
+
+      winner_rating.update_attributes(:rating => winning_player.rating, :games_played => winning_player.games_played, :pro => winning_player.pro?)
+      loser_rating.update_attributes(:rating => losing_player.rating, :games_played => losing_player.games_played, :pro => losing_player.pro?)
+    end
   end
 
   def name
     tournament.name
+  end
+
+  def winner
+    game_ranks.order(:position).first.rank.user
+  end
+
+  def loser
+    game_ranks.order(:position).last.rank.user
   end
 
   def versus

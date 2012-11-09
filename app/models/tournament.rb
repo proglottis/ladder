@@ -3,6 +3,7 @@ class Tournament < ActiveRecord::Base
 
   belongs_to :owner, :class_name => 'User'
   has_many :ranks
+  has_many :elo_ratings
   has_many :users, :through => :ranks
   has_many :invites
   has_many :games
