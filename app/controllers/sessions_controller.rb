@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     @authhash = session[:authhash]
     if params[:commit] =~ /cancel/i
       reset_session
-      redirect_to session_path, :notice => "Sign in via #{@authhash[:provider].humanize} cancelled."
+      redirect_to session_path, :notice => "Sign in via #{@authhash[:provider].humanize} canceled."
     else
       @user = User.new(:name => @authhash[:name], :email => @authhash[:email])
       @service = @user.build_preferred_service(@authhash)

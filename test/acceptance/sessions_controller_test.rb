@@ -57,7 +57,7 @@ describe "SessionsController Acceptance Test" do
       visit session_path
       click_link "Developer"
       click_button "Cancel"
-      must_have_content "Sign in via Developer cancelled"
+      must_have_content "Sign in via Developer canceled"
     end
   end
 
