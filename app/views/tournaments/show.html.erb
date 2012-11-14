@@ -41,6 +41,7 @@
         <tr>
           <th>Player</th>
           <th>Rating</th>
+          <th class="hidden-phone">Games</th>
           <th></th>
         </tr>
       </thead>
@@ -49,6 +50,7 @@
           <tr>
             <td><%= gravatar_image_tag rating.user.email %> <%= rating.user.name %></td>
             <td><%= rating.rating %></td>
+            <td class="hidden-phone"><%= rating.games_played %></td>
             <td>
               <% if rating.user != current_user && @tournament.has_user?(current_user) %>
                 <%= link_to 'Game', new_tournament_game_path(@tournament, :rating_id => rating), :class => 'btn' %>
