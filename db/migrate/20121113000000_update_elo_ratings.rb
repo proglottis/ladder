@@ -5,7 +5,7 @@ class UpdateEloRatings < ActiveRecord::Migration
         tournament.elo_ratings.with_defaults.create(:user => user)
       end
 
-      tournament.games.order(:created_at).each do |game|
+      tournament.games.order(:created_at).select(&:confirmed?).each do |game|
         game.process_elo
       end
     end
