@@ -6,4 +6,8 @@ class EloRating < ActiveRecord::Base
     where(:rating => 1000, :games_played => 0, :pro => false)
   end
 
+  def self.by_rating
+    order('elo_ratings.rating DESC')
+  end
+
 end

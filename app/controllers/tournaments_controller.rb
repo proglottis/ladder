@@ -21,6 +21,7 @@ class TournamentsController < ApplicationController
 
   def show
     @ranks = @tournament.ranks.by_rank
+    @elo_ratings = @tournament.elo_ratings.by_rating
   end
 
   def join
