@@ -10,16 +10,6 @@ class CreateEloRatings < ActiveRecord::Migration
       t.timestamps
     end
     add_index :elo_ratings, :user_id
-
-    Tournament.all.each do |tournament|
-      tournament.users.each do |user|
-        tournament.elo_ratings.with_defaults.create(:user => user)
-      end
-
-      tournament.games.order(:created_at).each do |game|
-        game.process_elo
-      end
-    end
   end
 
   def down

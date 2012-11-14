@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121109083102) do
+ActiveRecord::Schema.define(:version => 20121113000000) do
 
   create_table "elo_ratings", :force => true do |t|
     t.integer  "user_id",       :null => false
