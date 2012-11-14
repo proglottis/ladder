@@ -5,6 +5,7 @@
     <tr>
       <th>Player</th>
       <th>Rank</th>
+      <th>ELO Rating</th>
       <th></th>
     </tr>
   </thead>
@@ -13,6 +14,7 @@
       <tr>
         <td><%= gravatar_image_tag rank.user.email %> <%= rank.user.name %></td>
         <td><%= render_rank rank %></td>
+        <td><%= rank.user.elo_ratings.where(:tournament_id => @tournament).first.rating %></td>
         <td>
           <% if rank.user != current_user && @tournament.has_user?(current_user) %>
             <%= link_to 'Game', new_tournament_game_path(@tournament, :rank_id => rank), :class => 'btn' %>

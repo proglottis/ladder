@@ -26,6 +26,7 @@ class TournamentsController < ApplicationController
   def join
     @rank = @tournament.ranks.with_defaults.build(:user => current_user)
     @rank.save
+    @tournament.elo_ratings.with_defaults.create(:user => current_user)
     redirect_to tournament_path(@tournament)
   end
 

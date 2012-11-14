@@ -25,6 +25,14 @@ FactoryGirl.define do
     sigma 25.0 / 3.0
   end
 
+  factory :elo_rating do
+    user
+    tournament
+    pro false
+    rating 1000
+    games_played 0
+  end
+
   factory :invite do
     owner
     tournament

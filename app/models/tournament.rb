@@ -3,6 +3,7 @@ class Tournament < ActiveRecord::Base
 
   belongs_to :owner, :class_name => 'User'
   has_many :ranks
+  has_many :elo_ratings
   has_many :users, :through => :ranks
   has_many :invites
   has_many :games
@@ -17,7 +18,8 @@ class Tournament < ActiveRecord::Base
     invites = Invite.arel_table
     includes(:ranks, :invites).where(tournaments[:owner_id].eq(user.id).
                                      or(ranks[:user_id].eq(user.id)).
-                                     or(invites[:user_id].eq(user.id)))
+                                     or(invites[:user_id].eq(user.id)).
+                                     or(invites[:email].eq(user.email)))
   end
 
   def self.limit_left
