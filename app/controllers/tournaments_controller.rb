@@ -20,8 +20,8 @@ class TournamentsController < ApplicationController
   end
 
   def show
-    @ranks = @tournament.ranks.by_rank
-    @elo_ratings = @tournament.elo_ratings.by_rating
+    @ranks = @tournament.ranks.includes(:user).by_rank
+    @elo_ratings = @tournament.elo_ratings.includes(:user).by_rating
   end
 
   def join
