@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115100122) do
+ActiveRecord::Schema.define(:version => 20121117040358) do
 
   create_table "elo_ratings", :force => true do |t|
     t.integer  "user_id",       :null => false
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20121115100122) do
     t.datetime "confirmed_at"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
-    t.integer  "user_id"
+    t.integer  "user_id",      :null => false
   end
 
   add_index "game_ranks", ["game_id"], :name => "index_game_ranks_on_game_id"
