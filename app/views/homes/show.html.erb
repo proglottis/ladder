@@ -3,6 +3,7 @@
 <% if user_logged_in? %>
   <p>Welcome <%= current_user.name %></p>
 
+  <%= page_entries_info @games %>
   <% @games.each do |game| %>
     <div class="media clearfix">
       <div class="media-body">
