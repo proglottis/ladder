@@ -1,7 +1,7 @@
 class HomesController < ApplicationController
   def show
     if user_logged_in?
-      @game_ranks = GameRank.not_confirmed.with_participant(current_user)
+      @games = Game.with_participant(current_user).order('games.updated_at DESC').page(params[:page]).per(5)
     end
   end
 end

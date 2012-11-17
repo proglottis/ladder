@@ -3,12 +3,13 @@
 <% if user_logged_in? %>
   <p>Welcome <%= current_user.name %></p>
 
-  <ul class="nav nav-list">
-    <% if @game_ranks.present? %>
-      <li class="nav-header">Pending Confirmation</li>
-      <% @game_ranks.each do |game_rank| %>
-        <li><%= link_to tournament_game_path(game_rank.game.tournament, game_rank.game) do %><%= game_rank.game.name %> (<%= game_rank.game.versus %>)<% end %></li>
-      <% end %>
-    <% end %>
-  </ul>
+  <% @games.each do |game| %>
+    <div class="media clearfix">
+      <div class="media-body">
+        <h4 class="media-heading"><%= game.versus %></h4>
+        <% if game.confirmed? %>Confirmed<% else %>Unconfirmed<% end %> game for <%= game.tournament.name %> on <%= time_tag game.updated_at %>.
+      </div>
+    </div>
+  <% end %>
+  <%= paginate @games %>
 <% end %>

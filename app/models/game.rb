@@ -5,7 +5,7 @@ class Game < ActiveRecord::Base
   accepts_nested_attributes_for :game_ranks
 
   def self.with_participant(user)
-    includes(:game_ranks).where(:game_ranks => {:user_id => user.id})
+    joins(:game_ranks).where(:game_ranks => {:user_id => user.id})
   end
 
   def confirmed?

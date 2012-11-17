@@ -44,6 +44,7 @@ gem 'strong_parameters'
 gem 'trueskill', :require => 'saulabs/trueskill'
 gem 'dalli'
 gem "elo", "~> 0.1.0", :require => 'elo'
+gem 'kaminari'
 
 group :test, :development do
   gem 'minitest-rails'
