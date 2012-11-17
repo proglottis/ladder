@@ -26,8 +26,8 @@ describe "GamesController Acceptance Test" do
   describe "confirming" do
     before do
       @game = create(:game, :tournament => @tournament)
-      @game_rank1 = @game.game_ranks.create(attributes_for(:game_rank, :rank => @rank1, :position => 1))
-      @game_rank2 = @game.game_ranks.create(attributes_for(:game_rank, :rank => @rank2, :position => 2))
+      @game_rank1 = @game.game_ranks.create(attributes_for(:game_rank, :user => @rank1.user, :position => 1))
+      @game_rank2 = @game.game_ranks.create(attributes_for(:game_rank, :user => @rank2.user, :position => 2))
     end
 
     it "must be confirmed" do

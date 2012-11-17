@@ -21,7 +21,7 @@
             <td><%= render_rank rank %></td>
             <td>
               <% if rank.user != current_user && @tournament.has_user?(current_user) %>
-                <%= link_to 'Game', new_tournament_game_path(@tournament, :rank_id => rank), :class => 'btn' %>
+                <%= link_to 'Game', new_tournament_game_path(@tournament, :user_id => rank.user), :class => 'btn' %>
               <% end %>
             </td>
           </tr>
@@ -53,7 +53,7 @@
             <td class="hidden-phone"><%= rating.games_played %></td>
             <td>
               <% if rating.user != current_user && @tournament.has_user?(current_user) %>
-                <%= link_to 'Game', new_tournament_game_path(@tournament, :rating_id => rating), :class => 'btn' %>
+                <%= link_to 'Game', new_tournament_game_path(@tournament, :user_id => rating.user), :class => 'btn' %>
               <% end %>
             </td>
           </tr>

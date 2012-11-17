@@ -6,12 +6,12 @@ class GamesController < ApplicationController
 
   def new
     @game = @tournament.games.build
-    @game.game_ranks.build :rank => @tournament.ranks.find_by_user_id!(current_user), :position => 1
-    @game.game_ranks.build :rank => @tournament.ranks.find(params[:rank_id]), :position => 2
+    @game.game_ranks.build :user => @tournament.users.find(current_user), :position => 1
+    @game.game_ranks.build :user => @tournament.users.find(params[:user_id]), :position => 2
   end
 
   def create
-    @game = @tournament.games.build params.require(:game).permit(:game_ranks_attributes => [:rank_id, :position])
+    @game = @tournament.games.build params.require(:game).permit(:game_ranks_attributes => [:user_id, :position])
     if @game.save
       @game.game_ranks.with_participant(current_user).readonly(false).first!.confirm
       redirect_to tournament_game_path(@tournament, @game)
@@ -22,7 +22,7 @@ class GamesController < ApplicationController
 
   def show
     @game = @tournament.games.with_participant(current_user).find(params[:id])
-    @game_ranks = @game.game_ranks.includes(:rank => :user)
+    @game_ranks = @game.game_ranks.includes(:user)
   end
 
   def confirm

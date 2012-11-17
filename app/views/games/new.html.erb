@@ -12,8 +12,8 @@
       <tbody>
         <%= f.fields_for :game_ranks do |builder| %>
           <tr>
-            <%= builder.hidden_field :rank_id %>
-            <td><%= gravatar_image_tag builder.object.rank.user.email %> <%= builder.object.rank.user.name %></td>
+            <%= builder.hidden_field :user_id %>
+            <td><%= gravatar_image_tag builder.object.user.email %> <%= builder.object.user.name %></td>
             <td><%= builder.number_field :position, :class => 'input-mini', :min => 1 %></td>
           </tr>
         <% end %>

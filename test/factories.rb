@@ -46,8 +46,8 @@ FactoryGirl.define do
   end
 
   factory :game_rank do
-    rank
     game
+    user
     sequence(:position) {|n| n}
   end
 

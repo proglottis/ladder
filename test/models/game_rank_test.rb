@@ -3,7 +3,7 @@ require "minitest_helper"
 describe GameRank do
   before do
     @game_rank = create(:game_rank)
-    @user = @game_rank.rank.user
+    @user = @game_rank.user
   end
 
   describe ".not_confirmed" do
