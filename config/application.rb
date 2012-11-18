@@ -60,5 +60,7 @@ module Ladder
     config.assets.version = '1.0'
 
     config.action_mailer.default_url_options = { :host => 'ladder.nothing.co.nz' }
+
+    config.exceptions_app = self.routes
   end
 end
