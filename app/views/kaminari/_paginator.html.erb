@@ -1,8 +1,8 @@
 <%= paginator.render do -%>
-  <div class="pagination">
+  <div class="pagination hidden-phone">
     <ul>
-      <%= first_page_tag unless current_page.first? %>
-      <%= prev_page_tag unless current_page.first? %>
+      <%= first_page_tag %>
+      <%= prev_page_tag %>
       <% each_page do |page| -%>
         <% if page.left_outer? || page.right_outer? || page.inside_window? -%>
           <%= page_tag page %>
@@ -10,8 +10,14 @@
           <%= gap_tag %>
         <% end -%>
       <% end -%>
-      <%= next_page_tag unless current_page.last? %>
-      <%= last_page_tag unless current_page.last? %>
+      <%= next_page_tag %>
+      <%= last_page_tag %>
+    </ul>
+  </div>
+  <div class="pagination visible-phone">
+    <ul>
+      <%= prev_page_tag %>
+      <%= next_page_tag %>
     </ul>
   </div>
 <% end -%>
