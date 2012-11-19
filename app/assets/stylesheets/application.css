@@ -12,6 +12,10 @@
  *= require_tree .
  */
 
+.vertically-spaced {
+  margin-bottom: 20px;
+}
+
 .footer {
   padding: 70px 0;
   margin-top: 70px;

@@ -2,26 +2,17 @@
   <h1>Tournaments</h1>
 </div>
 
-<ul class="nav nav-list">
-  <li><%= link_to new_tournament_path do %>Start tournament (<%= current_user.tournaments.limit_left %> left)<% end %></li>
-</ul>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @tournaments.each do |tournament| %>
-      <tr>
-        <td><%= link_to tournament.name, tournament_path(tournament) %></td>
-      </tr>
+<div class="row">
+  <div class="span6 vertically-spaced">
+    <%= link_to new_tournament_path, :class => 'btn btn-block btn-primary' do %>
+      <h2><%= glyph :magic %> Start tournament</h2>
+      <p>You can only start <%= current_user.tournaments.limit_left %> more</p>
     <% end %>
-    <% if @tournaments.empty? %>
-      <tr>
-        <td>You are not in any tournaments.</td>
-      </tr>
+  </div>
+  <%= div_for @tournaments, :class => 'span6 vertically-spaced' do |tournament| %>
+    <%= link_to tournament_path(tournament), :class => 'btn btn-block btn-info' do %>
+      <h2><%= glyph :list %> <%= tournament.name %></h2>
+      <p><%= tournament.ranks.count %> ranking players</p>
     <% end %>
-  </tbody>
-</table>
+  <% end %>
+</div>
