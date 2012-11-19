@@ -11,8 +11,9 @@
   <% end %>
   <%= paginate @games %>
 <% else %>
-  <div class="alert alert-info">
-    <p class="lead">Create and manage tournaments for pool, foosball or anything. Compete against your friends and colleagues.</p>
+  <div class="hero-unit">
+    <h1>Ladder</h1>
+    <p>Create and manage tournaments for pool, foosball or anything. Compete against your friends and colleagues.</p>
     <p><%= link_to "Login to start", session_path, :class => 'btn btn-primary btn-large' %></p>
   </div>
 <% end %>
