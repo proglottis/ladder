@@ -4,12 +4,10 @@
   <p>Welcome <%= current_user.name %></p>
 
   <%= page_entries_info @games %>
-  <% @games.each do |game| %>
-    <div class="media clearfix">
-      <div class="media-body">
-        <h4 class="media-heading"><%= game.versus %></h4>
-        <% if game.confirmed? %>Confirmed<% else %>Unconfirmed<% end %> game for <%= game.tournament.name %> on <%= time_tag game.updated_at %>.
-      </div>
+  <%= div_for @games, :class => 'media' do |game| %>
+    <div class="media-body">
+      <h4 class="media-heading"><%= game.versus %></h4>
+      <% if game.confirmed? %>Confirmed<% else %>Unconfirmed<% end %> game for <%= game.tournament.name %> on <%= time_tag game.updated_at %>.
     </div>
   <% end %>
   <%= paginate @games %>
