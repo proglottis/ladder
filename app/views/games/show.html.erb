@@ -1,4 +1,6 @@
-<h1><small><%= link_to @tournament.name, tournament_path(@tournament) %> /</small> Game on <%= time_tag @game.created_at.to_date %></h1>
+<div class="page-header">
+  <h1><%= @game.versus %> <small><%= link_to @tournament.name, tournament_path(@tournament) %></small></h1>
+</div>
 
 <table class="table">
   <thead>

@@ -1,4 +1,6 @@
-<h1>Tournaments</h1>
+<div class="page-header">
+  <h1>Tournaments</h1>
+</div>
 
 <ul class="nav nav-list">
   <li><%= link_to new_tournament_path do %>Start tournament (<%= current_user.tournaments.limit_left %> left)<% end %></li>
