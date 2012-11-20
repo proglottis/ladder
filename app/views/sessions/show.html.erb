@@ -1,6 +1,6 @@
-<ul class="nav nav-list">
+<div class="btn-group btn-group-vertical">
   <% unless Rails.env.production? %>
-    <li><%= link_to '/auth/developer', :rel => 'external' do %>Login with Developer<% end %></li>
+    <%= link_to '/auth/developer', :rel => 'external', :class => 'btn btn-large' do %><%= glyph 'sign-blank' %> Login with Developer<% end %>
   <% end %>
-  <li><%= link_to '/auth/google_oauth2', :rel => 'external' do%>Login with Google<% end %></li>
-</ul>
+  <%= link_to '/auth/google_oauth2', :rel => 'external', :class => 'btn btn-large' do%><%= glyph 'google-plus' %> Login with Google<% end %>
+</div>
