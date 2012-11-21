@@ -35,7 +35,7 @@ describe Invite do
     end
 
     it "wont match when accepted" do
-      @invite.update_attribute(:user_id, create(:user))
+      @invite.update_attribute(:user, create(:user))
       Invite.available.wont_include @invite
     end
   end
