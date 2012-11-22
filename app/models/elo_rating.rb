@@ -7,7 +7,7 @@ class EloRating < ActiveRecord::Base
   end
 
   def self.by_rating
-    order('elo_ratings.rating DESC')
+    order('elo_ratings.rating DESC, elo_ratings.games_played DESC')
   end
 
 end
