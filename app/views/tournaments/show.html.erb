@@ -11,14 +11,16 @@
     <table class="table">
       <thead>
         <tr>
+          <th>Rank</th>
           <th>Player</th>
           <th>Rating</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <% @ranks.each do |rank| %>
+        <% @ranks.each_with_index do |rank, index| %>
           <tr>
+            <td><%= index + 1 %></td>
             <td><%= gravatar_image_tag rank.user.email %> <%= rank.user.name %></td>
             <td><%= render_rank rank %></td>
             <td>
@@ -41,6 +43,7 @@
     <table class="table">
       <thead>
         <tr>
+          <th>Rank</th>
           <th>Player</th>
           <th>Rating</th>
           <th class="hidden-phone">Games</th>
@@ -48,8 +51,9 @@
         </tr>
       </thead>
       <tbody>
-        <% @elo_ratings.each do |rating| %>
+        <% @elo_ratings.each_with_index do |rating, index| %>
           <tr>
+            <td><%= index + 1 %></td>
             <td><%= gravatar_image_tag rating.user.email %> <%= rating.user.name %></td>
             <td><%= rating.rating %></td>
             <td class="hidden-phone"><%= rating.games_played %></td>
