@@ -21,17 +21,17 @@ class Game < ActiveRecord::Base
 
   def process_trueskill
     with_lock do
-      ratings = []
-      positions = []
-      ranks = Rank.for_game(self).all
-      ranks.each do |rank|
-        ratings << [Saulabs::TrueSkill::Rating.new(rank.mu, rank.sigma, 1.0)]
-        positions << rank.position
+      ratings = {}
+      ranks = Rank.for_game(self).group_by {|r| r.id}
+      ranks.values.map(&:first).each do |r|
+        ratings[[TrueSkillRatingWithId.new(r.mu, r.sigma, 1.0, r.id)]] = r.position
       end
-      graph = Saulabs::TrueSkill::FactorGraph.new(ratings, positions)
+      graph = Saulabs::TrueSkill::FactorGraph.new(ratings)
       graph.update_skills
-      ratings.each_with_index do |rating, index|
-        ranks[index].update_attributes(:mu => rating[0].mean, :sigma => rating[0].deviation)
+      ratings.keys.each do |ratings|
+        ratings.each do |rating|
+          ranks[rating.id][0].update_attributes!(:mu => rating.mean, :sigma => rating.deviation)
+        end
       end
     end
   end
