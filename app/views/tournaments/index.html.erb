@@ -12,7 +12,7 @@
   <%= div_for @tournaments, :class => 'span6 vertically-spaced' do |tournament| %>
     <%= link_to tournament_path(tournament), :class => 'btn btn-block btn-info' do %>
       <h2><%= glyph :list %> <%= tournament.name %></h2>
-      <p><%= tournament.ranks.count %> ranking players</p>
+      <p><%= tournament.glicko2_ratings.count %> ranking players</p>
     <% end %>
   <% end %>
 </div>

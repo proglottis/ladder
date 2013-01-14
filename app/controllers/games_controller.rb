@@ -29,7 +29,6 @@ class GamesController < ApplicationController
     @game = @tournament.games.with_participant(current_user).find(params[:id])
     @game_rank = @game.game_ranks.with_participant(current_user).readonly(false).first!
     if @game_rank.confirm && @game.confirmed?
-      @game.process
       redirect_to tournament_path(@tournament)
     else
       redirect_to tournament_game_path(@tournament, @game)

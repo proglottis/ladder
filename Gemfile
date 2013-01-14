@@ -41,6 +41,7 @@ gem 'twitter-bootstrap-rails'
 gem 'strong_parameters'
 gem 'dalli'
 gem 'kaminari'
+gem 'glicko2'
 
 group :test, :development do
   gem 'minitest-rails'

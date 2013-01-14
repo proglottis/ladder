@@ -2,74 +2,32 @@
   <h1><%= @tournament.name %></h1>
 </div>
 
-<ul class="nav nav-tabs">
-  <li class="active"><a href="#trueskill" data-toggle="tab">Trueskill</a></li>
-  <li><a href="#elo" data-toggle="tab">Elo</a></li>
-</ul>
-<div class="tab-content">
-  <div class="tab-pane fade active in" id="trueskill">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Player</th>
-          <th>Rating</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @ranks.each_with_index do |rank, index| %>
-          <tr>
-            <td><%= index + 1 %></td>
-            <td><%= gravatar_image_tag rank.user.email %> <%= rank.user.name %></td>
-            <td><%= render_rank rank %></td>
-            <td>
-              <% if rank.user != current_user && @tournament.has_user?(current_user) %>
-                <%= link_to 'Game', new_tournament_game_path(@tournament, :user_id => rank.user), :class => 'btn' %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-        <% if @tournament.ranks.empty? %>
-          <tr colspan="3">
-            <td>There are no ranking players.</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="tab-pane fade" id="elo">
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Player</th>
-          <th>Rating</th>
-          <th class="hidden-phone">Games</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @elo_ratings.each_with_index do |rating, index| %>
-          <tr>
-            <td><%= index + 1 %></td>
-            <td><%= gravatar_image_tag rating.user.email %> <%= rating.user.name %></td>
-            <td><%= rating.rating %></td>
-            <td class="hidden-phone"><%= rating.games_played %></td>
-            <td>
-              <% if rating.user != current_user && @tournament.has_user?(current_user) %>
-                <%= link_to 'Game', new_tournament_game_path(@tournament, :user_id => rating.user), :class => 'btn' %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
-        <% if @tournament.elo_ratings.empty? %>
-          <tr colspan="3">
-            <td>There are no ranking players.</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>Player</th>
+      <th>Rating</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @glicko2_ratings.each_with_index do |rating, index| %>
+      <tr>
+        <td><%= index + 1 %></td>
+        <td><%= gravatar_image_tag rating.user.email %> <%= rating.user.name %></td>
+        <td><%= number_with_precision rating.low_rank, :precision => 0 %> - <%= number_with_precision rating.high_rank, :precision => 0 %></td>
+        <td>
+          <% if rating.user != current_user && @tournament.has_user?(current_user) %>
+            <%= link_to 'Game', new_tournament_game_path(@tournament, :user_id => rating.user), :class => 'btn' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+    <% if @tournament.glicko2_ratings.empty? %>
+      <tr colspan="3">
+        <td>There are no rated players.</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

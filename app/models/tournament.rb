@@ -2,9 +2,8 @@ class Tournament < ActiveRecord::Base
   OWNER_LIMIT = 5
 
   belongs_to :owner, :class_name => 'User'
-  has_many :ranks
-  has_many :elo_ratings
-  has_many :users, :through => :ranks
+  has_many :glicko2_ratings
+  has_many :users, :through => :glicko2_ratings
   has_many :invites
   has_many :games
   has_many :game_ranks, :through => :games
@@ -14,12 +13,12 @@ class Tournament < ActiveRecord::Base
 
   def self.participant(user)
     tournaments = arel_table
-    ranks = Rank.arel_table
+    ratings = Glicko2Rating.arel_table
     invites = Invite.arel_table
-    includes(:ranks, :invites).where(tournaments[:owner_id].eq(user.id).
-                                     or(ranks[:user_id].eq(user.id)).
-                                     or(invites[:user_id].eq(user.id)).
-                                     or(invites[:email].eq(user.email)))
+    includes(:glicko2_ratings, :invites).where(tournaments[:owner_id].eq(user.id).
+                                         or(ratings[:user_id].eq(user.id)).
+                                         or(invites[:user_id].eq(user.id)).
+                                         or(invites[:email].eq(user.email)))
   end
 
   def self.limit_left

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121127065252) do
+ActiveRecord::Schema.define(:version => 20130114062950) do
 
   create_table "elo_ratings", :force => true do |t|
     t.integer  "user_id",       :null => false
@@ -44,6 +44,16 @@ ActiveRecord::Schema.define(:version => 20121127065252) do
   end
 
   add_index "games", ["tournament_id"], :name => "index_games_on_tournament_id"
+
+  create_table "glicko2_ratings", :force => true do |t|
+    t.integer  "user_id",                                          :null => false
+    t.integer  "tournament_id",                                    :null => false
+    t.decimal  "rating",           :precision => 38, :scale => 10, :null => false
+    t.decimal  "rating_deviation", :precision => 38, :scale => 10, :null => false
+    t.decimal  "volatility",       :precision => 38, :scale => 10, :null => false
+    t.datetime "created_at",                                       :null => false
+    t.datetime "updated_at",                                       :null => false
+  end
 
   create_table "invites", :force => true do |t|
     t.integer  "user_id"

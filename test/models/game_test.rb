@@ -7,10 +7,8 @@ describe Game do
     @user2 = create(:user)
     @game_rank1 = create(:game_rank, :game => @game, :user => @user1, :confirmed_at => Time.zone.now, :position => 1)
     @game_rank2 = create(:game_rank, :game => @game, :user => @user2, :confirmed_at => Time.zone.now, :position => 2)
-    @rank1 = create(:rank, :tournament => @game.tournament, :user => @user1)
-    @rank2 = create(:rank, :tournament => @game.tournament, :user => @user2)
-    @rating1 = create(:elo_rating, :tournament => @game.tournament, :user => @user1)
-    @rating2 = create(:elo_rating, :tournament => @game.tournament, :user => @user2)
+    @rating1 = create(:rating, :tournament => @game.tournament, :user => @user1)
+    @rating2 = create(:rating, :tournament => @game.tournament, :user => @user2)
   end
 
   describe ".with_participant" do

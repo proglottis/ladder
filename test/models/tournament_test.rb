@@ -25,8 +25,8 @@ describe Tournament do
       Tournament.participant(@user).must_include @tournament
     end
 
-    it "must match users who are ranked" do
-      create(:rank, :tournament => @tournament, :user => @user)
+    it "must match users who are rated" do
+      create(:rating, :tournament => @tournament, :user => @user)
       Tournament.participant(@user).must_include @tournament
     end
 
@@ -40,7 +40,7 @@ describe Tournament do
     before do
       @tournament = create(:tournament)
       @users = create_list(:user, 2)
-      @rank = create(:rank, :user => @users.first, :tournament => @tournament)
+      @rating = create(:glicko2_rating, :user => @users.first, :tournament => @tournament)
     end
 
     it "must match users who are participating" do

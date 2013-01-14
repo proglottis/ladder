@@ -20,14 +20,11 @@ class TournamentsController < ApplicationController
   end
 
   def show
-    @ranks = @tournament.ranks.includes(:user).by_rank
-    @elo_ratings = @tournament.elo_ratings.includes(:user).by_rating
+    @glicko2_ratings = @tournament.glicko2_ratings.includes(:user).by_rank
   end
 
   def join
-    @rank = @tournament.ranks.with_defaults.build(:user => current_user)
-    @rank.save
-    @tournament.elo_ratings.with_defaults.create(:user => current_user)
+    @tournament.glicko2_ratings.with_defaults.create(:user => current_user)
     redirect_to tournament_path(@tournament)
   end
 
