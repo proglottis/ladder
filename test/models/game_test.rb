@@ -35,18 +35,4 @@ describe Game do
       @game.confirmed?.wont_equal true
     end
   end
-
-  describe "#process" do
-    it "must update ranks" do
-      @game.process
-      @rank1.reload.rank.wont_be_close_to 0.0
-      @rank2.reload.rank.wont_be_close_to 0.0
-    end
-
-    it "must update ratings" do
-      @game.process
-      @rating1.reload.rating.wont_be_close_to 1000
-      @rating2.reload.rating.wont_be_close_to 1000
-    end
-  end
 end

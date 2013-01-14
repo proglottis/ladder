@@ -39,9 +39,7 @@ gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'twitter-bootstrap-rails'
 gem 'strong_parameters'
-gem 'trueskill', :require => 'saulabs/trueskill', :github => 'saulabs/trueskill', :ref => 'd15b075'
 gem 'dalli'
-gem 'elo', '~> 0.1.0'
 gem 'kaminari'
 
 group :test, :development do
