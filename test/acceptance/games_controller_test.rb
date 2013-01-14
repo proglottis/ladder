@@ -34,13 +34,12 @@ describe "GamesController Acceptance Test" do
       must_have_content "Confirmed"
     end
 
-    it "must update ranks and ratings on final confirmation" do
+    it "must update game on final confirmation" do
       @game_rank2.confirm
       visit tournament_game_path @tournament, @game
       click_link "Confirm"
       must_have_content @tournament.name
-      @rating1.reload.rating.wont_be_close_to Glicko2::DEFAULT_GLICKO_RATING
-      @rating2.reload.rating.wont_be_close_to Glicko2::DEFAULT_GLICKO_RATING
+      @game.reload.confirmed?.must_equal true
     end
   end
 

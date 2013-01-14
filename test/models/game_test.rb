@@ -5,10 +5,8 @@ describe Game do
     @game = create(:game)
     @user1 = create(:user)
     @user2 = create(:user)
-    @game_rank1 = create(:game_rank, :game => @game, :user => @user1, :confirmed_at => Time.zone.now, :position => 1)
-    @game_rank2 = create(:game_rank, :game => @game, :user => @user2, :confirmed_at => Time.zone.now, :position => 2)
-    @rating1 = create(:rating, :tournament => @game.tournament, :user => @user1)
-    @rating2 = create(:rating, :tournament => @game.tournament, :user => @user2)
+    @game_rank1 = create(:game_rank, :game => @game, :user => @user1, :position => 1)
+    @game_rank2 = create(:game_rank, :game => @game, :user => @user2, :position => 2)
   end
 
   describe ".with_participant" do
@@ -23,13 +21,31 @@ describe Game do
     end
   end
 
+  describe "#confirm_user" do
+    it "must confirm the users rank" do
+      @game.confirm_user(@user1)
+      @game_rank1.reload.confirmed?.must_equal true
+    end
+
+    it "wont confirm other users rank" do
+      @game.confirm_user(@user1)
+      @game_rank2.reload.confirmed?.wont_equal true
+    end
+
+    it "must return true when game is confirmed" do
+      @game.confirm_user(@user1).wont_equal true
+      @game.confirm_user(@user2).must_equal true
+    end
+  end
+
   describe "#confirmed?" do
-    it "must be true when all game ranks are confirmed" do
+    it "must be true when confirmed_at is not nil" do
+      @game.confirmed_at = Time.zone.now
       @game.confirmed?.must_equal true
     end
 
-    it "wont be true when any game ranks are not confirmed" do
-      @game_rank1.update_attributes(:confirmed_at => nil)
+    it "wont be true when confirmed_at is nil" do
+      @game.confirmed_at = nil
       @game.confirmed?.wont_equal true
     end
   end

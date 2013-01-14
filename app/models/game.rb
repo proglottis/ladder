@@ -8,8 +8,19 @@ class Game < ActiveRecord::Base
     joins(:game_ranks).where(:game_ranks => {:user_id => user.id})
   end
 
+  def confirm_user(user)
+    total = 0
+    confirmed = 0
+    game_ranks.each do |game_rank|
+      game_rank.confirm if game_rank.user == user
+      confirmed += 1 if game_rank.confirmed?
+      total += 1
+    end
+    update_attributes(:confirmed_at => Time.zone.now) if total == confirmed
+  end
+
   def confirmed?
-    game_ranks.not_confirmed.count < 1
+    confirmed_at != nil
   end
 
   def name
