@@ -14,7 +14,7 @@ class RatingPeriodProcessor
     Tournament.find_each do |tournament|
       tournament.with_lock do
         period = Glicko2::RatingPeriod.from_objs(tournament.glicko2_ratings)
-        tournament.games.where(:updated_at => @started_on..@ended_on).each do |game|
+        tournament.games.where(:confirmed_at => @started_on..@ended_on).each do |game|
           ratings = Glicko2Rating.for_game(game)
           period.game ratings, ratings.map(&:position)
         end
