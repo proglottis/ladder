@@ -11,7 +11,7 @@ class Glicko2Rating < ActiveRecord::Base
   end
 
   def self.by_rank
-    order('(glicko2_ratings.rating - 3.0 * glicko2_ratings.rating_deviation) DESC')
+    order('(glicko2_ratings.rating - 2.0 * glicko2_ratings.rating_deviation) DESC')
   end
 
   def self.for_game(game)
