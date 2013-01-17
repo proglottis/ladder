@@ -8,6 +8,9 @@ set :branch, "master"
 
 set :deploy_to, "/srv/ladder"
 
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
+
 server "ladder.nothing.co.nz", :app, :web, :db, :primary => true
 
 default_run_options[:pty] = true

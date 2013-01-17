@@ -42,6 +42,7 @@ gem 'strong_parameters'
 gem 'dalli'
 gem 'kaminari'
 gem 'glicko2'
+gem 'whenever', :require => false
 
 group :test, :development do
   gem 'minitest-rails'
