@@ -9,14 +9,21 @@ class Game < ActiveRecord::Base
   end
 
   def confirm_user(user)
-    total = 0
-    confirmed = 0
-    game_ranks.each do |game_rank|
-      game_rank.confirm if game_rank.user == user
-      confirmed += 1 if game_rank.confirmed?
-      total += 1
+    with_lock do
+      total = 0
+      confirmed = 0
+      game_ranks.each do |game_rank|
+        game_rank.confirm if game_rank.user == user
+        confirmed += 1 if game_rank.confirmed?
+        total += 1
+      end
+      if total == confirmed
+        update_attributes!(:confirmed_at => Time.zone.now) if confirmed_at.blank?
+        true
+      else
+        false
+      end
     end
-    update_attributes(:confirmed_at => Time.zone.now) if total == confirmed
   end
 
   def confirmed?

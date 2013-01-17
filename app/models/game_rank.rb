@@ -13,7 +13,9 @@ class GameRank < ActiveRecord::Base
   end
 
   def confirm
-    update_attributes(:confirmed_at => Time.zone.now) unless confirmed?
+    with_lock do
+      update_attributes!(:confirmed_at => Time.zone.now) unless confirmed?
+    end
   end
 
   def confirmed?
