@@ -43,6 +43,7 @@ gem 'dalli'
 gem 'kaminari'
 gem 'glicko2'
 gem 'whenever', :require => false
+gem 'exception_notification'
 
 group :test, :development do
   gem 'minitest-rails'
