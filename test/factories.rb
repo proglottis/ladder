@@ -2,7 +2,7 @@ FactoryGirl.define do
 
   factory :user, :aliases => [:owner] do
     name 'Bob Bobson'
-    email 'bob@bobson.com'
+    sequence(:email) {|n| "bob_#{n}@bobson.com"}
   end
 
   factory :service do
