@@ -47,6 +47,7 @@ GEM
     childprocess (0.3.5)
       ffi (~> 1.0, >= 1.0.6)
     chronic (0.6.4)
+    coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -71,8 +72,10 @@ GEM
       faraday (>= 0.7.4, < 0.9)
     ffi (1.1.5)
     glicko2 (0.1.1)
-    guard (1.4.0)
-      listen (>= 0.4.2)
+    guard (1.6.1)
+      listen (>= 0.6.0)
+      lumberjack (>= 1.0.2)
+      pry (>= 0.9.10)
       thor (>= 0.14.6)
     guard-minitest (0.5.0)
       guard (>= 0.4)
@@ -100,11 +103,13 @@ GEM
     libv8 (3.3.10.4)
     libwebsocket (0.1.5)
       addressable
-    listen (0.5.3)
+    listen (0.7.2)
+    lumberjack (1.0.2)
     mail (2.4.4)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.8.1)
     mime-types (1.19)
     minitest (3.5.0)
     minitest-capybara (0.1.0)
@@ -145,6 +150,10 @@ GEM
       omniauth (~> 1.0)
     pg (0.14.1)
     polyglot (0.3.3)
+    pry (0.9.11.3)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
     rack (1.4.3)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -168,6 +177,11 @@ GEM
       rdoc (~> 3.4)
       thor (>= 0.14.6, < 2.0)
     rake (10.0.3)
+    rb-fchange (0.0.6)
+      ffi
+    rb-fsevent (0.9.3)
+    rb-inotify (0.9.0)
+      ffi (>= 0.5.0)
     rdoc (3.12)
       json (~> 1.4)
     rubyzip (0.9.9)
@@ -182,6 +196,7 @@ GEM
       multi_json (~> 1.0)
       rubyzip
     simple_oauth (0.1.9)
+    slop (3.4.3)
     sprockets (2.2.2)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -245,6 +260,9 @@ DEPENDENCIES
   omniauth-google-oauth2
   pg
   rails (= 3.2.11)
+  rb-fchange
+  rb-fsevent
+  rb-inotify
   sass-rails (~> 3.2.3)
   strong_parameters
   therubyracer
