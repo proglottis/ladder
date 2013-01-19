@@ -48,7 +48,7 @@ gem 'exception_notification'
 group :test, :development do
   gem 'minitest-rails'
   gem 'minitest-rails-capybara'
-  gem 'factory_girl'
+  gem 'factory_girl_rails', '~> 4.0'
   gem 'guard-minitest'
   gem 'rb-inotify', :require => false
   gem 'rb-fsevent', :require => false

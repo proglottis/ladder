@@ -9,13 +9,13 @@ describe Invite do
     end
 
     it "must only allow owner to have a limited number for a tournament" do
-      @invite = @tournament.invites.create(attributes_for(:invite, :owner => @user))
+      @invite = @tournament.invites.create(attributes_for(:invite).merge(:owner => @user))
       @invite.errors.size.must_equal 1
     end
 
     it "wont limited number of expired for a tournament" do
       Invite.update_all :expires_at => 1.day.ago
-      @invite = @tournament.invites.create(attributes_for(:invite, :owner => @user))
+      @invite = @tournament.invites.create(attributes_for(:invite).merge(:owner => @user))
       @invite.errors.size.must_equal 0
     end
   end
