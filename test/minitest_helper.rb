@@ -17,6 +17,10 @@ class MiniTest::Rails::ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
   include FactoryGirl::Syntax::Methods
 
+  before do
+    ActionMailer::Base.deliveries.clear
+  end
+
   def login_service
     service = create(:service)
     OmniAuth.config.add_mock(:developer, "uid" => service.uid, "info" => {"name" => service.name, "email" => service.email})

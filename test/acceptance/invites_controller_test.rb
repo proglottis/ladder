@@ -26,7 +26,9 @@ describe "InvitesController Acceptance Test" do
       fill_in "Email", :with => "user@example.com"
       click_button "Invite"
       must_have_content @tournament.name
-      ActionMailer::Base.deliveries.empty?.must_equal false
+      ActionMailer::Base.deliveries.length.must_equal 1
+      email = ActionMailer::Base.deliveries.first
+      email.to.must_equal ["user@example.com"]
     end
   end
 
