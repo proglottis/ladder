@@ -1,6 +1,18 @@
 require "minitest_helper"
 
 describe Notifications do
+  describe "#tournament_invitation" do
+    it "must contain tournament details" do
+      @tournament = create(:tournament)
+      @invite = create(:invite, :tournament => @tournament)
+      mail = Notifications.tournament_invitation @invite
+      mail.subject.must_equal "You have been invited"
+      mail.to.must_equal [@invite.email]
+      mail.body.encoded.must_match @tournament.name
+      mail.body.encoded.must_match @invite.code
+    end
+  end
+
   describe "#game_confirmation" do
     before do
       @game = create(:game)

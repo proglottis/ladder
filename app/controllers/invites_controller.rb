@@ -24,7 +24,7 @@ class InvitesController < ApplicationController
     @invite = @tournament.invites.build(params.require(:invite).permit(:email))
     @invite.owner = current_user
     if @invite.save
-      InviteMailer.invite_email(@invite).deliver
+      Notifications.tournament_invitation(@invite).deliver
       redirect_to tournament_path(@tournament)
     else
       render :new
