@@ -2,10 +2,12 @@ class Tournament < ActiveRecord::Base
   OWNER_LIMIT = 5
 
   belongs_to :owner, :class_name => 'User'
-  has_many :glicko2_ratings
+
+  has_many :glicko2_ratings, :dependent => :destroy
+  has_many :invites, :dependent => :destroy
+  has_many :games, :dependent => :destroy
+
   has_many :users, :through => :glicko2_ratings
-  has_many :invites
-  has_many :games
   has_many :game_ranks, :through => :games
 
   validates_presence_of :name, :owner_id

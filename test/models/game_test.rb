@@ -9,6 +9,13 @@ describe Game do
     @game_rank2 = create(:game_rank, :game => @game, :user => @user2, :position => 2)
   end
 
+  describe ".destroy" do
+    it "must destroy descendent game ranks" do
+      @game.destroy
+      GameRank.where(:game_id => @game.id).count.must_equal 0
+    end
+  end
+
   describe ".with_participant" do
     it "must match participant" do
       Game.with_participant(@user1).must_include @game

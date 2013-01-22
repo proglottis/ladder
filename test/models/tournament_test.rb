@@ -10,6 +10,30 @@ describe Tournament do
     end
   end
 
+  describe ".destroy" do
+    before do
+      @tournament = create(:tournament)
+    end
+
+    it "must destroy descendant glicko2 ratings" do
+      create(:glicko2_rating, :tournament => @tournament)
+      @tournament.destroy
+      Glicko2Rating.where(:tournament_id => @tournament.id).count.must_equal 0
+    end
+
+    it "must destroy descendant invites" do
+      create(:invite, :tournament => @tournament)
+      @tournament.destroy
+      Invite.where(:tournament_id => @tournament.id).count.must_equal 0
+    end
+
+    it "must destroy descendant games" do
+      create(:game, :tournament => @tournament)
+      @tournament.destroy
+      Game.where(:tournament_id => @tournament.id).count.must_equal 0
+    end
+  end
+
   describe ".participant" do
     before do
       @user = create(:user)
