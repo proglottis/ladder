@@ -1,6 +1,6 @@
 require "minitest_helper"
 
-describe "GamesController Acceptance Test" do
+describe "GamesController Integration Test" do
 
   before do
     @service = login_service
@@ -33,8 +33,8 @@ describe "GamesController Acceptance Test" do
   describe "confirming" do
     before do
       @game = create(:game, :tournament => @tournament)
-      @game_rank1 = @game.game_ranks.create(attributes_for(:game_rank, :user => @rating1.user, :position => 1))
-      @game_rank2 = @game.game_ranks.create(attributes_for(:game_rank, :user => @rating2.user, :position => 2))
+      @game_rank1 = create(:game_rank, :game => @game, :user => @rating1.user, :position => 1)
+      @game_rank2 = create(:game_rank, :game => @game, :user => @rating2.user, :position => 2)
     end
 
     it "must be confirmed" do

@@ -1,6 +1,6 @@
 require "minitest_helper"
 
-describe "SessionsController Acceptance Test" do
+describe "SessionsController Integration Test" do
 
   before do
     @omniauth = OmniAuth.config.add_mock(:developer, "info" => {"name" => "Bob Bobson", "email" => "bob@bob.com"})

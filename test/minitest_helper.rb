@@ -29,6 +29,12 @@ class MiniTest::Rails::ActiveSupport::TestCase
   end
 end
 
+class ActionDispatch::IntegrationTest
+  include Rails.application.routes.url_helpers
+  include Capybara::RSpecMatchers
+  include Capybara::DSL
+end
+
 # Do you want all existing Rails tests to use MiniTest::Rails?
 # Comment out the following and either:
 # A) Change the require on the existing tests to `require "minitest_helper"`

@@ -1,6 +1,6 @@
 require "minitest_helper"
 
-describe "TournamentsController Acceptance Test" do
+describe "TournamentsController Integration Test" do
 
   before do
     @service = login_service

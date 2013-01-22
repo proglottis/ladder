@@ -1,6 +1,6 @@
 require "minitest_helper"
 
-describe "InvitesController Acceptance Test" do
+describe "InvitesController Integration Test" do
 
   before do
     @service = login_service
