@@ -12,7 +12,7 @@
   <tbody>
     <% @game_ranks.each do |game_rank| %>
       <tr>
-        <td><%= gravatar_image_tag game_rank.user.email %> <%= game_rank.user.name %></td>
+        <td><%= link_to profile_path(game_rank.user) do %><%= gravatar_image_tag game_rank.user.email %> <%= game_rank.user.name %><% end %></td>
         <td><%= game_rank.position %></td>
         <td>
           <% if game_rank.confirmed? %>
