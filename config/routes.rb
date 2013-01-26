@@ -10,6 +10,7 @@ Ladder::Application.routes.draw do
 
   resource :home, :only => [:show]
 
+  resources :profiles, :only => [:show]
   resources :tournaments do
     member do
       post :join

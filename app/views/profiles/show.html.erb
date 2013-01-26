@@ -1,0 +1,7 @@
+<% content_for :title do %><%= @user.name %> - Ladder<% end %>
+<% content_for :side do %>
+  <%= gravatar_image_tag @user.email, 200, :class => 'img-polaroid' %>
+<% end %>
+<div class="page-header">
+  <h1><%= @user.name %></h1>
+</div>
