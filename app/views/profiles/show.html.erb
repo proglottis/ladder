@@ -6,11 +6,10 @@
   <h1><%= @user.name %></h1>
 </div>
 
-<ul>
-<%= content_tag_for :li, @tournaments do |tournament| %>
+<%= div_for @tournaments do |tournament| %>
   <%= link_to tournament.name, tournament_path(tournament) %>
+  <%= div_for tournament, :class => "plot span9", :style => "height:100px;", :'data-ratings' => tournament.glicko2_ratings.where(:user_id => [current_user.id, @user.id]).map {|rating| {:rating => rating.rating, :rating_deviation => rating.rating_deviation, :user_name => rating.user.name}}.to_json do %><% end %>
 <% end %>
-</ul>
 
 <%= page_entries_info @games, :entry_name => 'game' %>
 <%= div_for @games, :class => 'media' do |game| %>
