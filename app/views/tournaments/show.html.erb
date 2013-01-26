@@ -21,7 +21,7 @@
         <td><%= number_with_precision rating.low_rank, :precision => 0 %> - <%= number_with_precision rating.high_rank, :precision => 0 %></td>
         <td>
           <% if rating.user != current_user && @tournament.has_user?(current_user) %>
-            <%= link_to 'Game', new_tournament_game_path(@tournament, :user_id => rating.user), :class => 'btn' %>
+            <%= link_to 'Game', new_tournament_game_path(@tournament, :user_id => rating.user), :class => 'btn', :rel => 'tooltip', :title => "Log a game you have already played" %>
           <% end %>
         </td>
       </tr>
