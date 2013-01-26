@@ -60,6 +60,35 @@ describe Tournament do
     end
   end
 
+  describe ".with_rated_user" do
+    before do
+      @user1 = create(:user)
+      @user2 = create(:user)
+      @tournament = create(:tournament)
+      @rating1 = create(:rating, :user => @user1, :tournament => @tournament)
+      @rating2 = create(:rating, :user => @user2, :tournament => @tournament)
+    end
+
+    it "must match when rated" do
+      Tournament.with_rated_user(@user1).must_include @tournament
+      Tournament.with_rated_user(@user2).must_include @tournament
+    end
+
+    it "wont match when not rated" do
+      @user = create(:user)
+      Tournament.with_rated_user(@user).wont_include @tournament
+    end
+
+    it "must match when both are rated" do
+      Tournament.with_rated_user(@user1, @user2).must_include @tournament
+    end
+
+    it "wont match when both are not rated" do
+      @user = create(:user)
+      Tournament.with_rated_user(@user1, @user).wont_include @tournament
+    end
+  end
+
   describe "#has_user?" do
     before do
       @tournament = create(:tournament)

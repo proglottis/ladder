@@ -6,6 +6,12 @@
   <h1><%= @user.name %></h1>
 </div>
 
+<ul>
+<%= content_tag_for :li, @tournaments do |tournament| %>
+  <%= link_to tournament.name, tournament_path(tournament) %>
+<% end %>
+</ul>
+
 <%= page_entries_info @games, :entry_name => 'game' %>
 <%= div_for @games, :class => 'media' do |game| %>
   <%= link_to tournament_game_path(game.tournament_id, game), :class => 'pull-left' do %>

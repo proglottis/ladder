@@ -23,6 +23,18 @@ class Tournament < ActiveRecord::Base
                                          or(invites[:email].eq(user.email)))
   end
 
+  def self.with_rated_user(*users)
+    tournaments = arel_table
+    n = 0
+    user_joins = users.reduce(tournaments) do |user_joins, user|
+      n += 1
+      ratings = Glicko2Rating.arel_table.alias("ratings_with_participant_#{n}")
+      user_joins.join(ratings).on(tournaments[:id].eq(ratings[:tournament_id]).
+                                  and(ratings[:user_id].eq(user.id)))
+    end
+    joins(user_joins.join_sql)
+  end
+
   def self.limit_left
     OWNER_LIMIT - count
   end
