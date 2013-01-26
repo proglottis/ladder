@@ -3,7 +3,7 @@ class TournamentsController < ApplicationController
   before_filter :find_tournament, :only => [:show, :update, :join]
 
   def index
-    @tournaments = Tournament.participant(current_user)
+    @tournaments = Tournament.participant(current_user).order('tournaments.name ASC')
   end
 
   def new
