@@ -26,6 +26,15 @@ describe Game do
       @user = create(:user)
       Game.with_participant(@user).wont_include @game
     end
+
+    it "must match with both participants" do
+      Game.with_participant(@user1, @user2).must_include @game
+    end
+
+    it "wont match with a single nonparticipant" do
+      @user = create(:user)
+      Game.with_participant(@user1, @user).wont_include @game
+    end
   end
 
   describe "#confirm_user" do

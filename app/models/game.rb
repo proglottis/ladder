@@ -4,8 +4,16 @@ class Game < ActiveRecord::Base
 
   accepts_nested_attributes_for :game_ranks
 
-  def self.with_participant(user)
-    joins(:game_ranks).where(:game_ranks => {:user_id => user.id})
+  def self.with_participant(*users)
+    games = arel_table
+    n = 0
+    user_joins = users.reduce(games) do |user_joins, user|
+      n += 1
+      game_ranks = GameRank.arel_table.alias("users_with_participant_#{n}")
+      user_joins.join(game_ranks).on(games[:id].eq(game_ranks[:game_id]).
+                                      and(game_ranks[:user_id].eq(user.id)))
+    end
+    joins(user_joins.join_sql)
   end
 
   def confirm_user(user)
