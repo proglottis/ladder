@@ -18,21 +18,6 @@ FactoryGirl.define do
     sequence(:name) {|n| "Tournament #{n}"}
   end
 
-  factory :rank do
-    user
-    tournament
-    mu 25.0
-    sigma 25.0 / 3.0
-  end
-
-  factory :elo_rating do
-    user
-    tournament
-    pro false
-    rating 1000
-    games_played 0
-  end
-
   factory :glicko2_rating, :aliases => [:rating] do
     user
     tournament

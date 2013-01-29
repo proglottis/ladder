@@ -11,19 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130115045713) do
-
-  create_table "elo_ratings", :force => true do |t|
-    t.integer  "user_id",       :null => false
-    t.integer  "tournament_id", :null => false
-    t.integer  "rating",        :null => false
-    t.integer  "games_played",  :null => false
-    t.boolean  "pro",           :null => false
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "elo_ratings", ["user_id"], :name => "index_elo_ratings_on_user_id"
+ActiveRecord::Schema.define(:version => 20130129050349) do
 
   create_table "game_ranks", :force => true do |t|
     t.integer  "game_id",      :null => false
@@ -71,18 +59,6 @@ ActiveRecord::Schema.define(:version => 20130115045713) do
   add_index "invites", ["owner_id"], :name => "index_invites_on_owner_id"
   add_index "invites", ["tournament_id"], :name => "index_invites_on_tournament_id"
   add_index "invites", ["user_id"], :name => "index_invites_on_user_id"
-
-  create_table "ranks", :force => true do |t|
-    t.integer  "user_id",                                       :null => false
-    t.integer  "tournament_id",                                 :null => false
-    t.decimal  "mu",            :precision => 38, :scale => 10, :null => false
-    t.decimal  "sigma",         :precision => 38, :scale => 10, :null => false
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
-  end
-
-  add_index "ranks", ["tournament_id"], :name => "index_ranks_on_tournament_id"
-  add_index "ranks", ["user_id"], :name => "index_ranks_on_user_id"
 
   create_table "services", :force => true do |t|
     t.integer  "user_id"
