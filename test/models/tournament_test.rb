@@ -32,6 +32,12 @@ describe Tournament do
       @tournament.destroy
       Game.where(:tournament_id => @tournament.id).count.must_equal 0
     end
+
+    it "must destroy descendant challenges" do
+      create(:challenge, :tournament => @tournament)
+      @tournament.destroy
+      Challenge.where(:tournament_id => @tournament.id).count.must_equal 0
+    end
   end
 
   describe ".participant" do

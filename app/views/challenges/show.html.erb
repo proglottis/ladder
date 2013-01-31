@@ -1,0 +1,29 @@
+<div class="page-header">
+  <h1><%= @challenge.challenger.name %> vs <%= @challenge.defender.name %> <small><%= link_to @challenge.tournament.name, tournament_path(@challenge.tournament) %></small></h1>
+</div>
+
+<% if @challenge.message.present? %>
+  <blockquote>
+    <%= simple_format @challenge.message %>
+    <small><%= profile_link_tag @challenge.challenger %></small>
+  </blockquote>
+<% end %>
+
+<% if @challenge.active? %>
+  <p>This challenge expires on <%= time_tag @challenge.expires_at.to_date %>. If <%= profile_link_tag @challenge.defender %> does not log a game against it before then s/he will lose by default.</p>
+
+  <% if @challenge.defender == current_user %>
+    <%= form_for @challenge, :html => {:class => 'form-inline'} do |f| %>
+      <%= f.label :response_won, :class => 'radio' do %>
+        <%= f.radio_button :response, :won %> I won
+      <% end %>
+      <%= f.label :response_lost, :class => 'radio' do %>
+        <%= f.radio_button :response, :lost %> I lost
+      <% end %>
+      <%= f.submit "Respond", :class => 'btn btn-primary' %>
+    <% end %>
+  <% end %>
+
+<% else %>
+  <p><%= profile_link_tag @challenge.defender %> has responded to this challenge.</p>
+<% end %>

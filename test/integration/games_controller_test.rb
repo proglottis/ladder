@@ -13,7 +13,7 @@ describe "GamesController Integration Test" do
   describe "creation" do
     it "must be created" do
       visit tournament_path @tournament
-      click_link "Game"
+      click_link "Log a game"
       click_button "Create"
       must_have_content @rating1.user.name
       must_have_content @rating2.user.name
@@ -22,7 +22,7 @@ describe "GamesController Integration Test" do
 
     it "must send confirmation email" do
       visit tournament_path @tournament
-      click_link "Game"
+      click_link "Log a game"
       click_button "Create"
       ActionMailer::Base.deliveries.length.must_equal 1
       email = ActionMailer::Base.deliveries.first

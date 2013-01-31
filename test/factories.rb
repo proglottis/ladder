@@ -1,6 +1,6 @@
 FactoryGirl.define do
 
-  factory :user, :aliases => [:owner] do
+  factory :user, :aliases => [:owner, :challenger, :defender] do
     name 'Bob Bobson'
     sequence(:email) {|n| "bob_#{n}@bobson.com"}
   end
@@ -43,6 +43,14 @@ FactoryGirl.define do
     game
     user
     sequence(:position) {|n| n}
+  end
+
+  factory :challenge do
+    tournament
+    challenger
+    defender
+    message 'The message'
+    expires_at { 1.day.from_now }
   end
 
 end

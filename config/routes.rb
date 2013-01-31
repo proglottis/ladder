@@ -22,6 +22,7 @@ Ladder::Application.routes.draw do
       end
     end
   end
+  resources :challenges
 
   root :to => 'homes#show'
 
