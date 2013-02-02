@@ -17,7 +17,7 @@
     <% @glicko2_ratings.each_with_index do |rating, index| %>
       <tr>
         <td><%= index + 1 %></td>
-        <td><%= link_to profile_path(rating.user) do %><%= gravatar_image_tag rating.user.email %> <%= rating.user.name %><% end %></td>
+        <td><%= profile_link_tag rating.user %></td>
         <td><%= number_with_precision rating.low_rank, :precision => 0 %> - <%= number_with_precision rating.high_rank, :precision => 0 %></td>
         <td>
           <% if rating.user != current_user && @tournament.has_user?(current_user) %>
