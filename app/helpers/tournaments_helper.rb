@@ -1,4 +1,4 @@
-module TournamentHelper
+module TournamentsHelper
   def pending_confirmation_items_for(tournament, current_user)
     pending = tournament.game_ranks.not_confirmed.with_participant(current_user)
     content = ''
