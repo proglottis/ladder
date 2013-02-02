@@ -1,5 +1,6 @@
 class Game < ActiveRecord::Base
   belongs_to :tournament
+  belongs_to :owner, :class_name => 'User'
   has_many :game_ranks, :dependent => :destroy, :order => 'position'
 
   accepts_nested_attributes_for :game_ranks

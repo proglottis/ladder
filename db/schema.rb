@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130129050349) do
+ActiveRecord::Schema.define(:version => 20130202050258) do
+
+  create_table "challenges", :force => true do |t|
+    t.integer  "tournament_id", :null => false
+    t.integer  "challenger_id", :null => false
+    t.integer  "defender_id",   :null => false
+    t.integer  "game_id"
+    t.text     "message"
+    t.datetime "expires_at",    :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "challenges", ["challenger_id"], :name => "index_challenges_on_challenger_id"
+  add_index "challenges", ["defender_id"], :name => "index_challenges_on_defender_id"
+  add_index "challenges", ["game_id"], :name => "index_challenges_on_game_id"
+  add_index "challenges", ["tournament_id"], :name => "index_challenges_on_tournament_id"
 
   create_table "game_ranks", :force => true do |t|
     t.integer  "game_id",      :null => false
@@ -30,8 +46,10 @@ ActiveRecord::Schema.define(:version => 20130129050349) do
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
     t.datetime "confirmed_at"
+    t.integer  "owner_id",      :null => false
   end
 
+  add_index "games", ["owner_id"], :name => "index_games_on_owner_id"
   add_index "games", ["tournament_id"], :name => "index_games_on_tournament_id"
 
   create_table "glicko2_ratings", :force => true do |t|

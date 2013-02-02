@@ -12,6 +12,7 @@ class GamesController < ApplicationController
 
   def create
     @game = @tournament.games.build params.require(:game).permit(:game_ranks_attributes => [:user_id, :position])
+    @game.owner = current_user
     if @game.save
       @game.game_ranks.with_participant(current_user).readonly(false).first!.confirm
       @game.game_ranks.each do |game_rank|

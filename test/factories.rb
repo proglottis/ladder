@@ -35,6 +35,7 @@ FactoryGirl.define do
   end
 
   factory :game do
+    owner
     tournament
   end
 
