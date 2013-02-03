@@ -4,7 +4,9 @@
 
 <p>Challenge a player to a game. <%= profile_link_tag @challenge.defender %> will have 7 days to log the result against this challenge or s/he will lose by default.</p>
 
-<%= form_for @challenge, :url => challenges_path(:tournament_id => @tournament, :defender_id => @defender), :html => {:class => 'form-horizontal'} do |f| %>
+<%= form_for @challenge, :html => {:class => 'form-horizontal'} do |f| %>
+  <%= hidden_field_tag 'tournament_id', @tournament.id %>
+  <%= hidden_field_tag 'defender_id', @defender.id %>
   <div class="control-group<%= " error" if @challenge.errors[:tournament].any? %>">
     <%= f.label :tournament, :class => 'control-label' %>
     <div class="controls">
