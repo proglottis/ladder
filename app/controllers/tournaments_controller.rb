@@ -21,6 +21,7 @@ class TournamentsController < ApplicationController
 
   def show
     @glicko2_ratings = @tournament.glicko2_ratings.includes(:user).by_rank
+    @rating_ranks = @glicko2_ratings.group_by { |r| r.low_rank }
     @pending = @tournament.games.where('games.confirmed_at >= ?', Time.zone.now.beginning_of_week)
     @challenges = @tournament.challenges.active
   end
