@@ -1,6 +1,15 @@
+<% content_for :title do %><%= @tournament ? @tournament.name : "Tournaments" %> - Ladder<% end %>
 <div class="page-header">
   <h1><%= @tournament.name %></h1>
 </div>
+
+<ul class="nav nav-pills">
+  <% if @tournament.has_user? current_user %>
+    <li><%= link_to "Invite player", new_tournament_invite_path(@tournament), :rel => 'tooltip', :title => "#{@tournament.invites.where(:owner_id => current_user).limit_left} invites left" %></li>
+  <% else %>
+    <li><%= link_to "Join", join_tournament_path(@tournament), :method => :post %></li>
+  <% end %>
+</ul>
 
 <p>There are <%= @pending.count %> games to be processed on <%= time_tag (Time.zone.now + 1.week).beginning_of_week %>.</p>
 
