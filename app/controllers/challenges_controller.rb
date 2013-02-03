@@ -29,7 +29,7 @@ class ChallengesController < ApplicationController
   end
 
   def update
-    @challenge = Challenge.find(params[:id])
+    @challenge = Challenge.active.find(params[:id])
     @tournament = Tournament.participant(current_user).find(@challenge.tournament_id)
     if @challenge.defender == current_user
       @challenge.attributes = params.require(:challenge).permit(:response)
