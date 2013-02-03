@@ -29,7 +29,8 @@
             <ul class="nav">
               <li class="<%='active' if ['homes'].include? controller_name %>"><%= link_to "Home", root_path %></li>
               <li class="<%='active' if ['challenges'].include? controller_name %>"><%= link_to challenges_path do %>Challenges <%= defending_count_badge %><% end %></li>
-              <li class="<%='active' if ['tournaments', 'invites', 'games'].include? controller_name %>"><%= link_to "Tournaments", tournaments_path %></li>
+              <li class="<%='active' if ['games'].include? controller_name %>"><%= link_to games_path do %>Games <%= pending_confirmation_badge %><% end %></li>
+              <li class="<%='active' if ['tournaments', 'invites'].include? controller_name %>"><%= link_to "Tournaments", tournaments_path %></li>
             </ul>
             <ul class="nav pull-right">
               <% if user_logged_in? %>

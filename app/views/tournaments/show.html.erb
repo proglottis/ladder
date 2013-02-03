@@ -38,7 +38,7 @@
                   <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><%= link_to 'Log a game', new_tournament_game_path(@tournament, :user_id => rating.user) %></li>
+                  <li><%= link_to 'Log a game', new_game_path(:tournament_id => @tournament, :user_id => rating.user) %></li>
                 </ul>
               </div>
             <% end %>

@@ -13,11 +13,11 @@
 
 <%= page_entries_info @games, :entry_name => 'game' %>
 <%= div_for @games, :class => 'media' do |game| %>
-  <%= link_to tournament_game_path(game.tournament_id, game), :class => 'pull-left' do %>
+  <%= link_to game_path(game), :class => 'pull-left' do %>
     <%= gravatar_image_tag game.game_ranks[0].user.email, 64 %>
   <% end %>
   <div class="media-body">
-    <h4 class="media-heading"><%= link_to game.versus, tournament_game_path(game.tournament_id, game) %></h4>
+    <h4 class="media-heading"><%= link_to game.versus, game_path(game) %></h4>
     <% if game.confirmed? %>Confirmed<% else %>Unconfirmed<% end %> game for <%= link_to game.tournament.name, tournament_path(game.tournament_id) %> on <%= time_tag game.updated_at %>.
   </div>
 <% end %>

@@ -1,0 +1,13 @@
+<div class="page-header">
+  <h1>Games</h1>
+</div>
+
+<% if @game_ranks.any? %>
+  <h2>Pending Confirmation</h2>
+
+  <ul>
+    <% @game_ranks.each do |game_rank| %>
+      <li><%= link_to "#{game_rank.game.versus}", game_path(game_rank.game) %></li>
+    <% end %>
+  </ul>
+<% end %>

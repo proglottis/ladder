@@ -38,14 +38,14 @@ describe "GamesController Integration Test" do
     end
 
     it "must be confirmed" do
-      visit tournament_game_path @tournament, @game
+      visit game_path @game
       click_link "Confirm"
       must_have_content "Confirmed"
     end
 
     it "must update game on final confirmation" do
       @game_rank2.confirm
-      visit tournament_game_path @tournament, @game
+      visit game_path @game
       click_link "Confirm"
       must_have_content @tournament.name
       @game.reload.confirmed?.must_equal true

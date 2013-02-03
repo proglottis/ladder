@@ -23,7 +23,7 @@
         </td>
         <td>
           <% if !game_rank.confirmed? && game_rank.user == current_user %>
-            <%= link_to "Confirm", confirm_tournament_game_path(@tournament, @game), :method => :post, :class => 'btn' %>
+            <%= link_to "Confirm", confirm_game_path(@game), :method => :post, :class => 'btn' %>
           <% end %>
         </td>
       </tr>

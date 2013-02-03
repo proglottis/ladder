@@ -5,7 +5,7 @@ module TournamentsHelper
     if pending.present?
       content += content_tag(:li, 'Pending Confirmation', :class => 'nav-header')
       pending.each do |game_rank|
-        content += content_tag(:li, link_to(game_rank.game.versus, tournament_game_path(game_rank.game.tournament, game_rank.game)))
+        content += content_tag(:li, link_to(game_rank.game.versus, game_path(game_rank.game)))
       end
     end
     content.html_safe

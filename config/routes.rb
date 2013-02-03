@@ -16,13 +16,14 @@ Ladder::Application.routes.draw do
       post :join
     end
     resources :invites, :only => [:show, :new, :create, :update]
-    resources :games do
-      member do
-        post :confirm
-      end
-    end
+    get 'games/:id' => redirect('/games/%{id}')
   end
   resources :challenges
+  resources :games do
+    member do
+      post :confirm
+    end
+  end
 
   root :to => 'homes#show'
 
