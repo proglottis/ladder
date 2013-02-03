@@ -7,7 +7,7 @@
 
   <ul>
     <% @game_ranks.each do |game_rank| %>
-      <li><%= link_to "#{game_rank.game.versus}", game_path(game_rank.game) %></li>
+      <li><%= link_to "#{game_rank.game.versus}", game_path(game_rank.game) %> on <%= link_to game_rank.game.tournament.name, tournament_path(game_rank.game.tournament) %></li>
     <% end %>
   </ul>
 <% end %>
