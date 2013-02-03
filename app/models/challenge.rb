@@ -26,6 +26,10 @@ class Challenge < ActiveRecord::Base
     game_id.nil?
   end
 
+  def processed_at
+    expires_at.tomorrow.midnight
+  end
+
   def respond!
     return if response.blank?
     with_lock do

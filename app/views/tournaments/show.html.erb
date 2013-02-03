@@ -4,6 +4,14 @@
 
 <p>There are <%= @pending.count %> games to be processed on <%= time_tag (Time.zone.now + 1.week).beginning_of_week %>.</p>
 
+<% if @challenges.any? %>
+  <h2>Challenges</h2>
+  <% @challenges.each do |challenge| %>
+    <p><%= link_to "#{challenge.challenger.name} vs #{challenge.defender.name}", challenge_path(challenge) %>, expires in <%= distance_of_time_in_words challenge.processed_at , Time.zone.now %></p>
+  <% end %>
+<% end %>
+
+<h2>Ladder</h2>
 <table class="table">
   <thead>
     <tr>

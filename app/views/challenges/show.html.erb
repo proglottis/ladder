@@ -10,7 +10,7 @@
 <% end %>
 
 <% if @challenge.active? %>
-  <p>This challenge expires on <%= time_tag @challenge.expires_at.to_date %>. If <%= profile_link_tag @challenge.defender %> does not log a game against it before then s/he will lose by default.</p>
+  <p>This challenge expires on <%= time_tag @challenge.processed_at %>. If <%= profile_link_tag @challenge.defender %> does not log a game against it before then s/he will lose by default.</p>
 
   <% if @challenge.defender == current_user %>
     <%= form_for @challenge, :html => {:class => 'form-inline'} do |f| %>
