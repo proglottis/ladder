@@ -42,3 +42,38 @@ en:
       start: Login to start
       unconfirmed: Unconfirmed game for %{tournament} on %{time}.
       confirmed: Confirmed game for %{tournament} on %{time}.
+
+  tournaments:
+    index:
+      start: Start tournament
+      can_start: You can only start %{count} more
+      ranking_players: "%{count} ranking players"
+    new:
+      title: Start tournament
+      start: Start tournament
+    show:
+      ladder: Ladder
+      games_to_process_on:
+        one: There is %{count} game to be processed on %{time}.
+        other: There are %{count} games to be processed on %{time}.
+      log_a_game: Log a game
+      no_rated_players: There are no rated players.
+      join: Join
+      rank: Rank
+
+  invites:
+    new:
+      title: Invite player
+      invites_left:
+        one: "%{count} invite left"
+        other: "%{count} invites left"
+      cancel: Cancel
+    show:
+      invited_to: You have been invited to join %{name}.
+      accept: Accept
+      cancel: Cancel
+
+  activerecord:
+    models:
+      glicko2_rating: Rating
+      user: Player

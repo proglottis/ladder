@@ -1,19 +1,19 @@
-<% content_for :title do %><%= @tournament ? @tournament.name : "Tournaments" %> - <%= t 'application.name' %><% end %>
+<% content_for :title do %><%= @tournament ? @tournament.name : Tournament.model_name.human.pluralize %> - <%= t 'application.name' %><% end %>
 <div class="page-header">
-  <h1>Tournaments</h1>
+  <h1><%= Tournament.model_name.human.pluralize %></h1>
 </div>
 
 <div class="row">
   <div class="span6 vertically-spaced">
     <%= link_to new_tournament_path, :class => 'btn btn-block btn-primary' do %>
-      <h2><%= glyph :magic %> Start tournament</h2>
-      <p>You can only start <%= current_user.tournaments.limit_left %> more</p>
+      <h2><%= glyph :magic %> <%= t '.start' %></h2>
+      <p><%= t '.can_start', :count => current_user.tournaments.limit_left %></p>
     <% end %>
   </div>
   <%= div_for @tournaments, :class => 'span6 vertically-spaced' do |tournament| %>
     <%= link_to tournament_path(tournament), :class => 'btn btn-block btn-info' do %>
       <h2><%= glyph :list %> <%= tournament.name %></h2>
-      <p><%= tournament.glicko2_ratings.count %> ranking players</p>
+      <p><%= t '.ranking_players', :count => tournament.glicko2_ratings.count %></p>
     <% end %>
   <% end %>
 </div>

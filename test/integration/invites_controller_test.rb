@@ -7,7 +7,6 @@ describe "InvitesController Integration Test" do
     @user = @service.user
   end
 
-
   describe "inviting" do
     before do
       @tournament = create(:tournament, :owner => @user)
@@ -15,16 +14,16 @@ describe "InvitesController Integration Test" do
 
     it "must create invite" do
       visit new_tournament_invite_path @tournament
-      fill_in "Email", :with => "user@example.com"
-      click_button "Invite"
+      fill_in Invite.human_attribute_name("email"), :with => "user@example.com"
+      click_button Invite.model_name.human
       must_have_content @tournament.name
       Invite.last.email.must_equal "user@example.com"
     end
 
     it "must send invite email" do
       visit new_tournament_invite_path @tournament
-      fill_in "Email", :with => "user@example.com"
-      click_button "Invite"
+      fill_in Invite.human_attribute_name("email"), :with => "user@example.com"
+      click_button Invite.model_name.human
       must_have_content @tournament.name
       ActionMailer::Base.deliveries.length.must_equal 1
       email = ActionMailer::Base.deliveries.first
@@ -41,13 +40,13 @@ describe "InvitesController Integration Test" do
     it "must show invite page" do
       visit tournament_invite_path @tournament, @invite
       must_have_content @tournament.name
-      must_have_button "Accept"
-      must_have_link "Cancel"
+      must_have_button I18n.t("invites.show.accept")
+      must_have_link I18n.t("invites.show.cancel")
     end
 
     it "must join player" do
       visit tournament_invite_path @tournament, @invite
-      click_button "Accept"
+      click_button I18n.t("invites.show.accept")
       must_have_content @tournament.name
       must_have_content @user.name
     end

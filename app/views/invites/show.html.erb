@@ -2,11 +2,11 @@
 <%= form_for [@tournament, @invite], :html => {:class => 'form-horizontal'} do |f| %>
   <div class="well">
     <h3><%= @tournament.name %></h3>
-    <p>You have been invited to join <%= @tournament.name %>.</p>
+    <p><%= t '.invited_to', :name => @tournament.name %></p>
     <div class="control-group">
       <div class="controls">
-        <%= f.submit 'Accept', :class => 'btn btn-primary' %>
-        <%= link_to 'Cancel', root_path, :class => 'btn' %>
+        <%= f.submit t('.accept'), :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel'), root_path, :class => 'btn' %>
       </div>
     </div>
   </div>
