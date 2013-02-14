@@ -16,9 +16,6 @@ en:
       login_with: Login with %{name}
     new:
       new_authentication: This authentication is new to Ladder
-      id: ID
-      name: Name
-      email: Email
       confirm: Confirm
       cancel: Cancel
       unknown: Unknown
@@ -77,3 +74,6 @@ en:
     models:
       glicko2_rating: Rating
       user: Player
+    attributes:
+      service:
+        uid: UID

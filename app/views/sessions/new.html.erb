@@ -3,11 +3,11 @@
   <div class="well">
     <h3><%= @authhash[:provider].humanize %></h3>
     <dl class="dl-horizontal">
-      <dt><%= t '.id' %></dt>
+      <dt><%= Service.human_attribute_name('uid') %></dt>
       <dd><%= @authhash[:uid] %></dd>
-      <dt><%= t '.name' %></dt>
+      <dt><%= Service.human_attribute_name('name') %></dt>
       <dd><%= @authhash[:name] || t('.unknown') %></dd>
-      <dt><%= t '.email' %></dt>
+      <dt><%= Service.human_attribute_name('email') %></dt>
       <dd><%= @authhash[:email] || t('.unknown') %></dd>
     </dl>
     <%= submit_tag t('.confirm'), :class => 'btn btn-primary' %>
