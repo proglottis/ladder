@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def authenticate_user!
     unless user_logged_in?
       session[:redirect] = request.fullpath
-      redirect_to session_path, :notice => 'You need to sign in before accessing this page'
+      redirect_to session_path, :notice => t('sessions.authentication_required')
     end
   end
 

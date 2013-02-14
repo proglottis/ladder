@@ -2,4 +2,43 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  application:
+    name: Ladder
+    fork_me:
+      text: Fork me on Github
+      href: https://github.com/proglottis/ladder
+
+  sessions:
+    login: Login
+    logout: Logout
+    authentication_required: You need to sign in before accessing this page
+    show:
+      login_with: Login with %{name}
+    new:
+      new_authentication: This authentication is new to Ladder
+      id: ID
+      name: Name
+      email: Email
+      confirm: Confirm
+      cancel: Cancel
+      unknown: Unknown
+    create:
+      success: Signed in successfully via %{provider}
+      canceled: Sign in via %{provider} canceled
+      unknown: Unknown account creation error
+    destroy:
+      success: Logged out successfully
+    failure:
+      invalid: Invalid credentials
+      timed_out: Authentication timed out
+      unknown: Unknown authentication error
+
+  homes:
+    show:
+      title: Home
+      feed: News Feed
+      welcome: Welcome %{name}
+      slogan: Create and manage tournaments for pool, foosball or anything. Compete against your friends and colleagues.
+      start: Login to start
+      unconfirmed: Unconfirmed game for %{tournament} on %{time}.
+      confirmed: Confirmed game for %{tournament} on %{time}.

@@ -1,4 +1,4 @@
-<% content_for :title do %><%= @user.name %> - Ladder<% end %>
+<% content_for :title do %><%= @user.name %> - <%= t 'application.name' %><% end %>
 <% content_for :side do %>
   <%= gravatar_image_tag @user.email, 200, :class => 'img-polaroid' %>
 <% end %>

@@ -1,6 +1,6 @@
 <div class="btn-group btn-group-vertical">
   <% unless Rails.env.production? %>
-    <%= link_to '/auth/developer', :rel => 'external', :class => 'btn btn-large' do %><%= glyph 'sign-blank' %> Login with Developer<% end %>
+    <%= link_to '/auth/developer', :rel => 'external', :class => 'btn btn-large' do %><%= glyph 'sign-blank' %> <%= t '.login_with', :name => 'Developer'%><% end %>
   <% end %>
-  <%= link_to '/auth/google_oauth2', :rel => 'external', :class => 'btn btn-large' do%><%= glyph 'google-plus' %> Login with Google<% end %>
+  <%= link_to '/auth/google_oauth2', :rel => 'external', :class => 'btn btn-large' do%><%= glyph 'google-plus' %> <%= t '.login_with', :name => 'Google'%><% end %>
 </div>

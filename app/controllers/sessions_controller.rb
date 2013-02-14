@@ -8,21 +8,21 @@ class SessionsController < ApplicationController
     @authhash = session[:authhash]
     if params[:commit] =~ /cancel/i
       reset_session
-      redirect_to session_path, :notice => "Sign in via #{@authhash[:provider].humanize} canceled."
+      redirect_to session_path, :notice => t('sessions.create.canceled', :provider => @authhash[:provider].humanize)
     else
       @user = User.new(:name => @authhash[:name], :email => @authhash[:email])
       @service = @user.build_preferred_service(@authhash)
       if @user.save && @service.update_attributes(:user_id => @user.id)
         authenticate_and_redirect(@user, @service)
       else
-        redirect_to session_path, :notice => "Unknown account creation error"
+        redirect_to session_path, :notice => t('sessions.create.unknown')
       end
     end
   end
 
   def destroy
     reset_session
-    redirect_to root_path, :notice => "Logged out successfully"
+    redirect_to root_path, :notice => t('sessions.destroy.success')
   end
 
   def callback
@@ -48,11 +48,11 @@ class SessionsController < ApplicationController
   def failure
     redirect_to session_path, :notice => case params[:message]
     when /invalid_credencials/i
-      "Invalid credentials"
+      t('sessions.failure.invalid')
     when /timeout/i
-      "Authentication timed out"
+      t('sessions.failure.timed_out')
     else
-      "Unknown authentication error"
+      t('sessions.failure.unknown')
     end
   end
 
@@ -63,6 +63,6 @@ class SessionsController < ApplicationController
     reset_session
     session[:user_id] = user.id
     session[:service_id] = service.id
-    redirect_to redirect, :notice => "Signed in successfully via #{@authhash[:provider].humanize}."
+    redirect_to redirect, :notice => t('sessions.create.success', :provider => @authhash[:provider].humanize)
   end
 end

@@ -1,7 +1,7 @@
 <% if user_logged_in? %>
-  <p>Welcome <%= current_user.name %></p>
+  <p><%= t '.welcome', :name => current_user.name %></p>
 
-  <h2>News Feed</h2>
+  <h2><%= t '.feed' %></h2>
   <%= page_entries_info @games %>
   <%= div_for @games, :class => 'media' do |game| %>
     <%= link_to game_path(game), :class => 'pull-left' do %>
@@ -9,14 +9,18 @@
     <% end %>
     <div class="media-body">
       <h4 class="media-heading"><%= link_to game.versus, game_path(game) %></h4>
-      <% if game.confirmed? %>Confirmed<% else %>Unconfirmed<% end %> game for <%= link_to game.tournament.name, tournament_path(game.tournament_id) %> on <%= time_tag game.updated_at %>.
+      <% if game.confirmed? %>
+        <%= t('.confirmed', :tournament => link_to(game.tournament.name, tournament_path(game.tournament_id)), :time => time_tag(game.updated_at)).html_safe %>
+      <% else %>
+        <%= t('.unconfirmed', :tournament => link_to(game.tournament.name, tournament_path(game.tournament_id)), :time => time_tag(game.updated_at)).html_safe %>
+      <% end %>
     </div>
   <% end %>
   <%= paginate @games %>
 <% else %>
   <div class="hero-unit">
-    <h1>Ladder</h1>
-    <p>Create and manage tournaments for pool, foosball or anything. Compete against your friends and colleagues.</p>
-    <p><%= link_to "Login to start", session_path, :class => 'btn btn-primary btn-large' %></p>
+    <h1><%= t 'application.name' %></h1>
+    <p><%= t '.slogan' %></p>
+    <p><%= link_to t('.start'), session_path, :class => 'btn btn-primary btn-large' %></p>
   </div>
 <% end %>
