@@ -17,7 +17,6 @@ en:
     new:
       new_authentication: This authentication is new to Ladder
       confirm: Confirm
-      cancel: Cancel
       unknown: Unknown
     create:
       success: Signed in successfully via %{provider}
@@ -47,7 +46,6 @@ en:
       ranking_players: "%{count} ranking players"
     new:
       title: Start tournament
-      start: Start tournament
     show:
       ladder: Ladder
       games_to_process_on:
@@ -64,11 +62,8 @@ en:
       invites_left:
         one: "%{count} invite left"
         other: "%{count} invites left"
-      cancel: Cancel
     show:
       invited_to: You have been invited to join %{name}.
-      accept: Accept
-      cancel: Cancel
 
   activerecord:
     models:
@@ -77,3 +72,16 @@ en:
     attributes:
       service:
         uid: UID
+
+  helpers:
+    cancel_link: Cancel
+    submit:
+      create: Create
+      update: Update
+      invite:
+        create: Invite
+        update: Accept
+      tournament:
+        create: Start tournament
+      challenge:
+        update: Respond

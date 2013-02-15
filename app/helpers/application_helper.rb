@@ -9,4 +9,8 @@ module ApplicationHelper
     image_tag gravatar_image_url(email, size), opts.merge!(:size => "#{size}x#{size}")
   end
 
+  def cancel_link(path)
+    link_to t('helpers.cancel_link'), path, :class => 'btn'
+  end
+
 end

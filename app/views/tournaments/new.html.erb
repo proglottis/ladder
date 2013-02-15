@@ -12,8 +12,8 @@
   </div>
   <div class="control-group">
     <div class="controls">
-      <%= f.submit t('.start'), :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel'), tournaments_path, :class => 'btn' %>
+      <%= f.submit :class => 'btn btn-primary' %>
+      <%= cancel_link tournaments_path %>
     </div>
   </div>
 <% end %>

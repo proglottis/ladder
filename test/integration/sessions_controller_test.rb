@@ -43,7 +43,7 @@ describe "SessionsController Integration Test" do
       must_have_content @omniauth["info"]["name"]
       must_have_content @omniauth["info"]["email"]
       must_have_button I18n.translate('sessions.new.confirm')
-      must_have_button I18n.translate('sessions.new.cancel')
+      must_have_button I18n.translate('helpers.cancel_link')
     end
 
     it "must authenticate" do
@@ -56,7 +56,7 @@ describe "SessionsController Integration Test" do
     it "must redirect on cancel" do
       visit session_path
       click_link "Developer"
-      click_button I18n.translate('sessions.new.cancel')
+      click_button I18n.translate('helpers.cancel_link')
       must_have_content I18n.translate('sessions.create.canceled', :provider => 'Developer')
     end
   end

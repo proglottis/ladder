@@ -40,13 +40,13 @@ describe "InvitesController Integration Test" do
     it "must show invite page" do
       visit tournament_invite_path @tournament, @invite
       must_have_content @tournament.name
-      must_have_button I18n.t("invites.show.accept")
-      must_have_link I18n.t("invites.show.cancel")
+      must_have_button I18n.t("helpers.submit.invite.update")
+      must_have_link I18n.t("helpers.cancel_link")
     end
 
     it "must join player" do
       visit tournament_invite_path @tournament, @invite
-      click_button I18n.t("invites.show.accept")
+      click_button I18n.t("helpers.submit.invite.update")
       must_have_content @tournament.name
       must_have_content @user.name
     end

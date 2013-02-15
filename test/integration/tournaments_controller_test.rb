@@ -25,14 +25,14 @@ describe "TournamentsController Integration Test" do
       visit tournaments_path
       click_link I18n.t('tournaments.index.start')
       fill_in 'Name', :with => 'Test Tournament'
-      click_button I18n.t('tournaments.new.start')
+      click_button I18n.t('helpers.submit.tournament.create')
       must_have_content 'Test Tournament'
     end
 
     it "must fail with empty name" do
       visit tournaments_path
       click_link I18n.t('tournaments.index.start')
-      click_button I18n.t('tournaments.new.start')
+      click_button I18n.t('helpers.submit.tournament.create')
       must_have_content I18n.t('tournaments.new.title')
     end
   end
