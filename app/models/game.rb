@@ -44,6 +44,6 @@ class Game < ActiveRecord::Base
   end
 
   def versus
-    game_ranks.map {|game_rank| game_rank.user.name}.join(' vs ')
+    game_ranks.map {|game_rank| game_rank.user.name}.to_sentence(:two_words_connector => I18n.t('support.array.versus.two_words_connector'))
   end
 end

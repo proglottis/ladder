@@ -1,9 +1,9 @@
 <div class="page-header">
-  <h1>Games</h1>
+  <h1><%= t Game.model_name.human.pluralize %></h1>
 </div>
 
 <% if @game_ranks.any? %>
-  <h2>Pending Confirmation</h2>
+  <h2><%= t '.pending' %></h2>
 
   <ul>
     <% @game_ranks.each do |game_rank| %>

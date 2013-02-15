@@ -4,9 +4,9 @@
 
 <table class="table">
   <thead>
-    <th>Name</th>
-    <th>Place</th>
-    <th>Status</th>
+    <th><%= User.model_name.human %></th>
+    <th><%= GameRank.model_name.human %></th>
+    <th><%= t '.status' %></th>
     <th></th>
   </thead>
   <tbody>
@@ -16,14 +16,14 @@
         <td><%= game_rank.position %></td>
         <td>
           <% if game_rank.confirmed? %>
-            Confirmed, <%= time_ago_in_words game_rank.confirmed_at %> ago
+            <%= t '.confirmed', :time => time_ago_in_words(game_rank.confirmed_at) %>
           <% else %>
-            Unconfirmed
+            <%= t '.unconfirmed' %>
           <% end %>
         </td>
         <td>
           <% if !game_rank.confirmed? && game_rank.user == current_user %>
-            <%= link_to "Confirm", confirm_game_path(@game), :method => :post, :class => 'btn' %>
+            <%= link_to t('.confirm'), confirm_game_path(@game), :method => :post, :class => 'btn' %>
           <% end %>
         </td>
       </tr>

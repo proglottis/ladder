@@ -13,17 +13,17 @@ describe "GamesController Integration Test" do
   describe "creation" do
     it "must be created" do
       visit tournament_path @tournament
-      click_link "Log a game"
-      click_button "Create"
+      click_link I18n.t('tournaments.show.log_a_game')
+      click_button I18n.t('helpers.submit.create')
       must_have_content @rating1.user.name
       must_have_content @rating2.user.name
-      must_have_content "Unconfirmed"
+      must_have_content I18n.t('games.show.unconfirmed')
     end
 
     it "must send confirmation email" do
       visit tournament_path @tournament
-      click_link "Log a game"
-      click_button "Create"
+      click_link I18n.t('tournaments.show.log_a_game')
+      click_button I18n.t('helpers.submit.create')
       ActionMailer::Base.deliveries.length.must_equal 1
       email = ActionMailer::Base.deliveries.first
       email.to.must_equal [@user2.email]
@@ -39,14 +39,14 @@ describe "GamesController Integration Test" do
 
     it "must be confirmed" do
       visit game_path @game
-      click_link "Confirm"
-      must_have_content "Confirmed"
+      click_link I18n.t('games.show.confirm')
+      must_have_content I18n.t('games.show.confirmed', :time => 'less than a minute')
     end
 
     it "must update game on final confirmation" do
       @game_rank2.confirm
       visit game_path @game
-      click_link "Confirm"
+      click_link I18n.t('games.show.confirm')
       must_have_content @tournament.name
       @game.reload.confirmed?.must_equal true
     end

@@ -65,10 +65,22 @@ en:
     show:
       invited_to: You have been invited to join %{name}.
 
+  games:
+    index:
+      pending: Pending Confirmation
+    new:
+      title: New game
+    show:
+      status: Status
+      confirmed: Confirmed, %{time} ago
+      unconfirmed: Unconfirmed
+      confirm: Confirm
+
   activerecord:
     models:
       glicko2_rating: Rating
       user: Player
+      game_rank: Place
     attributes:
       service:
         uid: UID
@@ -85,3 +97,8 @@ en:
         create: Start tournament
       challenge:
         update: Respond
+
+  support:
+    array:
+      versus:
+        two_words_connector: " vs "
