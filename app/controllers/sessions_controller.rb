@@ -47,7 +47,7 @@ class SessionsController < ApplicationController
 
   def failure
     redirect_to session_path, :notice => case params[:message]
-    when /invalid_credencials/i
+    when /invalid_credentials/i
       t('sessions.failure.invalid')
     when /timeout/i
       t('sessions.failure.timed_out')

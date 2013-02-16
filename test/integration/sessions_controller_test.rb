@@ -63,7 +63,7 @@ describe "SessionsController Integration Test" do
 
   describe "failure" do
     it "must display invalid credentials" do
-      OmniAuth.config.mock_auth[:developer] = :invalid_credencials
+      OmniAuth.config.mock_auth[:developer] = :invalid_credentials
       visit session_path
       click_link "Developer"
       must_have_content I18n.translate('sessions.failure.invalid')
