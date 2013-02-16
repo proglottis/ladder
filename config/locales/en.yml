@@ -7,6 +7,9 @@ en:
     fork_me:
       text: Fork me on Github
       href: https://github.com/proglottis/ladder
+    issues:
+      text: Request features & Report bugs
+      href: https://github.com/proglottis/ladder/issues
 
   sessions:
     login: Login
