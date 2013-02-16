@@ -13,19 +13,18 @@ describe "ChallengesController Integration Test" do
   describe "creation" do
     it "must be created" do
       visit tournament_path @tournament
-      all('a', :text => 'Challenge').last.click
-      click_button "Create"
+      all('a', :text => Challenge.model_name.human).last.click
+      click_button I18n.t('helpers.submit.create')
       must_have_content @rating1.user.name
       must_have_content @rating2.user.name
-      must_have_content "This challenge expires"
       Challenge.last.challenger.must_equal @service.user
       Challenge.last.defender.must_equal @user2
     end
 
     it "must send challenge email" do
       visit tournament_path @tournament
-      all('a', :text => 'Challenge').last.click
-      click_button "Create"
+      all('a', :text => Challenge.model_name.human).last.click
+      click_button I18n.t('helpers.submit.create')
       ActionMailer::Base.deliveries.length.must_equal 1
       email = ActionMailer::Base.deliveries.first
       email.to.must_equal [@user2.email]
@@ -39,21 +38,21 @@ describe "ChallengesController Integration Test" do
 
     it "must show response page" do
       visit challenge_path(@challenge)
-      must_have_button "Respond"
+      must_have_button I18n.t('helpers.submit.challenge.update')
     end
 
     it "must respond" do
       visit challenge_path(@challenge)
-      choose "I won"
-      click_button "Respond"
-      must_have_content "Unconfirmed"
+      choose I18n.t('challenges.show.won')
+      click_button I18n.t('helpers.submit.challenge.update')
+      must_have_content I18n.t('games.show.unconfirmed')
       @challenge.reload.game.wont_equal nil
     end
 
     it "must send confirm game email" do
       visit challenge_path(@challenge)
-      choose "I won"
-      click_button "Respond"
+      choose I18n.t('challenges.show.won')
+      click_button I18n.t('helpers.submit.challenge.update')
       ActionMailer::Base.deliveries.length.must_equal 1
       email = ActionMailer::Base.deliveries.first
       email.to.must_equal [@user2.email]

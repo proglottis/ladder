@@ -76,6 +76,19 @@ en:
       unconfirmed: Unconfirmed
       confirm: Confirm
 
+  challenges:
+    index:
+      defending: Defending
+      challenging: Challenging
+    new:
+      title: New challenge
+      rules: Challenge a player to a game. %{defender} will have 7 days to log the result against this challenge or s/he will lose by default.
+    show:
+      rules: This challenge expires on %{time}. If %{defender} does not log a game against it before then s/he will lose by default.
+      responded: "%{defender} has responded to this challenge."
+      won: I won
+      lost: I lost
+
   notifications:
     tournament_invitation:
       subject: You have been invited

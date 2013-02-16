@@ -51,6 +51,10 @@ class Challenge < ActiveRecord::Base
     end
   end
 
+  def versus
+    [challenger.name, defender.name].to_sentence(:two_words_connector => I18n.t('support.array.versus.two_words_connector'))
+  end
+
   private
 
   def generate_expires_at

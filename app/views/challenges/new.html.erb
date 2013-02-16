@@ -1,8 +1,9 @@
+<% content_for :title do %><%= t '.title' %> - <%= t 'application.name' %><% end %>
 <div class="page-header">
-  <h1>New challenge</h1>
+  <h1><%= t '.title' %></h1>
 </div>
 
-<p>Challenge a player to a game. <%= profile_link_tag @challenge.defender %> will have 7 days to log the result against this challenge or s/he will lose by default.</p>
+<p><%= raw t '.rules', :defender => profile_link_tag(@challenge.defender) %></p>
 
 <%= form_for @challenge, :html => {:class => 'form-horizontal'} do |f| %>
   <%= hidden_field_tag 'tournament_id', @tournament.id %>
@@ -12,7 +13,7 @@
     <div class="controls">
       <span class="uneditable-input"><%= @challenge.tournament.name %></span>
       <% if @challenge.errors[:tournament].any? %>
-        <span class="help-inline"><%= @challenge.errors[:tournament].join(', ') %></span>
+        <span class="help-inline"><%= @challenge.errors[:tournament].to_sentence %></span>
       <% end%>
     </div>
   </div>
@@ -21,7 +22,7 @@
     <div class="controls">
       <span class="uneditable-input"><%= profile_tag @challenge.defender %></span>
       <% if @challenge.errors[:defender].any? %>
-        <span class="help-inline"><%= @challenge.errors[:defender].join(', ') %></span>
+        <span class="help-inline"><%= @challenge.errors[:defender].to_sentence %></span>
       <% end%>
     </div>
   </div>
@@ -30,7 +31,7 @@
     <div class="controls">
       <%= f.text_area :message, :rows => 3 %>
       <% if @challenge.errors[:message].any? %>
-        <span class="help-inline"><%= @challenge.errors[:message].join(', ') %></span>
+        <span class="help-inline"><%= @challenge.errors[:message].to_sentence %></span>
       <% end%>
     </div>
   </div>
