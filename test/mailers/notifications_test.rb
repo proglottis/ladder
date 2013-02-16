@@ -6,9 +6,9 @@ describe Notifications do
       @tournament = create(:tournament)
       @invite = create(:invite, :tournament => @tournament)
       mail = Notifications.tournament_invitation @invite
-      mail.subject.must_equal "You have been invited"
+      mail.subject.must_equal I18n.t('notifications.tournament_invitation.subject')
       mail.to.must_equal [@invite.email]
-      mail.body.encoded.must_match @tournament.name
+      mail.body.encoded.must_match I18n.t('notifications.tournament_invitation.invited', :tournament => @tournament.name)
       mail.body.encoded.must_match @invite.code
     end
   end
@@ -24,10 +24,22 @@ describe Notifications do
 
     it "must contain game details" do
       mail = Notifications.game_confirmation @user1, @game
-      mail.subject.must_equal "Confirm game"
+      mail.subject.must_equal I18n.t('notifications.game_confirmation.subject')
       mail.to.must_equal [@user1.email]
       mail.body.encoded.must_match @game.tournament.name
       mail.body.encoded.must_match @game.versus
+    end
+  end
+
+  describe "#challenged" do
+    it "must contain challenge details" do
+      challenge = create(:challenge)
+      mail = Notifications.challenged(challenge)
+      mail.subject.must_equal I18n.t('notifications.challenged.subject')
+      mail.to.must_equal [challenge.defender.email]
+      mail.body.encoded.must_match challenge.tournament.name
+      mail.body.encoded.must_match challenge.challenger.name
+      mail.body.encoded.must_match challenge.defender.name
     end
   end
 end

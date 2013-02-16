@@ -76,6 +76,20 @@ en:
       unconfirmed: Unconfirmed
       confirm: Confirm
 
+  notifications:
+    tournament_invitation:
+      subject: You have been invited
+      invited: You have been invited to %{tournament}.
+      accept: "To join the tournament, follow the link: %{link}"
+    game_confirmation:
+      subject: Confirm game
+      game_logged: "A game you participated in has been logged. Follow the link to confirm:"
+    challenged:
+      subject: You have been challenged
+      challenged: "%{challenger} has challenged you on %{tournament}."
+      challenged_with_message: "%{challenger} has challenged you on %{tournament}:"
+      rules: "Failure to respond within 7 days will result in losing by default. Once you have played your game, follow the link to log your response:"
+
   activerecord:
     models:
       glicko2_rating: Rating

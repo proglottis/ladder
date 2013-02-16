@@ -1,3 +1,3 @@
-You have been invited to <%= @tournament.name %>
+<%= t '.invited', :tournament => @tournament.name %>
 
-To join the tournament, follow the link: <%= tournament_invite_url(@tournament, @invite) %>
+<%= t '.accept', :link => tournament_invite_url(@tournament, @invite) %>

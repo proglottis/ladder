@@ -1,11 +1,14 @@
-<%= @challenger.name %> has challenged you on <%= @tournament.name %><% if @challenge.message.present? %>:
+<% if @challenge.message.present? %>
+<%= t '.challenged_with_message', :challenger => @challenger.name, :tournament => @tournament.name %>
 
 ===
 <%= @challenge.message %>
 ===
-<% else %>.<% end %>
+<% else %>
+<%= t '.challenged', :challenger => @challenger.name, :tournament => @tournament.name %>
+<% end %>
 
-Failure to respond within 7 days will result in losing by default. Once you have played your game, follow the link to log your response:
+<%= t '.rules' %>
 
-<%= @challenger.name %> on <%= @tournament.name %>
+<%= @tournament.name %> - <%= @challenger.name %>
 <%= challenge_url @challenge %>
