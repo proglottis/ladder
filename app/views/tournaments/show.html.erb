@@ -31,14 +31,14 @@
     </tr>
   </thead>
   <tbody>
-    <% @rating_ranks.each_with_index do |(_, ratings), index| %>
+    <% @rating_ranks.each_with_index do |(rank, ratings), index| %>
       <% ratings.each do |rating| %>
         <tr>
           <% if rating == ratings.first %>
             <td rowspan="<%= ratings.length %>"><%= index + 1 %></td>
           <% end %>
           <td><%= profile_link_tag rating.user %></td>
-          <td><%= number_with_precision rating.low_rank, :precision => 0 %></td>
+          <td><%= rank %></td>
           <td>
             <% if rating.user != current_user && @tournament.has_user?(current_user) %>
               <div class="btn-group">
