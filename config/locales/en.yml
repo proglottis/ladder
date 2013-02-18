@@ -35,18 +35,17 @@ en:
   homes:
     show:
       title: Home
-      feed: News Feed
       welcome: Welcome %{name}
       slogan: Create and manage tournaments for pool, foosball or anything. Compete against your friends and colleagues.
       start: Login to start
-      unconfirmed: Unconfirmed game for %{tournament} on %{time}.
-      confirmed: Confirmed game for %{tournament} on %{time}.
 
   tournaments:
     index:
+      feed: News Feed
       start: Start tournament
       can_start: You can only start %{count} more
-      ranking_players: "%{count} ranking players"
+      unconfirmed: Unconfirmed game for %{tournament} on %{time}.
+      confirmed: Confirmed game for %{tournament} on %{time}.
     new:
       title: Start tournament
     show:

@@ -4,6 +4,7 @@ class TournamentsController < ApplicationController
 
   def index
     @tournaments = Tournament.participant(current_user).order('tournaments.name ASC')
+    @games = Game.with_participant(current_user).order('games.updated_at DESC').page(params[:page]).per(10)
   end
 
   def new

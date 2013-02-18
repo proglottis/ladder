@@ -2,6 +2,15 @@ Ladder::Application.routes.draw do
   match '/404', :to => 'errors#not_found'
   match '/500', :to => 'errors#internal_server_error'
 
+  authenticated_constraint = lambda do |request|
+    request.env['rack.session'][:user_id].present?
+  end
+
+  constraints(authenticated_constraint) do
+    root :to => 'tournaments#index'
+  end
+  root :to => 'homes#show'
+
   get 'auth/:service/callback' => 'sessions#callback'
   post 'auth/:service/callback' => 'sessions#callback'
   get 'auth/failure' => 'sessions#failure'
@@ -24,8 +33,6 @@ Ladder::Application.routes.draw do
       post :confirm
     end
   end
-
-  root :to => 'homes#show'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

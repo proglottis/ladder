@@ -1,19 +1,42 @@
-<% content_for :title do %><%= @tournament ? @tournament.name : Tournament.model_name.human.pluralize %> - <%= t 'application.name' %><% end %>
 <div class="page-header">
-  <h1><%= Tournament.model_name.human.pluralize %></h1>
+  <h1><%= current_user.name %></h1>
 </div>
 
 <div class="row">
-  <div class="span6 vertically-spaced">
-    <%= link_to new_tournament_path, :class => 'btn btn-block btn-primary' do %>
-      <h2><%= glyph :magic %> <%= t '.start' %></h2>
-      <p><%= t '.can_start', :count => current_user.tournaments.limit_left %></p>
+  <div class="span7">
+    <h2><%= t '.feed' %></h2>
+    <%= page_entries_info @games %>
+    <%= div_for @games, :class => 'media' do |game| %>
+      <%= link_to game_path(game), :class => 'pull-left' do %>
+        <%= gravatar_image_tag game.game_ranks[0].user.email, 64 %>
+      <% end %>
+      <div class="media-body">
+        <h4 class="media-heading"><%= link_to game.versus, game_path(game) %></h4>
+        <% if game.confirmed? %>
+          <%= raw t('.confirmed', :tournament => link_to(game.tournament.name, tournament_path(game.tournament_id)), :time => time_tag(game.updated_at)) %>
+        <% else %>
+          <%= raw t('.unconfirmed', :tournament => link_to(game.tournament.name, tournament_path(game.tournament_id)), :time => time_tag(game.updated_at)) %>
+        <% end %>
+      </div>
     <% end %>
+    <%= paginate @games %>
   </div>
-  <%= div_for @tournaments, :class => 'span6 vertically-spaced' do |tournament| %>
-    <%= link_to tournament_path(tournament), :class => 'btn btn-block btn-info' do %>
-      <h2><%= glyph :list %> <%= tournament.name %></h2>
-      <p><%= t '.ranking_players', :count => tournament.glicko2_ratings.count %></p>
-    <% end %>
-  <% end %>
+
+  <div class="span5">
+    <h2>Tournaments</h2>
+    <ul class="nav nav-tabs nav-stacked">
+      <li>
+        <%= link_to new_tournament_path, :rel => 'tooltip', :title => t('.can_start', :count => current_user.tournaments.limit_left) do %>
+          <%= glyph :magic %> <%= t '.start' %>
+        <% end %>
+      </li>
+      <% @tournaments.each do |tournament| %>
+        <li>
+          <%= link_to tournament_path(tournament) do %>
+            <%= glyph :list %> <%= tournament.name %>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
