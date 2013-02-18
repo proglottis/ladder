@@ -1,6 +1,13 @@
+<% content_for :title do %><%= Game.model_name.human.pluralize %> - <%= t 'application.name' %><% end %>
 <div class="page-header">
-  <h1><%= t Game.model_name.human.pluralize %></h1>
+  <h1><%= current_user.name %></h1>
 </div>
+
+<ul class="nav nav-tabs">
+  <li><%= link_to t('tournaments.index.feed'), root_path %></li>
+  <li><%= link_to challenges_path do %><%= Challenge.model_name.human.pluralize %> <%= defending_count_badge %><% end %></li>
+  <li class="active"><%= link_to games_path do %><%= Game.model_name.human.pluralize %> <%= pending_confirmation_badge %><% end %></li>
+</ul>
 
 <% if @game_ranks.any? %>
   <h2><%= t '.pending' %></h2>

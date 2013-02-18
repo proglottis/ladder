@@ -27,11 +27,6 @@
           <%= link_to t('application.name'), root_path, :class => "brand" %>
           <div class="container nav-collapse">
             <% if user_logged_in? %>
-              <ul class="nav">
-                <li class="<%='active' if ['tournaments', 'invites'].include? controller_name %>"><%= link_to Tournament.model_name.human.pluralize, root_path %></li>
-                <li class="<%='active' if ['challenges'].include? controller_name %>"><%= link_to challenges_path do %><%= Challenge.model_name.human.pluralize %> <%= defending_count_badge %><% end %></li>
-                <li class="<%='active' if ['games'].include? controller_name %>"><%= link_to games_path do %><%= Game.model_name.human.pluralize %> <%= pending_confirmation_badge %><% end %></li>
-              </ul>
               <ul class="nav pull-right">
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i><%= current_user.name %><b class="caret"></b></a>
