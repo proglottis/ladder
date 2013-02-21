@@ -44,8 +44,8 @@ describe "TournamentsController Integration Test" do
 
     it "must let owner join" do
       visit tournament_path(@tournament)
-      click_link I18n.t('tournaments.show.join')
-      wont_have_link I18n.t('tournaments.show.join')
+      click_link I18n.t('layouts.tournament_title.join.link')
+      wont_have_link I18n.t('layouts.tournaments_title.join.link')
     end
   end
 end
