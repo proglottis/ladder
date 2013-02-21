@@ -58,14 +58,14 @@ en:
       join: Join
       rank: Rank
 
-  invites:
-    new:
-      title: Invite player
-      invites_left:
-        one: "%{count} invite left"
-        other: "%{count} invites left"
-    show:
-      invited_to: You have been invited to join %{name}.
+    invites:
+      new:
+        title: Invite player
+        invites_left:
+          one: "%{count} invite left"
+          other: "%{count} invites left"
+      show:
+        invited_to: You have been invited to join %{name}.
 
   games:
     index:
