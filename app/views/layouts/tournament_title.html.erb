@@ -6,7 +6,12 @@
   </div>
 
   <% if not @tournament.has_user?(current_user) %>
-    <p><%= link_to t('tournaments.show.join'), join_tournament_path(@tournament), :method => :post %></p>
+    <div class="alert alert-info">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <h4><%= t '.join.title' %></h4>
+      <p><%= t '.join.message' %></p>
+      <%= link_to t('.join.link'), join_tournament_path(@tournament), :class => 'btn btn-primary', :method => :post %>
+    </div>
   <% end %>
 
   <ul class="nav nav-tabs">

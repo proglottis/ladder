@@ -55,7 +55,6 @@ en:
         other: There are %{count} games to be processed on %{time}.
       log_a_game: Log a game
       no_rated_players: There are no rated players.
-      join: Join
       rank: Rank
 
     invites:
@@ -104,6 +103,13 @@ en:
       challenged: "%{challenger} has challenged you on %{tournament}."
       challenged_with_message: "%{challenger} has challenged you on %{tournament}:"
       rules: "Failure to respond within 7 days will result in losing by default. Once you have played your game, follow the link to log your response:"
+
+  layouts:
+    tournament_title:
+      join:
+        title: You are not rated in this tournament
+        message: To challenge or log games with other players you first need to join.
+        link: Join
 
   activerecord:
     models:
