@@ -49,7 +49,7 @@ en:
     new:
       title: Start tournament
     show:
-      ladder: Ladder
+      title: Ladder
       games_to_process_on:
         one: There is %{count} game to be processed on %{time}.
         other: There are %{count} games to be processed on %{time}.

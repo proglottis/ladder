@@ -57,18 +57,9 @@
         </div>
       <% end %>
       <div class="row">
-        <% if content_for?(:side) %>
-          <div class="span3">
-            <%= yield :side %>
-          </div>
-          <div class="span9">
-            <%= yield %>
-          </div>
-        <% else %>
-          <div class="span12">
-            <%= yield %>
-          </div>
-        <% end %>
+        <div class="span12">
+          <%= content_for?(:content) ? yield(:content) : yield %>
+        </div>
       </div><!--/row-->
 
     </div> <!-- /container -->

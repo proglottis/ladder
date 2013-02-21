@@ -2,7 +2,7 @@
   <h1><%= @game.versus %> <small><%= link_to @tournament.name, tournament_path(@tournament) %></small></h1>
 </div>
 
-<table class="table">
+<table class="table table-bordered table-condensed">
   <thead>
     <th><%= User.model_name.human %></th>
     <th><%= GameRank.model_name.human %></th>
