@@ -15,4 +15,5 @@
 /tmp
 
 .rbenv-version
+.ruby-version
 .DS_Store
