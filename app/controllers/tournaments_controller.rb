@@ -34,10 +34,11 @@ class TournamentsController < ApplicationController
   end
 
   def edit
+    @tournament.build_page unless @tournament.page.present?
   end
 
   def update
-    if @tournament.update_attributes(params.require(:tournament).permit(:name))
+    if @tournament.update_attributes(params.require(:tournament).permit(:name, :page_attributes => [:id, :content]))
       redirect_to tournament_path(@tournament)
     else
       render :edit

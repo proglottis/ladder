@@ -5,6 +5,14 @@
       <%= f.text_field :name %>
     </div>
   </div>
+  <%= f.fields_for :page do |builder| %>
+    <div class="control-group">
+      <%= builder.label :content, :class => 'control-label' %>
+      <div class="controls">
+        <%= builder.text_area :content, :class => 'input-xxlarge' %>
+      </div>
+    </div>
+  <% end %>
   <div class="control-group">
     <div class="controls">
       <%= f.submit :class => 'btn btn-primary' %>

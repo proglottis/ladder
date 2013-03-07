@@ -13,6 +13,8 @@ class Tournament < ActiveRecord::Base
 
   has_one :page, :as => :parent
 
+  accepts_nested_attributes_for :page, :reject_if => :all_blank
+
   validates_presence_of :name, :owner_id
   validate :maximum_allowed
 
