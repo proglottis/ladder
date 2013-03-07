@@ -11,6 +11,8 @@ class Tournament < ActiveRecord::Base
   has_many :users, :through => :glicko2_ratings
   has_many :game_ranks, :through => :games
 
+  has_one :page, :as => :parent
+
   validates_presence_of :name, :owner_id
   validate :maximum_allowed
 

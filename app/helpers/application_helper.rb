@@ -13,4 +13,7 @@ module ApplicationHelper
     link_to t('helpers.cancel_link'), path, :class => 'btn'
   end
 
+  def markdown(text)
+    Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(text).html_safe
+  end
 end

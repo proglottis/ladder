@@ -22,6 +22,7 @@ Ladder::Application.routes.draw do
   resources :profiles, :only => [:show]
   resources :tournaments do
     member do
+      get :information
       post :join
     end
     scope :module => "tournaments" do

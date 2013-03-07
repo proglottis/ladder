@@ -45,6 +45,7 @@ gem 'glicko2'
 gem 'whenever', :require => false
 gem 'exception_notification'
 gem 'flot-rails'
+gem 'redcarpet'
 
 group :test, :development do
   gem 'minitest-rails'

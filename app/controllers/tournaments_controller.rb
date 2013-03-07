@@ -1,9 +1,9 @@
 class TournamentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :find_tournament, :only => [:show, :edit, :update, :join]
+  before_filter :find_tournament, :only => [:show, :information, :edit, :update, :join]
   before_filter :require_owner!, :only => [:edit, :update]
 
-  layout 'tournament_title', :only => [:show, :edit]
+  layout 'tournament_title', :only => [:show, :information, :edit]
 
   def index
     @tournaments = Tournament.participant(current_user).order('tournaments.name ASC')
@@ -28,6 +28,9 @@ class TournamentsController < ApplicationController
     @rating_ranks = @glicko2_ratings.group_by { |r| view_context.number_with_precision(r.low_rank, :precision => 0)}
     @pending = @tournament.games.where('games.confirmed_at >= ?', Time.zone.now.beginning_of_week)
     @challenges = @tournament.challenges.active
+  end
+
+  def information
   end
 
   def edit
