@@ -56,6 +56,8 @@ en:
       log_a_game: Log a game
       no_rated_players: There are no rated players.
       rank: Rank
+    edit:
+      title: Settings
 
     invites:
       new:

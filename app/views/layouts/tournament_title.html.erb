@@ -15,9 +15,12 @@
   <% end %>
 
   <ul class="nav nav-tabs">
-    <li class="<%='active' if ['tournaments'].include? controller_name %>"><%= link_to t('tournaments.show.title'), tournament_path(@tournament) %></li>
+    <li class="<%='active' if ['tournaments'].include?(controller_name) && params['action'] == 'show' %>"><%= link_to t('tournaments.show.title'), tournament_path(@tournament) %></li>
     <% if @tournament.has_user? current_user %>
       <li class="<%='active' if ['invites'].include? controller_name %>"><%= link_to t('tournaments.invites.new.title'), new_tournament_invite_path(@tournament), :rel => 'tooltip', :title => t('tournaments.invites.new.invites_left', :count => @tournament.invites.where(:owner_id => current_user).limit_left) %></li>
+    <% end %>
+    <% if @tournament.owner_id == current_user.id %>
+      <li class="<%='active' if ['tournaments'].include?(controller_name) && params['action'] == 'edit' %>"><%= link_to t('tournaments.edit.title'), edit_tournament_path(@tournament) %></li>
     <% end %>
   </ul>
 

@@ -1,8 +1,9 @@
 class TournamentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :find_tournament, :only => [:show, :update, :join]
+  before_filter :find_tournament, :only => [:show, :edit, :update, :join]
+  before_filter :require_owner!, :only => [:edit, :update]
 
-  layout 'tournament_title', :only => [:show]
+  layout 'tournament_title', :only => [:show, :edit]
 
   def index
     @tournaments = Tournament.participant(current_user).order('tournaments.name ASC')
@@ -29,6 +30,17 @@ class TournamentsController < ApplicationController
     @challenges = @tournament.challenges.active
   end
 
+  def edit
+  end
+
+  def update
+    if @tournament.update_attributes(params.require(:tournament).permit(:name))
+      redirect_to tournament_path(@tournament)
+    else
+      render :edit
+    end
+  end
+
   def join
     @tournament.glicko2_ratings.with_defaults.create(:user => current_user)
     redirect_to tournament_path(@tournament)
@@ -38,5 +50,11 @@ class TournamentsController < ApplicationController
 
   def find_tournament
     @tournament = Tournament.participant(current_user).find(params[:id])
+  end
+
+  def require_owner!
+    unless current_user.id == @tournament.owner_id
+      redirect_to tournament_path(@tournament)
+    end
   end
 end
