@@ -47,7 +47,6 @@ describe "GamesController Integration Test" do
       @game_rank2.confirm
       visit game_path @game
       click_link I18n.t('games.show.confirm')
-      must_have_content @tournament.name
       @game.reload.confirmed?.must_equal true
     end
   end

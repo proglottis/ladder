@@ -37,7 +37,7 @@ class GamesController < ApplicationController
   def confirm
     @game = Game.with_participant(current_user).readonly(false).find(params[:id])
     if @game.confirm_user(current_user)
-      redirect_to tournament_path(@game.tournament)
+      redirect_to games_path
     else
       redirect_to game_path(@game)
     end
