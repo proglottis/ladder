@@ -9,12 +9,22 @@
   <li class="active"><%= link_to games_path do %><%= Game.model_name.human.pluralize %> <%= pending_confirmation_badge %><% end %></li>
 </ul>
 
-<% if @game_ranks.any? %>
+<% if @pending.any? %>
   <h2><%= t '.pending' %></h2>
 
   <ul>
-    <% @game_ranks.each do |game_rank| %>
+    <% @pending.each do |game_rank| %>
       <li><%= link_to "#{game_rank.game.versus}", game_path(game_rank.game) %> on <%= link_to game_rank.game.tournament.name, tournament_path(game_rank.game.tournament) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% if @unconfirmed.any? %>
+  <h2><%= t '.unconfirmed' %></h2>
+
+  <ul>
+    <% @unconfirmed.each do |game| %>
+      <li><%= link_to "#{game.versus}", game_path(game) %> on <%= link_to game.tournament.name, tournament_path(game.tournament) %></li>
     <% end %>
   </ul>
 <% end %>

@@ -17,6 +17,10 @@ class Game < ActiveRecord::Base
     joins(user_joins.join_sql)
   end
 
+  def self.unconfirmed
+    where(:confirmed_at => nil)
+  end
+
   def confirm_user(user)
     with_lock do
       total = 0

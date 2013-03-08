@@ -78,6 +78,7 @@ en:
   games:
     index:
       pending: Pending Confirmation
+      unconfirmed: Unconfirmed Games
     new:
       title: New game
     show:
