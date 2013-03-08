@@ -13,7 +13,7 @@
   <h2><%= t '.defending' %></h2>
   <ul>
     <% @defending.each do |challenge| %>
-      <li><%= link_to challenge_path(challenge) do %><%= gravatar_image_tag challenge.challenger.email %> <%= challenge.challenger.name %> on <%= challenge.tournament.name %><% end %></li>
+      <li><%= link_to challenge_path(challenge) do %><%= gravatar_image_tag challenge.defender.email %> <%= challenge.defender.name %><% end %> on <%= link_to challenge.tournament.name, tournament_path(challenge.tournament) %></li>
     <% end %>
   </ul>
 <% end %>
@@ -22,7 +22,7 @@
   <h2><%= t '.challenging' %></h2>
   <ul>
     <% @challenging.each do |challenge| %>
-      <li><%= link_to challenge_path(challenge) do %><%= gravatar_image_tag challenge.defender.email %> <%= challenge.defender.name %> on <%= challenge.tournament.name %><% end %></li>
+      <li><%= link_to challenge_path(challenge) do %><%= gravatar_image_tag challenge.defender.email %> <%= challenge.defender.name %><% end %> on <%= link_to challenge.tournament.name, tournament_path(challenge.tournament) %></li>
     <% end %>
   </ul>
 <% end %>
