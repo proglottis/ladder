@@ -17,6 +17,7 @@ en:
     authentication_required: You need to sign in before accessing this page
     show:
       login_with: Login with %{name}
+      title: Login
     new:
       new_authentication: This authentication is new to Ladder
       confirm: Confirm

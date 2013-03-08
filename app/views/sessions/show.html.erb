@@ -1,3 +1,8 @@
+<% content_for :title do %><%= t '.title' %> - <%= t 'application.name' %><% end %>
+<div class="page-header">
+  <h1><%= t '.title' %></h1>
+</div>
+
 <div class="btn-group btn-group-vertical">
   <% unless Rails.env.production? %>
     <%= link_to '/auth/developer', :rel => 'external', :class => 'btn btn-large' do %><%= glyph 'sign-blank' %> <%= t '.login_with', :name => 'Developer'%><% end %>
