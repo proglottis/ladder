@@ -1,0 +1,26 @@
+<% content_for :title do %><%= t '.title' %> - <%= t 'application.name' %><% end %>
+<div class="page-header">
+  <h1><%= t '.title' %></h1>
+</div>
+
+<ul class="nav nav-tabs">
+  <li class="active"><%= link_to Service.model_name.human.pluralize, setting_path %></li>
+</ul>
+
+<div class="row">
+  <%= div_for @services, :class => 'span6' do |service| %>
+    <div class="thumbnail">
+      <div class="caption">
+        <h3><%= service.provider.humanize %></h3>
+        <dl class="dl-horizontal">
+          <dt><%= Service.human_attribute_name('uid') %></dt>
+          <dd><%= service.uid %></dd>
+          <dt><%= Service.human_attribute_name('name') %></dt>
+          <dd><%= service.name || t('.unknown') %></dd>
+          <dt><%= Service.human_attribute_name('email') %></dt>
+          <dd><%= service.email || t('.unknown') %></dd>
+        </dl>
+      </div>
+    </div>
+  <% end %>
+</div>

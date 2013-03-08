@@ -30,6 +30,7 @@ Ladder::Application.routes.draw do
     end
     get 'games/:id' => redirect('/games/%{id}')
   end
+  resource :setting, :path => 'settings'
   resources :challenges
   resources :games do
     member do

@@ -32,6 +32,11 @@ en:
       timed_out: Authentication timed out
       unknown: Unknown authentication error
 
+
+  settings:
+    show:
+      title: Settings
+
   homes:
     show:
       title: Home
