@@ -14,6 +14,9 @@ module ApplicationHelper
   end
 
   def markdown(text)
-    Redcarpet::Markdown.new(Redcarpet::Render::HTML).render(text).html_safe
+    options = {
+      :fenced_code_blocks => true
+    }
+    Redcarpet::Markdown.new(Redcarpet::Render::HTML, options).render(text).html_safe
   end
 end
