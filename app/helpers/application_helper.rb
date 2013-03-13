@@ -1,4 +1,10 @@
 module ApplicationHelper
+  class MarkdownHTML < Redcarpet::Render::HTML
+    def header(text, level)
+      slug = text.parameterize
+      "<h#{level} id=\"#{slug}\">#{text}</h#{level}>"
+    end
+  end
 
   def gravatar_image_url(email, size = 16)
     hash = Digest::MD5.hexdigest(email.strip.downcase)
@@ -14,9 +20,7 @@ module ApplicationHelper
   end
 
   def markdown(text)
-    options = {
-      :fenced_code_blocks => true
-    }
-    Redcarpet::Markdown.new(Redcarpet::Render::HTML, options).render(text).html_safe
+    opts = { :fenced_code_blocks => true }
+    Redcarpet::Markdown.new(MarkdownHTML, opts).render(text).html_safe
   end
 end
