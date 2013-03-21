@@ -37,6 +37,8 @@ en:
   settings:
     show:
       title: Settings
+    update:
+      updated: Settings have been updated
 
   homes:
     show:

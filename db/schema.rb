@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130307021205) do
+ActiveRecord::Schema.define(:version => 20130321043242) do
 
   create_table "challenges", :force => true do |t|
     t.integer  "tournament_id", :null => false
@@ -116,9 +116,10 @@ ActiveRecord::Schema.define(:version => 20130307021205) do
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.integer  "preferred_service_id"
+    t.boolean  "game_confirmed_email", :default => true, :null => false
   end
 
   add_index "users", ["preferred_service_id"], :name => "index_users_on_preferred_service_id"
