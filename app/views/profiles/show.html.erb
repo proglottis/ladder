@@ -21,15 +21,17 @@
     <%= div_for @tournaments do |tournament| %>
       <div class="clearfix">
         <%= link_to tournament.name, tournament_path(tournament) %>
-        <div class="btn-group pull-right">
-          <%= link_to t(Challenge.model_name.human), new_challenge_path(:defender_id => @user, :tournament_id => tournament), :class => 'btn' %>
-          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li><%= link_to t('tournaments.show.log_a_game'), new_game_path(:tournament_id => tournament, :user_id => @user) %></li>
-          </ul>
-        </div>
+        <% if current_user != @user %>
+          <div class="btn-group pull-right">
+            <%= link_to t(Challenge.model_name.human), new_challenge_path(:defender_id => @user, :tournament_id => tournament), :class => 'btn' %>
+            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to t('tournaments.show.log_a_game'), new_game_path(:tournament_id => tournament, :user_id => @user) %></li>
+            </ul>
+          </div>
+        <% end %>
       </div>
       <%= div_for tournament, :class => "plot", :style => "height:100px;", :'data-ratings' => tournament.glicko2_ratings.where(:user_id => [current_user.id, @user.id]).map {|rating| {:rating => rating.rating, :rating_deviation => rating.rating_deviation, :user_name => rating.user.name}}.to_json do %><% end %>
     <% end %>
