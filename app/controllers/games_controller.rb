@@ -37,6 +37,11 @@ class GamesController < ApplicationController
   def confirm
     @game = Game.with_participant(current_user).readonly(false).find(params[:id])
     if @game.confirm_user(current_user)
+      @game.game_ranks.each do |game_rank|
+        if game_rank.user != current_user && game_rank.user.game_confirmed_email?
+          Notifications.game_confirmed(game_rank.user, @game).deliver
+        end
+      end
       redirect_to games_path
     else
       redirect_to game_path(@game)

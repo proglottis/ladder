@@ -14,6 +14,13 @@ class Notifications < ActionMailer::Base
     mail(:to => @user.email, :subject => t('notifications.game_confirmation.subject'))
   end
 
+  def game_confirmed(user, game)
+    @user = user
+    @game = game
+    @tournament = @game.tournament
+    mail(:to => @user.email, :subject => t('notifications.game_confirmed.subject'))
+  end
+
   def challenged(challenge)
     @challenge = challenge
     @defender = challenge.defender

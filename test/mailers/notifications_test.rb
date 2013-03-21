@@ -31,6 +31,24 @@ describe Notifications do
     end
   end
 
+  describe "#game_confirmed" do
+    before do
+      @game = create(:game)
+      @user1 = create(:user)
+      @user2 = create(:user)
+      @game_rank1 = create(:game_rank, :game => @game, :user => @user1, :position => 1)
+      @game_rank2 = create(:game_rank, :game => @game, :user => @user2, :position => 2)
+    end
+
+    it "must contain game details" do
+      mail = Notifications.game_confirmed @user1, @game
+      mail.subject.must_equal I18n.t('notifications.game_confirmed.subject')
+      mail.to.must_equal [@user1.email]
+      mail.body.encoded.must_match @game.tournament.name
+      mail.body.encoded.must_match @game.versus
+    end
+  end
+
   describe "#challenged" do
     it "must contain challenge details" do
       challenge = create(:challenge)

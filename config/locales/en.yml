@@ -111,6 +111,9 @@ en:
     game_confirmation:
       subject: Confirm game
       game_logged: "A game you participated in has been logged. Follow the link to confirm:"
+    game_confirmed:
+      subject: Game confirmed
+      confirmed: "A game you participated in has been confirmed."
     challenged:
       subject: You have been challenged
       challenged: "%{challenger} has challenged you on %{tournament}."
