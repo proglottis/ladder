@@ -1,6 +1,11 @@
 <div class="page-header">
-  <h1><%= @game.versus %> <small><%= link_to @tournament.name, tournament_path(@tournament) %></small></h1>
+  <h1><%= @game.versus %></h1>
 </div>
+
+<dl class="dl-horizontal">
+  <dt><%= Tournament.model_name.human %></dt>
+  <dd><%= link_to @tournament.name, tournament_path(@tournament) %></dd>
+</dl>
 
 <table class="table table-bordered table-condensed">
   <thead>
