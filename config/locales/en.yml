@@ -10,6 +10,7 @@ en:
     issues:
       text: Request features & Report bugs
       href: https://github.com/proglottis/ladder/issues
+    version: Version %{version}
 
   sessions:
     login: Login
