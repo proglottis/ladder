@@ -32,6 +32,7 @@ class GamesController < ApplicationController
     @game = Game.with_participant(current_user).find(params[:id])
     @tournament = @game.tournament
     @game_ranks = @game.game_ranks.includes(:user)
+    @current_game_rank = @game_ranks.detect {|game_rank| game_rank.user_id == current_user.id }
   end
 
   def confirm

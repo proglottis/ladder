@@ -12,7 +12,6 @@
     <th><%= User.model_name.human %></th>
     <th><%= GameRank.model_name.human %></th>
     <th><%= t '.status' %></th>
-    <th></th>
   </thead>
   <tbody>
     <% @game_ranks.each do |game_rank| %>
@@ -26,12 +25,11 @@
             <%= t '.unconfirmed' %>
           <% end %>
         </td>
-        <td>
-          <% if !game_rank.confirmed? && game_rank.user == current_user %>
-            <%= link_to t('.confirm'), confirm_game_path(@game), :method => :post, :class => 'btn' %>
-          <% end %>
-        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<% if @current_game_rank && !@current_game_rank.confirmed? %>
+  <%= link_to t('.confirm'), confirm_game_path(@game), :method => :post, :class => 'btn btn-primary' %>
+<% end %>
