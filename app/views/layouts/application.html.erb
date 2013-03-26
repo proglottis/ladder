@@ -80,7 +80,9 @@
           <li><%= link_to t('application.fork_me.text'), t('application.fork_me.href') %></li>
           <li><%= link_to t('application.issues.text'), t('application.issues.href') %></li>
         </ul>
-        <p class="muted pull-right"><%= t 'application.version', :version => APP_VERSION %></p>
+        <ul class="nav nav-pills pull-right">
+          <li><%= link_to t('application.version.text', :version => APP_VERSION), t('application.version.href', :version => APP_VERSION) %></li>
+        </ul>
       </div>
     </footer>
 
