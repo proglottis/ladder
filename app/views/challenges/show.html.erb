@@ -1,7 +1,12 @@
 <% content_for :title do %><%= @challenge ? @challenge.versus : Challenge.model_name.human.pluralize %> - <%= t 'application.name' %><% end %>
 <div class="page-header">
-  <h1><%= @challenge.versus %> <small><%= link_to @challenge.tournament.name, tournament_path(@challenge.tournament) %></small></h1>
+  <h1><%= @challenge.versus %></h1>
 </div>
+
+<dl class="dl-horizontal">
+  <dt><%= Tournament.model_name.human %></dt>
+  <dd><%= link_to @tournament.name, tournament_path(@tournament) %></dd>
+</dl>
 
 <% if @challenge.message.present? %>
   <blockquote>
@@ -15,12 +20,12 @@
 
   <% if @challenge.defender == current_user %>
     <%= form_for @challenge, :html => {:class => 'form-inline'} do |f| %>
-      <%= f.label :response_won, :class => 'radio' do %>
+      <label class="radio inline">
         <%= f.radio_button :response, :won %> <%= t '.won' %>
-      <% end %>
-      <%= f.label :response_lost, :class => 'radio' do %>
+      </label>
+      <label class="radio inline">
         <%= f.radio_button :response, :lost %> <%= t '.lost' %>
-      <% end %>
+      </label>
       <%= f.submit :class => 'btn btn-primary' %>
     <% end %>
   <% end %>
