@@ -35,4 +35,8 @@ class Glicko2Rating < ActiveRecord::Base
   def position
     read_attribute(:position).try(:to_i)
   end
+
+  def challenge
+    tournament.challenges.active.detect { |challenge| challenge.defender_id == user_id }
+  end
 end
