@@ -1,4 +1,4 @@
-require "minitest_helper"
+require "test_helper"
 
 describe Notifications do
   describe "#tournament_invitation" do

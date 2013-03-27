@@ -1,4 +1,4 @@
-require "minitest_helper"
+require "test_helper"
 
 describe Glicko2Rating do
   describe ".for_game" do
