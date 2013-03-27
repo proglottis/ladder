@@ -7,11 +7,10 @@ class Tournament < ActiveRecord::Base
   has_many :invites, :dependent => :destroy
   has_many :games, :dependent => :destroy
   has_many :challenges, :dependent => :destroy
+  has_one :page, :as => :parent, :dependent => :destroy
 
   has_many :users, :through => :glicko2_ratings
   has_many :game_ranks, :through => :games
-
-  has_one :page, :as => :parent
 
   accepts_nested_attributes_for :page, :reject_if => :all_blank
 

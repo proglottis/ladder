@@ -53,4 +53,8 @@ FactoryGirl.define do
     expires_at { 1.day.from_now }
   end
 
+  factory :page do
+    content 'The content'
+  end
+
 end
