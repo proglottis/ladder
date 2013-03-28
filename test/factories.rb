@@ -18,7 +18,7 @@ FactoryGirl.define do
     sequence(:name) {|n| "Tournament #{n}"}
   end
 
-  factory :glicko2_rating, :aliases => [:rating] do
+  factory :glicko2_rating do
     user
     tournament
     rating Glicko2::DEFAULT_GLICKO_RATING
@@ -55,6 +55,19 @@ FactoryGirl.define do
 
   factory :page do
     content 'The content'
+  end
+
+  factory :rating_period do
+    tournament
+    period_at { Time.zone.now }
+  end
+
+  factory :rating do
+    rating_period
+    user
+    rating Glicko2::DEFAULT_GLICKO_RATING
+    rating_deviation Glicko2::DEFAULT_GLICKO_RATING_DEVIATION
+    volatility Glicko2::DEFAULT_VOLATILITY
   end
 
 end

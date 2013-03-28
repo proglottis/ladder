@@ -6,8 +6,8 @@ describe "ChallengesController Integration Test" do
     @service = login_service
     @tournament = create(:tournament)
     @user2 = create(:user)
-    @rating1 = create(:rating, :tournament => @tournament, :user => @service.user)
-    @rating2 = create(:rating, :tournament => @tournament, :user => @user2)
+    @rating1 = create(:glicko2_rating, :tournament => @tournament, :user => @service.user)
+    @rating2 = create(:glicko2_rating, :tournament => @tournament, :user => @user2)
   end
 
   describe "creation" do

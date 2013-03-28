@@ -7,9 +7,9 @@ describe Glicko2Rating do
       @game_rank1 = create(:game_rank, :game => @game)
       @game_rank2 = create(:game_rank, :game => @game)
       @game_rank3 = create(:game_rank)
-      @rating1 = create(:rating, :tournament => @game.tournament, :user => @game_rank1.user)
-      @rating2 = create(:rating, :tournament => @game.tournament, :user => @game_rank2.user)
-      @rating3 = create(:rating, :tournament => @game.tournament, :user => @game_rank3.user)
+      @rating1 = create(:glicko2_rating, :tournament => @game.tournament, :user => @game_rank1.user)
+      @rating2 = create(:glicko2_rating, :tournament => @game.tournament, :user => @game_rank2.user)
+      @rating3 = create(:glicko2_rating, :tournament => @game.tournament, :user => @game_rank3.user)
     end
 
     it "must match all ratings for a game" do

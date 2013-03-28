@@ -53,8 +53,8 @@ describe "TournamentsController Integration Test" do
     before do
       @other_user = create(:user)
       @tournament = create(:tournament, :owner => @service.user)
-      create(:rating, :tournament => @tournament, :user => @service.user)
-      create(:rating, :tournament => @tournament, :user => @other_user)
+      create(:glicko2_rating, :tournament => @tournament, :user => @service.user)
+      create(:glicko2_rating, :tournament => @tournament, :user => @other_user)
     end
 
     it "must let owner update" do
