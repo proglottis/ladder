@@ -7,6 +7,7 @@ class Tournament < ActiveRecord::Base
   has_many :invites, :dependent => :destroy
   has_many :games, :dependent => :destroy
   has_many :challenges, :dependent => :destroy
+  has_many :rating_periods, :dependent => :destroy
   has_one :page, :as => :parent, :dependent => :destroy
 
   has_many :users, :through => :glicko2_ratings
