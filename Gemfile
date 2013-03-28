@@ -32,9 +32,6 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 gem 'capistrano'
 
-# To use debugger
-# gem 'debugger'
-
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'twitter-bootstrap-rails'
@@ -51,4 +48,5 @@ group :test, :development do
   gem 'minitest-rails'
   gem 'minitest-rails-capybara'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'debugger'
 end

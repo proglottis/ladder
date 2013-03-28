@@ -53,8 +53,15 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.2)
+    columnize (0.3.6)
     commonjs (0.2.6)
     dalli (2.6.2)
+    debugger (1.5.0)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.2.0)
+      debugger-ruby_core_source (~> 1.2.0)
+    debugger-linecache (1.2.0)
+    debugger-ruby_core_source (1.2.0)
     erubis (2.7.0)
     exception_notification (3.0.1)
       actionmailer (>= 3.0.4)
@@ -218,6 +225,7 @@ DEPENDENCIES
   capistrano
   coffee-rails (~> 3.2.1)
   dalli
+  debugger
   exception_notification
   factory_girl_rails (~> 4.0)
   flot-rails
