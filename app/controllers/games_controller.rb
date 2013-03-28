@@ -2,8 +2,8 @@ class GamesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    @pending = GameRank.not_confirmed.with_participant(current_user)
-    @unconfirmed = Game.with_participant(current_user).unconfirmed
+    @pending = GameRank.not_confirmed.with_participant(current_user).includes(:user)
+    @unconfirmed = Game.with_participant(current_user).unconfirmed.includes(:game_ranks => :user)
   end
 
   def new

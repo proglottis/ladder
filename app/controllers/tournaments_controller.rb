@@ -7,7 +7,7 @@ class TournamentsController < ApplicationController
 
   def index
     @tournaments = Tournament.participant(current_user).order('tournaments.name ASC')
-    @games = Game.with_participant(current_user).order('games.updated_at DESC').page(params[:page]).per(10)
+    @games = Game.with_participant(current_user).includes(:tournament, :game_ranks => :user).order('games.updated_at DESC').page(params[:page]).per(10)
   end
 
   def new
@@ -24,9 +24,10 @@ class TournamentsController < ApplicationController
   end
 
   def show
-    @glicko2_ratings = @tournament.glicko2_ratings.includes(:user).by_rank
+    @glicko2_ratings = @tournament.glicko2_ratings.with_defending_tournament.includes(:user).by_rank
     @rating_ranks = @glicko2_ratings.group_by { |r| view_context.number_with_precision(r.low_rank, :precision => 0)}
     @pending = @tournament.games.where('games.confirmed_at >= ?', Time.zone.now.beginning_of_week)
+    @show_actions = @tournament.has_user?(current_user)
   end
 
   def information
