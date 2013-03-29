@@ -65,7 +65,7 @@ describe RatingPeriod do
 
       @period1 = create(:rating_period, :tournament => @tournament, :period_at => Time.new(2010))
       @period2 = create(:rating_period, :tournament => @tournament, :period_at => Time.new(2011))
-      @period3 = create(:rating_period, :tournament => @tournament, :period_at => Time.new(2011))
+      @period3 = create(:rating_period, :tournament => @tournament, :period_at => Time.new(2012))
 
       @rating1 = create(:rating, :rating_period => @period1, :user => @user1)
       @rating2 = create(:rating, :rating_period => @period1, :user => @user2)

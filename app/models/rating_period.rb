@@ -4,6 +4,7 @@ class RatingPeriod < ActiveRecord::Base
   has_many :ratings, :dependent => :destroy
 
   validates_presence_of :tournament_id, :period_at
+  validates_uniqueness_of :period_at, :scope => :tournament_id
 
   def previous_rating_period
     @previous_rating_period ||= tournament.rating_periods.

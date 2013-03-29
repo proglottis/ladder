@@ -40,7 +40,7 @@ class Tournament < ActiveRecord::Base
       user_joins.join(ratings).on(rating_periods[:id].eq(ratings[:rating_period_id]).
                                   and(ratings[:user_id].eq(user.id)))
     end
-    joins(user_joins.join_sql)
+    joins(user_joins.join_sql).uniq
   end
 
   def current_rating_period

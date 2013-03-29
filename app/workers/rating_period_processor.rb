@@ -1,28 +1,19 @@
 class RatingPeriodProcessor
-  def initialize(started_on, ended_on)
-    @started_on = started_on
-    @ended_on = ended_on
+  def initialize(at)
+    @at = at
   end
 
   def self.perform
-    ended_on = Time.zone.now.beginning_of_week
-    processor = new(ended_on - 1.week, ended_on)
+    at = Time.zone.now.beginning_of_week
+    processor = new(at)
     processor.process
   end
 
   def process
     Tournament.find_each do |tournament|
       tournament.with_lock do
-        period = Glicko2::RatingPeriod.from_objs(tournament.glicko2_ratings)
-        tournament.games.where(:confirmed_at => @started_on..@ended_on).each do |game|
-          ratings = Glicko2Rating.for_game(game)
-          period.game ratings, ratings.map(&:position)
-        end
-        new_period = period.generate_next
-        new_period.players.each do |player|
-          player.update_obj
-          player.obj.save!
-        end
+        rating_period = tournament.rating_periods.create!(:period_at => @at)
+        rating_period.process!
       end
     end
   end
