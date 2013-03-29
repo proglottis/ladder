@@ -1,6 +1,6 @@
 class TournamentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :find_tournament, :only => [:show, :information, :edit, :update, :join]
+  before_filter :find_tournament_and_rating_period, :only => [:show, :information, :edit, :update, :join]
   before_filter :require_owner!, :only => [:edit, :update]
 
   layout 'tournament_title', :only => [:show, :information, :edit]
@@ -17,6 +17,7 @@ class TournamentsController < ApplicationController
   def create
     @tournament = current_user.tournaments.build(params.require(:tournament).permit(:name))
     if @tournament.save
+      @tournament.rating_periods.create!(:period_at => Time.zone.now.beginning_of_week)
       redirect_to tournament_path(@tournament)
     else
       render :new
@@ -24,9 +25,9 @@ class TournamentsController < ApplicationController
   end
 
   def show
-    @glicko2_ratings = @tournament.glicko2_ratings.with_defending_tournament.includes(:user).by_rank
-    @rating_ranks = @glicko2_ratings.group_by { |r| view_context.number_with_precision(r.low_rank, :precision => 0)}
-    @pending = @tournament.games.where('games.confirmed_at >= ?', Time.zone.now.beginning_of_week)
+    @ratings = @rating_period.ratings.with_defending_tournament.includes(:user).by_rank
+    @rating_ranks = @ratings.group_by { |r| view_context.number_with_precision(r.low_rank, :precision => 0)}
+    @pending = @tournament.games.where('games.confirmed_at >= ?', @rating_period.period_at)
     @show_actions = @tournament.has_user?(current_user)
   end
 
@@ -46,14 +47,15 @@ class TournamentsController < ApplicationController
   end
 
   def join
-    @tournament.glicko2_ratings.with_defaults.create(:user => current_user)
+    @rating_period.ratings.with_defaults.create(:user => current_user)
     redirect_to tournament_path(@tournament)
   end
 
   private
 
-  def find_tournament
+  def find_tournament_and_rating_period
     @tournament = Tournament.participant(current_user).find(params[:id])
+    @rating_period = @tournament.current_rating_period
   end
 
   def require_owner!

@@ -19,7 +19,7 @@ describe "SessionsController Integration Test" do
     end
 
     it "must redirect back after authentication" do
-      @tournament = create(:tournament, :owner => @user)
+      @tournament = create(:started_tournament, :owner => @user)
       visit tournament_path @tournament
       click_link "Developer"
       must_have_content @tournament.name

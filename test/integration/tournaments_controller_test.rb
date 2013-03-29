@@ -8,7 +8,7 @@ describe "TournamentsController Integration Test" do
 
   describe "listing" do
     before do
-      @tournaments = create_list(:tournament, 5, :owner => @service.user)
+      @tournaments = create_list(:started_tournament, 5, :owner => @service.user)
     end
 
     it "must show tournaments" do
@@ -39,7 +39,7 @@ describe "TournamentsController Integration Test" do
 
   describe "joining" do
     before do
-      @tournament = create(:tournament, :owner => @service.user)
+      @tournament = create(:started_tournament, :owner => @service.user)
     end
 
     it "must let owner join" do
@@ -52,9 +52,10 @@ describe "TournamentsController Integration Test" do
   describe "updating" do
     before do
       @other_user = create(:user)
-      @tournament = create(:tournament, :owner => @service.user)
-      create(:glicko2_rating, :tournament => @tournament, :user => @service.user)
-      create(:glicko2_rating, :tournament => @tournament, :user => @other_user)
+      @tournament = create(:started_tournament, :owner => @service.user)
+      @rating_period = @tournament.current_rating_period
+      create(:rating, :rating_period => @rating_period, :user => @service.user)
+      create(:rating, :rating_period => @rating_period, :user => @other_user)
     end
 
     it "must let owner update" do

@@ -9,7 +9,7 @@ describe "InvitesController Integration Test" do
 
   describe "inviting" do
     before do
-      @tournament = create(:tournament, :owner => @user)
+      @tournament = create(:started_tournament, :owner => @user)
     end
 
     it "must create invite" do
@@ -33,7 +33,7 @@ describe "InvitesController Integration Test" do
 
   describe "joining" do
     before do
-      @tournament = create(:tournament)
+      @tournament = create(:started_tournament)
       @invite = create(:invite, :tournament => @tournament)
     end
 

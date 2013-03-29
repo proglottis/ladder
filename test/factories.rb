@@ -16,6 +16,12 @@ FactoryGirl.define do
   factory :tournament do
     owner
     sequence(:name) {|n| "Tournament #{n}"}
+
+    factory :started_tournament do
+      after :create do |tournament, evaluator|
+        FactoryGirl.create :rating_period, :tournament => tournament
+      end
+    end
   end
 
   factory :glicko2_rating do
@@ -59,7 +65,7 @@ FactoryGirl.define do
 
   factory :rating_period do
     tournament
-    period_at { Time.zone.now }
+    period_at { 1.year.ago }
   end
 
   factory :rating do

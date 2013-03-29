@@ -1,11 +1,11 @@
-<p><%= raw t '.games_to_process_on', :count => @pending.count, :time => time_tag((Time.zone.now + 1.week).beginning_of_week) %></p>
+<p><%= raw t '.games_to_process_on', :count => @pending.count, :time => time_tag(@rating_period.period_at + 1.week) %></p>
 
 <table class="table table-bordered table-condensed">
   <thead>
     <tr>
       <th><%= t '.rank' %></th>
       <th><%= User.model_name.human %></th>
-      <th><%= Glicko2Rating.model_name.human %></th>
+      <th><%= Rating.model_name.human %></th>
       <% if @show_actions %>
         <th></th>
       <% end %>
@@ -38,7 +38,7 @@
         </tr>
       <% end %>
     <% end %>
-    <% if @tournament.glicko2_ratings.empty? %>
+    <% if @rating_ranks.empty? %>
       <tr colspan="3">
         <td><%= t '.no_rated_players' %></td>
       </tr>

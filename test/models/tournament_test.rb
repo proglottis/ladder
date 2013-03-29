@@ -21,6 +21,12 @@ describe Tournament do
       Glicko2Rating.where(:tournament_id => @tournament.id).count.must_equal 0
     end
 
+    it "must destroy descendant rating periods" do
+      create(:rating_period, :tournament => @tournament)
+      @tournament.destroy
+      RatingPeriod.where(:tournament_id => @tournament.id).count.must_equal 0
+    end
+
     it "must destroy descendant invites" do
       create(:invite, :tournament => @tournament)
       @tournament.destroy
@@ -49,7 +55,8 @@ describe Tournament do
   describe ".participant" do
     before do
       @user = create(:user)
-      @tournament = create(:tournament)
+      @tournament = create(:started_tournament)
+      @rating_period = @tournament.current_rating_period
     end
 
     it "wont match users who are unrelated" do
@@ -62,7 +69,7 @@ describe Tournament do
     end
 
     it "must match users who are rated" do
-      create(:glicko2_rating, :tournament => @tournament, :user => @user)
+      create(:rating, :rating_period => @rating_period, :user => @user)
       Tournament.participant(@user).must_include @tournament
     end
 
@@ -76,9 +83,10 @@ describe Tournament do
     before do
       @user1 = create(:user)
       @user2 = create(:user)
-      @tournament = create(:tournament)
-      @rating1 = create(:glicko2_rating, :user => @user1, :tournament => @tournament)
-      @rating2 = create(:glicko2_rating, :user => @user2, :tournament => @tournament)
+      @tournament = create(:started_tournament)
+      @rating_period = @tournament.current_rating_period
+      @rating1 = create(:rating, :user => @user1, :rating_period => @rating_period)
+      @rating2 = create(:rating, :user => @user2, :rating_period => @rating_period)
     end
 
     it "must match when rated" do
@@ -103,9 +111,10 @@ describe Tournament do
 
   describe "#has_user?" do
     before do
-      @tournament = create(:tournament)
+      @tournament = create(:started_tournament)
+      @rating_period = @tournament.current_rating_period
       @users = create_list(:user, 2)
-      @rating = create(:glicko2_rating, :user => @users.first, :tournament => @tournament)
+      @rating = create(:rating, :user => @users.first, :rating_period => @rating_period)
     end
 
     it "must match users who are participating" do
