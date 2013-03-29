@@ -14,8 +14,8 @@ jQuery ->
         tickFormatter: percentageFormatter
       },
       xaxis: {
-        min: 1000.0,
-        max: 1000.0
+        min: 500.0,
+        max: 3000.0
       }
     }
     plot_data = $.map(data, (rating, i) ->
