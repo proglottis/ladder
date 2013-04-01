@@ -15,12 +15,6 @@ describe Tournament do
       @tournament = create(:tournament)
     end
 
-    it "must destroy descendant glicko2 ratings" do
-      create(:glicko2_rating, :tournament => @tournament)
-      @tournament.destroy
-      Glicko2Rating.where(:tournament_id => @tournament.id).count.must_equal 0
-    end
-
     it "must destroy descendant rating periods" do
       create(:rating_period, :tournament => @tournament)
       @tournament.destroy

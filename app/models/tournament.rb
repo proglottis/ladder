@@ -3,7 +3,6 @@ class Tournament < ActiveRecord::Base
 
   belongs_to :owner, :class_name => 'User'
 
-  has_many :glicko2_ratings, :dependent => :destroy
   has_many :invites, :dependent => :destroy
   has_many :games, :dependent => :destroy
   has_many :challenges, :dependent => :destroy

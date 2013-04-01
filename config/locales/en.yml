@@ -132,7 +132,6 @@ en:
 
   activerecord:
     models:
-      glicko2_rating: Rating
       user: Player
       game_rank: Place
     attributes:
