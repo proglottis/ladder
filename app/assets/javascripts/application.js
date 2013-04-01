@@ -14,7 +14,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require jquery.flot
-//= require jquery.flot.resize
-//= require jstat-1.0.0
 //= require_tree .

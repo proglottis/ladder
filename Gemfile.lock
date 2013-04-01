@@ -75,8 +75,6 @@ GEM
     faraday (0.8.7)
       multipart-post (~> 1.1)
     ffi (1.6.0)
-    flot-rails (0.0.2)
-      jquery-rails
     glicko2 (0.1.2)
     hashie (1.2.0)
     highline (1.6.16)
@@ -228,7 +226,6 @@ DEPENDENCIES
   debugger
   exception_notification
   factory_girl_rails (~> 4.0)
-  flot-rails
   glicko2
   jquery-rails
   kaminari
