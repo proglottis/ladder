@@ -50,6 +50,10 @@ class Rating < ActiveRecord::Base
     read_attribute(:position).try(:to_i)
   end
 
+  def period_at
+    (read_attribute(:period_at) || rating_period.period_at).to_time
+  end
+
   def defending_challenge?
     if has_attribute? :defending_challenge_id
       read_attribute(:defending_challenge_id).present?

@@ -9,7 +9,8 @@ class ProfilesController < ApplicationController
 
   def history
     @tournament = Tournament.with_rated_user(current_user, @user).find(params[:tournament_id])
-    @series = [current_user, @user].map do |user|
+    @users = current_user == @user ? [current_user] : [current_user, @user]
+    @series = @users.map do |user|
       {
         :name => user.name,
         :data => @tournament.ratings.where(:user_id => user).joins(:rating_period).order('rating_periods.period_at').select('ratings.*, rating_periods.period_at')
