@@ -42,6 +42,7 @@ gem 'glicko2'
 gem 'whenever', :require => false
 gem 'exception_notification'
 gem 'redcarpet'
+gem 'rickshaw_rails'
 
 group :test, :development do
   gem 'minitest-rails'

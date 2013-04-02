@@ -1,0 +1,13 @@
+.tournament.plot {
+  position: relative;
+  display: inline-block;
+}
+
+.tournament.plot .chart {
+  float: left;
+}
+
+.tournament.plot .y_axis {
+  float: left;
+  width: 40px;
+}

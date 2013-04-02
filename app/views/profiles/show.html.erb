@@ -33,7 +33,11 @@
           </div>
         <% end %>
       </div>
-      <%= div_for tournament, :class => "plot", :style => "height:100px;", :'data-ratings' => tournament.current_rating_period.ratings.includes(:user).where(:user_id => [current_user.id, @user.id]).map {|rating| {:rating => rating.rating, :rating_deviation => rating.rating_deviation, :user_name => rating.user.name}}.to_json do %><% end %>
+      <%= div_for tournament, :class => "plot", :'data-url' => history_profile_path(@user, :tournament_id => tournament, :format => 'json') do %>
+        <div class="y_axis"></div>
+        <div class="chart"></div>
+        <div class="legend"></div>
+      <% end %>
     <% end %>
   </div>
 </div>

@@ -19,7 +19,11 @@ Ladder::Application.routes.draw do
 
   resource :home, :only => [:show]
 
-  resources :profiles, :only => [:show]
+  resources :profiles do
+    member do
+      get :history
+    end
+  end
   resources :tournaments do
     member do
       get :information
