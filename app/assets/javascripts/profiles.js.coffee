@@ -10,6 +10,7 @@ $('.tournament.plot').each (index, element) ->
     height: 100
     min: 800
     renderer: 'line'
+    interpolation: 'linear'
     dataURL: container.data('url')
     onData: (d) ->
       for series in d
