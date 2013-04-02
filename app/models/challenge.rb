@@ -7,6 +7,7 @@ class Challenge < ActiveRecord::Base
   before_validation :generate_expires_at
 
   validate :not_already_challenged
+  validate :not_self
 
   attr_accessor :response
 
@@ -64,6 +65,12 @@ class Challenge < ActiveRecord::Base
   def not_already_challenged
     if self.class.active.defending(defender).where(:tournament_id => tournament_id).length > 0
       errors.add(:defender, 'already challenged')
+    end
+  end
+
+  def not_self
+    if defender_id == challenger_id
+      errors.add(:defender, 'is challenger')
     end
   end
 end

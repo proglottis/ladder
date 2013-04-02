@@ -14,6 +14,11 @@ describe Challenge do
       @challenge.errors.size.must_equal 1
     end
 
+    it "wont allow defender to be the same as the challenger" do
+      @challenge = @tournament.challenges.create(:defender => @defender, :challenger => @defender)
+      @challenge.errors.size.must_equal 1
+    end
+
     it "must generate expiry when blank" do
       @challenge = build(:challenge)
       @challenge.expires_at = nil
@@ -102,9 +107,6 @@ describe Challenge do
       ActionMailer::Base.deliveries.length.must_equal 1
       email = ActionMailer::Base.deliveries.first
       email.to.must_equal [@challenge.challenger.email]
-    end
-
-    it "does something" do
     end
   end
 end
