@@ -1,6 +1,6 @@
 <% content_for :title do %><%= @user.name %> - <%= t 'application.name' %><% end %>
 <div class="page-header">
-  <h1><%= gravatar_image_tag @user.email, 64 %> <%= @user.name %></h1>
+  <h1><%= profile_tag @user, 64 %></h1>
 </div>
 
 <div class="row">

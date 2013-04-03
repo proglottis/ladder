@@ -1,7 +1,7 @@
 module ProfilesHelper
-  def profile_tag(user)
+  def profile_tag(user, size = 16)
     content_tag :span do
-      gravatar_image_tag(user.email) + ' ' + user.name
+      gravatar_image_tag(user.email, size) + ' ' + user.name
     end
   end
 

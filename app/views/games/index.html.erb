@@ -1,6 +1,6 @@
 <% content_for :title do %><%= Game.model_name.human.pluralize %> - <%= t 'application.name' %><% end %>
 <div class="page-header">
-  <h1><%= gravatar_image_tag current_user.email, 64 %> <%= current_user.name %></h1>
+  <h1><%= profile_tag current_user, 64 %></h1>
 </div>
 
 <ul class="nav nav-tabs">
