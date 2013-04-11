@@ -1,10 +1,16 @@
 <div class="page-header">
-  <h1>News Feed</h1>
+  <h1><i class="icon-user"></i> User</h1>
 </div>
 
+<ul class="nav nav-tabs">
+  <li class="active">{{#linkTo "index"}}News Feed{{/linkTo}}</li>
+</ul>
+
 <div class="row">
-  <div class="span8"></div>
-  <div class="span4">
+  <div class="span7">
+    {{render "games"}}
+  </div>
+  <div class="span5">
     {{render "tournaments"}}
   </div>
 </div>

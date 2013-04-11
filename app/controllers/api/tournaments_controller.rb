@@ -1,5 +1,4 @@
 class Api::TournamentsController < Api::BaseController
-  respond_to :json
   before_filter :authenticate_user!
 
   def index

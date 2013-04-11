@@ -3,6 +3,7 @@ Ladder::Application.routes.draw do
 
   namespace :api do
     resources :tournaments
+    resources :games
   end
 
   # The priority is based upon order of creation:
