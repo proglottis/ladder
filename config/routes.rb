@@ -1,6 +1,10 @@
 Ladder::Application.routes.draw do
   root :to => 'static#index'
 
+  namespace :api do
+    resources :tournaments
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

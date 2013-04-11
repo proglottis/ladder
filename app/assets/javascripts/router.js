@@ -1,3 +1,0 @@
-Ladder.Router.map(function() {
-
-});
