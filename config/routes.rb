@@ -1,46 +1,5 @@
 Ladder::Application.routes.draw do
-  match '/404', :to => 'errors#not_found'
-  match '/500', :to => 'errors#internal_server_error'
-
-  authenticated_constraint = lambda do |request|
-    request.env['rack.session'][:user_id].present?
-  end
-
-  constraints(authenticated_constraint) do
-    root :to => 'tournaments#index'
-  end
-  root :to => 'homes#show'
-
-  get 'auth/:service/callback' => 'sessions#callback'
-  post 'auth/:service/callback' => 'sessions#callback'
-  get 'auth/failure' => 'sessions#failure'
-  get 'logout' => 'sessions#destroy'
-  resource :session, :only => [:show, :create, :destroy]
-
-  resource :home, :only => [:show]
-
-  resources :profiles do
-    member do
-      get :history
-    end
-  end
-  resources :tournaments do
-    member do
-      get :information
-      post :join
-    end
-    scope :module => "tournaments" do
-      resources :invites, :only => [:show, :new, :create, :update]
-    end
-    get 'games/:id' => redirect('/games/%{id}')
-  end
-  resource :setting, :path => 'settings'
-  resources :challenges
-  resources :games do
-    member do
-      post :confirm
-    end
-  end
+  root :to => 'static#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
