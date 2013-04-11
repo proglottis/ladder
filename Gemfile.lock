@@ -14,6 +14,8 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active_model_serializers (0.6.0)
+      activemodel (>= 3.0)
     activemodel (3.2.13)
       activesupport (= 3.2.13)
       builder (~> 3.0.0)
@@ -29,6 +31,10 @@ GEM
       i18n (= 0.6.1)
       multi_json (~> 1.0)
     arel (3.0.2)
+    barber (0.4.1)
+      ember-source
+      execjs
+      handlebars-source
     builder (3.0.4)
     capistrano (2.14.2)
       highline
@@ -62,6 +68,17 @@ GEM
       debugger-ruby_core_source (~> 1.2.0)
     debugger-linecache (1.2.0)
     debugger-ruby_core_source (1.2.0)
+    ember-data-source (0.0.5)
+      ember-source
+    ember-rails (0.11.1)
+      active_model_serializers
+      barber (>= 0.4.1)
+      ember-data-source
+      ember-source
+      execjs (>= 1.2)
+      railties (>= 3.1)
+    ember-source (0.0.1)
+      handlebars-source (>= 1.0.0.rc3, < 1.0.0.rc4)
     erubis (2.7.0)
     exception_notification (3.0.1)
       actionmailer (>= 3.0.4)
@@ -76,6 +93,7 @@ GEM
       multipart-post (~> 1.1)
     ffi (1.6.0)
     glicko2 (0.1.2)
+    handlebars-source (1.0.0.rc3)
     hashie (1.2.0)
     highline (1.6.16)
     hike (1.2.1)
@@ -226,6 +244,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   dalli
   debugger
+  ember-rails
   exception_notification
   factory_girl_rails (~> 4.0)
   glicko2

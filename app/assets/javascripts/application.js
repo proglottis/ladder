@@ -15,4 +15,9 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require rickshaw_with_d3
-//= require_tree .
+//= require handlebars
+//= require ember
+//= require ember-data
+//= require_self
+//= require ladder
+Ladder = Ember.Application.create();

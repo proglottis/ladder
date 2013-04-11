@@ -43,6 +43,7 @@ gem 'whenever', :require => false
 gem 'exception_notification'
 gem 'redcarpet'
 gem 'rickshaw_rails'
+gem 'ember-rails'
 
 group :test, :development do
   gem 'minitest-rails'
