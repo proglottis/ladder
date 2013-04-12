@@ -19,7 +19,7 @@
     <%= javascript_include_tag "application" %>
     <%= stylesheet_link_tag "application", :media => "all" %>
   </head>
-  <body>
+  <body data-current-user="<%= json current_user %>">
     <%= yield %>
   </body>
 </html>

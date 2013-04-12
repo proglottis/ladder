@@ -23,4 +23,8 @@ module ApplicationHelper
     opts = { :fenced_code_blocks => true }
     Redcarpet::Markdown.new(MarkdownHTML, opts).render(text).html_safe
   end
+
+  def json(target)
+    target.active_model_serializer.new(target, :root => false).to_json
+  end
 end
