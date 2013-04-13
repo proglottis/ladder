@@ -1,6 +1,6 @@
 {{#each game in controller}}
   <div class="media">
-    <a href="#" class="pull-left"><img {{bindAttr src="game.imageUrl"}}/></a>
+    <a href="#" class="pull-left">{{largeImage game.imageUrl}}</a>
     <div class="media-body">
       <h4 class="media-heading"><a href="#">{{game.versus}}</a></h4>
       {{#if game.confirmedAt}}
