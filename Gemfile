@@ -44,6 +44,7 @@ gem 'exception_notification'
 gem 'redcarpet'
 gem 'rickshaw_rails'
 gem 'ember-rails'
+gem 'momentjs-rails'
 
 group :test, :development do
   gem 'minitest-rails'

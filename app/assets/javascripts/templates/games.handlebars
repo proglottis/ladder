@@ -4,9 +4,9 @@
     <div class="media-body">
       <h4 class="media-heading"><a href="#">{{game.versus}}</a></h4>
       {{#if game.confirmedAt}}
-        Confirmed game for {{#linkTo "tournament" game.tournament}}{{game.tournament.name}}{{/linkTo}} on {{game.createdAt}}.
+        Confirmed game for {{#linkTo "tournament" game.tournament}}{{game.tournament.name}}{{/linkTo}} on {{date game.createdAt}}.
       {{else}}
-        Unconfirmed game for {{#linkTo "tournament" game.tournament}}{{game.tournament.name}}{{/linkTo}} on {{game.createdAt}}.
+        Unconfirmed game for {{#linkTo "tournament" game.tournament}}{{game.tournament.name}}{{/linkTo}} on {{date game.createdAt}}.
       {{/if}}
     </div>
   </div>

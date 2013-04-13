@@ -137,6 +137,8 @@ GEM
       minitest-matchers (~> 1.2)
       minitest-metadata (~> 0.3)
       minitest-rails (~> 0.9.1)
+    momentjs-rails (2.0.0.1)
+      railties (>= 3.1)
     multi_json (1.7.2)
     multipart-post (1.2.0)
     net-scp (1.1.0)
@@ -253,6 +255,7 @@ DEPENDENCIES
   less-rails
   minitest-rails
   minitest-rails-capybara
+  momentjs-rails
   omniauth
   omniauth-google-oauth2
   pg
