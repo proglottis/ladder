@@ -1,4 +1,5 @@
 Ladder.Router.map ->
+  @route('tournaments.new', { path: '/tournaments/new' })
   @resource('tournament', { path: '/tournaments/:tournament_id' }, ->
     @resource('ratings')
   )

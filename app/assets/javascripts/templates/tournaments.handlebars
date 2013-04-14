@@ -1,5 +1,6 @@
 <h2>Tournaments</h2>
 <ul class="nav nav-tabs nav-stacked">
+  <li>{{#linkTo "tournaments.new"}}<i class="icon-magic"></i> Start Tournament{{/linkTo}}</li>
   {{#each tournament in controller}}
     <li>{{#linkTo "tournament" tournament}}<i class="icon-list"></i> {{tournament.name}}{{/linkTo}}</li>
   {{/each}}

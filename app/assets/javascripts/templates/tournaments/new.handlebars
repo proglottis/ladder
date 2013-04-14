@@ -1,0 +1,18 @@
+<div class="page-header">
+  <h1>Start tournament</h1>
+</div>
+
+<form class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label" for="tournament_name">Name</label>
+    <div class="controls">
+      {{view Ember.TextField valueBinding="name" placeholder="Name"}}
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <input type="submit" value="Start tournament" class="btn btn-primary" {{action "create"}} />
+      {{#linkTo "index" class="btn"}}Cancel{{/linkTo}}
+    </div>
+  </div>
+</form>
