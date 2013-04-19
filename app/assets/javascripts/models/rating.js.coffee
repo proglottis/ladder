@@ -1,4 +1,4 @@
 Ladder.Rating = DS.Model.extend
-  tournament: DS.belongsTo('Ladder.Tournament')
+  ratingPeriod: DS.belongsTo('Ladder.RatingPeriod')
   user: DS.belongsTo('Ladder.User')
   lowRank: DS.attr('number')

@@ -2,7 +2,7 @@ Ladder::Application.routes.draw do
   root :to => 'static#index'
 
   resources :tournaments
-  resources :ratings
+  resources :rating_periods
   resources :games
   resources :users
 

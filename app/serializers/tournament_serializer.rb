@@ -1,7 +1,7 @@
 class TournamentSerializer < ActiveModel::Serializer
-  attributes :id, :name, :created_at, :updated_at, :rating_ids
+  attributes :id, :name, :created_at, :updated_at, :current_rating_period_id
 
-  def rating_ids
-    object.current_rating_period.ratings.pluck(:id)
+  def current_rating_period_id
+    object.current_rating_period.id
   end
 end
