@@ -24,3 +24,6 @@ Ladder.TournamentIndexRoute = Ember.Route.extend
 Ladder.RatingsRoute = Ember.Route.extend
   model: ->
     @modelFor("tournament").get("currentRatingPeriod.ratings")
+
+  setupController: ->
+    @controllerFor('ratingPeriod').set('model', @modelFor("tournament").get("currentRatingPeriod"))
