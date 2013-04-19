@@ -9,6 +9,14 @@ Ladder.IndexRoute = Ember.Route.extend
     @controllerFor('tournaments').set('model', Ladder.Tournament.find())
     @controllerFor('games').set('model', Ladder.Game.find())
 
+Ladder.TournamentsNewRoute = Ember.Route.extend
+  model: ->
+    transaction = @get('store').transaction()
+    transaction.createRecord(Ladder.Tournament, {})
+
+  deactivate: ->
+    @modelFor("tournaments.new").get("transaction").rollback()
+
 Ladder.TournamentIndexRoute = Ember.Route.extend
   redirect: ->
     @transitionTo('ratings')

@@ -1,6 +1,9 @@
 Ladder.TournamentsNewController = Ember.Controller.extend
   create: ->
-    tournament = Ladder.Tournament.createRecord
-      name: @get('name')
-    @get('store').commit()
+    @get('model.transaction').commit()
     false
+
+  transitionAfterCreate: (->
+    if @get('model.id')
+      @transitionToRoute('tournament', @get('model'))
+  ).observes('model.id')
