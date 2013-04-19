@@ -10,12 +10,22 @@
     </tr>
   </thead>
   <tbody>
-    {{#each controller}}
+    {{#each controller.byRank}}
       <tr>
-        <td></td>
+        <td>{{rank}}</td>
         <td>{{image user.imageUrl}} {{user.name}}</td>
         <td>{{lowRank}}</td>
-        <td></td>
+        <td>
+          {{#unless isCurrentUser}}
+            <div class="btn-group">
+              <a href="#" class="btn">Challenge</a>
+              <a href="#" class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Log a game</a></li>
+              </ul>
+            </div>
+          {{/unless}}
+        </td>
       </tr>
     {{/each}}
   <tbody>
