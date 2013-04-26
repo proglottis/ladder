@@ -1,8 +1,8 @@
 {{#each game in controller}}
   <div class="media">
-    <a href="#" class="pull-left">{{largeImage game.imageUrl}}</a>
+    {{#linkTo 'game' game class="pull-left"}}{{largeImage game.imageUrl}}{{/linkTo}}
     <div class="media-body">
-      <h4 class="media-heading"><a href="#">{{game.versus}}</a></h4>
+      <h4 class="media-heading">{{#linkTo 'game' game}}{{game.versus}}{{/linkTo}}</h4>
       {{#if game.confirmedAt}}
         Confirmed game for {{#linkTo "tournament" game.tournament}}{{game.tournament.name}}{{/linkTo}} on {{date game.createdAt}}.
       {{else}}

@@ -1,0 +1,24 @@
+<table class="table table-bordered table-condensed">
+  <thead>
+    <tr>
+      <th>Player</th>
+      <th>Place</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each controller}}
+      <tr>
+        <td>{{image user.imageUrl}} {{user.name}}</td>
+        <td>{{position}}</td>
+        <td>
+          {{#if confirmedAt}}
+            Confirmed, {{fromNow confirmedAt}}
+          {{else}}
+            Unconfirmed
+          {{/if}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>

@@ -3,6 +3,7 @@ Ladder.Router.map ->
   @resource('tournament', { path: '/tournaments/:tournament_id' }, ->
     @resource('ratings')
   )
+  @resource('game', { path: '/games/:game_id' })
 
 Ladder.IndexRoute = Ember.Route.extend
   setupController: ->
@@ -27,3 +28,7 @@ Ladder.RatingsRoute = Ember.Route.extend
 
   setupController: ->
     @controllerFor('ratingPeriod').set('model', @modelFor("tournament").get("currentRatingPeriod"))
+
+Ladder.GameRoute = Ember.Route.extend
+  setupController: ->
+    @controllerFor('gameRanks').set('model', @get('model.gameRanks'))

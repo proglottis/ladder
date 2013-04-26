@@ -5,4 +5,8 @@ class GamesController < ApplicationController
   def index
     respond_with Game.with_participant(current_user).order('games.updated_at DESC').page(params[:page]).per(10)
   end
+
+  def show
+    respond_with Game.with_participant(current_user).find(params[:id])
+  end
 end
