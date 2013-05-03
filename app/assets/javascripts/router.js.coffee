@@ -1,7 +1,8 @@
 Ladder.Router.map ->
   @route('tournaments.new', { path: '/tournaments/new' })
   @resource('tournament', { path: '/tournaments/:tournament_id' }, ->
-    @resource('ratings')
+    @route('ratings')
+    @route('information')
   )
   @resource('game', { path: '/games/:game_id' })
 
@@ -20,14 +21,18 @@ Ladder.TournamentsNewRoute = Ember.Route.extend
 
 Ladder.TournamentIndexRoute = Ember.Route.extend
   redirect: ->
-    @transitionTo('ratings')
+    @transitionTo('tournament.ratings')
 
-Ladder.RatingsRoute = Ember.Route.extend
+Ladder.TournamentRatingsRoute = Ember.Route.extend
   model: ->
     @modelFor("tournament").get("currentRatingPeriod.ratings")
 
   setupController: ->
     @controllerFor('ratingPeriod').set('model', @modelFor("tournament").get("currentRatingPeriod"))
+
+Ladder.TournamentInformationRoute = Ember.Route.extend
+  model: ->
+    @modelFor("tournament").get("page")
 
 Ladder.GameRoute = Ember.Route.extend
   setupController: ->

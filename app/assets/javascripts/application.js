@@ -16,6 +16,7 @@
 //= require twitter/bootstrap
 //= require rickshaw_with_d3
 //= require moment
+//= require showdown
 //= require handlebars
 //= require ember
 //= require ember-data

@@ -3,7 +3,10 @@
 </div>
 
 <ul class="nav nav-tabs">
-  <li class="active">{{#linkTo "tournament" this}}Ladder{{/linkTo}}</li>
+  <li class="active">{{#linkTo "tournament.ratings" this}}Ladder{{/linkTo}}</li>
+  {{#if page.id}}
+    <li>{{#linkTo "tournament.information" this}}Information{{/linkTo}}</li>
+  {{/if}}
 </ul>
 
 {{outlet}}

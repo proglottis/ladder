@@ -46,6 +46,7 @@ gem 'rickshaw_rails'
 gem 'active_model_serializers', '~> 0.7.0'
 gem 'ember-rails'
 gem 'momentjs-rails'
+gem 'showdown-rails'
 
 group :test, :development do
   gem 'minitest-rails'

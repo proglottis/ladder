@@ -1,4 +1,4 @@
-Ladder.RatingsController = Ember.ArrayController.extend
+Ladder.TournamentRatingsController = Ember.ArrayController.extend
   needs: 'ratingPeriod'
   itemController: 'rating'
   sortProperties: ['lowRank']
