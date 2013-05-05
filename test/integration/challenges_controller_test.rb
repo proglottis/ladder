@@ -39,13 +39,13 @@ describe "ChallengesController Integration Test" do
 
     it "must show response page" do
       visit challenge_path(@challenge)
-      must_have_button I18n.t('helpers.submit.challenge.update')
+      must_have_button I18n.t('challenges.show.respond')
     end
 
     it "must respond" do
       visit challenge_path(@challenge)
       choose I18n.t('challenges.show.won')
-      click_button I18n.t('helpers.submit.challenge.update')
+      click_button I18n.t('challenges.show.respond')
       must_have_content I18n.t('games.show.unconfirmed')
       @challenge.reload.game.wont_equal nil
     end
@@ -53,7 +53,7 @@ describe "ChallengesController Integration Test" do
     it "must send confirm game email" do
       visit challenge_path(@challenge)
       choose I18n.t('challenges.show.won')
-      click_button I18n.t('helpers.submit.challenge.update')
+      click_button I18n.t('challenges.show.respond')
       ActionMailer::Base.deliveries.length.must_equal 1
       email = ActionMailer::Base.deliveries.first
       email.to.must_equal [@user2.email]

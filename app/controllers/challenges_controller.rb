@@ -14,10 +14,11 @@ class ChallengesController < ApplicationController
   def show
     @challenge = Challenge.find(params[:id])
     @tournament = Tournament.participant(current_user).find(@challenge.tournament_id)
+    @comments = @challenge.comments
   end
 
   def create
-    @challenge = @tournament.challenges.build(params.require(:challenge).permit(:message))
+    @challenge = @tournament.challenges.build
     @challenge.challenger = current_user
     @challenge.defender = @defender
     if @challenge.save
@@ -30,9 +31,12 @@ class ChallengesController < ApplicationController
 
   def update
     @challenge = Challenge.active.find(params[:id])
+    @challenge.attributes = params.require(:challenge).permit(:response, :comment)
     @tournament = Tournament.participant(current_user).find(@challenge.tournament_id)
-    if @challenge.defender == current_user
-      @challenge.attributes = params.require(:challenge).permit(:response)
+    if @challenge.comment.present?
+      @challenge.comments.create!(:user => current_user, :content => @challenge.comment)
+    end
+    if params.has_key?(:respond) && @challenge.defender == current_user
       @challenge.respond!
       redirect_to game_path(@challenge.game)
     else

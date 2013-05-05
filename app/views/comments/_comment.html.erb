@@ -1,0 +1,9 @@
+<div class="media">
+  <%= link_to profile_path(comment.user), :class => 'pull-left' do %>
+    <%= gravatar_image_tag comment.user.email, 64 %>
+  <% end %>
+  <div class="media-body">
+    <h4><%= link_to comment.user.name, profile_path(comment.user) %> <small><%= time_ago_in_words comment.created_at %> ago</small></h4>
+    <p><%= markdown comment.content %></p>
+  </div>
+</div>

@@ -105,6 +105,7 @@ en:
       responded: "%{defender} has responded to this challenge."
       won: I won
       lost: I lost
+      respond: Respond
 
   notifications:
     tournament_invitation:
@@ -149,7 +150,7 @@ en:
       tournament:
         create: Start tournament
       challenge:
-        update: Respond
+        update: Comment
       game:
         update: Comment
 

@@ -4,12 +4,14 @@ class Challenge < ActiveRecord::Base
   belongs_to :defender, :class_name => 'User'
   belongs_to :game
 
+  has_many :comments, :as => :commentable, :dependent => :destroy, :order => 'created_at DESC'
+
   before_validation :generate_expires_at
 
   validate :not_already_challenged
   validate :not_self
 
-  attr_accessor :response
+  attr_accessor :response, :comment
 
   def self.active
     where(:game_id => nil)

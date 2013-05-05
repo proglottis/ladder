@@ -26,15 +26,6 @@
       <% end%>
     </div>
   </div>
-  <div class="control-group<%= " error" if @challenge.errors[:message].any? %>">
-    <%= f.label :message, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :message, :rows => 3 %>
-      <% if @challenge.errors[:message].any? %>
-        <span class="help-inline"><%= @challenge.errors[:message].to_sentence %></span>
-      <% end%>
-    </div>
-  </div>
   <div class="control-group">
     <div class="controls">
       <%= f.submit :class => 'btn btn-primary' %>
