@@ -47,7 +47,6 @@ FactoryGirl.define do
     tournament
     challenger
     defender
-    message 'The message'
     expires_at { 1.day.from_now }
   end
 
