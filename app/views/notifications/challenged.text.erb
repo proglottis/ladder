@@ -1,12 +1,4 @@
-<% if @challenge.message.present? %>
-<%= t '.challenged_with_message', :challenger => @challenger.name, :tournament => @tournament.name %>
-
-===
-<%= @challenge.message %>
-===
-<% else %>
 <%= t '.challenged', :challenger => @challenger.name, :tournament => @tournament.name %>
-<% end %>
 
 <%= t '.rules' %>
 

@@ -121,7 +121,6 @@ en:
     challenged:
       subject: You have been challenged
       challenged: "%{challenger} has challenged you on %{tournament}."
-      challenged_with_message: "%{challenger} has challenged you on %{tournament}:"
       rules: "Failure to respond within 7 days will result in losing by default. Once you have played your game, follow the link to log your response:"
 
   layouts:

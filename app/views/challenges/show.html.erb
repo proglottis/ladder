@@ -8,13 +8,6 @@
   <dd><%= link_to @tournament.name, tournament_path(@tournament) %></dd>
 </dl>
 
-<% if @challenge.message.present? %>
-  <blockquote>
-    <%= simple_format @challenge.message %>
-    <small><%= profile_link_tag @challenge.challenger %></small>
-  </blockquote>
-<% end %>
-
 <% if @challenge.active? %>
   <p><%= raw t '.rules', :time => time_tag(@challenge.processed_at), :defender => profile_link_tag(@challenge.defender) %></p>
 <% else %>
