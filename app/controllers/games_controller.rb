@@ -33,19 +33,24 @@ class GamesController < ApplicationController
     @tournament = @game.tournament
     @game_ranks = @game.game_ranks.includes(:user)
     @current_game_rank = @game_ranks.detect {|game_rank| game_rank.user_id == current_user.id }
+    @comments = @game.comments
   end
 
-  def confirm
+  def update
     @game = Game.with_participant(current_user).readonly(false).find(params[:id])
-    if @game.confirm_user(current_user)
-      @game.game_ranks.each do |game_rank|
-        if game_rank.user != current_user && game_rank.user.game_confirmed_email?
-          Notifications.game_confirmed(game_rank.user, @game).deliver
+    @game.attributes = params.require(:game).permit(:comment)
+    if @game.comment.present?
+      @game.comments.create!(:user => current_user, :content => @game.comment)
+    end
+    if params.has_key?(:confirm)
+      if @game.confirm_user(current_user)
+        @game.game_ranks.each do |game_rank|
+          if game_rank.user != current_user && game_rank.user.game_confirmed_email?
+            Notifications.game_confirmed(game_rank.user, @game).deliver
+          end
         end
       end
-      redirect_to games_path
-    else
-      redirect_to game_path(@game)
     end
+    redirect_to game_path(@game)
   end
 end

@@ -40,7 +40,7 @@ describe "GamesController Integration Test" do
 
     it "must be confirmed" do
       visit game_path @game
-      click_link I18n.t('games.show.confirm')
+      click_button I18n.t('games.show.confirm')
       must_have_content I18n.t('games.show.confirmed', :time => 'less than a minute')
     end
 
@@ -48,14 +48,14 @@ describe "GamesController Integration Test" do
       it "must update game on final confirmation" do
         @game_rank2.confirm
         visit game_path @game
-        click_link I18n.t('games.show.confirm')
+        click_button I18n.t('games.show.confirm')
         @game.reload.confirmed?.must_equal true
       end
 
       it "must send game confirmed email to other users" do
         @game_rank2.confirm
         visit game_path @game
-        click_link I18n.t('games.show.confirm')
+        click_button I18n.t('games.show.confirm')
         ActionMailer::Base.deliveries.length.must_equal 1
         email = ActionMailer::Base.deliveries.first
         email.to.must_equal [@user2.email]

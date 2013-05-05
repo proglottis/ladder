@@ -150,6 +150,8 @@ en:
         create: Start tournament
       challenge:
         update: Respond
+      game:
+        update: Comment
 
   support:
     array:

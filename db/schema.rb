@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130401014528) do
+ActiveRecord::Schema.define(:version => 20130505091057) do
 
   create_table "challenges", :force => true do |t|
     t.integer  "tournament_id", :null => false
@@ -28,6 +28,18 @@ ActiveRecord::Schema.define(:version => 20130401014528) do
   add_index "challenges", ["defender_id"], :name => "index_challenges_on_defender_id"
   add_index "challenges", ["game_id"], :name => "index_challenges_on_game_id"
   add_index "challenges", ["tournament_id"], :name => "index_challenges_on_tournament_id"
+
+  create_table "comments", :force => true do |t|
+    t.integer  "commentable_id",   :null => false
+    t.string   "commentable_type", :null => false
+    t.text     "content",          :null => false
+    t.integer  "user_id",          :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
+  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
 
   create_table "game_ranks", :force => true do |t|
     t.integer  "game_id",      :null => false
