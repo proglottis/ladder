@@ -27,9 +27,13 @@
     </div>
   </div>
   <div class="control-group">
+    <%= f.label :comment, :class => 'control-label' %>
     <div class="controls">
-      <%= f.submit :class => 'btn btn-primary' %>
-      <%= cancel_link :back %>
+      <%= f.text_area :comment, :rows => 2, :maxlength => Comment::MAX_LENGTH, :class => 'input-block-level', :placeholder => Comment.model_name.human %>
     </div>
+  </div>
+  <div class="form-actions">
+    <%= f.submit :class => 'btn btn-primary' %>
+    <%= cancel_link :back %>
   </div>
 <% end %>

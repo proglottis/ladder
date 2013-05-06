@@ -18,10 +18,13 @@ class ChallengesController < ApplicationController
   end
 
   def create
-    @challenge = @tournament.challenges.build
+    @challenge = @tournament.challenges.build params.require(:challenge).permit(:comment)
     @challenge.challenger = current_user
     @challenge.defender = @defender
     if @challenge.save
+      if @challenge.comment.present?
+        @challenge.comments.create!(:user => current_user, :content => @challenge.comment)
+      end
       Notifications.challenged(@challenge).deliver
       redirect_to challenge_path(@challenge)
     else
