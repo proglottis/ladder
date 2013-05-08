@@ -16,7 +16,7 @@
 
   <ul class="nav nav-tabs">
     <li class="<%='active' if ['tournaments'].include?(controller_name) && params['action'] == 'show' %>"><%= link_to t('tournaments.show.title'), tournament_path(@tournament) %></li>
-    <% if @tournament.page.present? %>
+    <% if @tournament.page.present? && @tournament.page.persisted? %>
       <li class="<%='active' if ['tournaments'].include?(controller_name) && params['action'] == 'information' %>"><%= link_to t('tournaments.information.title'), information_tournament_path(@tournament) %></li>
     <% end %>
     <% if @tournament.has_user? current_user %>
