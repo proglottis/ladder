@@ -36,6 +36,7 @@ class GamesController < ApplicationController
     @tournament = @game.tournament
     @game_ranks = @game.game_ranks.includes(:user)
     @current_game_rank = @game_ranks.detect {|game_rank| game_rank.user_id == current_user.id }
+    @challenge = @game.challenge
     @comments = @game.comments
   end
 
