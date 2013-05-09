@@ -33,9 +33,6 @@ class TournamentsController < ApplicationController
 
   def information
     @page = @tournament.page
-    if @page.nil?
-      redirect_to tournament_path(@tournament)
-    end
   end
 
   def edit

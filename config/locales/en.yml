@@ -69,6 +69,7 @@ en:
       rank: Rank
     information:
       title: Information
+      no_information: No information.
     edit:
       title: Edit
 

@@ -24,4 +24,8 @@ module ApplicationHelper
     render_opts = { :filter_html => true, :no_styles => true, :safe_links_only => true }
     Redcarpet::Markdown.new(MarkdownHTML.new(render_opts), extensions).render(text).html_safe
   end
+
+  def render_single(model)
+    render [model].compact
+  end
 end
