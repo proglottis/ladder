@@ -19,19 +19,7 @@
     <th><%= t '.status' %></th>
   </thead>
   <tbody>
-    <% @game_ranks.each do |game_rank| %>
-      <tr>
-        <td><%= profile_link_tag game_rank.user %></td>
-        <td><%= game_rank.position %></td>
-        <td>
-          <% if game_rank.confirmed? %>
-            <%= t '.confirmed', :time => time_ago_in_words(game_rank.confirmed_at) %>
-          <% else %>
-            <%= t '.unconfirmed' %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
+    <%= render :partial => 'game_rank', :collection => @game_ranks %>
   </tbody>
 </table>
 
@@ -51,4 +39,4 @@
   </div>
 <% end %>
 
-<%= render :partial => 'comments/comment', :collection => @comments %>
+<%= render @comments %>

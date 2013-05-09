@@ -1,0 +1,11 @@
+<tr>
+  <td><%= profile_link_tag game_rank.user %></td>
+  <td><%= game_rank.position %></td>
+  <td>
+    <% if game_rank.confirmed? %>
+      <%= t '.confirmed', :time => time_ago_in_words(game_rank.confirmed_at) %>
+    <% else %>
+      <%= t '.unconfirmed' %>
+    <% end %>
+  </td>
+</tr>
