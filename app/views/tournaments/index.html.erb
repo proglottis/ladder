@@ -35,13 +35,7 @@
           <%= glyph :magic %> <%= t '.start' %>
         <% end %>
       </li>
-      <% @tournaments.each do |tournament| %>
-        <li>
-          <%= link_to tournament_path(tournament) do %>
-            <%= glyph :list %> <%= tournament.name %>
-          <% end %>
-        </li>
-      <% end %>
+      <%= render @tournaments %>
     </ul>
   </div>
 </div>
