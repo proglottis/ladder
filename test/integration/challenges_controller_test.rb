@@ -46,7 +46,7 @@ describe "ChallengesController Integration Test" do
       visit challenge_path(@challenge)
       choose I18n.t('challenges.show.won')
       click_button I18n.t('challenges.show.respond')
-      must_have_content I18n.t('games.show.unconfirmed')
+      must_have_content I18n.t('games.game_rank.unconfirmed')
       @challenge.reload.game.wont_equal nil
     end
 

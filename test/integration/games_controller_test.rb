@@ -18,7 +18,7 @@ describe "GamesController Integration Test" do
       click_button I18n.t('helpers.submit.create')
       must_have_content @rating1.user.name
       must_have_content @rating2.user.name
-      must_have_content I18n.t('games.show.unconfirmed')
+      must_have_content I18n.t('games.game_rank.unconfirmed')
     end
 
     it "must send confirmation email" do
@@ -41,7 +41,7 @@ describe "GamesController Integration Test" do
     it "must be confirmed" do
       visit game_path @game
       click_button I18n.t('games.show.confirm')
-      must_have_content I18n.t('games.show.confirmed', :time => 'less than a minute')
+      must_have_content I18n.t('games.game_rank.confirmed', :time => 'less than a minute')
     end
 
     describe "on final confirmation" do

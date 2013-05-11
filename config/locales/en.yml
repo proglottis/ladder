@@ -90,9 +90,10 @@ en:
       title: New game
     show:
       status: Status
+      confirm: Confirm
+    game_rank:
       confirmed: Confirmed, %{time} ago
       unconfirmed: Unconfirmed
-      confirm: Confirm
 
   challenges:
     index:
