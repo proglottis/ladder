@@ -109,4 +109,30 @@ describe Challenge do
       email.to.must_equal [@challenge.challenger.email]
     end
   end
+
+  describe "#build_default_game" do
+    before do
+      @challenge = create(:challenge)
+      @game = @challenge.build_default_game
+    end
+
+    it "must build a game" do
+      @game.wont_equal nil
+      @game.new_record?.must_equal true
+    end
+
+    it "must build game ranks" do
+      @game.game_ranks.length.must_equal 2
+    end
+
+    it "must build winning rank for challenger" do
+      @game.game_ranks.first.position.must_equal 1
+      @game.game_ranks.first.user.must_equal @challenge.challenger
+    end
+
+    it "must build losing rank for defender" do
+      @game.game_ranks.last.position.must_equal 2
+      @game.game_ranks.last.user.must_equal @challenge.defender
+    end
+  end
 end

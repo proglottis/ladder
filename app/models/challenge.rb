@@ -34,23 +34,12 @@ class Challenge < ActiveRecord::Base
   end
 
   def respond!
-    return if response.blank?
+    return unless ['won', 'lost'].include?(response)
     with_lock do
-      game = Game.new(:tournament => tournament, :owner => challenger)
-      case response
-      when 'won'
-        game.game_ranks.build(:user => defender, :position => 1, :confirmed_at => Time.zone.now)
-        game.game_ranks.build(:user => challenger, :position => 2)
-        game.save!
-        update_attribute(:game, game)
-        Notifications.game_confirmation(challenger, game).deliver
-      when 'lost'
-        game.game_ranks.build(:user => defender, :position => 2, :confirmed_at => Time.zone.now)
-        game.game_ranks.build(:user => challenger, :position => 1)
-        game.save!
-        update_attribute(:game, game)
-        Notifications.game_confirmation(challenger, game).deliver
-      end
+      game = build_response_game(response == 'won')
+      game.save!
+      update_attribute(:game, game)
+      Notifications.game_confirmation(challenger, game).deliver
     end
   end
 
@@ -58,7 +47,27 @@ class Challenge < ActiveRecord::Base
     [challenger.name, defender.name].to_sentence(:two_words_connector => I18n.t('support.array.versus.two_words_connector'))
   end
 
+  def build_default_game
+    time = Time.zone.now
+    game = Game.new(:tournament => tournament, :owner => challenger, :confirmed_at => time)
+    game.game_ranks.build(:user => challenger, :position => 1, :confirmed_at => time)
+    game.game_ranks.build(:user => defender, :position => 2, :confirmed_at => time)
+    game
+  end
+
   private
+
+  def build_response_game(winner)
+    game = Game.new(:tournament => tournament, :owner => challenger)
+    if winner
+      game.game_ranks.build(:user => defender, :position => 1, :confirmed_at => Time.zone.now)
+      game.game_ranks.build(:user => challenger, :position => 2)
+    else
+      game.game_ranks.build(:user => defender, :position => 2, :confirmed_at => Time.zone.now)
+      game.game_ranks.build(:user => challenger, :position => 1)
+    end
+    game
+  end
 
   def generate_expires_at
     self.expires_at = 7.days.from_now

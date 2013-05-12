@@ -19,11 +19,7 @@ class RatingPeriod < ActiveRecord::Base
   def process!
     return unless previous_rating_period
     with_lock do
-      period = Glicko2::RatingPeriod.from_objs(previous_rating_period.ratings)
-      games.each do |game|
-        ratings_for_game = previous_rating_period.ratings.for_game(game)
-        period.game ratings_for_game, ratings_for_game.map(&:position)
-      end
+      period = glicko2_rating_period_with_games
       new_period = period.generate_next
       new_period.players.each do |player|
         player.update_obj
@@ -34,5 +30,16 @@ class RatingPeriod < ActiveRecord::Base
         rating.save!
       end
     end
+  end
+
+  private
+
+  def glicko2_rating_period_with_games
+    period = Glicko2::RatingPeriod.from_objs(previous_rating_period.ratings)
+    games.each do |game|
+      ratings_for_game = previous_rating_period.ratings.for_game(game)
+      period.game ratings_for_game, ratings_for_game.map(&:position)
+    end
+    period
   end
 end
