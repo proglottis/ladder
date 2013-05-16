@@ -11,16 +11,10 @@
 
 <% if @pending.any? %>
   <h2><%= t '.pending' %></h2>
-
-  <ul>
-    <%= render @pending.map(&:game) %>
-  </ul>
+  <%= render @pending.map(&:game) %>
 <% end %>
 
 <% if @unconfirmed.any? %>
   <h2><%= t '.unconfirmed' %></h2>
-
-  <ul>
-    <%= render @unconfirmed %>
-  </ul>
+  <%= render @unconfirmed %>
 <% end %>

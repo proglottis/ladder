@@ -55,8 +55,6 @@ en:
       feed: News Feed
       start: Start tournament
       can_start: You can only start %{count} more
-      unconfirmed: Unconfirmed game for %{tournament} on %{time}.
-      confirmed: Confirmed game for %{tournament} on %{time}.
     new:
       title: Start tournament
     show:
@@ -91,6 +89,9 @@ en:
     show:
       status: Status
       confirm: Confirm
+    game:
+      unconfirmed: Unconfirmed game for %{tournament} on %{time}.
+      confirmed: Confirmed game for %{tournament} on %{time}.
     game_rank:
       confirmed: Confirmed, %{time} ago
       unconfirmed: Unconfirmed

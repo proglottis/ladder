@@ -1,1 +1,13 @@
-<li><%= link_to "#{game.versus}", game_path(game) %> on <%= link_to game.tournament.name, tournament_path(game.tournament) %></li>
+<div class="media">
+  <%= link_to game_path(game), :class => 'pull-left' do %>
+    <%= gravatar_image_tag game.game_ranks[0].user.email, 64 %>
+  <% end %>
+  <div class="media-body">
+    <h4 class="media-heading"><%= link_to game.versus, game_path(game) %></h4>
+    <% if game.confirmed? %>
+      <%= raw t('.confirmed', :tournament => link_to(game.tournament.name, tournament_path(game.tournament_id)), :time => time_tag(game.updated_at)) %>
+    <% else %>
+      <%= raw t('.unconfirmed', :tournament => link_to(game.tournament.name, tournament_path(game.tournament_id)), :time => time_tag(game.updated_at)) %>
+    <% end %>
+  </div>
+</div>
