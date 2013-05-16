@@ -37,7 +37,9 @@ class ChallengesController < ApplicationController
     @challenge.attributes = params.require(:challenge).permit(:response, :comment)
     @tournament = Tournament.participant(current_user).find(@challenge.tournament_id)
     if @challenge.comment.present?
-      @challenge.comments.create!(:user => current_user, :content => @challenge.comment)
+      comment = @challenge.comments.create!(:user => current_user, :content => @challenge.comment)
+      Notifications.commented(@challenge.challenger, comment).deliver unless @challenge.challenger == current_user
+      Notifications.commented(@challenge.defender, comment).deliver unless @challenge.defender == current_user
     end
     if params.has_key?(:respond) && @challenge.defender == current_user
       @challenge.respond!

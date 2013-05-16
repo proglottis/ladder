@@ -60,4 +60,46 @@ describe Notifications do
       mail.body.encoded.must_match challenge.defender.name
     end
   end
+
+  describe "#commented" do
+    before do
+      @user = create(:user)
+    end
+
+    describe "games" do
+      before do
+        @comment = create(:game_comment)
+        @game = @comment.commentable
+        @tournament = @game.tournament
+      end
+
+      it "must contain comment details" do
+        mail = Notifications.commented(@user, @comment)
+        mail.subject.must_equal I18n.t('notifications.commented.subject', :name => @game.versus)
+        mail.to.must_equal [@user.email]
+        mail.body.encoded.must_match I18n.t('notifications.commented.commented', :name => @comment.user.name, :type => 'game')
+        mail.body.encoded.must_match @comment.content
+        mail.body.encoded.must_match @tournament.name
+        mail.body.encoded.must_match @game.versus
+      end
+    end
+
+    describe "challenges" do
+      before do
+        @comment = create(:challenge_comment)
+        @challenge = @comment.commentable
+        @tournament = @challenge.tournament
+      end
+
+      it "must contain comment details" do
+        mail = Notifications.commented(@user, @comment)
+        mail.subject.must_equal I18n.t('notifications.commented.subject', :name => @challenge.versus)
+        mail.to.must_equal [@user.email]
+        mail.body.encoded.must_match I18n.t('notifications.commented.commented', :name => @comment.user.name, :type => 'challenge')
+        mail.body.encoded.must_match @comment.content
+        mail.body.encoded.must_match @tournament.name
+        mail.body.encoded.must_match @challenge.versus
+      end
+    end
+  end
 end

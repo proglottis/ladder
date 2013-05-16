@@ -125,6 +125,9 @@ en:
       subject: You have been challenged
       challenged: "%{challenger} has challenged you on %{tournament}."
       rules: "Failure to respond within 7 days will result in losing by default. Once you have played your game, follow the link to log your response:"
+    commented:
+      subject: New comment on %{name}
+      commented: "%{name} has commented on a %{type} you participated in."
 
   layouts:
     tournament_title:

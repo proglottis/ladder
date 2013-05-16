@@ -28,4 +28,11 @@ class Notifications < ActionMailer::Base
     @tournament = challenge.tournament
     mail(:to => @defender.email, :subject => t('notifications.challenged.subject'))
   end
+
+  def commented(user, comment)
+    @user = user
+    @comment = comment
+    @commentable = comment.commentable
+    mail(:to => @user.email, :subject => t('notifications.commented.subject', :name => @commentable.versus))
+  end
 end

@@ -67,4 +67,16 @@ FactoryGirl.define do
     volatility Glicko2::DEFAULT_VOLATILITY
   end
 
+  factory :game_comment, :class => "Comment" do
+    association :commentable, :factory => :game
+    content 'The content'
+    user
+  end
+
+  factory :challenge_comment, :class => "Comment" do
+    association :commentable, :factory => :challenge
+    content 'The content'
+    user
+  end
+
 end
