@@ -116,17 +116,17 @@ en:
       invited: You have been invited to %{tournament}.
       accept: "To join the tournament, follow the link: %{link}"
     game_confirmation:
-      subject: Confirm game
+      subject: Confirm game %{game}
       game_logged: "A game you participated in has been logged. Follow the link to confirm:"
     game_confirmed:
-      subject: Game confirmed
+      subject: "%{game} confirmed"
       confirmed: "A game you participated in has been confirmed."
     challenged:
-      subject: You have been challenged
+      subject: You have been challenged in %{tournament}
       challenged: "%{challenger} has challenged you on %{tournament}."
       rules: "Failure to respond within 7 days will result in losing by default. Once you have played your game, follow the link to log your response:"
     commented:
-      subject: New comment on %{name}
+      subject: New comment on %{commentable}
       commented: "%{name} has commented on a %{type} you participated in."
 
   layouts:

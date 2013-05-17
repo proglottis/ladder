@@ -11,14 +11,14 @@ class Notifications < ActionMailer::Base
     @user = user
     @game = game
     @tournament = @game.tournament
-    mail(:to => @user.email, :subject => t('notifications.game_confirmation.subject'))
+    mail(:to => @user.email, :subject => t('notifications.game_confirmation.subject', :game => @game.versus))
   end
 
   def game_confirmed(user, game)
     @user = user
     @game = game
     @tournament = @game.tournament
-    mail(:to => @user.email, :subject => t('notifications.game_confirmed.subject'))
+    mail(:to => @user.email, :subject => t('notifications.game_confirmed.subject', :game => @game.versus))
   end
 
   def challenged(challenge)
@@ -26,13 +26,13 @@ class Notifications < ActionMailer::Base
     @defender = challenge.defender
     @challenger = challenge.challenger
     @tournament = challenge.tournament
-    mail(:to => @defender.email, :subject => t('notifications.challenged.subject'))
+    mail(:to => @defender.email, :subject => t('notifications.challenged.subject', :tournament => @tournament.name))
   end
 
   def commented(user, comment)
     @user = user
     @comment = comment
     @commentable = comment.commentable
-    mail(:to => @user.email, :subject => t('notifications.commented.subject', :name => @commentable.versus))
+    mail(:to => @user.email, :subject => t('notifications.commented.subject', :commentable => @commentable.versus))
   end
 end

@@ -24,7 +24,7 @@ describe Notifications do
 
     it "must contain game details" do
       mail = Notifications.game_confirmation @user1, @game
-      mail.subject.must_equal I18n.t('notifications.game_confirmation.subject')
+      mail.subject.must_equal I18n.t('notifications.game_confirmation.subject', :game => @game.versus)
       mail.to.must_equal [@user1.email]
       mail.body.encoded.must_match @game.tournament.name
       mail.body.encoded.must_match @game.versus
@@ -42,7 +42,7 @@ describe Notifications do
 
     it "must contain game details" do
       mail = Notifications.game_confirmed @user1, @game
-      mail.subject.must_equal I18n.t('notifications.game_confirmed.subject')
+      mail.subject.must_equal I18n.t('notifications.game_confirmed.subject', :game => @game.versus)
       mail.to.must_equal [@user1.email]
       mail.body.encoded.must_match @game.tournament.name
       mail.body.encoded.must_match @game.versus
@@ -53,7 +53,7 @@ describe Notifications do
     it "must contain challenge details" do
       challenge = create(:challenge)
       mail = Notifications.challenged(challenge)
-      mail.subject.must_equal I18n.t('notifications.challenged.subject')
+      mail.subject.must_equal I18n.t('notifications.challenged.subject', :tournament => challenge.tournament.name)
       mail.to.must_equal [challenge.defender.email]
       mail.body.encoded.must_match challenge.tournament.name
       mail.body.encoded.must_match challenge.challenger.name
@@ -75,7 +75,7 @@ describe Notifications do
 
       it "must contain comment details" do
         mail = Notifications.commented(@user, @comment)
-        mail.subject.must_equal I18n.t('notifications.commented.subject', :name => @game.versus)
+        mail.subject.must_equal I18n.t('notifications.commented.subject', :commentable => @game.versus)
         mail.to.must_equal [@user.email]
         mail.body.encoded.must_match I18n.t('notifications.commented.commented', :name => @comment.user.name, :type => 'game')
         mail.body.encoded.must_match @comment.content
@@ -93,7 +93,7 @@ describe Notifications do
 
       it "must contain comment details" do
         mail = Notifications.commented(@user, @comment)
-        mail.subject.must_equal I18n.t('notifications.commented.subject', :name => @challenge.versus)
+        mail.subject.must_equal I18n.t('notifications.commented.subject', :commentable => @challenge.versus)
         mail.to.must_equal [@user.email]
         mail.body.encoded.must_match I18n.t('notifications.commented.commented', :name => @comment.user.name, :type => 'challenge')
         mail.body.encoded.must_match @comment.content
