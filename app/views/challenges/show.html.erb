@@ -6,6 +6,10 @@
 <dl class="dl-horizontal">
   <dt><%= Tournament.model_name.human %></dt>
   <dd><%= link_to @tournament.name, tournament_path(@tournament) %></dd>
+  <% if @game %>
+    <dt><%= t '.response' %></dt>
+    <dd><%= link_to @game.versus, game_path(@game) %></dd>
+  <% end %>
 </dl>
 
 <% if @challenge.active? %>

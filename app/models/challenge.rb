@@ -55,6 +55,10 @@ class Challenge < ActiveRecord::Base
     game
   end
 
+  def participant?(user)
+    user.id == challenger_id || user.id == defender_id
+  end
+
   private
 
   def build_response_game(winner)

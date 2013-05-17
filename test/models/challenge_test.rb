@@ -135,4 +135,23 @@ describe Challenge do
       @game.game_ranks.last.user.must_equal @challenge.defender
     end
   end
+
+  describe "#participant?" do
+    before do
+      @challenge = create(:challenge)
+      @other_user = create(:user)
+    end
+
+    it "must return true for defender" do
+      @challenge.participant?(@challenge.defender).must_equal true
+    end
+
+    it "must return true for challenger" do
+      @challenge.participant?(@challenge.challenger).must_equal true
+    end
+
+    it "must return false for other users" do
+      @challenge.participant?(@other_user).must_equal false
+    end
+  end
 end
