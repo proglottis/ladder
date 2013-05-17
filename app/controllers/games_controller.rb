@@ -19,13 +19,13 @@ class GamesController < ApplicationController
     @game.owner = current_user
     if @game.save
       if @game.comment.present?
-        @game.comments.create!(:user => current_user, :content => @game.comment)
+        @comment = @game.comments.create!(:user => current_user, :content => @game.comment)
       end
       @game.game_ranks.with_participant(current_user).readonly(false).first!.confirm
       @game.game_ranks.each do |game_rank|
         Notifications.game_confirmation(game_rank.user, @game).deliver unless game_rank.confirmed?
       end
-      redirect_to game_path(@game)
+      redirect_to game_path(@game, :anchor => dom_id(@comment))
     else
       render :new
     end
@@ -44,7 +44,7 @@ class GamesController < ApplicationController
     @game = Game.with_participant(current_user).readonly(false).find(params[:id])
     @game.attributes = params.require(:game).permit(:comment)
     if @game.comment.present?
-      comment = @game.comments.create!(:user => current_user, :content => @game.comment)
+      @comment = @game.comments.create!(:user => current_user, :content => @game.comment)
       @game.game_ranks.each do |game_rank|
         if game_rank.user != current_user
           Notifications.commented(game_rank.user, comment).deliver
@@ -60,6 +60,6 @@ class GamesController < ApplicationController
         end
       end
     end
-    redirect_to game_path(@game)
+    redirect_to game_path(@game, :anchor => dom_id(@comment))
   end
 end
