@@ -7,7 +7,7 @@ class TournamentsController < ApplicationController
 
   def index
     @tournaments = Tournament.participant(current_user).order('tournaments.name ASC')
-    @activity = ActivityFeed.new(current_user).between_dates(1.month.ago, Time.zone.now)
+    @activity = ActivityFeed.new(current_user).between_dates(1.weeks.ago.beginning_of_week, Time.zone.now)
   end
 
   def new
