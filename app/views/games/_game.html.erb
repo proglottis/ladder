@@ -7,7 +7,7 @@
     <p><small><%= Game.model_name.human %> in <%= link_to game.tournament.name, tournament_path(game.tournament) %>.</small></p>
     <ul class="nav nav-stacked">
       <% game.game_ranks.each do |game_rank| %>
-        <li><%= glyph game_rank.confirmed? ? 'check' : 'check-empty' %><%= game_rank.position %>. <%= game_rank.user.name %></li>
+        <li><%= glyph game_rank.confirmed? ? 'check' : 'check-empty' %><%= game_rank.position %>. <%= game_rank.user.name %><% if game_rank.confirmed? %> <small class="muted"><%= time_ago_in_words game_rank.confirmed_at %> ago</small><% end %></li>
       <% end %>
     </ul>
   </div>
