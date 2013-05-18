@@ -11,18 +11,10 @@
 
 <% if @defending.any? %>
   <h2><%= t '.defending' %></h2>
-  <ul>
-    <% @defending.each do |challenge| %>
-      <li><%= link_to challenge_path(challenge) do %><%= profile_tag challenge.challenger %><% end %> on <%= link_to challenge.tournament.name, tournament_path(challenge.tournament) %></li>
-    <% end %>
-  </ul>
+  <%= render @defending %>
 <% end %>
 
 <% if @challenging.any? %>
   <h2><%= t '.challenging' %></h2>
-  <ul>
-    <% @challenging.each do |challenge| %>
-      <li><%= link_to challenge_path(challenge) do %><%= profile_tag challenge.defender %><% end %> on <%= link_to challenge.tournament.name, tournament_path(challenge.tournament) %></li>
-    <% end %>
-  </ul>
+  <%= render @challenging %>
 <% end %>

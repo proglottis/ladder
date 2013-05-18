@@ -89,9 +89,6 @@ en:
     show:
       status: Status
       confirm: Confirm
-    game:
-      unconfirmed: Unconfirmed game for %{tournament} on %{time}.
-      confirmed: Confirmed game for %{tournament} on %{time}.
     game_rank:
       confirmed: Confirmed, %{time} ago
       unconfirmed: Unconfirmed
