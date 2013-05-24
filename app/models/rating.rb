@@ -61,4 +61,12 @@ class Rating < ActiveRecord::Base
       rating_period.tournament.challenges.active.defending(user).present?
     end
   end
+
+  def glicko2_rating
+    @glicko2_rating ||= Glicko2::Player.from_obj(self)
+  end
+
+  def expected_fractional_score(other)
+    glicko2_rating.e(other.glicko2_rating)
+  end
 end

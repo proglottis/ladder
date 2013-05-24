@@ -19,7 +19,7 @@
             <td rowspan="<%= ratings.length %>"><%= index + 1 %></td>
           <% end %>
           <td><%= profile_link_tag rating.user %></td>
-          <td><%= rank %></td>
+          <td><%= rank %><% if @rating && @rating != rating %> (<%= number_to_percentage 100.0 * @rating.expected_fractional_score(rating), :precision => 0 %>)<% end %></td>
           <% if @show_actions %>
             <td>
               <% if rating.user != current_user %>
