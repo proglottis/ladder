@@ -65,6 +65,7 @@ en:
       log_a_game: Log a game
       no_rated_players: There are no rated players.
       rank: Rank
+      chance_to_beat: "%{percentage} chance to beat"
     information:
       title: Information
       no_information: No information.
