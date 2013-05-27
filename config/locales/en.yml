@@ -49,6 +49,15 @@ en:
       welcome: Welcome %{name}
       slogan: Create and manage tournaments for pool, foosball or anything. Compete against your friends and colleagues.
       start: Login to start
+      skill:
+        title: Track your skill
+        summary: Ladders will keep track of your skill over time. Each week it will update your rating against others in your tournament.
+      challenges:
+        title: Challenges
+        summary: Challenge others to play, refusal to respond will result in them losing by default. Comment on challenges to keep up to date.
+      generic:
+        title: Any 1v1 game
+        summary: Ladders makes use of Glicko to calculate updates to rankings. This means it can track players of almost any 1v1 game.
 
   tournaments:
     index:
