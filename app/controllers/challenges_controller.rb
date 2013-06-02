@@ -37,11 +37,7 @@ class ChallengesController < ApplicationController
     @challenge = Challenge.active.find(params[:id])
     @challenge.attributes = params.require(:challenge).permit(:response, :comment)
     @tournament = Tournament.participant(current_user).find(@challenge.tournament_id)
-    if @challenge.comment.present?
-      comment = @challenge.comments.create!(:user => current_user, :content => @challenge.comment)
-      Notifications.commented(@challenge.challenger, comment).deliver unless @challenge.challenger == current_user
-      Notifications.commented(@challenge.defender, comment).deliver unless @challenge.defender == current_user
-    end
+    CommentService.new(current_user).comment(@challenge, @challenge.comment, @challenge.participants)
     if params.has_key?(:respond) && @challenge.defender == current_user
       @challenge.respond!
       redirect_to game_path(@challenge.game)

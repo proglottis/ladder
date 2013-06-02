@@ -55,6 +55,10 @@ class Challenge < ActiveRecord::Base
     game
   end
 
+  def participants
+    [challenger, defender]
+  end
+
   def participant?(user)
     user.id == challenger_id || user.id == defender_id
   end

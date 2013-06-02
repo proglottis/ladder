@@ -43,14 +43,7 @@ class GamesController < ApplicationController
   def update
     @game = Game.with_participant(current_user).readonly(false).find(params[:id])
     @game.attributes = params.require(:game).permit(:comment)
-    if @game.comment.present?
-      comment = @game.comments.create!(:user => current_user, :content => @game.comment)
-      @game.game_ranks.each do |game_rank|
-        if game_rank.user != current_user
-          Notifications.commented(game_rank.user, comment).deliver
-        end
-      end
-    end
+    CommentService.new(current_user).comment(@game, @game.comment, @game.game_ranks.map(&:user))
     if params.has_key?(:confirm)
       if @game.confirm_user(current_user)
         @game.game_ranks.each do |game_rank|
