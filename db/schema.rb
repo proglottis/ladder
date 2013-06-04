@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130505113323) do
+ActiveRecord::Schema.define(:version => 20130604211354) do
 
   create_table "challenges", :force => true do |t|
     t.integer  "tournament_id", :null => false
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(:version => 20130505113323) do
     t.integer  "user_id",      :null => false
   end
 
+  add_index "game_ranks", ["game_id", "user_id"], :name => "index_game_ranks_on_game_id_and_user_id", :unique => true
   add_index "game_ranks", ["game_id"], :name => "index_game_ranks_on_game_id"
   add_index "game_ranks", ["user_id"], :name => "index_game_ranks_on_user_id"
 
