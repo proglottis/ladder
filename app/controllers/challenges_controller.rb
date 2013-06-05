@@ -23,9 +23,7 @@ class ChallengesController < ApplicationController
     @challenge.challenger = current_user
     @challenge.defender = @defender
     if @challenge.save
-      if @challenge.comment.present?
-        @challenge.comments.create!(:user => current_user, :content => @challenge.comment)
-      end
+      CommentService.new(current_user).comment(@challenge, @challenge.comment)
       Notifications.challenged(@challenge).deliver
       redirect_to challenge_path(@challenge)
     else

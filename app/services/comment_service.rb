@@ -5,7 +5,7 @@ class CommentService
 
   def comment(commentable, content, subscribers=[])
     return unless content.present?
-    comment = Comment.new(:commentable => commentable, :user => @user, :content => content)
+    comment = Comment.create!(:commentable => commentable, :user => @user, :content => content)
     subscribers.each do |subscriber|
       Notifications.commented(subscriber, comment).deliver unless subscriber == @user
     end

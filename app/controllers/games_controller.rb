@@ -18,9 +18,7 @@ class GamesController < ApplicationController
     @game = @tournament.games.build params.require(:game).permit(:comment, :game_ranks_attributes => [:user_id, :position])
     @game.owner = current_user
     if @game.save
-      if @game.comment.present?
-        @game.comments.create!(:user => current_user, :content => @game.comment)
-      end
+      CommentService.new(current_user).comment(@game, @game.comment)
       @game.game_ranks.with_participant(current_user).readonly(false).first!.confirm
       @game.game_ranks.each do |game_rank|
         Notifications.game_confirmation(game_rank.user, @game).deliver unless game_rank.confirmed?
