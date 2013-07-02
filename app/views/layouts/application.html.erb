@@ -13,6 +13,7 @@
     <![endif]-->
 
     <%= stylesheet_link_tag "application", :media => "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   </head>
   <body>
 
@@ -85,12 +86,6 @@
         </ul>
       </div>
     </footer>
-
-
-    <!-- Javascripts
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 
     <% if ENV['LADDER_GOOGLE_ANALYTICS'] %>
       <%= javascript_tag do -%>
