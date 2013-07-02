@@ -21,6 +21,7 @@ gem 'exception_notification', '~> 4.0.0.rc1'
 gem 'redcarpet'
 gem 'rickshaw_rails'
 gem 'minitest-rails'
+gem 'turbolinks'
 
 group :test, :development do
   gem 'capybara_minitest_spec'
