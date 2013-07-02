@@ -48,6 +48,16 @@ class Tournament < ActiveRecord::Base
     joins(user_joins.join_sql).uniq
   end
 
+  def self.anonymize
+    find_each do |tournament|
+      tournament.anonymize
+    end
+  end
+
+  def anonymize
+    update_attributes :name => "Tournament #{id}"
+  end
+
   def current_rating_period
     rating_periods.order('rating_periods.period_at DESC').first
   end
