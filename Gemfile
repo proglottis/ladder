@@ -1,51 +1,29 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.13'
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'rails', '4.0.0'
 
 gem 'pg'
-
-
-# Gems used only for assets and not required
-# in production environments by default.
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'therubyracer', :platforms => :ruby
-  gem 'uglifier', '>= 1.0.3'
-end
-
+gem 'sass-rails',   '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'therubyracer', :platforms => :ruby
+gem 'uglifier', '~> 2.1.1'
 gem 'less-rails'
 gem 'jquery-rails'
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
 gem 'capistrano'
-
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'twitter-bootstrap-rails'
-gem 'strong_parameters'
 gem 'dalli'
 gem 'kaminari'
 gem 'glicko2'
 gem 'whenever', :require => false
-gem 'exception_notification'
+gem 'exception_notification', '~> 4.0.0.rc1'
 gem 'redcarpet'
 gem 'rickshaw_rails'
+gem 'minitest-rails'
 
 group :test, :development do
-  gem 'minitest-rails'
+  gem 'capybara_minitest_spec'
   gem 'minitest-rails-capybara'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'debugger'

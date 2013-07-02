@@ -4,7 +4,7 @@ class Challenge < ActiveRecord::Base
   belongs_to :defender, :class_name => 'User'
   belongs_to :game
 
-  has_many :comments, :as => :commentable, :dependent => :destroy, :order => 'created_at DESC'
+  has_many :comments, -> { order('created_at DESC') }, :as => :commentable, :dependent => :destroy
 
   before_validation :generate_expires_at
 

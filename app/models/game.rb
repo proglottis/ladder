@@ -1,8 +1,8 @@
 class Game < ActiveRecord::Base
   belongs_to :tournament
   belongs_to :owner, :class_name => 'User'
-  has_many :game_ranks, :dependent => :destroy, :order => 'position'
-  has_many :comments, :as => :commentable, :dependent => :destroy, :order => 'created_at DESC'
+  has_many :game_ranks, -> { order('position') }, :dependent => :destroy
+  has_many :comments, -> { order('created_at DESC') }, :as => :commentable, :dependent => :destroy
   has_one :challenge
 
   accepts_nested_attributes_for :game_ranks
