@@ -23,3 +23,14 @@ namespace :deploy do
     run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
   end
 end
+
+after "deploy:update_code", "customs:config"
+
+namespace(:customs) do
+  task :config, :roles => :app do
+    run <<-CMD
+      ln -nfs #{shared_path}/system/database.yml #{release_path}/config/database.yml
+      ln -nfs #{shared_path}/system/application.yml #{release_path}/config/application.yml
+    CMD
+  end
+end
