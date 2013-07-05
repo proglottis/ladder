@@ -18,7 +18,9 @@
           <% if rating == ratings.first %>
             <td rowspan="<%= ratings.length %>"><%= index + 1 %></td>
           <% end %>
-          <td><%= profile_link_tag rating.user %></td>
+          <td>
+            <%= profile_link_tag rating.user %><%= streak_badge(Streak.new(@positions[rating.user.id])) %>
+          </td>
           <td><%= rank %><% if @rating && @rating != rating %> <small class="muted">(<%= t '.chance_to_beat', :percentage => number_to_percentage(100.0 * @rating.expected_fractional_score(rating), :precision => 0) %>)</small><% end %></td>
           <% if @show_actions %>
             <td>

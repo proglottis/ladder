@@ -119,4 +119,34 @@ describe Tournament do
       @tournament.has_user?(@users.last).must_equal false
     end
   end
+
+  describe "ordered_positions_per_user" do
+    before do
+      # @service = login_service
+      @tournament = create(:started_tournament)
+      @rating_period = @tournament.current_rating_period
+      @user1 = create(:user)
+      @user2 = create(:user)
+      @rating1 = create(:rating, :rating_period => @rating_period, :user => @user1)
+      @rating2 = create(:rating, :rating_period => @rating_period, :user => @user2)
+
+      @game1 = create(:game, :tournament => @tournament)
+      create(:game_rank, :game => @game1, :user => @user1, :position => 1)
+      create(:game_rank, :game => @game1, :user => @user2, :position => 2)
+      @game1.confirm_user(@user1)
+      @game1.confirm_user(@user2)
+
+      @game2 = create(:game, :tournament => @tournament)
+      create(:game_rank, :game => @game2, :user => @user1, :position => 2)
+      create(:game_rank, :game => @game2, :user => @user2, :position => 1)
+      @game2.confirm_user(@user1)
+      @game2.confirm_user(@user2)
+
+      @positions = @tournament.ordered_positions_per_user
+    end
+
+    it "returns user_id => ordered positions hash" do
+      @positions.must_equal ({@user1.id => [1,2], @user2.id => [2,1]})
+    end
+  end
 end
