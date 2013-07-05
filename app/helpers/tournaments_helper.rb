@@ -5,6 +5,6 @@ module TournamentsHelper
     colors = {true => 'success', false => 'important'}
     styles = ['pull-right', 'badge', "badge-#{colors[streak.winning?]}"]
 
-    content_tag(:span, streak.lenght, :class => styles.join(' '))
+    content_tag(:span, streak.length, :class => styles.join(' '))
   end
 end

@@ -12,7 +12,7 @@ class Streak
     eligible? && last_positions.uniq.first == 1
   end
 
-  def lenght
+  def length
     last = positions.last
     row = positions.reverse.take_while {|i| i == last}
     row.size

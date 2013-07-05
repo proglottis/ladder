@@ -35,16 +35,16 @@ describe Streak do
     end
   end
 
-  describe ".lenght" do
+  describe ".length" do
     it "counts how many of the last positions are same" do
       streak = Streak.new [1, 2, 2, 2]
-      streak.lenght.must_equal 3
+      streak.length.must_equal 3
 
       streak = Streak.new [1, 2, 2, 1]
-      streak.lenght.must_equal 1
+      streak.length.must_equal 1
 
       streak = Streak.new [2, 2, 2, 2]
-      streak.lenght.must_equal 4
+      streak.length.must_equal 4
     end
   end
 end
