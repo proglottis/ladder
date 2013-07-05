@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/iTakeshi/whenever.git
+  revision: 04e96f765af3a0761294fd888bc1fc728b5bfb1d
+  ref: 04e96f765af3a0761294fd888bc1fc728b5bfb1d
+  specs:
+    whenever (0.8.2)
+      activesupport (>= 2.3.4)
+      chronic (>= 0.6.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -200,9 +209,6 @@ GEM
     uglifier (2.1.1)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
-    whenever (0.8.2)
-      activesupport (>= 2.3.4)
-      chronic (>= 0.6.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -234,4 +240,4 @@ DEPENDENCIES
   turbolinks
   twitter-bootstrap-rails
   uglifier (~> 2.1.1)
-  whenever
+  whenever!
