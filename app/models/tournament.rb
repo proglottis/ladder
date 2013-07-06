@@ -70,6 +70,13 @@ class Tournament < ActiveRecord::Base
     users.where(:users => {:id => user}).present?
   end
 
+  def ordered_positions_per_user
+    game_ranks.
+      where('games.confirmed_at IS NOT NULL').
+      reorder('created_at ASC').
+      inject({}) {|h, r| h.update(r.user_id => (h[r.user_id] || []) << r.position)}
+  end
+
   private
 
   def maximum_allowed
