@@ -13,6 +13,11 @@
     <%= form_for current_user, :url => setting_path, :html => {:class => 'form-horizontal'} do |f| %>
       <div class="control-group">
         <div class="controls">
+          <label class="checkbox"><%= f.check_box :commented_email %> <%= User.human_attribute_name('commented_email') %></label>
+        </div>
+      </div>
+      <div class="control-group">
+        <div class="controls">
           <label class="checkbox"><%= f.check_box :game_confirmed_email %> <%= User.human_attribute_name('game_confirmed_email') %></label>
         </div>
       </div>

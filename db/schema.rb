@@ -9,144 +9,156 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130604211354) do
+ActiveRecord::Schema.define(version: 20130705233422) do
 
-  create_table "challenges", :force => true do |t|
-    t.integer  "tournament_id", :null => false
-    t.integer  "challenger_id", :null => false
-    t.integer  "defender_id",   :null => false
+  create_table "challenges", force: true do |t|
+    t.integer  "tournament_id", null: false
+    t.integer  "challenger_id", null: false
+    t.integer  "defender_id",   null: false
     t.integer  "game_id"
-    t.datetime "expires_at",    :null => false
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "expires_at",    null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  add_index "challenges", ["challenger_id"], :name => "index_challenges_on_challenger_id"
-  add_index "challenges", ["defender_id"], :name => "index_challenges_on_defender_id"
-  add_index "challenges", ["game_id"], :name => "index_challenges_on_game_id"
-  add_index "challenges", ["tournament_id"], :name => "index_challenges_on_tournament_id"
+  add_index "challenges", ["challenger_id"], name: "index_challenges_on_challenger_id", using: :btree
+  add_index "challenges", ["defender_id"], name: "index_challenges_on_defender_id", using: :btree
+  add_index "challenges", ["game_id"], name: "index_challenges_on_game_id", using: :btree
+  add_index "challenges", ["tournament_id"], name: "index_challenges_on_tournament_id", using: :btree
 
-  create_table "comments", :force => true do |t|
-    t.integer  "commentable_id",   :null => false
-    t.string   "commentable_type", :null => false
-    t.text     "content",          :null => false
-    t.integer  "user_id",          :null => false
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+  create_table "comments", force: true do |t|
+    t.integer  "commentable_id",   null: false
+    t.string   "commentable_type", null: false
+    t.text     "content",          null: false
+    t.integer  "user_id",          null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
-  add_index "comments", ["commentable_id", "commentable_type"], :name => "index_comments_on_commentable_id_and_commentable_type"
-  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-  create_table "game_ranks", :force => true do |t|
-    t.integer  "game_id",      :null => false
-    t.integer  "position",     :null => false
+  create_table "game_ranks", force: true do |t|
+    t.integer  "game_id",      null: false
+    t.integer  "position",     null: false
     t.datetime "confirmed_at"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.integer  "user_id",      :null => false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "user_id",      null: false
   end
 
-  add_index "game_ranks", ["game_id", "user_id"], :name => "index_game_ranks_on_game_id_and_user_id", :unique => true
-  add_index "game_ranks", ["game_id"], :name => "index_game_ranks_on_game_id"
-  add_index "game_ranks", ["user_id"], :name => "index_game_ranks_on_user_id"
+  add_index "game_ranks", ["game_id", "user_id"], name: "index_game_ranks_on_game_id_and_user_id", unique: true, using: :btree
+  add_index "game_ranks", ["game_id"], name: "index_game_ranks_on_game_id", using: :btree
+  add_index "game_ranks", ["user_id"], name: "index_game_ranks_on_user_id", using: :btree
 
-  create_table "games", :force => true do |t|
-    t.integer  "tournament_id", :null => false
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+  create_table "games", force: true do |t|
+    t.integer  "tournament_id", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.datetime "confirmed_at"
-    t.integer  "owner_id",      :null => false
+    t.integer  "owner_id",      null: false
   end
 
-  add_index "games", ["owner_id"], :name => "index_games_on_owner_id"
-  add_index "games", ["tournament_id"], :name => "index_games_on_tournament_id"
+  add_index "games", ["owner_id"], name: "index_games_on_owner_id", using: :btree
+  add_index "games", ["tournament_id"], name: "index_games_on_tournament_id", using: :btree
 
-  create_table "invites", :force => true do |t|
+  create_table "invites", force: true do |t|
     t.integer  "user_id"
     t.integer  "tournament_id"
-    t.string   "code",          :null => false
-    t.string   "email",         :null => false
-    t.datetime "expires_at",    :null => false
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-    t.integer  "owner_id",      :null => false
+    t.string   "code",          null: false
+    t.string   "email",         null: false
+    t.datetime "expires_at",    null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "owner_id",      null: false
   end
 
-  add_index "invites", ["code"], :name => "index_invites_on_code"
-  add_index "invites", ["owner_id"], :name => "index_invites_on_owner_id"
-  add_index "invites", ["tournament_id"], :name => "index_invites_on_tournament_id"
-  add_index "invites", ["user_id"], :name => "index_invites_on_user_id"
+  add_index "invites", ["code"], name: "index_invites_on_code", using: :btree
+  add_index "invites", ["owner_id"], name: "index_invites_on_owner_id", using: :btree
+  add_index "invites", ["tournament_id"], name: "index_invites_on_tournament_id", using: :btree
+  add_index "invites", ["user_id"], name: "index_invites_on_user_id", using: :btree
 
-  create_table "pages", :force => true do |t|
+  create_table "pages", force: true do |t|
     t.text     "content"
     t.integer  "parent_id"
     t.string   "parent_type"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "pages", ["parent_id"], :name => "index_pages_on_parent_id"
-  add_index "pages", ["parent_type"], :name => "index_pages_on_parent_type"
+  add_index "pages", ["parent_id"], name: "index_pages_on_parent_id", using: :btree
+  add_index "pages", ["parent_type"], name: "index_pages_on_parent_type", using: :btree
 
-  create_table "rating_periods", :force => true do |t|
-    t.integer  "tournament_id", :null => false
-    t.datetime "period_at",     :null => false
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+  create_table "participants", force: true do |t|
+    t.integer  "tournament_id", null: false
+    t.integer  "user_id",       null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  add_index "rating_periods", ["period_at"], :name => "index_rating_periods_on_period_at"
-  add_index "rating_periods", ["tournament_id"], :name => "index_rating_periods_on_tournament_id"
+  add_index "participants", ["tournament_id", "user_id"], name: "index_participants_on_tournament_id_and_user_id", unique: true, using: :btree
+  add_index "participants", ["tournament_id"], name: "index_participants_on_tournament_id", using: :btree
+  add_index "participants", ["user_id"], name: "index_participants_on_user_id", using: :btree
 
-  create_table "ratings", :force => true do |t|
-    t.integer  "rating_period_id",                                 :null => false
-    t.integer  "user_id",                                          :null => false
-    t.decimal  "rating",           :precision => 38, :scale => 10, :null => false
-    t.decimal  "rating_deviation", :precision => 38, :scale => 10, :null => false
-    t.decimal  "volatility",       :precision => 38, :scale => 10, :null => false
-    t.datetime "created_at",                                       :null => false
-    t.datetime "updated_at",                                       :null => false
+  create_table "rating_periods", force: true do |t|
+    t.integer  "tournament_id", null: false
+    t.datetime "period_at",     null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  add_index "ratings", ["rating_period_id"], :name => "index_ratings_on_rating_period_id"
-  add_index "ratings", ["user_id"], :name => "index_ratings_on_user_id"
+  add_index "rating_periods", ["period_at"], name: "index_rating_periods_on_period_at", using: :btree
+  add_index "rating_periods", ["tournament_id"], name: "index_rating_periods_on_tournament_id", using: :btree
 
-  create_table "services", :force => true do |t|
+  create_table "ratings", force: true do |t|
+    t.integer  "rating_period_id",                           null: false
+    t.integer  "user_id",                                    null: false
+    t.decimal  "rating",           precision: 38, scale: 10, null: false
+    t.decimal  "rating_deviation", precision: 38, scale: 10, null: false
+    t.decimal  "volatility",       precision: 38, scale: 10, null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+  end
+
+  add_index "ratings", ["rating_period_id"], name: "index_ratings_on_rating_period_id", using: :btree
+  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
+
+  create_table "services", force: true do |t|
     t.integer  "user_id"
     t.string   "provider"
     t.string   "uid"
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "first_name"
     t.string   "last_name"
     t.string   "image_url"
   end
 
-  add_index "services", ["provider"], :name => "index_services_on_provider"
-  add_index "services", ["uid"], :name => "index_services_on_uid"
-  add_index "services", ["user_id"], :name => "index_services_on_user_id"
+  add_index "services", ["provider"], name: "index_services_on_provider", using: :btree
+  add_index "services", ["uid"], name: "index_services_on_uid", using: :btree
+  add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
 
-  create_table "tournaments", :force => true do |t|
-    t.string   "name",       :null => false
-    t.integer  "owner_id",   :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+  create_table "tournaments", force: true do |t|
+    t.string   "name",       null: false
+    t.integer  "owner_id",   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "users", :force => true do |t|
+  create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",                             :null => false
-    t.datetime "updated_at",                             :null => false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "preferred_service_id"
-    t.boolean  "game_confirmed_email", :default => true, :null => false
+    t.boolean  "game_confirmed_email", default: true, null: false
+    t.boolean  "commented_email",      default: true, null: false
   end
 
-  add_index "users", ["preferred_service_id"], :name => "index_users_on_preferred_service_id"
+  add_index "users", ["preferred_service_id"], name: "index_users_on_preferred_service_id", using: :btree
 
 end
