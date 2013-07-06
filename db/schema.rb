@@ -91,17 +91,6 @@ ActiveRecord::Schema.define(version: 20130705233422) do
   add_index "pages", ["parent_id"], name: "index_pages_on_parent_id", using: :btree
   add_index "pages", ["parent_type"], name: "index_pages_on_parent_type", using: :btree
 
-  create_table "participants", force: true do |t|
-    t.integer  "tournament_id", null: false
-    t.integer  "user_id",       null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "participants", ["tournament_id", "user_id"], name: "index_participants_on_tournament_id_and_user_id", unique: true, using: :btree
-  add_index "participants", ["tournament_id"], name: "index_participants_on_tournament_id", using: :btree
-  add_index "participants", ["user_id"], name: "index_participants_on_user_id", using: :btree
-
   create_table "rating_periods", force: true do |t|
     t.integer  "tournament_id", null: false
     t.datetime "period_at",     null: false
