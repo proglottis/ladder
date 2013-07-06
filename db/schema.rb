@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130705233422) do
+ActiveRecord::Schema.define(version: 20130706041908) do
 
   create_table "challenges", force: true do |t|
     t.integer  "tournament_id", null: false
@@ -101,6 +101,17 @@ ActiveRecord::Schema.define(version: 20130705233422) do
   add_index "participants", ["tournament_id", "user_id"], name: "index_participants_on_tournament_id_and_user_id", unique: true, using: :btree
   add_index "participants", ["tournament_id"], name: "index_participants_on_tournament_id", using: :btree
   add_index "participants", ["user_id"], name: "index_participants_on_user_id", using: :btree
+
+  create_table "players", force: true do |t|
+    t.integer  "user_id",       null: false
+    t.integer  "tournament_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "players", ["tournament_id"], name: "index_players_on_tournament_id", using: :btree
+  add_index "players", ["user_id", "tournament_id"], name: "index_players_on_user_id_and_tournament_id", unique: true, using: :btree
+  add_index "players", ["user_id"], name: "index_players_on_user_id", using: :btree
 
   create_table "rating_periods", force: true do |t|
     t.integer  "tournament_id", null: false

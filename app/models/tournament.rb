@@ -3,6 +3,7 @@ class Tournament < ActiveRecord::Base
 
   belongs_to :owner, :class_name => 'User'
 
+  has_many :players, :dependent => :destroy
   has_many :invites, :dependent => :destroy
   has_many :games, :dependent => :destroy
   has_many :challenges, :dependent => :destroy
