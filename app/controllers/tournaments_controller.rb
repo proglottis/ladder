@@ -25,7 +25,6 @@ class TournamentsController < ApplicationController
   end
 
   def destroy
-    @tournament = Tournament.find(params[:id])
     @tournament.destroy
     redirect_to tournaments_path, :notice => t('tournaments.destroy.success', :name => @tournament.name)
   end
