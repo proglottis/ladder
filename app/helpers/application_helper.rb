@@ -19,6 +19,10 @@ module ApplicationHelper
     link_to t('helpers.cancel_link'), path, :class => 'btn'
   end
 
+  def delete_button(path)
+    button_to t('helpers.submit.delete'), path, method: :delete, confirm: 'Are you sure?', :class => 'btn btn-danger pull-right'
+  end
+
   def markdown(text)
     extensions = { :fenced_code_blocks => true }
     render_opts = { :filter_html => true, :no_styles => true, :safe_links_only => true }

@@ -1,7 +1,7 @@
 class TournamentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :find_tournament_and_rating_period, :only => [:show, :information, :edit, :update, :join]
-  before_filter :require_owner!, :only => [:edit, :update]
+  before_filter :find_tournament_and_rating_period, :only => [:show, :information, :edit, :update, :destroy, :join]
+  before_filter :require_owner!, :only => [:edit, :update, :destroy]
 
   layout 'tournament_title', :only => [:show, :information, :edit]
 
@@ -22,6 +22,12 @@ class TournamentsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    @tournament = Tournament.find(params[:id])
+    @tournament.destroy
+    redirect_to tournaments_path, :notice => t('tournaments.destroy.success', :name => @tournament.name)
   end
 
   def show
