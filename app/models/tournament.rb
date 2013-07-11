@@ -34,15 +34,13 @@ class Tournament < ActiveRecord::Base
   end
 
   def self.with_rated_user(*users)
-    rating_periods = RatingPeriod.arel_table
-    tournaments = arel_table.join(rating_periods).
-      on(arel_table[:id].eq(rating_periods[:tournament_id]))
+    tournaments = arel_table
     n = 0
     user_joins = users.reduce(tournaments) do |user_joins, user|
       n += 1
-      ratings = Rating.arel_table.alias("ratings_with_participant_#{n}")
-      user_joins.join(ratings).on(rating_periods[:id].eq(ratings[:rating_period_id]).
-                                  and(ratings[:user_id].eq(user.id)))
+      players = Player.arel_table.alias("with_rated_user_players_#{n}")
+      user_joins.join(players).on(players[:tournament_id].eq(tournaments[:id]).
+                                  and(players[:user_id].eq(user.id)))
     end
     joins(user_joins.join_sql).uniq
   end

@@ -74,12 +74,11 @@ describe Tournament do
 
   describe ".with_rated_user" do
     before do
-      @user1 = create(:user)
-      @user2 = create(:user)
       @tournament = create(:started_tournament)
-      @rating_period = @tournament.current_rating_period
-      @rating1 = create(:rating, :user => @user1, :rating_period => @rating_period)
-      @rating2 = create(:rating, :user => @user2, :rating_period => @rating_period)
+      @player1 = create(:player, :tournament => @tournament)
+      @player2 = create(:player, :tournament => @tournament)
+      @user1 = @player1.user
+      @user2 = @player2.user
     end
 
     it "must match when rated" do
