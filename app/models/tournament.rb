@@ -75,7 +75,7 @@ class Tournament < ActiveRecord::Base
   private
 
   def maximum_allowed
-    if owner.tournaments.reload.limit_left < 1
+    if self.class.where(:owner_id => owner).reload.limit_left < 1
       errors.add(:base, 'Exceeded limit')
     end
   end

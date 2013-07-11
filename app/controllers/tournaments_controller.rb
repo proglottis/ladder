@@ -11,11 +11,11 @@ class TournamentsController < ApplicationController
   end
 
   def new
-    @tournament = current_user.tournaments.build
+    @tournament = Tournament.where(:owner => current_user).build
   end
 
   def create
-    @tournament = current_user.tournaments.build(params.require(:tournament).permit(:name))
+    @tournament = Tournament.where(:owner => current_user).build(params.require(:tournament).permit(:name))
     if @tournament.save
       @tournament.rating_periods.create!(:period_at => Time.zone.now.beginning_of_week)
       redirect_to tournament_path(@tournament)
