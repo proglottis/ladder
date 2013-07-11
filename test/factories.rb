@@ -54,6 +54,11 @@ FactoryGirl.define do
     content 'The content'
   end
 
+  factory :player do
+    tournament
+    user
+  end
+
   factory :rating_period do
     tournament
     period_at { 1.year.ago }

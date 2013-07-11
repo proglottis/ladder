@@ -21,15 +21,13 @@ class Tournament < ActiveRecord::Base
 
   def self.participant(user)
     tournaments = arel_table
-    rating_periods = RatingPeriod.arel_table
-    ratings = Rating.arel_table
+    players = Player.arel_table
     invites = Invite.arel_table
     joins(tournaments.join(invites, Arel::Nodes::OuterJoin).on(invites[:tournament_id].eq(tournaments[:id])).
-          join(rating_periods, Arel::Nodes::OuterJoin).on(rating_periods[:tournament_id].eq(tournaments[:id])).
-          join(ratings, Arel::Nodes::OuterJoin).on(ratings[:rating_period_id].eq(rating_periods[:id])).
+          join(players, Arel::Nodes::OuterJoin).on(players[:tournament_id].eq(tournaments[:id])).
           join_sql).
       where(tournaments[:owner_id].eq(user.id).
-            or(ratings[:user_id].eq(user.id)).
+            or(players[:user_id].eq(user.id)).
             or(invites[:user_id].eq(user.id)).
             or(invites[:email].eq(user.email))).
       uniq.readonly(false)
@@ -65,10 +63,6 @@ class Tournament < ActiveRecord::Base
 
   def self.limit_left
     OWNER_LIMIT - count
-  end
-
-  def has_user?(user)
-    users.where(:users => {:id => user}).present?
   end
 
   def ordered_positions_per_user

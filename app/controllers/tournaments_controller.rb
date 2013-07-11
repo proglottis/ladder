@@ -1,6 +1,6 @@
 class TournamentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :find_tournament_and_rating_period, :only => [:show, :information, :edit, :update, :join]
+  before_filter :find_tournament_and_rating_period_and_player, :only => [:show, :information, :edit, :update, :join]
   before_filter :require_owner!, :only => [:edit, :update]
 
   layout 'tournament_title', :only => [:show, :information, :edit]
@@ -30,7 +30,7 @@ class TournamentsController < ApplicationController
     @rating = @ratings.detect { |rating| rating.user_id == current_user.id }
     @pending = @tournament.games.where('games.confirmed_at >= ?', @rating_period.period_at)
     @positions = @tournament.ordered_positions_per_user
-    @show_actions = @tournament.has_user?(current_user)
+    @show_actions = @player.present?
   end
 
   def information
@@ -57,9 +57,10 @@ class TournamentsController < ApplicationController
 
   private
 
-  def find_tournament_and_rating_period
+  def find_tournament_and_rating_period_and_player
     @tournament = Tournament.participant(current_user).find(params[:id])
     @rating_period = @tournament.current_rating_period
+    @player = @tournament.players.find_by(:user_id => current_user)
   end
 
   def require_owner!

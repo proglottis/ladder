@@ -19,10 +19,9 @@ describe "SessionsController Integration Test" do
     end
 
     it "must redirect back after authentication" do
-      @tournament = create(:started_tournament, :owner => @user)
-      visit tournament_path @tournament
+      visit games_path
       click_link "Developer"
-      must_have_content @tournament.name
+      must_have_content Game.model_name.human.pluralize
     end
 
     it "must update info after authentication" do

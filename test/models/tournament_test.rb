@@ -50,7 +50,6 @@ describe Tournament do
     before do
       @user = create(:user)
       @tournament = create(:started_tournament)
-      @rating_period = @tournament.current_rating_period
     end
 
     it "wont match users who are unrelated" do
@@ -62,8 +61,8 @@ describe Tournament do
       Tournament.participant(@user).must_include @tournament
     end
 
-    it "must match users who are rated" do
-      create(:rating, :rating_period => @rating_period, :user => @user)
+    it "must match users who are players" do
+      create(:player, :tournament => @tournament, :user => @user)
       Tournament.participant(@user).must_include @tournament
     end
 
@@ -100,23 +99,6 @@ describe Tournament do
     it "wont match when both are not rated" do
       @user = create(:user)
       Tournament.with_rated_user(@user1, @user).wont_include @tournament
-    end
-  end
-
-  describe "#has_user?" do
-    before do
-      @tournament = create(:started_tournament)
-      @rating_period = @tournament.current_rating_period
-      @users = create_list(:user, 2)
-      @rating = create(:rating, :user => @users.first, :rating_period => @rating_period)
-    end
-
-    it "must match users who are participating" do
-      @tournament.has_user?(@users.first).must_equal true
-    end
-
-    it "wont match users who are not participating" do
-      @tournament.has_user?(@users.last).must_equal false
     end
   end
 
