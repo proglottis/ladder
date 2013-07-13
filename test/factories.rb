@@ -40,6 +40,7 @@ FactoryGirl.define do
   factory :game_rank do
     game
     user
+    player
     sequence(:position) {|n| n}
   end
 
@@ -48,6 +49,11 @@ FactoryGirl.define do
     challenger
     defender
     expires_at { 1.day.from_now }
+
+    after :create do |challenge, evaluator|
+      challenge.tournament.players.find_or_create_by!(tournament_id: challenge.tournament.id, user_id: challenge.challenger.id)
+      challenge.tournament.players.find_or_create_by!(tournament_id: challenge.tournament.id, user_id: challenge.defender.id)
+    end
   end
 
   factory :page do

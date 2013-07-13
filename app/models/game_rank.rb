@@ -1,6 +1,7 @@
 class GameRank < ActiveRecord::Base
   belongs_to :game
   belongs_to :user
+  belongs_to :player
 
   validates_numericality_of :position, :greater_than => 0, :only_integer => true
 

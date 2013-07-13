@@ -17,10 +17,13 @@ class GamesController < ApplicationController
     @tournament = Tournament.participant(current_user).find(params[:tournament_id])
     @game = @tournament.games.build params.require(:game).permit(:comment, :game_ranks_attributes => [:user_id, :position])
     @game.owner = current_user
+    @game.game_ranks.each do |game_rank|
+      game_rank.player_id = @tournament.players.find_by!(user_id: game_rank.user_id).id
+    end
     if @game.save
       CommentService.new(current_user).comment(@game, @game.comment)
       @game.game_ranks.with_participant(current_user).readonly(false).first!.confirm
-      @game.game_ranks.each do |game_rank|
+      @game.game_ranks.reload.each do |game_rank|
         Notifications.game_confirmation(game_rank.user, @game).deliver unless game_rank.confirmed?
       end
       redirect_to game_path(@game)
