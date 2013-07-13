@@ -66,8 +66,8 @@ FactoryGirl.define do
 
   factory :rating do
     rating_period
-    user
     player
+    user_id 0 # Temp until the column is removed for good
     rating Glicko2::DEFAULT_GLICKO_RATING
     rating_deviation Glicko2::DEFAULT_GLICKO_RATING_DEVIATION
     volatility Glicko2::DEFAULT_VOLATILITY

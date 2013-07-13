@@ -10,8 +10,8 @@ describe "GamesController Integration Test" do
     @player2 = create(:player, :tournament => @tournament)
     @user1 = @player1.user
     @user2 = @player2.user
-    @rating1 = create(:rating, :rating_period => @rating_period, :user => @user1)
-    @rating2 = create(:rating, :rating_period => @rating_period, :user => @user2)
+    @rating1 = create(:rating, :rating_period => @rating_period, :player => @player1)
+    @rating2 = create(:rating, :rating_period => @rating_period, :player => @player2)
   end
 
   describe "creation" do

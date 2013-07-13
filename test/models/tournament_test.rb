@@ -103,13 +103,14 @@ describe Tournament do
 
   describe "ordered_positions_per_user" do
     before do
-      # @service = login_service
       @tournament = create(:started_tournament)
       @rating_period = @tournament.current_rating_period
-      @user1 = create(:user)
-      @user2 = create(:user)
-      @rating1 = create(:rating, :rating_period => @rating_period, :user => @user1)
-      @rating2 = create(:rating, :rating_period => @rating_period, :user => @user2)
+      @player1 = create(:player, :tournament => @tournament)
+      @player2 = create(:player, :tournament => @tournament)
+      @user1 = @player1.user
+      @user2 = @player2.user
+      @rating1 = create(:rating, :rating_period => @rating_period, :player => @player1)
+      @rating2 = create(:rating, :rating_period => @rating_period, :player => @player2)
 
       @game1 = create(:game, :tournament => @tournament)
       create(:game_rank, :game => @game1, :user => @user1, :position => 1)
