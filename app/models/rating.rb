@@ -1,6 +1,7 @@
 class Rating < ActiveRecord::Base
   belongs_to :rating_period
   belongs_to :user
+  belongs_to :player
 
   validates_presence_of :rating_period_id, :user_id
   validates_uniqueness_of :user_id, :scope => :rating_period_id

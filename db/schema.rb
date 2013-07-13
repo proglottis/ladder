@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130706043430) do
+ActiveRecord::Schema.define(version: 20130713055748) do
 
   create_table "challenges", force: true do |t|
     t.integer  "tournament_id", null: false
@@ -120,8 +120,10 @@ ActiveRecord::Schema.define(version: 20130706043430) do
     t.decimal  "volatility",       precision: 38, scale: 10, null: false
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
+    t.integer  "player_id",                                  null: false
   end
 
+  add_index "ratings", ["rating_period_id", "player_id"], name: "index_ratings_on_rating_period_id_and_player_id", unique: true, using: :btree
   add_index "ratings", ["rating_period_id"], name: "index_ratings_on_rating_period_id", using: :btree
   add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 

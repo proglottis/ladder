@@ -67,6 +67,7 @@ FactoryGirl.define do
   factory :rating do
     rating_period
     user
+    player
     rating Glicko2::DEFAULT_GLICKO_RATING
     rating_deviation Glicko2::DEFAULT_GLICKO_RATING_DEVIATION
     volatility Glicko2::DEFAULT_VOLATILITY
