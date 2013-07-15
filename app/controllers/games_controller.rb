@@ -9,16 +9,16 @@ class GamesController < ApplicationController
   def new
     @tournament = Tournament.participant(current_user).find(params[:tournament_id])
     @game = @tournament.games.build
-    @game.game_ranks.build :user => @tournament.users.find(current_user), :position => 1
-    @game.game_ranks.build :user => @tournament.users.find(params[:user_id]), :position => 2
+    @game.game_ranks.build :player => @tournament.players.find_by!(user_id: current_user), :position => 1
+    @game.game_ranks.build :player => @tournament.players.find_by!(user_id: params[:user_id]), :position => 2
   end
 
   def create
     @tournament = Tournament.participant(current_user).find(params[:tournament_id])
-    @game = @tournament.games.build params.require(:game).permit(:comment, :game_ranks_attributes => [:user_id, :position])
+    @game = @tournament.games.build params.require(:game).permit(:comment, :game_ranks_attributes => [:player_id, :position])
     @game.owner = current_user
     @game.game_ranks.each do |game_rank|
-      game_rank.player_id = @tournament.players.find_by!(user_id: game_rank.user_id).id
+      game_rank.user_id = @tournament.players.find(game_rank.player_id).user_id
     end
     if @game.save
       CommentService.new(current_user).comment(@game, @game.comment)
@@ -36,7 +36,7 @@ class GamesController < ApplicationController
     @game = Game.with_participant(current_user).find(params[:id])
     @tournament = @game.tournament
     @game_ranks = @game.game_ranks.includes(:user)
-    @current_game_rank = @game_ranks.detect {|game_rank| game_rank.user_id == current_user.id }
+    @current_game_rank = @game_ranks.detect {|game_rank| game_rank.user.id == current_user.id }
     @challenge = @game.challenge
     @comments = @game.comments
   end

@@ -66,7 +66,7 @@ class Tournament < ActiveRecord::Base
     game_ranks.
       where('games.confirmed_at IS NOT NULL').
       reorder('created_at ASC').
-      inject({}) {|h, r| h.update(r.user_id => (h[r.user_id] || []) << r.position)}
+      inject({}) {|h, r| h.update(r.user.id => (h[r.user.id] || []) << r.position)}
   end
 
   private

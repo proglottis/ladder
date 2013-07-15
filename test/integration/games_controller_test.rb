@@ -6,10 +6,8 @@ describe "GamesController Integration Test" do
     @service = login_service
     @tournament = create(:started_tournament)
     @rating_period = @tournament.current_rating_period
-    @player1 = create(:player, :user => @service.user, :tournament => @tournament)
+    @player1 = create(:player, :tournament => @tournament, :user => @service.user)
     @player2 = create(:player, :tournament => @tournament)
-    @user1 = @player1.user
-    @user2 = @player2.user
     @rating1 = create(:rating, :rating_period => @rating_period, :player => @player1)
     @rating2 = create(:rating, :rating_period => @rating_period, :player => @player2)
   end
@@ -30,15 +28,15 @@ describe "GamesController Integration Test" do
       click_button I18n.t('helpers.submit.create')
       ActionMailer::Base.deliveries.length.must_equal 1
       email = ActionMailer::Base.deliveries.first
-      email.to.must_equal [@user2.email]
+      email.to.must_equal [@player2.user.email]
     end
   end
 
   describe "confirming" do
     before do
       @game = create(:game, :tournament => @tournament)
-      @game_rank1 = create(:game_rank, :game => @game, :user => @rating1.user, :position => 1)
-      @game_rank2 = create(:game_rank, :game => @game, :user => @rating2.user, :position => 2)
+      @game_rank1 = create(:game_rank, :game => @game, :player => @player1, :position => 1)
+      @game_rank2 = create(:game_rank, :game => @game, :player => @player2, :position => 2)
     end
 
     it "must be confirmed" do
@@ -61,7 +59,7 @@ describe "GamesController Integration Test" do
         click_button I18n.t('games.show.confirm')
         ActionMailer::Base.deliveries.length.must_equal 1
         email = ActionMailer::Base.deliveries.first
-        email.to.must_equal [@user2.email]
+        email.to.must_equal [@player2.user.email]
       end
     end
   end

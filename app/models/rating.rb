@@ -27,7 +27,7 @@ class Rating < ActiveRecord::Base
       join(players).on(ratings[:player_id].eq(players[:id])).
       join(rating_periods).on(rating_periods[:id].eq(ratings[:rating_period_id])).
       join(games).on(rating_periods[:tournament_id].eq(games[:tournament_id])).
-      join(game_ranks).on(games[:id].eq(game_ranks[:game_id]).and(players[:user_id].eq(game_ranks[:user_id])))
+      join(game_ranks).on(games[:id].eq(game_ranks[:game_id]).and(players[:id].eq(game_ranks[:player_id])))
     joins(joins.join_sql).where(games[:id].eq(game.id)).
       select('ratings.*, game_ranks.position')
   end

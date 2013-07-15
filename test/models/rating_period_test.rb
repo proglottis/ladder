@@ -90,8 +90,8 @@ describe RatingPeriod do
 
     it "must update ratings based on games" do
       @game = create(:game, :tournament => @tournament, :confirmed_at => Time.new(2010, 6))
-      @game_rank1 = create(:game_rank, :game => @game, :user => @player1.user, :position => 1)
-      @game_rank2 = create(:game_rank, :game => @game, :user => @player2.user, :position => 2)
+      @game_rank1 = create(:game_rank, :game => @game, :player => @player1, :position => 1)
+      @game_rank2 = create(:game_rank, :game => @game, :player => @player2, :position => 2)
 
       @period2.process!
 

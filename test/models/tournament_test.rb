@@ -113,14 +113,14 @@ describe Tournament do
       @rating2 = create(:rating, :rating_period => @rating_period, :player => @player2)
 
       @game1 = create(:game, :tournament => @tournament)
-      create(:game_rank, :game => @game1, :user => @user1, :position => 1)
-      create(:game_rank, :game => @game1, :user => @user2, :position => 2)
+      create(:game_rank, :game => @game1, :player => @player1, :position => 1)
+      create(:game_rank, :game => @game1, :player => @player2, :position => 2)
       @game1.confirm_user(@user1)
       @game1.confirm_user(@user2)
 
       @game2 = create(:game, :tournament => @tournament)
-      create(:game_rank, :game => @game2, :user => @user1, :position => 2)
-      create(:game_rank, :game => @game2, :user => @user2, :position => 1)
+      create(:game_rank, :game => @game2, :player => @player1, :position => 2)
+      create(:game_rank, :game => @game2, :player => @player2, :position => 1)
       @game2.confirm_user(@user1)
       @game2.confirm_user(@user2)
 

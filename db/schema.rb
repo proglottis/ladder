@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130713072752) do
+ActiveRecord::Schema.define(version: 20130713085152) do
 
   create_table "challenges", force: true do |t|
     t.integer  "tournament_id", null: false
@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(version: 20130713072752) do
   end
 
   add_index "game_ranks", ["game_id", "player_id"], name: "index_game_ranks_on_game_id_and_player_id", unique: true, using: :btree
-  add_index "game_ranks", ["game_id", "user_id"], name: "index_game_ranks_on_game_id_and_user_id", unique: true, using: :btree
   add_index "game_ranks", ["game_id"], name: "index_game_ranks_on_game_id", using: :btree
   add_index "game_ranks", ["user_id"], name: "index_game_ranks_on_user_id", using: :btree
 

@@ -1,7 +1,8 @@
 class GameRank < ActiveRecord::Base
   belongs_to :game
-  belongs_to :user
   belongs_to :player
+
+  has_one :user, :through => :player
 
   validates_numericality_of :position, :greater_than => 0, :only_integer => true
 
@@ -10,7 +11,7 @@ class GameRank < ActiveRecord::Base
   end
 
   def self.with_participant(user)
-    where(:user_id => user)
+    joins(:player).where(:players => {:user_id => user})
   end
 
   def confirm

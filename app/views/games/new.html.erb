@@ -26,7 +26,7 @@
         <tbody>
           <%= f.fields_for :game_ranks do |builder| %>
             <tr>
-              <%= builder.hidden_field :user_id %>
+              <%= builder.hidden_field :player_id %>
               <td><%= profile_tag builder.object.user %></td>
               <td><%= builder.number_field :position, :class => 'input-mini', :min => 1 %></td>
             </tr>

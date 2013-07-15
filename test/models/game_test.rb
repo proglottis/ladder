@@ -3,10 +3,12 @@ require "test_helper"
 describe Game do
   before do
     @game = create(:game)
-    @user1 = create(:user)
-    @user2 = create(:user)
-    @game_rank1 = create(:game_rank, :game => @game, :user => @user1, :position => 1)
-    @game_rank2 = create(:game_rank, :game => @game, :user => @user2, :position => 2)
+    @player1 = create(:player)
+    @player2 = create(:player)
+    @user1 = @player1.user
+    @user2 = @player2.user
+    @game_rank1 = create(:game_rank, :game => @game, :player => @player1, :position => 1)
+    @game_rank2 = create(:game_rank, :game => @game, :player => @player2, :position => 2)
   end
 
   describe ".destroy" do
