@@ -30,10 +30,14 @@ class Rating < ActiveRecord::Base
 
   def self.with_defending_tournament
     ratings = arel_table
+    rating_periods = RatingPeriod.arel_table
     challenges = Challenge.arel_table
-    joins = ratings.join(challenges, Arel::Nodes::OuterJoin).on(
-      ratings[:user_id].eq(challenges[:defender_id]).
-      and(challenges[:game_id].eq(nil)))
+    joins = ratings.
+      join(rating_periods).on(rating_periods[:id].eq(ratings[:rating_period_id])).
+      join(challenges, Arel::Nodes::OuterJoin).on(
+        ratings[:user_id].eq(challenges[:defender_id]).
+        and(challenges[:game_id].eq(nil)).
+        and(challenges[:tournament_id].eq(rating_periods[:tournament_id])))
     joins(joins.join_sql).
       select('ratings.*, challenges.id as defending_challenge_id')
   end
