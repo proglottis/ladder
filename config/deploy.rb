@@ -24,13 +24,11 @@ namespace :deploy do
   end
 end
 
-after "deploy:update_code", "customs:config"
+before "deploy:finalize_update", "customs:config"
 
 namespace(:customs) do
   task :config, :roles => :app do
-    run <<-CMD
-      ln -nfs #{shared_path}/system/database.yml #{release_path}/config/database.yml
-      ln -nfs #{shared_path}/system/application.yml #{release_path}/config/application.yml
-    CMD
+    run "ln -nfs #{shared_path}/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/application.yml #{release_path}/config/application.yml"
   end
 end
