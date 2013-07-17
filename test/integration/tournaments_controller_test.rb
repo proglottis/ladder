@@ -54,8 +54,10 @@ describe "TournamentsController Integration Test" do
       @other_user = create(:user)
       @tournament = create(:started_tournament, :owner => @service.user)
       @rating_period = @tournament.current_rating_period
-      create(:rating, :rating_period => @rating_period, :user => @service.user)
-      create(:rating, :rating_period => @rating_period, :user => @other_user)
+      @player1 = create(:player, :user => @service.user, :tournament => @tournament)
+      @player2 = create(:player, :tournament => @tournament)
+      create(:rating, :rating_period => @rating_period, :player => @player1)
+      create(:rating, :rating_period => @rating_period, :player => @player2)
     end
 
     it "must let owner update" do

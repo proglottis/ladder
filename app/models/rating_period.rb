@@ -23,7 +23,8 @@ class RatingPeriod < ActiveRecord::Base
       new_period = period.generate_next
       new_period.players.each do |player|
         player.update_obj
-        rating = ratings.find_or_initialize_by(:user_id => player.obj.user_id)
+        rating = ratings.find_or_initialize_by(:player_id => player.obj.player_id)
+        rating.user_id = player.obj.user_id
         rating.rating = player.obj.rating
         rating.rating_deviation = player.obj.rating_deviation
         rating.volatility = player.obj.volatility

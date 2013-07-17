@@ -1,9 +1,11 @@
 class Rating < ActiveRecord::Base
   belongs_to :rating_period
-  belongs_to :user
+  belongs_to :player
 
-  validates_presence_of :rating_period_id, :user_id
-  validates_uniqueness_of :user_id, :scope => :rating_period_id
+  has_one :user, :through => :player
+
+  validates_presence_of :rating_period_id, :player_id
+  validates_uniqueness_of :player_id, :scope => :rating_period_id
 
   def self.with_defaults
     where(:rating => Glicko2::DEFAULT_GLICKO_RATING,
@@ -17,13 +19,15 @@ class Rating < ActiveRecord::Base
 
   def self.for_game(game)
     ratings = arel_table
+    players = Player.arel_table
     rating_periods = RatingPeriod.arel_table
     games = Game.arel_table
     game_ranks = GameRank.arel_table
     joins = ratings.
+      join(players).on(ratings[:player_id].eq(players[:id])).
       join(rating_periods).on(rating_periods[:id].eq(ratings[:rating_period_id])).
       join(games).on(rating_periods[:tournament_id].eq(games[:tournament_id])).
-      join(game_ranks).on(games[:id].eq(game_ranks[:game_id]).and(ratings[:user_id].eq(game_ranks[:user_id])))
+      join(game_ranks).on(games[:id].eq(game_ranks[:game_id]).and(players[:id].eq(game_ranks[:player_id])))
     joins(joins.join_sql).where(games[:id].eq(game.id)).
       select('ratings.*, game_ranks.position')
   end

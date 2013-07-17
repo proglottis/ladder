@@ -6,9 +6,11 @@ describe "ChallengesController Integration Test" do
     @service = login_service
     @tournament = create(:started_tournament)
     @rating_period = @tournament.current_rating_period
-    @user2 = create(:user)
-    @rating1 = create(:rating, :rating_period => @rating_period, :user => @service.user)
-    @rating2 = create(:rating, :rating_period => @rating_period, :user => @user2)
+    @player1 = create(:player, :user => @service.user, :tournament => @tournament)
+    @player2 = create(:player, :tournament => @tournament)
+    @user2 = @player2.user
+    @rating1 = create(:rating, :rating_period => @rating_period, :player => @player1)
+    @rating2 = create(:rating, :rating_period => @rating_period, :player => @player2)
   end
 
   describe "creation" do
