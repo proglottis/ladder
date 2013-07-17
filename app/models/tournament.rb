@@ -12,6 +12,7 @@ class Tournament < ActiveRecord::Base
 
   has_many :users, :through => :players
   has_many :game_ranks, :through => :games
+  has_many :ratings, :through => :rating_periods
 
   accepts_nested_attributes_for :page, :reject_if => :all_blank
 
