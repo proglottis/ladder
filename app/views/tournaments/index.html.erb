@@ -18,7 +18,7 @@
     <h2><%= Tournament.model_name.human.pluralize %></h2>
     <ul class="nav nav-tabs nav-stacked">
       <li>
-        <%= link_to new_tournament_path, :rel => 'tooltip', :title => t('.can_start', :count => current_user.tournaments.limit_left) do %>
+        <%= link_to new_tournament_path, :rel => 'tooltip', :title => t('.can_start', :count => Tournament.where(:owner_id => current_user).limit_left) do %>
           <%= glyph :magic %> <%= t '.start' %>
         <% end %>
       </li>

@@ -5,7 +5,7 @@ describe Tournament do
     it "will only allow owner to have a limited number" do
       @user = create(:user)
       @tournaments = create_list(:tournament, 5, :owner => @user)
-      @tournament = @user.tournaments.create(attributes_for(:tournament))
+      @tournament = Tournament.where(:owner_id => @user).create(:name => "Test")
       @tournament.errors.size.must_equal 1
     end
   end
@@ -50,7 +50,6 @@ describe Tournament do
     before do
       @user = create(:user)
       @tournament = create(:started_tournament)
-      @rating_period = @tournament.current_rating_period
     end
 
     it "wont match users who are unrelated" do
@@ -62,8 +61,8 @@ describe Tournament do
       Tournament.participant(@user).must_include @tournament
     end
 
-    it "must match users who are rated" do
-      create(:rating, :rating_period => @rating_period, :user => @user)
+    it "must match users who are players" do
+      create(:player, :tournament => @tournament, :user => @user)
       Tournament.participant(@user).must_include @tournament
     end
 
@@ -75,12 +74,11 @@ describe Tournament do
 
   describe ".with_rated_user" do
     before do
-      @user1 = create(:user)
-      @user2 = create(:user)
       @tournament = create(:started_tournament)
-      @rating_period = @tournament.current_rating_period
-      @rating1 = create(:rating, :user => @user1, :rating_period => @rating_period)
-      @rating2 = create(:rating, :user => @user2, :rating_period => @rating_period)
+      @player1 = create(:player, :tournament => @tournament)
+      @player2 = create(:player, :tournament => @tournament)
+      @user1 = @player1.user
+      @user2 = @player2.user
     end
 
     it "must match when rated" do
@@ -103,42 +101,26 @@ describe Tournament do
     end
   end
 
-  describe "#has_user?" do
-    before do
-      @tournament = create(:started_tournament)
-      @rating_period = @tournament.current_rating_period
-      @users = create_list(:user, 2)
-      @rating = create(:rating, :user => @users.first, :rating_period => @rating_period)
-    end
-
-    it "must match users who are participating" do
-      @tournament.has_user?(@users.first).must_equal true
-    end
-
-    it "wont match users who are not participating" do
-      @tournament.has_user?(@users.last).must_equal false
-    end
-  end
-
   describe "ordered_positions_per_user" do
     before do
-      # @service = login_service
       @tournament = create(:started_tournament)
       @rating_period = @tournament.current_rating_period
-      @user1 = create(:user)
-      @user2 = create(:user)
-      @rating1 = create(:rating, :rating_period => @rating_period, :user => @user1)
-      @rating2 = create(:rating, :rating_period => @rating_period, :user => @user2)
+      @player1 = create(:player, :tournament => @tournament)
+      @player2 = create(:player, :tournament => @tournament)
+      @user1 = @player1.user
+      @user2 = @player2.user
+      @rating1 = create(:rating, :rating_period => @rating_period, :player => @player1)
+      @rating2 = create(:rating, :rating_period => @rating_period, :player => @player2)
 
       @game1 = create(:game, :tournament => @tournament)
-      create(:game_rank, :game => @game1, :user => @user1, :position => 1)
-      create(:game_rank, :game => @game1, :user => @user2, :position => 2)
+      create(:game_rank, :game => @game1, :player => @player1, :position => 1)
+      create(:game_rank, :game => @game1, :player => @player2, :position => 2)
       @game1.confirm_user(@user1)
       @game1.confirm_user(@user2)
 
       @game2 = create(:game, :tournament => @tournament)
-      create(:game_rank, :game => @game2, :user => @user1, :position => 2)
-      create(:game_rank, :game => @game2, :user => @user2, :position => 1)
+      create(:game_rank, :game => @game2, :player => @player1, :position => 2)
+      create(:game_rank, :game => @game2, :player => @player2, :position => 1)
       @game2.confirm_user(@user1)
       @game2.confirm_user(@user2)
 

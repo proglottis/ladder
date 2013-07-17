@@ -1,6 +1,6 @@
 class TournamentsController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :find_tournament_and_rating_period, :only => [:show, :information, :edit, :update, :destroy, :join]
+  before_filter :find_tournament_and_rating_period_and_player, :only => [:show, :information, :edit, :update, :destroy, :join]
   before_filter :require_owner!, :only => [:edit, :update, :destroy]
 
   layout 'tournament_title', :only => [:show, :information, :edit]
@@ -11,11 +11,11 @@ class TournamentsController < ApplicationController
   end
 
   def new
-    @tournament = current_user.tournaments.build
+    @tournament = Tournament.where(:owner => current_user).build
   end
 
   def create
-    @tournament = current_user.tournaments.build(params.require(:tournament).permit(:name))
+    @tournament = Tournament.where(:owner => current_user).build(params.require(:tournament).permit(:name))
     if @tournament.save
       @tournament.rating_periods.create!(:period_at => Time.zone.now.beginning_of_week)
       redirect_to tournament_path(@tournament)
@@ -35,7 +35,7 @@ class TournamentsController < ApplicationController
     @rating = @ratings.detect { |rating| rating.user_id == current_user.id }
     @pending = @tournament.games.where('games.confirmed_at >= ?', @rating_period.period_at)
     @positions = @tournament.ordered_positions_per_user
-    @show_actions = @tournament.has_user?(current_user)
+    @show_actions = @player.present?
   end
 
   def information
@@ -55,15 +55,17 @@ class TournamentsController < ApplicationController
   end
 
   def join
-    @rating_period.ratings.with_defaults.create(:user => current_user)
+    @player = @tournament.players.create!(:user => current_user)
+    @rating_period.ratings.with_defaults.create!(:user_id => current_user.id, :player => @player)
     redirect_to tournament_path(@tournament)
   end
 
   private
 
-  def find_tournament_and_rating_period
+  def find_tournament_and_rating_period_and_player
     @tournament = Tournament.participant(current_user).find(params[:id])
     @rating_period = @tournament.current_rating_period
+    @player = @tournament.players.find_by(:user_id => current_user)
   end
 
   def require_owner!

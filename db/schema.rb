@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130705233422) do
+ActiveRecord::Schema.define(version: 20130713085152) do
 
   create_table "challenges", force: true do |t|
     t.integer  "tournament_id", null: false
@@ -47,9 +47,10 @@ ActiveRecord::Schema.define(version: 20130705233422) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "user_id",      null: false
+    t.integer  "player_id",    null: false
   end
 
-  add_index "game_ranks", ["game_id", "user_id"], name: "index_game_ranks_on_game_id_and_user_id", unique: true, using: :btree
+  add_index "game_ranks", ["game_id", "player_id"], name: "index_game_ranks_on_game_id_and_player_id", unique: true, using: :btree
   add_index "game_ranks", ["game_id"], name: "index_game_ranks_on_game_id", using: :btree
   add_index "game_ranks", ["user_id"], name: "index_game_ranks_on_user_id", using: :btree
 
@@ -91,6 +92,17 @@ ActiveRecord::Schema.define(version: 20130705233422) do
   add_index "pages", ["parent_id"], name: "index_pages_on_parent_id", using: :btree
   add_index "pages", ["parent_type"], name: "index_pages_on_parent_type", using: :btree
 
+  create_table "players", force: true do |t|
+    t.integer  "user_id",       null: false
+    t.integer  "tournament_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "players", ["tournament_id"], name: "index_players_on_tournament_id", using: :btree
+  add_index "players", ["user_id", "tournament_id"], name: "index_players_on_user_id_and_tournament_id", unique: true, using: :btree
+  add_index "players", ["user_id"], name: "index_players_on_user_id", using: :btree
+
   create_table "rating_periods", force: true do |t|
     t.integer  "tournament_id", null: false
     t.datetime "period_at",     null: false
@@ -109,8 +121,10 @@ ActiveRecord::Schema.define(version: 20130705233422) do
     t.decimal  "volatility",       precision: 38, scale: 10, null: false
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false
+    t.integer  "player_id",                                  null: false
   end
 
+  add_index "ratings", ["rating_period_id", "player_id"], name: "index_ratings_on_rating_period_id_and_player_id", unique: true, using: :btree
   add_index "ratings", ["rating_period_id"], name: "index_ratings_on_rating_period_id", using: :btree
   add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 

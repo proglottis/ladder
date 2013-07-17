@@ -59,16 +59,16 @@ describe RatingPeriod do
 
   describe "#process!" do
     before do
-      @user1 = create(:user)
-      @user2 = create(:user)
-      @user3 = create(:user)
+      @player1 = create(:player)
+      @player2 = create(:player)
+      @player3 = create(:player)
 
       @period1 = create(:rating_period, :tournament => @tournament, :period_at => Time.new(2010))
       @period2 = create(:rating_period, :tournament => @tournament, :period_at => Time.new(2011))
       @period3 = create(:rating_period, :tournament => @tournament, :period_at => Time.new(2012))
 
-      @rating1 = create(:rating, :rating_period => @period1, :user => @user1)
-      @rating2 = create(:rating, :rating_period => @period1, :user => @user2)
+      @rating1 = create(:rating, :rating_period => @period1, :player => @player1)
+      @rating2 = create(:rating, :rating_period => @period1, :player => @player2)
     end
 
     it "must do nothing when no previous" do
@@ -77,26 +77,26 @@ describe RatingPeriod do
       @period1.ratings.must_equal ratings
     end
 
-    it "must create ratings from previous period users" do
+    it "must create ratings from previous period players" do
       @period2.process!
-      @period2.ratings.map(&:user).must_equal @period1.ratings.map(&:user)
+      @period2.ratings.map(&:player).must_equal @period1.ratings.map(&:player)
     end
 
     it "must update existing ratings" do
-      @rating3 = create(:rating, :rating_period => @period2, :user => @user3)
+      @rating3 = create(:rating, :rating_period => @period2, :player => @player3)
       @period2.process!
       @period2.ratings.must_include @rating3
     end
 
     it "must update ratings based on games" do
       @game = create(:game, :tournament => @tournament, :confirmed_at => Time.new(2010, 6))
-      @game_rank1 = create(:game_rank, :game => @game, :user => @user1, :position => 1)
-      @game_rank2 = create(:game_rank, :game => @game, :user => @user2, :position => 2)
+      @game_rank1 = create(:game_rank, :game => @game, :player => @player1, :position => 1)
+      @game_rank2 = create(:game_rank, :game => @game, :player => @player2, :position => 2)
 
       @period2.process!
 
-      @period1.ratings.find_by_user_id!(@user1.id).rating.wont_equal @period2.ratings.find_by_user_id!(@user1.id).rating
-      @period1.ratings.find_by_user_id!(@user2.id).rating.wont_equal @period2.ratings.find_by_user_id!(@user2.id).rating
+      @period1.ratings.find_by!(player: @player1).rating.wont_equal @period2.ratings.find_by!(player: @player1).rating
+      @period1.ratings.find_by!(player: @player2).rating.wont_equal @period2.ratings.find_by!(player: @player2).rating
     end
   end
 end

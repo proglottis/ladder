@@ -4,12 +4,14 @@ describe "InvitesController Integration Test" do
 
   before do
     @service = login_service
+    @tournament = create(:started_tournament)
+    @player = create(:player, :user => @service.user, :tournament => @tournament)
     @user = @service.user
   end
 
   describe "inviting" do
     before do
-      @tournament = create(:started_tournament, :owner => @user)
+      @tournament.update_attributes!(:owner => @user)
     end
 
     it "must create invite" do
@@ -33,7 +35,6 @@ describe "InvitesController Integration Test" do
 
   describe "joining" do
     before do
-      @tournament = create(:started_tournament)
       @invite = create(:invite, :tournament => @tournament)
     end
 
