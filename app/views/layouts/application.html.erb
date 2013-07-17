@@ -87,9 +87,9 @@
       </div>
     </footer>
 
-    <% if ENV['LADDER_GOOGLE_ANALYTICS'] %>
+    <% if ENV['GOOGLE_ANALYTICS'] %>
       <%= javascript_tag do -%>
-        var _gaq=[['_setAccount','<%= ENV['LADDER_GOOGLE_ANALYTICS'] %>'],['_trackPageview']];
+        var _gaq=[['_setAccount','<%= ENV['GOOGLE_ANALYTICS'] %>'],['_trackPageview']];
         (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
         g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
         s.parentNode.insertBefore(g,s)}(document,'script'));

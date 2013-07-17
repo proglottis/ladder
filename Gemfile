@@ -22,6 +22,7 @@ gem 'redcarpet'
 gem 'rickshaw_rails'
 gem 'minitest-rails'
 gem 'turbolinks'
+gem 'figaro'
 
 group :test, :development do
   gem 'capybara_minitest_spec'
