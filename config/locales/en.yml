@@ -91,6 +91,8 @@ en:
           other: "%{count} invites left"
       show:
         invited_to: You have been invited to join %{name}.
+      create:
+        success: Invite to %{email} sent.
 
   games:
     index:

@@ -25,7 +25,8 @@ class Tournaments::InvitesController < ApplicationController
     @invite.owner = current_user
     if @invite.save
       Notifications.tournament_invitation(@invite).deliver
-      redirect_to tournament_path(@tournament)
+      redirect_to tournament_path(@tournament),
+        :notice => t('tournaments.invites.create.success', :email => @invite.email)
     else
       render :new
     end
