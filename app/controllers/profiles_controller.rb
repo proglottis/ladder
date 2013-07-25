@@ -3,7 +3,7 @@ class ProfilesController < ApplicationController
   before_filter :find_user
 
   def show
-    @games = Game.with_participant(current_user, @user).includes(:tournament, :game_ranks => :user).order('games.updated_at DESC').page(params[:page]).per(10)
+    @activity = ActivityFeed.new(@user, current_user).between_dates(1.weeks.ago.beginning_of_week, Time.zone.now)
     @tournaments = Tournament.with_rated_user(current_user, @user).order('tournaments.name ASC')
   end
 
