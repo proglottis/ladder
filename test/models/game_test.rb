@@ -54,6 +54,30 @@ describe Game do
       @game.confirm_user(@user1).wont_equal true
       @game.confirm_user(@user2).must_equal true
     end
+
+    describe "streaks" do
+      it "must increment players winning/losing streaks when game is confirmed" do
+        @player1.update_attributes :winning_streak_count => 5, :losing_streak_count => 0
+        @player2.update_attributes :winning_streak_count => 0, :losing_streak_count => 5
+        @game.confirm_user(@user1)
+        @game.confirm_user(@user2)
+        @player1.reload.winning_streak_count.must_equal 6
+        @player1.reload.losing_streak_count.must_equal 0
+        @player2.reload.winning_streak_count.must_equal 0
+        @player2.reload.losing_streak_count.must_equal 6
+      end
+
+      it "must reset players winning/losing streaks when game is confirmed" do
+        @player1.update_attributes :winning_streak_count => 0, :losing_streak_count => 5
+        @player2.update_attributes :winning_streak_count => 5, :losing_streak_count => 0
+        @game.confirm_user(@user1)
+        @game.confirm_user(@user2)
+        @player1.reload.winning_streak_count.must_equal 1
+        @player1.reload.losing_streak_count.must_equal 0
+        @player2.reload.winning_streak_count.must_equal 0
+        @player2.reload.losing_streak_count.must_equal 1
+      end
+    end
   end
 
   describe "#confirmed?" do

@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130713085152) do
+ActiveRecord::Schema.define(version: 20130725033526) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "challenges", force: true do |t|
     t.integer  "tournament_id", null: false
@@ -93,10 +96,12 @@ ActiveRecord::Schema.define(version: 20130713085152) do
   add_index "pages", ["parent_type"], name: "index_pages_on_parent_type", using: :btree
 
   create_table "players", force: true do |t|
-    t.integer  "user_id",       null: false
-    t.integer  "tournament_id", null: false
+    t.integer  "user_id",                          null: false
+    t.integer  "tournament_id",                    null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "winning_streak_count", default: 0, null: false
+    t.integer  "losing_streak_count",  default: 0, null: false
   end
 
   add_index "players", ["tournament_id"], name: "index_players_on_tournament_id", using: :btree

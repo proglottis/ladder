@@ -63,13 +63,6 @@ class Tournament < ActiveRecord::Base
     OWNER_LIMIT - count
   end
 
-  def ordered_positions_per_user
-    game_ranks.
-      where('games.confirmed_at IS NOT NULL').
-      reorder('created_at ASC').
-      inject({}) {|h, r| h.update(r.user.id => (h[r.user.id] || []) << r.position)}
-  end
-
   private
 
   def maximum_allowed

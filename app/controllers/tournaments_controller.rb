@@ -34,7 +34,6 @@ class TournamentsController < ApplicationController
     @rating_ranks = @ratings.group_by { |r| view_context.number_with_precision(r.low_rank, :precision => 0)}
     @rating = @ratings.detect { |rating| rating.user_id == current_user.id }
     @pending = @tournament.games.where('games.confirmed_at >= ?', @rating_period.period_at)
-    @positions = @tournament.ordered_positions_per_user
     @show_actions = @player.present?
   end
 

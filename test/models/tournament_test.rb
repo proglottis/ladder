@@ -100,35 +100,4 @@ describe Tournament do
       Tournament.with_rated_user(@user1, @user).wont_include @tournament
     end
   end
-
-  describe "ordered_positions_per_user" do
-    before do
-      @tournament = create(:started_tournament)
-      @rating_period = @tournament.current_rating_period
-      @player1 = create(:player, :tournament => @tournament)
-      @player2 = create(:player, :tournament => @tournament)
-      @user1 = @player1.user
-      @user2 = @player2.user
-      @rating1 = create(:rating, :rating_period => @rating_period, :player => @player1)
-      @rating2 = create(:rating, :rating_period => @rating_period, :player => @player2)
-
-      @game1 = create(:game, :tournament => @tournament)
-      create(:game_rank, :game => @game1, :player => @player1, :position => 1)
-      create(:game_rank, :game => @game1, :player => @player2, :position => 2)
-      @game1.confirm_user(@user1)
-      @game1.confirm_user(@user2)
-
-      @game2 = create(:game, :tournament => @tournament)
-      create(:game_rank, :game => @game2, :player => @player1, :position => 2)
-      create(:game_rank, :game => @game2, :player => @player2, :position => 1)
-      @game2.confirm_user(@user1)
-      @game2.confirm_user(@user2)
-
-      @positions = @tournament.ordered_positions_per_user
-    end
-
-    it "returns user_id => ordered positions hash" do
-      @positions.must_equal ({@user1.id => [1,2], @user2.id => [2,1]})
-    end
-  end
 end
