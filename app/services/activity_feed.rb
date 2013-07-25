@@ -1,7 +1,7 @@
 class ActivityFeed
   def initialize(user, *viewing_users)
     @user = user
-    @viewing_users = viewing_users << primary_user
+    @viewing_users = viewing_users << user
   end
 
   def between_dates(start_at, end_at)
