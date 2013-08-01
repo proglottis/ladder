@@ -12,10 +12,10 @@ class Player < ActiveRecord::Base
   end
 
   def winning_streak?
-    winning_streak_count >= STREAK_THRESHOLD
+    winning_streak_count >= STREAK_THRESHOLD && losing_streak_count < 1
   end
 
   def losing_streak?
-    losing_streak_count >= STREAK_THRESHOLD
+    losing_streak_count >= STREAK_THRESHOLD && winning_streak_count < 1
   end
 end

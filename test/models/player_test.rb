@@ -35,6 +35,12 @@ describe Player do
       @player.winning_streak_count = 0
       @player.winning_streak?.must_equal false
     end
+
+    it "must be false if losing count is more than 1" do
+      @player.losing_streak_count = 3
+      @player.winning_streak_count = 3
+      @player.winning_streak?.must_equal false
+    end
   end
 
   describe "#losing_streak?" do
@@ -45,6 +51,12 @@ describe Player do
 
     it "must be false if count is less than 3" do
       @player.losing_streak_count = 0
+      @player.losing_streak?.must_equal false
+    end
+
+    it "must be false if winning count is more than 1" do
+      @player.losing_streak_count = 3
+      @player.winning_streak_count = 3
       @player.losing_streak?.must_equal false
     end
   end
