@@ -37,12 +37,19 @@ class Game < ActiveRecord::Base
       end
       if total == confirmed
         return true if confirmed_at.present?
-        winning_player = game_ranks.min_by(&:position).player
-        losing_player = game_ranks.max_by(&:position).player
-        winning_player.update_attributes!(:winning_streak_count => winning_player.winning_streak_count + 1,
-                                         :losing_streak_count => 0)
-        losing_player.update_attributes!(:winning_streak_count => 0,
-                                         :losing_streak_count => losing_player.losing_streak_count + 1)
+        winning_rank, losing_rank = game_ranks.minmax_by(&:position)
+        game_ranks.each do |game_rank|
+          if game_rank.position == winning_rank.position && winning_rank.position != losing_rank.position
+            game_rank.player.update_attributes!(:winning_streak_count => game_rank.player.winning_streak_count + 1,
+                                                :losing_streak_count => 0)
+          elsif game_rank.position == losing_rank.position && winning_rank.position != losing_rank.position
+            game_rank.player.update_attributes!(:winning_streak_count => 0,
+                                                :losing_streak_count => game_rank.player.losing_streak_count + 1)
+          else
+            game_rank.player.update_attributes!(:winning_streak_count => 0,
+                                                :losing_streak_count => 0)
+          end
+        end
         update_attributes!(:confirmed_at => Time.zone.now)
         true
       else

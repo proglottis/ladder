@@ -77,6 +77,18 @@ describe Game do
         @player2.reload.winning_streak_count.must_equal 0
         @player2.reload.losing_streak_count.must_equal 1
       end
+
+      it "must reset all streaks when game is a draw" do
+        @game_rank2.update_attributes :position => 1
+        @player1.update_attributes :winning_streak_count => 5, :losing_streak_count => 0
+        @player2.update_attributes :winning_streak_count => 5, :losing_streak_count => 0
+        @game.confirm_user(@user1)
+        @game.confirm_user(@user2)
+        @player1.reload.winning_streak_count.must_equal 0
+        @player1.reload.losing_streak_count.must_equal 0
+        @player2.reload.winning_streak_count.must_equal 0
+        @player2.reload.losing_streak_count.must_equal 0
+      end
     end
   end
 
