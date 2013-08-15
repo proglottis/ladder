@@ -17,9 +17,6 @@ class GamesController < ApplicationController
     @tournament = Tournament.participant(current_user).find(params[:tournament_id])
     @game = @tournament.games.build params.require(:game).permit(:comment, :game_ranks_attributes => [:player_id, :position])
     @game.owner = current_user
-    @game.game_ranks.each do |game_rank|
-      game_rank.user_id = @tournament.players.find(game_rank.player_id).user_id
-    end
     if @game.save
       CommentService.new(current_user).comment(@game, @game.comment)
       @game.game_ranks.with_participant(current_user).readonly(false).first!.confirm

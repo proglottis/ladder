@@ -40,7 +40,6 @@ FactoryGirl.define do
   factory :game_rank do
     game
     player
-    user_id 0
     sequence(:position) {|n| n}
   end
 

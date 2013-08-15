@@ -50,8 +50,8 @@ class Challenge < ActiveRecord::Base
   def build_default_game
     time = Time.zone.now
     game = Game.new(:tournament => tournament, :owner => challenger, :confirmed_at => time)
-    game.game_ranks.build(:user_id => challenger_id, :player => challenger.players.find_by!(tournament_id: tournament), :position => 1, :confirmed_at => time)
-    game.game_ranks.build(:user_id => defender_id, :player => defender.players.find_by!(tournament_id: tournament), :position => 2, :confirmed_at => time)
+    game.game_ranks.build(:player => challenger.players.find_by!(tournament_id: tournament), :position => 1, :confirmed_at => time)
+    game.game_ranks.build(:player => defender.players.find_by!(tournament_id: tournament), :position => 2, :confirmed_at => time)
     game
   end
 
@@ -68,11 +68,11 @@ class Challenge < ActiveRecord::Base
   def build_response_game(winner)
     game = Game.new(:tournament => tournament, :owner => challenger)
     if winner
-      game.game_ranks.build(:user_id => defender_id, :player => defender.players.find_by!(tournament_id: tournament), :position => 1, :confirmed_at => Time.zone.now)
-      game.game_ranks.build(:user_id => challenger_id, :player => challenger.players.find_by!(tournament_id: tournament), :position => 2)
+      game.game_ranks.build(:player => defender.players.find_by!(tournament_id: tournament), :position => 1, :confirmed_at => Time.zone.now)
+      game.game_ranks.build(:player => challenger.players.find_by!(tournament_id: tournament), :position => 2)
     else
-      game.game_ranks.build(:user_id => defender_id, :player => defender.players.find_by!(tournament_id: tournament), :position => 2, :confirmed_at => Time.zone.now)
-      game.game_ranks.build(:user_id => challenger_id, :player => challenger.players.find_by!(tournament_id: tournament), :position => 1)
+      game.game_ranks.build(:player => defender.players.find_by!(tournament_id: tournament), :position => 2, :confirmed_at => Time.zone.now)
+      game.game_ranks.build(:player => challenger.players.find_by!(tournament_id: tournament), :position => 1)
     end
     game
   end
