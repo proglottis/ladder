@@ -7,7 +7,8 @@ class ActivityFeed
   def between_dates(start_at, end_at)
     tournaments = Tournament.with_rated_user(*@viewing_users)
     games = Game.where(:updated_at => start_at..end_at).
-      with_participant(*@viewing_users).
+      where(:tournament_id => tournaments.map(&:id)).
+      participant(@user).
       includes(:tournament, :game_ranks => :user)
     challenges = Challenge.where(:updated_at => start_at..end_at).
       where(:tournament_id => tournaments.map(&:id)).

@@ -18,24 +18,15 @@ describe Game do
     end
   end
 
-  describe ".with_participant" do
+  describe ".participant" do
     it "must match participant" do
-      Game.with_participant(@user1).must_include @game
-      Game.with_participant(@user2).must_include @game
+      Game.participant(@user1).must_include @game
+      Game.participant(@user2).must_include @game
     end
 
     it "wont match nonparticipant" do
       @user = create(:user)
-      Game.with_participant(@user).wont_include @game
-    end
-
-    it "must match with both participants" do
-      Game.with_participant(@user1, @user2).must_include @game
-    end
-
-    it "wont match with a single nonparticipant" do
-      @user = create(:user)
-      Game.with_participant(@user1, @user).wont_include @game
+      Game.participant(@user).wont_include @game
     end
   end
 

@@ -9,17 +9,8 @@ class Game < ActiveRecord::Base
 
   attr_accessor :comment
 
-  def self.with_participant(*users)
-    games = arel_table
-    n = 0
-    user_joins = users.reduce(games) do |user_joins, user|
-      n += 1
-      game_ranks = GameRank.arel_table.alias("with_participant_game_rank_#{n}")
-      players = Player.arel_table.alias("with_participant_player_#{n}")
-      user_joins.join(game_ranks).on(games[:id].eq(game_ranks[:game_id])).
-        join(players).on(players[:user_id].eq(user.id).and(players[:id].eq(game_ranks[:player_id])))
-    end
-    joins(user_joins.join_sql)
+  def self.participant(user)
+    joins(:game_ranks => :player).where(:players => {:user_id => user})
   end
 
   def self.unconfirmed

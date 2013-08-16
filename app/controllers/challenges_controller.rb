@@ -13,7 +13,7 @@ class ChallengesController < ApplicationController
 
   def show
     @challenge = Challenge.find(params[:id])
-    @tournament = Tournament.participant(current_user).find(@challenge.tournament_id)
+    @tournament = Tournament.with_rated_user(current_user).find(@challenge.tournament_id)
     @game = @challenge.game if @challenge.participant?(current_user)
     @comments = @challenge.comments
   end
@@ -34,7 +34,7 @@ class ChallengesController < ApplicationController
   def update
     @challenge = Challenge.active.find(params[:id])
     @challenge.attributes = params.require(:challenge).permit(:response, :comment)
-    @tournament = Tournament.participant(current_user).find(@challenge.tournament_id)
+    @tournament = Tournament.with_rated_user(current_user).find(@challenge.tournament_id)
     CommentService.new(current_user).comment(@challenge, @challenge.comment, @challenge.participants)
     if params.has_key?(:respond) && @challenge.defender == current_user
       @challenge.respond!
@@ -47,7 +47,7 @@ class ChallengesController < ApplicationController
   private
 
   def find_tournament_and_defender
-    @tournament = Tournament.participant(current_user).find(params[:tournament_id])
+    @tournament = Tournament.with_rated_user(current_user).find(params[:tournament_id])
     @defender = @tournament.users.find(params[:defender_id])
   end
 end

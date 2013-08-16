@@ -1,20 +1,21 @@
 class GamesController < ApplicationController
   before_filter :authenticate_user!
+  before_filter :find_game_and_tournament, :only => [:show, :update]
 
   def index
     @pending = GameRank.not_confirmed.with_participant(current_user).includes(:user)
-    @unconfirmed = Game.with_participant(current_user).unconfirmed.includes(:game_ranks => :user)
+    @unconfirmed = Game.participant(current_user).unconfirmed.includes(:game_ranks => :user)
   end
 
   def new
-    @tournament = Tournament.participant(current_user).find(params[:tournament_id])
+    @tournament = Tournament.with_rated_user(current_user).find(params[:tournament_id])
     @game = @tournament.games.build
     @game.game_ranks.build :player => @tournament.players.find_by!(user_id: current_user), :position => 1
     @game.game_ranks.build :player => @tournament.players.find_by!(user_id: params[:user_id]), :position => 2
   end
 
   def create
-    @tournament = Tournament.participant(current_user).find(params[:tournament_id])
+    @tournament = Tournament.with_rated_user(current_user).find(params[:tournament_id])
     @game = @tournament.games.build params.require(:game).permit(:comment, :game_ranks_attributes => [:player_id, :position])
     @game.owner = current_user
     if @game.save
@@ -30,8 +31,6 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.with_participant(current_user).find(params[:id])
-    @tournament = @game.tournament
     @game_ranks = @game.game_ranks.includes(:user)
     @current_game_rank = @game_ranks.detect {|game_rank| game_rank.user.id == current_user.id }
     @challenge = @game.challenge
@@ -39,7 +38,6 @@ class GamesController < ApplicationController
   end
 
   def update
-    @game = Game.with_participant(current_user).readonly(false).find(params[:id])
     @game.attributes = params.require(:game).permit(:comment)
     CommentService.new(current_user).comment(@game, @game.comment, @game.game_ranks.map(&:user))
     if params.has_key?(:confirm)
@@ -52,5 +50,12 @@ class GamesController < ApplicationController
       end
     end
     redirect_to game_path(@game)
+  end
+
+  private
+
+  def find_game_and_tournament
+    @game = Game.find(params[:id])
+    @tournament = Tournament.with_rated_user(current_user).find(@game.tournament_id)
   end
 end
