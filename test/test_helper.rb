@@ -32,3 +32,7 @@ class ActionDispatch::IntegrationTest
   include Capybara::RSpecMatchers
   include Capybara::DSL
 end
+
+class MiniTest::Spec
+  include FactoryGirl::Syntax::Methods
+end
