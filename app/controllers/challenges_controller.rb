@@ -14,7 +14,7 @@ class ChallengesController < ApplicationController
   def show
     @challenge = Challenge.find(params[:id])
     @tournament = Tournament.with_rated_user(current_user).find(@challenge.tournament_id)
-    @game = @challenge.game if @challenge.participant?(current_user)
+    @game = @challenge.game
     @comments = @challenge.comments
   end
 
