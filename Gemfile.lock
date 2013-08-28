@@ -76,6 +76,8 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
+    friendly_id (5.0.0.beta4)
+      activerecord (~> 4.0.0)
     glicko2 (0.1.2)
     hashie (2.0.5)
     highline (1.6.19)
@@ -221,6 +223,7 @@ DEPENDENCIES
   exception_notification (~> 4.0.0.rc1)
   factory_girl_rails (~> 4.0)
   figaro
+  friendly_id (= 5.0.0.beta4)
   glicko2
   jquery-rails
   kaminari

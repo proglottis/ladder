@@ -23,6 +23,7 @@ gem 'rickshaw_rails'
 gem 'minitest-rails'
 gem 'turbolinks'
 gem 'figaro'
+gem 'friendly_id', '5.0.0.beta4'
 
 group :test, :development do
   gem 'capybara_minitest_spec'
