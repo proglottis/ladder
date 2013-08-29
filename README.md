@@ -2,6 +2,26 @@
 
 Ladder tournament ranking website. Uses Glicko2 to rank players of pool, foosball, or any other 1 vs 1 game and track their skill over time.
 
+## Getting Started
+
+Clone the repository and install gems.
+```
+git clone https://github.com/proglottis/ladder.git
+cd ladder
+bundle install
+```
+
+Create `config/database.yml` from the example file `config/database.yml`.
+
+Setup the database. _Do not run migrations from the start of time, doing so will fail._
+```
+bundle exec rake db:setup
+```
+
+Create `config/application.yml` from the example file `config/application.yml.example`. If you are only running ladder locally these values can be left at their defaults.
+
+For development the "development" strategy is enabled on OmniAuth. This will accept any values for authentication.
+
 ## Contributing
 
 1. Fork it
