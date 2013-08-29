@@ -19,4 +19,15 @@ class ActivityFeed
     (games | challenges).sort_by(&:updated_at).reverse!
   end
 
+  def for_tournament(tournament)
+    games = tournament.games.
+      where(:updated_at => @start_at..@end_at).
+      includes(:tournament, :game_ranks => :user)
+    challenges = tournament.challenges.
+      where(:updated_at => @start_at..@end_at).
+      includes(:tournament, :defender, :challenger)
+
+    (games | challenges).sort_by(&:updated_at).reverse!
+  end
+
 end
