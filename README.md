@@ -11,16 +11,16 @@ cd ladder
 bundle install
 ```
 
-Create `config/database.yml` from the example file `config/database.yml`.
+Create `config/application.yml` from the example file `config/application.yml.example`. If you are only running ladder locally these values can be left at their defaults.
+
+Create `config/database.yml` from the example file `config/database.yml.example`.
 
 Setup the database. _Do not run migrations from the start of time, doing so will fail._
 ```
 bundle exec rake db:setup
 ```
 
-Create `config/application.yml` from the example file `config/application.yml.example`. If you are only running ladder locally these values can be left at their defaults.
-
-For development the "development" strategy is enabled on OmniAuth. This will accept any values for authentication.
+For development the "developer" strategy is enabled on OmniAuth. This will accept any values for authentication.
 
 ## Contributing
 
