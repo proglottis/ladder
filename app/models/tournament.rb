@@ -1,6 +1,9 @@
 class Tournament < ActiveRecord::Base
   OWNER_LIMIT = 5
 
+  extend FriendlyId
+  friendly_id :slug_canditates, use: :slugged
+
   belongs_to :owner, :class_name => 'User'
 
   has_many :players, :dependent => :destroy
@@ -61,6 +64,13 @@ class Tournament < ActiveRecord::Base
 
   def self.limit_left
     OWNER_LIMIT - count
+  end
+
+  def slug_canditates
+    [
+      :name,
+      [:name, :id],
+    ]
   end
 
   private

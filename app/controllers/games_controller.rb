@@ -8,7 +8,7 @@ class GamesController < ApplicationController
   end
 
   def new
-    @tournament = Tournament.with_rated_user(current_user).find(params[:tournament_id])
+    @tournament = Tournament.with_rated_user(current_user).friendly.find(params[:tournament_id])
     @other_user = User.friendly.find(params[:user_id])
     @game = @tournament.games.build
     @game.game_ranks.build :player => @tournament.players.find_by!(user_id: current_user), :position => 1
@@ -16,7 +16,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    @tournament = Tournament.with_rated_user(current_user).find(params[:tournament_id])
+    @tournament = Tournament.with_rated_user(current_user).friendly.find(params[:tournament_id])
     @game = @tournament.games.build params.require(:game).permit(:comment, :game_ranks_attributes => [:player_id, :position])
     @game.owner = current_user
     if @game.save
@@ -57,6 +57,6 @@ class GamesController < ApplicationController
 
   def find_game_and_tournament
     @game = Game.find(params[:id])
-    @tournament = Tournament.with_rated_user(current_user).find(@game.tournament_id)
+    @tournament = Tournament.with_rated_user(current_user).friendly.find(@game.tournament_id)
   end
 end

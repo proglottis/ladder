@@ -35,12 +35,12 @@ class Tournaments::InvitesController < ApplicationController
   private
 
   def find_invite_for_tournament
-    @tournament = Tournament.find(params[:tournament_id])
+    @tournament = Tournament.friendly.find(params[:tournament_id])
     @invite = @tournament.invites.available.find_by_code!(params[:id])
   end
 
   def find_tournament_with_current_user
-    @tournament = Tournament.participant(current_user).find(params[:tournament_id])
+    @tournament = Tournament.participant(current_user).friendly.find(params[:tournament_id])
     @player = @tournament.players.find_by(:user_id => current_user)
   end
 end

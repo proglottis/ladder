@@ -47,7 +47,7 @@ class ChallengesController < ApplicationController
   private
 
   def find_tournament_and_defender
-    @tournament = Tournament.with_rated_user(current_user).find(params[:tournament_id])
+    @tournament = Tournament.with_rated_user(current_user).friendly.find(params[:tournament_id])
     @defender = @tournament.users.friendly.find(params[:defender_id])
   end
 end

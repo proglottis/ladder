@@ -46,6 +46,7 @@ class TournamentsController < ApplicationController
   end
 
   def update
+    @tournament.slug = nil
     if @tournament.update_attributes(params.require(:tournament).permit(:name, :page_attributes => [:id, :content]))
       redirect_to tournament_path(@tournament)
     else
@@ -62,7 +63,7 @@ class TournamentsController < ApplicationController
   private
 
   def find_tournament_and_rating_period_and_player
-    @tournament = Tournament.participant(current_user).find(params[:id])
+    @tournament = Tournament.participant(current_user).friendly.find(params[:id])
     @rating_period = @tournament.current_rating_period
     @player = @tournament.players.find_by(:user_id => current_user)
   end
