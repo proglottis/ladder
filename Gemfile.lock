@@ -52,7 +52,6 @@ GEM
       execjs
     coffee-script-source (1.6.2)
     columnize (0.3.6)
-    commonjs (0.2.6)
     dalli (2.6.4)
     debugger (1.6.0)
       columnize (>= 0.3.1)
@@ -92,11 +91,6 @@ GEM
     kaminari (0.14.1)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    less (2.3.2)
-      commonjs (~> 0.2.6)
-    less-rails (2.3.3)
-      actionpack (>= 3.1)
-      less (~> 2.3.1)
     libv8 (3.11.8.17)
     mail (2.5.4)
       mime-types (~> 1.16)
@@ -222,7 +216,6 @@ DEPENDENCIES
   glicko2
   jquery-rails
   kaminari
-  less-rails
   minitest-rails
   minitest-rails-capybara
   omniauth
