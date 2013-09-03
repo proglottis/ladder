@@ -32,4 +32,8 @@ module ApplicationHelper
   def render_single(model)
     render [model].compact
   end
+
+  def glyph(name)
+    content_tag :span, "", class: "glyphicon glyphicon-#{name}"
+  end
 end
