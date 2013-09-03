@@ -4,11 +4,11 @@
 </div>
 
 <div class="row">
-  <div class="span7">
+  <div class="col-md-7">
     <%= render @activity %>
   </div>
 
-  <div class="span5">
+  <div class="col-md-5">
     <%= div_for @tournaments do |tournament| %>
       <div class="clearfix">
         <%= link_to tournament.name, tournament_path(tournament) %>

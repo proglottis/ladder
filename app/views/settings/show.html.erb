@@ -31,7 +31,7 @@
   </div>
   <div class="tab-pane" id="services">
     <div class="row">
-      <%= div_for @services, :class => 'span6' do |service| %>
+      <%= div_for @services, :class => 'col-md-6' do |service| %>
         <div class="thumbnail">
           <div class="caption">
             <h3><%= service.provider.humanize %></h3>
