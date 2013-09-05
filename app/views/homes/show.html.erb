@@ -1,20 +1,22 @@
 <br/>
-<div class="hero-unit">
-  <h1><%= t 'application.name' %></h1>
-  <p><%= t '.slogan' %></p>
-  <p><%= link_to t('.start'), session_path, :class => 'btn btn-primary btn-large' %></p>
+<div class="jumbotron">
+  <div class="container">
+    <h1><%= t 'application.name' %></h1>
+    <p><%= t '.slogan' %></p>
+    <p><%= link_to t('.start'), session_path, :class => 'btn btn-primary btn-lg' %></p>
+  </div>
 </div>
 
 <div class="row">
-  <div class="span4">
+  <div class="col-md-4">
     <h2><%= t '.skill.title' %></h2>
     <p><%= t '.skill.summary' %></p>
   </div>
-  <div class="span4">
+  <div class="col-md-4">
     <h2><%= t '.challenges.title' %></h2>
     <p><%= t '.challenges.summary' %></p>
   </div>
-  <div class="span4">
+  <div class="col-md-4">
     <h2><%= t '.generic.title' %></h2>
     <p><%= t '.generic.summary' %></p>
   </div>

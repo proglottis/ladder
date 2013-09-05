@@ -9,13 +9,11 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require bootstrap
+ *= require bootstrap-theme
  *= require rickshaw
  *= require_tree .
  */
-
-.vertically-spaced {
-  margin-bottom: 20px;
-}
 
 .footer {
   padding: 70px 0;

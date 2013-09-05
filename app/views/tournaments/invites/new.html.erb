@@ -1,14 +1,10 @@
-<%= form_for [@tournament, @invite], :html => {:class => 'form-horizontal'} do |f| %>
-  <div class="control-group">
+<%= form_for [@tournament, @invite] do |f| %>
+  <div class="form-group">
     <%= f.label :email, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :email %>
-    </div>
+    <%= f.text_field :email, :class => 'form-control' %>
   </div>
-  <div class="control-group">
-    <div class="controls">
-      <%= f.submit :class => 'btn btn-primary' %>
-      <%= cancel_link tournament_path(@tournament) %>
-    </div>
+  <div class="form-group">
+    <%= f.submit :class => 'btn btn-primary' %>
+    <%= cancel_link tournament_path(@tournament) %>
   </div>
 <% end %>
