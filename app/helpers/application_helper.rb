@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def cancel_link(path)
-    link_to t('helpers.cancel_link'), path, :class => 'btn'
+    link_to t('helpers.cancel_link'), path, :class => 'btn btn-default'
   end
 
   def delete_link(path)
@@ -31,5 +31,9 @@ module ApplicationHelper
 
   def render_single(model)
     render [model].compact
+  end
+
+  def glyph(name)
+    content_tag :span, "", class: "glyphicon glyphicon-#{name}"
   end
 end

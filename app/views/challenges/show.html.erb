@@ -19,30 +19,24 @@
 <% end %>
 
 <%= form_for @challenge do |f| %>
-  <div class="control-group">
-    <div class="controls">
-      <%= f.text_area :comment, :rows => 2, :maxlength => Comment::MAX_LENGTH, :class => 'input-block-level', :placeholder => Comment.model_name.human %>
-    </div>
+  <div class="form-group">
+    <%= f.text_area :comment, :rows => 2, :maxlength => Comment::MAX_LENGTH, :class => 'form-control', :placeholder => Comment.model_name.human %>
   </div>
   <% if @challenge.active? && @challenge.defender == current_user %>
-    <div class="control-group">
-      <div class="controls">
-        <label class="radio inline">
-          <%= f.radio_button :response, :won %> <%= t '.won' %>
-        </label>
-        <label class="radio inline">
-          <%= f.radio_button :response, :lost %> <%= t '.lost' %>
-        </label>
-      </div>
+    <div class="form-group">
+      <label class="radio-inline">
+        <%= f.radio_button :response, :won %> <%= t '.won' %>
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :response, :lost %> <%= t '.lost' %>
+      </label>
     </div>
   <% end %>
-  <div class="control-group">
-    <div class="controls">
-      <%= f.button :class => 'btn btn-primary' %>
-      <% if @challenge.active? && @challenge.defender == current_user %>
-        <%= f.button t('.respond'), :name => 'respond', :class => 'btn btn-success' %>
-      <% end %>
-    </div>
+  <div class="form-group">
+    <%= f.button :class => 'btn btn-primary' %>
+    <% if @challenge.active? && @challenge.defender == current_user %>
+      <%= f.button t('.respond'), :name => 'respond', :class => 'btn btn-success' %>
+    <% end %>
   </div>
 <% end %>
 <%= render :partial => 'comments/comment', :collection => @comments %>

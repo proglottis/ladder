@@ -9,17 +9,19 @@
   <li><%= link_to games_path do %><%= Game.model_name.human.pluralize %> <%= pending_confirmation_badge %><% end %></li>
 </ul>
 
+<br />
+
 <div class="row">
-  <div class="span7">
+  <div class="col-md-7">
     <%= render @activity %>
   </div>
 
-  <div class="span5">
+  <div class="col-md-5">
     <h2><%= Tournament.model_name.human.pluralize %></h2>
-    <ul class="nav nav-tabs nav-stacked">
+    <ul class="nav nav-pills nav-stacked">
       <li>
         <%= link_to new_tournament_path, :rel => 'tooltip', :title => t('.can_start', :count => Tournament.where(:owner_id => current_user).limit_left) do %>
-          <%= glyph :magic %> <%= t '.start' %>
+          <%= glyph :pencil %> <%= t '.start' %>
         <% end %>
       </li>
       <%= render @tournaments %>

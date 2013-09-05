@@ -5,7 +5,7 @@
     <tr>
       <th><%= t '.rank' %></th>
       <th><%= User.model_name.human %></th>
-      <th><%= Rating.model_name.human %></th>
+      <th class="hidden-xs"><%= Rating.model_name.human %></th>
       <% if @show_actions %>
         <th></th>
       <% end %>
@@ -21,13 +21,13 @@
           <td>
             <%= profile_link_tag rating.user %><%= streak_badge(rating.player) %>
           </td>
-          <td><%= rank %><% if @rating && @rating != rating %> <small class="muted">(<%= t '.chance_to_beat', :percentage => number_to_percentage(100.0 * @rating.expected_fractional_score(rating), :precision => 0) %>)</small><% end %></td>
+          <td class="hidden-xs"><%= rank %><% if @rating && @rating != rating %> <small class="text-muted">(<%= t '.chance_to_beat', :percentage => number_to_percentage(100.0 * @rating.expected_fractional_score(rating), :precision => 0) %>)</small><% end %></td>
           <% if @show_actions %>
             <td>
               <% if rating.user != current_user %>
                 <div class="btn-group">
-                  <%= link_to Challenge.model_name.human, new_challenge_path(:defender_id => rating.user, :tournament_id => @tournament), :class => rating.defending_challenge? ? 'btn disabled' : 'btn' %>
-                  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                  <%= link_to Challenge.model_name.human, new_challenge_path(:defender_id => rating.user, :tournament_id => @tournament), :class => rating.defending_challenge? ? 'btn btn-default disabled' : 'btn btn-default' %>
+                  <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
                     <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">

@@ -4,18 +4,18 @@
 </div>
 
 <div class="row">
-  <div class="span7">
+  <div class="col-md-7">
     <%= render @activity %>
   </div>
 
-  <div class="span5">
+  <div class="col-md-5">
     <%= div_for @tournaments do |tournament| %>
       <div class="clearfix">
         <%= link_to tournament.name, tournament_path(tournament) %>
         <% if current_user != @user %>
           <div class="btn-group pull-right">
-            <%= link_to t(Challenge.model_name.human), new_challenge_path(:defender_id => @user, :tournament_id => tournament), :class => tournament.challenges.active.find_by_defender_id(@user.id) ? 'btn disabled' : 'btn' %>
-            <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+            <%= link_to t(Challenge.model_name.human), new_challenge_path(:defender_id => @user, :tournament_id => tournament), :class => tournament.challenges.active.find_by_defender_id(@user.id) ? 'btn btn-default disabled' : 'btn btn-default' %>
+            <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
