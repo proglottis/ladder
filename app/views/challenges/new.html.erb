@@ -5,34 +5,28 @@
 
 <p><%= raw t '.rules', :defender => profile_link_tag(@challenge.defender) %></p>
 
-<%= form_for @challenge, :html => {:class => 'form-horizontal'} do |f| %>
+<%= form_for @challenge do |f| %>
   <%= hidden_field_tag 'tournament_id', @tournament.id %>
   <%= hidden_field_tag 'defender_id', @defender.id %>
-  <div class="control-group<%= " error" if @challenge.errors[:tournament].any? %>">
+  <div class="form-group<%= " has-error" if @challenge.errors[:tournament].any? %>">
     <%= f.label :tournament, :class => 'control-label' %>
-    <div class="controls">
-      <span class="uneditable-input"><%= @challenge.tournament.name %></span>
-      <% if @challenge.errors[:tournament].any? %>
-        <span class="help-inline"><%= @challenge.errors[:tournament].to_sentence %></span>
-      <% end%>
-    </div>
+    <p class="form-control-static"><%= @challenge.tournament.name %></p>
+    <% if @challenge.errors[:tournament].any? %>
+      <span class="help-block"><%= @challenge.errors[:tournament].to_sentence %></span>
+    <% end%>
   </div>
-  <div class="control-group<%= " error" if @challenge.errors[:defender].any? %>">
+  <div class="form-group<%= " has-error" if @challenge.errors[:defender].any? %>">
     <%= f.label :defender, :class => 'control-label' %>
-    <div class="controls">
-      <span class="uneditable-input"><%= profile_tag @challenge.defender %></span>
-      <% if @challenge.errors[:defender].any? %>
-        <span class="help-inline"><%= @challenge.errors[:defender].to_sentence %></span>
-      <% end%>
-    </div>
+    <p class="form-control-static"><%= profile_tag @challenge.defender %></p>
+    <% if @challenge.errors[:defender].any? %>
+      <span class="help-block"><%= @challenge.errors[:defender].to_sentence %></span>
+    <% end%>
   </div>
-  <div class="control-group">
+  <div class="form-group">
     <%= f.label :comment, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_area :comment, :rows => 2, :maxlength => Comment::MAX_LENGTH, :class => 'input-block-level', :placeholder => Comment.model_name.human %>
-    </div>
+    <%= f.text_area :comment, :rows => 2, :maxlength => Comment::MAX_LENGTH, :class => 'form-control', :placeholder => Comment.model_name.human %>
   </div>
-  <div class="form-actions">
+  <div class="group-actions">
     <%= f.submit :class => 'btn btn-primary' %>
     <%= cancel_link :back %>
   </div>

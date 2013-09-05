@@ -1,6 +1,6 @@
 <div class="media">
   <%= link_to challenge_path(challenge), :class => 'pull-left' do %>
-    <%= gravatar_image_tag challenge.challenger.email, 64 %>
+    <%= gravatar_image_tag challenge.challenger.email, 64, :class => 'media-object' %>
   <% end %>
   <div class="media-body">
     <h4 class="media-heading"><%= link_to challenge.versus, challenge_path(challenge) %> <small><%= time_ago_in_words challenge.created_at %> ago</small></h4>
