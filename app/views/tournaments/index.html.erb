@@ -9,6 +9,8 @@
   <li><%= link_to games_path do %><%= Game.model_name.human.pluralize %> <%= pending_confirmation_badge %><% end %></li>
 </ul>
 
+<br />
+
 <div class="row">
   <div class="col-md-7">
     <%= render @activity %>
