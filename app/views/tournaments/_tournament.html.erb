@@ -1,5 +1,3 @@
-<li>
-  <%= link_to tournament_path(tournament) do %>
-    <%= glyph :list %> <%= tournament.name %>
-  <% end %>
-</li>
+<%= link_to tournament_path(tournament), :class => "list-group-item" do %>
+  <%= glyph :list %> <%= tournament.name %>
+<% end %>
