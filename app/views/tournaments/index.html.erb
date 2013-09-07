@@ -12,11 +12,7 @@
 <br />
 
 <div class="row">
-  <div class="col-md-7">
-    <%= render @activity %>
-  </div>
-
-  <div class="col-md-5">
+  <div class="col-sm-5 col-sm-push-7">
     <h2><%= Tournament.model_name.human.pluralize %></h2>
     <div class="list-group">
       <%= link_to new_tournament_path, :rel => 'tooltip', :'data-toggle' => 'tooltip', :title => t('.can_start', :count => Tournament.where(:owner_id => current_user).limit_left), :class => 'list-group-item' do %>
@@ -24,5 +20,9 @@
       <% end %>
       <%= render @tournaments %>
     </div>
+  </div>
+
+  <div class="col-sm-7 col-sm-pull-5">
+    <%= render @activity %>
   </div>
 </div>
