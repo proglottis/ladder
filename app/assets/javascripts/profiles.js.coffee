@@ -6,6 +6,7 @@ initHistoryGraph = (id, url)->
         x((d) -> new Date(d.period_at)).
         y((d) -> d.rating - 2.0 * d.rating_deviation).
         color(d3.scale.category10().range())
+      chart.useInteractiveGuideline(true)
 
       chart.xAxis.tickFormat((d) -> d3.time.format("%x")(new Date(d)))
       chart.yAxis.tickFormat(d3.format(".0f"))
