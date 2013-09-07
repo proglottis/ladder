@@ -24,11 +24,6 @@
           </div>
         <% end %>
       </div>
-      <%= div_for tournament, :class => "plot", :'data-url' => history_profile_path(@user, :tournament_id => tournament, :format => 'json') do %>
-        <div class="y_axis"></div>
-        <div class="chart"></div>
-        <div class="legend"></div>
-      <% end %>
     <% end %>
   </div>
 </div>

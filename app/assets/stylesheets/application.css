@@ -11,7 +11,6 @@
  *= require_self
  *= require bootstrap
  *= require bootstrap-theme
- *= require rickshaw
  *= require_tree .
  */
 

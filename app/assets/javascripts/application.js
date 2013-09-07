@@ -15,5 +15,4 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap
-//= require rickshaw_with_d3
 //= require_tree .
