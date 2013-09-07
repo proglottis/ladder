@@ -24,6 +24,7 @@
           </div>
         <% end %>
       </div>
+      <%= content_tag :svg, "", :style => "height: 150px", :class => "plot", :'data-url' => history_profile_path(@user, :tournament_id => tournament, :format => 'json') %>
     <% end %>
   </div>
 </div>

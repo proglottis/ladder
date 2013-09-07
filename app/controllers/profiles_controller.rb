@@ -12,8 +12,8 @@ class ProfilesController < ApplicationController
     @users = current_user == @user ? [current_user] : [current_user, @user]
     @series = @users.map do |user|
       {
-        :name => user.name,
-        :data => @tournament.ratings.where(:user_id => user).joins(:rating_period).order('rating_periods.period_at').select('ratings.*, rating_periods.period_at')
+        :key => user.name,
+        :values => @tournament.ratings.where(:user_id => user).joins(:rating_period).order('rating_periods.period_at').select('ratings.*, rating_periods.period_at')
       }
     end
 
