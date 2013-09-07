@@ -4,11 +4,7 @@
 </div>
 
 <div class="row">
-  <div class="col-md-7">
-    <%= render @activity %>
-  </div>
-
-  <div class="col-md-5">
+  <div class="col-sm-5 col-sm-push-7">
     <%= div_for @tournaments do |tournament| %>
       <div class="clearfix">
         <%= link_to tournament.name, tournament_path(tournament) %>
@@ -26,5 +22,9 @@
       </div>
       <%= content_tag :svg, "", :style => "height: 150px", :class => "plot", :'data-url' => history_profile_path(@user, :tournament_id => tournament, :format => 'json') %>
     <% end %>
+  </div>
+
+  <div class="col-sm-7 col-sm-pull-5">
+    <%= render @activity %>
   </div>
 </div>
