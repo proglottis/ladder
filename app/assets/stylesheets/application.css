@@ -11,6 +11,7 @@
  *= require_self
  *= require bootstrap
  *= require bootstrap-theme
+ *= require nv.d3
  *= require_tree .
  */
 
