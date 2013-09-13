@@ -14,7 +14,7 @@ class Game < ActiveRecord::Base
   attr_accessor :comment
 
   def self.participant(user)
-    joins(:game_ranks => :player).where(:players => {:user_id => user})
+    joins(:game_ranks).merge GameRank.with_participant(user)
   end
 
   def self.confirmed_between(start_at, end_at)
