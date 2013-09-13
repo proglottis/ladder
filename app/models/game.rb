@@ -17,6 +17,10 @@ class Game < ActiveRecord::Base
     joins(:game_ranks => :player).where(:players => {:user_id => user})
   end
 
+  def self.confirmed_between(start_at, end_at)
+    joins(:events).merge GameEvent.where(:created_at => start_at..end_at).latest_state("confirmed")
+  end
+
   def self.unconfirmed
     joins(:events).merge GameEvent.latest_state("unconfirmed")
   end

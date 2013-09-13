@@ -41,6 +41,12 @@ FactoryGirl.define do
         game.events.create! state: 'unconfirmed'
       end
     end
+
+    factory :confirmed_game do
+      after :create do |game, evaluator|
+        game.events.create! state: 'confirmed'
+      end
+    end
   end
 
   factory :game_state do

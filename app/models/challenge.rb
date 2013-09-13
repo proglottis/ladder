@@ -49,7 +49,7 @@ class Challenge < ActiveRecord::Base
 
   def build_default_game
     time = Time.zone.now
-    game = Game.new(:tournament => tournament, :owner => challenger, :confirmed_at => time)
+    game = Game.new(:tournament => tournament, :owner => challenger)
     game.events.build state: 'confirmed'
     game.game_ranks.build(:player => challenger.players.find_by!(tournament_id: tournament), :position => 1, :confirmed_at => time)
     game.game_ranks.build(:player => defender.players.find_by!(tournament_id: tournament), :position => 2, :confirmed_at => time)
