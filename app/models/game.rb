@@ -26,7 +26,7 @@ class Game < ActiveRecord::Base
   end
 
   def current_state
-    (events.last.try(:state) || STATES.first).inquiry
+    (events.order("id ASC").last.try(:state) || STATES.first).inquiry
   end
 
   def confirm_user(user)
