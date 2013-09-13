@@ -34,7 +34,7 @@ describe "GamesController Integration Test" do
 
   describe "confirming" do
     before do
-      @game = create(:game, :tournament => @tournament)
+      @game = create(:unconfirmed_game, :tournament => @tournament)
       @game_rank1 = create(:game_rank, :game => @game, :player => @player1, :position => 1)
       @game_rank2 = create(:game_rank, :game => @game, :player => @player2, :position => 2)
     end

@@ -18,6 +18,7 @@ class GamesController < ApplicationController
   def create
     @tournament = Tournament.with_rated_user(current_user).friendly.find(params[:tournament_id])
     @game = @tournament.games.build params.require(:game).permit(:comment, :game_ranks_attributes => [:player_id, :position])
+    @game.events.build state: 'unconfirmed'
     @game.owner = current_user
     if @game.save
       CommentService.new(current_user).comment(@game, @game.comment)

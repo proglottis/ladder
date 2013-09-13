@@ -35,6 +35,17 @@ FactoryGirl.define do
   factory :game do
     owner
     tournament
+
+    factory :unconfirmed_game do
+      after :create do |game, evaluator|
+        game.events.create! state: 'unconfirmed'
+      end
+    end
+  end
+
+  factory :game_state do
+    game
+    state 'incomplete'
   end
 
   factory :game_rank do

@@ -6,6 +6,9 @@ class Game < ActiveRecord::Base
   has_many :comments, -> { order('created_at DESC') }, :as => :commentable, :dependent => :destroy
   has_one :challenge
 
+  STATES = %w[incomplete unconfirmed confirmed]
+  delegate :incomplete?, :unconfirmed?, :confirmed?, :to => :current_state
+
   accepts_nested_attributes_for :game_ranks
 
   attr_accessor :comment
@@ -15,10 +18,15 @@ class Game < ActiveRecord::Base
   end
 
   def self.unconfirmed
-    where(:confirmed_at => nil)
+    joins(:events).merge GameEvent.latest_state("unconfirmed")
+  end
+
+  def current_state
+    (events.last.try(:state) || STATES.first).inquiry
   end
 
   def confirm_user(user)
+    raise "Cannot confirm if game is incomplete" if incomplete?
     with_lock do
       total = 0
       confirmed = 0
@@ -28,7 +36,7 @@ class Game < ActiveRecord::Base
         total += 1
       end
       if total == confirmed
-        return true if confirmed_at.present?
+        return true if confirmed?
         winning_rank, losing_rank = game_ranks.minmax_by(&:position)
         game_ranks.each do |game_rank|
           if game_rank.position == winning_rank.position && winning_rank.position != losing_rank.position
@@ -42,16 +50,12 @@ class Game < ActiveRecord::Base
                                                 :losing_streak_count => 0)
           end
         end
-        update_attributes!(:confirmed_at => Time.zone.now)
+        events.create! state: "confirmed"
         true
       else
         false
       end
     end
-  end
-
-  def confirmed?
-    confirmed_at != nil
   end
 
   def name
