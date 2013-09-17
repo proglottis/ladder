@@ -29,7 +29,7 @@
   </div>
   <div class="form-group">
     <%= f.button :class => 'btn btn-primary' %>
-    <% if @current_game_rank && !@current_game_rank.confirmed? %>
+    <% if @game.unconfirmed? && @current_game_rank && @current_game_rank.unconfirmed? %>
       <%= f.button t('.confirm'), :name => 'confirm', :class => 'btn btn-success' %>
     <% end %>
   </div>

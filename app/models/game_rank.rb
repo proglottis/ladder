@@ -21,6 +21,10 @@ class GameRank < ActiveRecord::Base
   end
 
   def confirmed?
-    confirmed_at != nil
+    !unconfirmed?
+  end
+
+  def unconfirmed?
+    confirmed_at.nil?
   end
 end
