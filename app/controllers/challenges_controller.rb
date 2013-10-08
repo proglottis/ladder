@@ -1,6 +1,7 @@
 class ChallengesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_tournament_and_defender, :only => [:new, :create]
+  before_filter :find_challenge_and_tournament, :only => [:show, :update]
 
   def index
     @challenging = Challenge.active.challenging(current_user.id)
@@ -12,8 +13,6 @@ class ChallengesController < ApplicationController
   end
 
   def show
-    @challenge = Challenge.find(params[:id])
-    @tournament = Tournament.with_rated_user(current_user).find(@challenge.tournament_id)
     @game = @challenge.game
     @comments = @challenge.comments
   end
@@ -32,11 +31,9 @@ class ChallengesController < ApplicationController
   end
 
   def update
-    @challenge = Challenge.active.find(params[:id])
     @challenge.attributes = params.require(:challenge).permit(:response, :comment)
-    @tournament = Tournament.with_rated_user(current_user).find(@challenge.tournament_id)
     CommentService.new(current_user).comment(@challenge, @challenge.comment, @challenge.participants)
-    if params.has_key?(:respond) && @challenge.defender == current_user
+    if @challenge.active? && params.has_key?(:respond) && @challenge.defender == current_user
       @challenge.respond!
       redirect_to game_path(@challenge.game)
     else
@@ -49,5 +46,10 @@ class ChallengesController < ApplicationController
   def find_tournament_and_defender
     @tournament = Tournament.with_rated_user(current_user).friendly.find(params[:tournament_id])
     @defender = @tournament.users.friendly.find(params[:defender_id])
+  end
+
+  def find_challenge_and_tournament
+    @challenge = Challenge.find(params[:id])
+    @tournament = Tournament.with_rated_user(current_user).find(@challenge.tournament_id)
   end
 end
