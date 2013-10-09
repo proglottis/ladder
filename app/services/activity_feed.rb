@@ -11,12 +11,8 @@ class ActivityFeed
       where(:tournament_id => tournaments.map(&:id)).
       participant(user).
       includes(:tournament, :game_ranks => :user)
-    challenges = Challenge.where(:updated_at => @start_at..@end_at).
-      where(:tournament_id => tournaments.map(&:id)).
-      where('defender_id = ? OR challenger_id = ?', user.id, user.id).
-      includes(:tournament, :defender, :challenger)
 
-    (games | challenges).sort_by(&:updated_at).reverse!
+    games.sort_by(&:updated_at).reverse!
   end
 
   def for_tournament(tournament)
@@ -27,7 +23,7 @@ class ActivityFeed
       where(:updated_at => @start_at..@end_at).
       includes(:tournament, :defender, :challenger)
 
-    (games | challenges).sort_by(&:updated_at).reverse!
+    games.sort_by(&:updated_at).reverse!
   end
 
 end

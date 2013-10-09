@@ -3,24 +3,36 @@
   <h1><%= t '.title' %></h1>
 </div>
 
-<p><%= raw t '.rules', :defender => profile_link_tag(@challenge.defender) %></p>
+<p><%= raw t '.rules', :defender => profile_link_tag(@defender) %></p>
 
-<%= form_for @challenge do |f| %>
+<%= form_for @game, url: challenge_path(@game) do |f| %>
   <%= hidden_field_tag 'tournament_id', @tournament.id %>
-  <%= hidden_field_tag 'defender_id', @defender.id %>
-  <div class="form-group<%= " has-error" if @challenge.errors[:tournament].any? %>">
+  <%= hidden_field_tag 'user_id', @defender.id %>
+  <div class="form-group<%= " has-error" if @game.errors[:tournament].any? %>">
     <%= f.label :tournament, :class => 'control-label' %>
-    <p class="form-control-static"><%= @challenge.tournament.name %></p>
-    <% if @challenge.errors[:tournament].any? %>
-      <span class="help-block"><%= @challenge.errors[:tournament].to_sentence %></span>
+    <p class="form-control-static"><%= @game.tournament.name %></p>
+    <% if @game.errors[:tournament].any? %>
+      <span class="help-block"><%= @game.errors[:tournament].to_sentence %></span>
     <% end%>
   </div>
-  <div class="form-group<%= " has-error" if @challenge.errors[:defender].any? %>">
-    <%= f.label :defender, :class => 'control-label' %>
-    <p class="form-control-static"><%= profile_tag @challenge.defender %></p>
-    <% if @challenge.errors[:defender].any? %>
-      <span class="help-block"><%= @challenge.errors[:defender].to_sentence %></span>
-    <% end%>
+  <div class="control-group">
+    <div class="controls">
+      <table class="table table-bordered table-condensed">
+        <thead>
+          <tr>
+            <th><%= User.human_attribute_name('name') %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <%= f.fields_for :game_ranks do |builder| %>
+            <tr>
+              <%= builder.hidden_field :player_id %>
+              <td><%= profile_tag builder.object.user %><% if builder.object.user == current_user %> <span class="label label-primary"><%= t '.challenger' %></span><% end %><% if builder.object.errors.any? %> <span class="text-danger"><%= builder.object.errors.full_messages.to_sentence %></span><% end %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
   <div class="form-group">
     <%= f.label :comment, :class => 'control-label' %>

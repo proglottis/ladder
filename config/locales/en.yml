@@ -103,6 +103,12 @@ en:
     show:
       status: Status
       confirm: Confirm
+      rules: This challenge expires on %{time}. If %{defender} does not log a game against it before then s/he will lose by default.
+      responded: "%{defender} has responded to this challenge."
+      won: I won
+      lost: I lost
+      respond: Respond
+      response: Response
     game_rank:
       confirmed: Confirmed, %{time} ago
       unconfirmed: Unconfirmed
@@ -114,13 +120,6 @@ en:
     new:
       title: New challenge
       rules: Challenge a player to a game. %{defender} will have 7 days to log the result against this challenge or s/he will lose by default.
-    show:
-      rules: This challenge expires on %{time}. If %{defender} does not log a game against it before then s/he will lose by default.
-      responded: "%{defender} has responded to this challenge."
-      won: I won
-      lost: I lost
-      respond: Respond
-      response: Response
 
   notifications:
     tournament_invitation:

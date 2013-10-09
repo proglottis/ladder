@@ -6,8 +6,10 @@ class Game < ActiveRecord::Base
   has_many :comments, -> { order('created_at DESC') }, :as => :commentable, :dependent => :destroy
   has_one :challenge
 
-  STATES = %w[incomplete unconfirmed confirmed]
-  delegate :incomplete?, :unconfirmed?, :confirmed?, :to => :current_state
+  has_many :users, :through => :game_ranks
+
+  STATES = %w[incomplete challenged unconfirmed confirmed]
+  delegate :incomplete?, :challenged?, :unconfirmed?, :confirmed?, :to => :current_state
 
   accepts_nested_attributes_for :game_ranks
 
@@ -29,8 +31,24 @@ class Game < ActiveRecord::Base
     (events.order("id ASC").last.try(:state) || STATES.first).inquiry
   end
 
+  def was_challenged?
+    events.any? { |event| event.state == "challenged" }
+  end
+
+  def challenge_processed_at
+    (created_at + 7.days).tomorrow.midnight
+  end
+
+  def challenger
+    users.detect{|user| user == owner}
+  end
+
+  def defender
+    users.detect{|user| user != owner }
+  end
+
   def confirm_user(user)
-    raise "Cannot confirm if game is incomplete" if incomplete?
+    raise "Cannot confirm if game is incomplete" if incomplete? || challenged?
     with_lock do
       total = 0
       confirmed = 0

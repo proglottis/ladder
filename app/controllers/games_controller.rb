@@ -3,8 +3,8 @@ class GamesController < ApplicationController
   before_filter :find_game_and_tournament, :only => [:show, :update]
 
   def index
-    @pending = GameRank.not_confirmed.with_participant(current_user).includes(:user)
-    @unconfirmed = Game.participant(current_user).unconfirmed.includes(:game_ranks => :user)
+    @games = Game.participant(current_user).unconfirmed.includes(:tournament, :game_ranks => :user)
+    @unconfirmed, @pending = @games.partition { |game| game.game_ranks.detect{|rank| rank.user == current_user}.confirmed? }
   end
 
   def new
@@ -35,7 +35,6 @@ class GamesController < ApplicationController
   def show
     @game_ranks = @game.game_ranks.includes(:user)
     @current_game_rank = @game_ranks.detect {|game_rank| game_rank.user.id == current_user.id }
-    @challenge = @game.challenge
     @comments = @game.comments
   end
 
