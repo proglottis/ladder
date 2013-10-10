@@ -39,7 +39,7 @@ class GamesController < ApplicationController
   end
 
   def update
-    @game.attributes = params.require(:game).permit(:comment)
+    @game.attributes = params.require(:game).permit(:response, :comment)
     CommentService.new(current_user).comment(@game, @game.comment, @game.game_ranks.map(&:user))
     if params.has_key?(:confirm)
       if @game.confirm_user(current_user)
@@ -47,6 +47,13 @@ class GamesController < ApplicationController
           if game_rank.user != current_user && game_rank.user.game_confirmed_email?
             Notifications.game_confirmed(game_rank.user, @game).deliver
           end
+        end
+      end
+    elsif params.has_key?(:respond)
+      @game.defender_response!
+      if @game.confirmed?
+        @game.game_ranks.reload.each do |game_rank|
+          Notifications.game_confirmation(game_rank.user, @game).deliver unless game_rank.confirmed?
         end
       end
     end
