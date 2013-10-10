@@ -19,9 +19,6 @@ class ActivityFeed
     games = tournament.games.
       where(:updated_at => @start_at..@end_at).
       includes(:tournament, :game_ranks => :user)
-    challenges = tournament.challenges.
-      where(:updated_at => @start_at..@end_at).
-      includes(:tournament, :defender, :challenger)
 
     games.sort_by(&:updated_at).reverse!
   end
