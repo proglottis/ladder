@@ -40,9 +40,9 @@ describe Game do
         @game.response = "won"
       end
 
-      it "must confirm the game" do
+      it "must be unconfirmed" do
         @game.defender_response!
-        @game.must_be :confirmed?
+        @game.must_be :unconfirmed?
       end
 
       it "must mark the defender as winning" do
@@ -51,9 +51,10 @@ describe Game do
         @game.game_ranks.detect{ |gr| gr.position == 1 }.user.must_equal @user2
       end
 
-      it "must mark all ranks as confirmed" do
+      it "must mark own rank as confirmed" do
         @game.defender_response!
-        @game.game_ranks.select(&:confirmed?).must_equal(@game.game_ranks)
+        @game.game_ranks.detect{ |gr| gr.user != @game.owner }.must_be :confirmed?
+        @game.game_ranks.detect{ |gr| gr.user == @game.owner }.wont_be :confirmed?
       end
     end
 
@@ -62,9 +63,9 @@ describe Game do
         @game.response = "lost"
       end
 
-      it "must confirm the game" do
+      it "must be unconfirmed" do
         @game.defender_response!
-        @game.must_be :confirmed?
+        @game.must_be :unconfirmed?
       end
 
       it "must mark the defender as losing" do
@@ -73,9 +74,10 @@ describe Game do
         @game.game_ranks.detect{ |gr| gr.position == 2 }.user.must_equal @user2
       end
 
-      it "must mark all ranks as confirmed" do
+      it "must mark own rank as confirmed" do
         @game.defender_response!
-        @game.game_ranks.select(&:confirmed?).must_equal(@game.game_ranks)
+        @game.game_ranks.detect{ |gr| gr.user != @game.owner }.must_be :confirmed?
+        @game.game_ranks.detect{ |gr| gr.user == @game.owner }.wont_be :confirmed?
       end
     end
   end

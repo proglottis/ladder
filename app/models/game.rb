@@ -57,8 +57,8 @@ class Game < ActiveRecord::Base
             game_rank.position = 2
           else
             game_rank.position = 1
+            game_rank.confirmed_at = Time.zone.now
           end
-          game_rank.confirmed_at = Time.zone.now
           game_rank.save!
         end
       else
@@ -67,12 +67,12 @@ class Game < ActiveRecord::Base
             game_rank.position = 1
           else
             game_rank.position = 2
+            game_rank.confirmed_at = Time.zone.now
           end
-          game_rank.confirmed_at = Time.zone.now
           game_rank.save!
         end
       end
-      events.build(state: 'confirmed')
+      events.build(state: 'unconfirmed')
       save!
     end
   end
