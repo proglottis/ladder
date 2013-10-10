@@ -27,6 +27,10 @@ class Game < ActiveRecord::Base
     joins(:events).merge GameEvent.latest_state("unconfirmed")
   end
 
+  def self.challenged
+    joins(:events).merge GameEvent.latest_state("challenged")
+  end
+
   def current_state
     (events.order("id ASC").last.try(:state) || STATES.first).inquiry
   end
@@ -36,7 +40,7 @@ class Game < ActiveRecord::Base
   end
 
   def challenge_processed_at
-    (created_at + 7.days).tomorrow.midnight
+    (created_at + 1.week).tomorrow.midnight
   end
 
   def challenger
@@ -107,6 +111,23 @@ class Game < ActiveRecord::Base
       else
         false
       end
+    end
+  end
+
+  def expire_challenge!
+    raise "Cannot expire if game not challenge" unless challenged?
+    with_lock do
+      game_ranks.each do |game_rank|
+        if game_rank.user == owner
+          game_rank.position = 2
+        else
+          game_rank.position = 1
+        end
+        game_rank.confirmed_at = Time.zone.now
+        game_rank.save!
+      end
+      events.build state: "confirmed"
+      save!
     end
   end
 
