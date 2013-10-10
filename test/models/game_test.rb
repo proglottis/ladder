@@ -2,11 +2,11 @@ require "test_helper"
 
 describe Game do
   before do
-    @game = create(:unconfirmed_game)
     @player1 = create(:player)
     @player2 = create(:player)
     @user1 = @player1.user
     @user2 = @player2.user
+    @game = create(:unconfirmed_game, :owner => @user1)
     @game_rank1 = create(:game_rank, :game => @game, :player => @player1, :position => 1)
     @game_rank2 = create(:game_rank, :game => @game, :player => @player2, :position => 2)
   end
@@ -27,6 +27,56 @@ describe Game do
     it "wont match nonparticipant" do
       @user = create(:user)
       Game.participant(@user).wont_include @game
+    end
+  end
+
+  describe "#defender_response!" do
+    before do
+      @game.events.create!(state: 'challenged')
+    end
+
+    describe "won" do
+      before do
+        @game.response = "won"
+      end
+
+      it "must confirm the game" do
+        @game.defender_response!
+        @game.must_be :confirmed?
+      end
+
+      it "must mark the defender as winning" do
+        @game.defender_response!
+        @game.game_ranks.detect{ |gr| gr.position == 2 }.user.must_equal @user1
+        @game.game_ranks.detect{ |gr| gr.position == 1 }.user.must_equal @user2
+      end
+
+      it "must mark all ranks as confirmed" do
+        @game.defender_response!
+        @game.game_ranks.select(&:confirmed?).must_equal(@game.game_ranks)
+      end
+    end
+
+    describe "lost" do
+      before do
+        @game.response = "lost"
+      end
+
+      it "must confirm the game" do
+        @game.defender_response!
+        @game.must_be :confirmed?
+      end
+
+      it "must mark the defender as losing" do
+        @game.defender_response!
+        @game.game_ranks.detect{ |gr| gr.position == 1 }.user.must_equal @user1
+        @game.game_ranks.detect{ |gr| gr.position == 2 }.user.must_equal @user2
+      end
+
+      it "must mark all ranks as confirmed" do
+        @game.defender_response!
+        @game.game_ranks.select(&:confirmed?).must_equal(@game.game_ranks)
+      end
     end
   end
 

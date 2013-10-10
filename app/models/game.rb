@@ -13,7 +13,7 @@ class Game < ActiveRecord::Base
 
   accepts_nested_attributes_for :game_ranks
 
-  attr_accessor :comment
+  attr_accessor :response, :comment
 
   def self.participant(user)
     joins(:game_ranks).merge GameRank.with_participant(user)
@@ -45,6 +45,36 @@ class Game < ActiveRecord::Base
 
   def defender
     users.detect{|user| user != owner }
+  end
+
+  def defender_response!
+    raise "Cannot respond if game not challenge" unless challenged?
+    return unless ['won', 'lost'].include?(response)
+    with_lock do
+      if response == 'won'
+        game_ranks.each do |game_rank|
+          if game_rank.user == owner
+            game_rank.position = 2
+          else
+            game_rank.position = 1
+          end
+          game_rank.confirmed_at = Time.zone.now
+          game_rank.save!
+        end
+      else
+        game_ranks.each do |game_rank|
+          if game_rank.user == owner
+            game_rank.position = 1
+          else
+            game_rank.position = 2
+          end
+          game_rank.confirmed_at = Time.zone.now
+          game_rank.save!
+        end
+      end
+      events.build(state: 'confirmed')
+      save!
+    end
   end
 
   def confirm_user(user)
