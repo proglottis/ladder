@@ -51,8 +51,8 @@ class GamesController < ApplicationController
       end
     elsif params.has_key?(:respond)
       @game.defender_response!
-      if @game.confirmed?
-        @game.game_ranks.reload.each do |game_rank|
+      if @game.unconfirmed?
+        @game.game_ranks.each do |game_rank|
           Notifications.game_confirmation(game_rank.user, @game).deliver unless game_rank.confirmed?
         end
       end

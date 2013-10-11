@@ -64,4 +64,48 @@ describe "GamesController Integration Test" do
     end
   end
 
+  describe "responding" do
+    before do
+      @game = create(:challenge_game, :tournament => @tournament, :owner => @player2.user)
+      @game_rank1 = create(:game_rank, :game => @game, :player => @player1)
+      @game_rank2 = create(:game_rank, :game => @game, :player => @player2)
+    end
+
+    describe "won" do
+      before do
+        visit game_path @game
+        choose I18n.t('games.show.won')
+        click_button I18n.t('games.show.respond')
+      end
+
+      it "must respond" do
+        must_have_content I18n.t('games.game_rank.confirmed', :time => 'less than a minute')
+      end
+
+      it "must send confirmation email" do
+        ActionMailer::Base.deliveries.length.must_equal 1
+        email = ActionMailer::Base.deliveries.first
+        email.to.must_equal [@player2.user.email]
+      end
+    end
+
+    describe "lost" do
+      before do
+        visit game_path @game
+        choose I18n.t('games.show.lost')
+        click_button I18n.t('games.show.respond')
+      end
+
+      it "must respond" do
+        must_have_content I18n.t('games.game_rank.confirmed', :time => 'less than a minute')
+      end
+
+      it "must send confirmation email" do
+        ActionMailer::Base.deliveries.length.must_equal 1
+        email = ActionMailer::Base.deliveries.first
+        email.to.must_equal [@player2.user.email]
+      end
+    end
+  end
+
 end

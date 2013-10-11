@@ -10,7 +10,7 @@
         <%= link_to tournament.name, tournament_path(tournament) %>
         <% if current_user != @user %>
           <div class="btn-group pull-right">
-            <%= link_to t(Challenge.model_name.human), new_challenge_path(:user_id => @user, :tournament_id => tournament), :class => tournament.challenges.active.find_by_defender_id(@user.id) ? 'btn btn-default disabled' : 'btn btn-default' %>
+            <%= link_to t(Challenge.model_name.human), new_challenge_path(:user_id => @user, :tournament_id => tournament), :class => tournament.games.challenged.participant(@user.id) ? 'btn btn-default disabled' : 'btn btn-default' %>
             <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
               <span class="caret"></span>
             </a>
