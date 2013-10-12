@@ -8,6 +8,18 @@
 <%= form_for @game, url: challenge_path(@game) do |f| %>
   <%= hidden_field_tag 'tournament_id', @tournament.id %>
   <%= hidden_field_tag 'user_id', @defender.id %>
+  <% if @game.errors.any? %>
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <%= t '.errors' %>
+      </div>
+      <ul class="list-group">
+        <% @game.errors.full_messages.each do |message| %>
+          <li class="list-group-item"><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class="form-group<%= " has-error" if @game.errors[:tournament].any? %>">
     <%= f.label :tournament, :class => 'control-label' %>
     <p class="form-control-static"><%= @game.tournament.name %></p>
@@ -40,6 +52,6 @@
   </div>
   <div class="group-actions">
     <%= f.submit :class => 'btn btn-primary' %>
-    <%= cancel_link :back %>
+    <%= cancel_link tournament_path(@tournament) %>
   </div>
 <% end %>

@@ -8,6 +8,9 @@ class Game < ActiveRecord::Base
 
   has_many :users, :through => :game_ranks
 
+  validate :not_already_challenged, :if => :was_challenged?, :on => :create
+  validate :not_self, :if => :was_challenged?, :on => :create
+
   STATES = %w[incomplete challenged unconfirmed confirmed]
   delegate :incomplete?, :challenged?, :unconfirmed?, :confirmed?, :to => :current_state
 
@@ -44,11 +47,11 @@ class Game < ActiveRecord::Base
   end
 
   def challenger
-    users.detect{|user| user == owner}
+    game_ranks.detect{|game_rank| game_rank.player.user_id == owner_id }.try(:player).try(:user)
   end
 
   def defender
-    users.detect{|user| user != owner }
+    game_ranks.detect{|game_rank| game_rank.player.user_id != owner_id }.try(:player).try(:user)
   end
 
   def defender_response!
@@ -131,11 +134,21 @@ class Game < ActiveRecord::Base
     end
   end
 
-  def name
-    tournament.name
-  end
-
   def versus
     game_ranks.map {|game_rank| game_rank.user.name}.to_sentence(:two_words_connector => I18n.t('support.array.versus.two_words_connector'))
+  end
+
+  private
+
+  def not_already_challenged
+    if tournament.games.challenged.participant(defender).any?
+      errors[:base] << "Defender already challenged"
+    end
+  end
+
+  def not_self
+    if challenger == defender || defender.nil?
+      errors[:base] << "Can't challenge yourself"
+    end
   end
 end
