@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130829075108) do
+ActiveRecord::Schema.define(version: 20131012175444) do
 
   create_table "challenges", force: true do |t|
     t.integer  "tournament_id", null: false
@@ -159,13 +159,15 @@ ActiveRecord::Schema.define(version: 20130829075108) do
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
 
   create_table "tournaments", force: true do |t|
-    t.string   "name",       null: false
-    t.integer  "owner_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",                       null: false
+    t.integer  "owner_id",                   null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "slug"
+    t.boolean  "public",     default: false, null: false
   end
 
+  add_index "tournaments", ["public"], name: "index_tournaments_on_public", using: :btree
   add_index "tournaments", ["slug"], name: "index_tournaments_on_slug", unique: true, using: :btree
 
   create_table "users", force: true do |t|
