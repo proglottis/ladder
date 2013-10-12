@@ -8,6 +8,7 @@ class Tournament < ActiveRecord::Base
 
   has_many :players, :dependent => :destroy
   has_many :invites, :dependent => :destroy
+  has_many :invite_requests, :dependent => :destroy
   has_many :games, :dependent => :destroy
   has_many :challenges, :dependent => :destroy
   has_many :rating_periods, :dependent => :destroy
