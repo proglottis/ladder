@@ -80,6 +80,8 @@ en:
     information:
       title: Information
       no_information: No information.
+    admin:
+      title: Admin
     edit:
       title: Edit
     destroy:
@@ -97,6 +99,8 @@ en:
         success: Invite to %{email} sent.
 
     invite_requests:
+      index:
+        title: Pending Invite Requests
       create:
         title: Request Invite
         success: Invite request submitted. When approved, you will receive an invitation by email.

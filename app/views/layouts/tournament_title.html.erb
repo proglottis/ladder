@@ -30,15 +30,20 @@
     <% if @tournament.page.present? && @tournament.page.persisted? %>
       <li class="<%='active' if ['tournaments'].include?(controller_name) && params['action'] == 'information' %>"><%= link_to t('tournaments.information.title'), information_tournament_path(@tournament) %></li>
     <% end %>
-    <% if @player || @tournament.owner_id == current_user.id %>
-      <li class="<%='active' if ['invites'].include? controller_name %>"><%= link_to t('tournaments.invites.new.title'), new_tournament_invite_path(@tournament), :rel => 'tooltip', :title => t('tournaments.invites.new.invites_left', :count => @tournament.invites.where(:owner_id => current_user).limit_left) %></li>
-    <% end %>
-    <% if @tournament.owner_id == current_user.id %>
-      <li class="<%='active' if ['tournaments'].include?(controller_name) && params['action'] == 'edit' %>"><%= link_to t('tournaments.edit.title'), edit_tournament_path(@tournament) %></li>
-    <% end %>
+    <%= link_to_admin(@tournament) %>
   </ul>
 
-  <br />
+  <% if tournament_admin? %>
+    <ul class="nav nav-pills">
+      <li class="<%='active' if ['tournaments'].include?(controller_name) && params['action'] == 'edit' %>"><%= link_to t('tournaments.edit.title'), edit_tournament_path(@tournament) %></li>
+      <% if @player || @tournament.owner_id == current_user.id %>
+        <li class="<%='active' if ['invites'].include? controller_name %>"><%= link_to t('tournaments.invites.new.title'), new_tournament_invite_path(@tournament), :rel => 'tooltip', :title => t('tournaments.invites.new.invites_left', :count => @tournament.invites.where(:owner_id => current_user).limit_left) %></li>
+      <% end %>
+      <% if @invite_request %>
+        <li class="<%='active' if ['invite_requests'].include? controller_name %>"><%= link_to t('tournaments.invite_requests.index.title'), new_tournament_invite_path(@tournament), :rel => 'tooltip', :title => t('tournaments.invites.new.invites_left', :count => @tournament.invites.where(:owner_id => current_user).limit_left) %></li>
+      <% end %>
+    </ul>
+  <% end %>
 
   <%= yield %>
 <% end %>
