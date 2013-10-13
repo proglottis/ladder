@@ -89,6 +89,14 @@ class Tournament < ActiveRecord::Base
     ]
   end
 
+  def can_join?(user)
+    invites.find_by(user_id: user) && !players.find_by(user_id: user)
+  end
+
+  def can_request_invite?(user)
+    public? && user.id != owner_id
+  end
+
   private
 
   def maximum_allowed

@@ -5,14 +5,14 @@
     <h1><%= @tournament.name %></h1>
   </div>
 
-  <% if @invite && !@player %>
+  <% if @tournament.can_join?(current_user) %>
     <div class="alert alert-info">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       <h4><%= t '.join.title' %></h4>
       <p><%= t '.join.message' %></p>
       <%= link_to t('.join.link'), join_tournament_path(@tournament), :class => 'btn btn-primary', :method => :post %>
     </div>
-  <% else %>
+  <% elsif @tournament.can_request_invite?(current_user) %>
     <div class="alert alert-info">
       <% if @invite_request %>
         <h4><%= t('.request_invite_exists.title') %></h4>
@@ -20,8 +20,8 @@
       <% else %>
         <h4><%= t('.request_invite.title') %></h4>
         <p><%= t('.request_invite.message') %></p>
+        <p><%= link_to t('tournaments.invite_requests.create.title'), tournament_invite_requests_path(@tournament), :class => 'btn btn-primary', :method => :post %></p>
       <% end %>
-      <p><%= link_to t('tournaments.invite_requests.create.title'), tournament_invite_requests_path(@tournament), :class => 'btn btn-primary' + (@invite_request ? ' disabled' : ''), :method => :post %></p>
     </div>
   <% end %>
 
