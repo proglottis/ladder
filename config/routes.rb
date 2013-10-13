@@ -31,6 +31,7 @@ Ladder::Application.routes.draw do
     end
     scope :module => "tournaments" do
       resources :invites, :only => [:show, :new, :create, :update]
+      resources :invite_requests, :only => [:create]
     end
     get 'games/:id' => redirect('/games/%{id}')
   end

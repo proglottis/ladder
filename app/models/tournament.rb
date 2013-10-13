@@ -37,6 +37,21 @@ class Tournament < ActiveRecord::Base
       uniq.readonly(false)
   end
 
+  def self.participant_or_public(user)
+    tournaments = arel_table
+    players = Player.arel_table
+    invites = Invite.arel_table
+    joins(tournaments.join(invites, Arel::Nodes::OuterJoin).on(invites[:tournament_id].eq(tournaments[:id])).
+          join(players, Arel::Nodes::OuterJoin).on(players[:tournament_id].eq(tournaments[:id])).
+          join_sql).
+      where(tournaments[:owner_id].eq(user.id).
+            or(tournaments[:public].eq(true)).
+            or(players[:user_id].eq(user.id)).
+            or(invites[:user_id].eq(user.id)).
+            or(invites[:email].eq(user.email))).
+      uniq.readonly(false)
+  end
+
   def self.with_rated_user(*users)
     tournaments = arel_table
     n = 0
