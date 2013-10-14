@@ -97,14 +97,21 @@ en:
         invited_to: You have been invited to join %{name}.
       create:
         success: Invite to %{email} sent.
+        failure: Invite to %{email} failed.
 
     invite_requests:
       index:
         title: Pending Invite Requests
+        email: Email
+        date: Date Requested
+        approve: Approve
+        btn_approve: Approve
+        no_pending: No pending requests.
       create:
         title: Request Invite
         success: Invite request submitted. When approved, you will receive an invitation by email.
         failure: Unknown error submitting invite request.
+      pending: "%{count} pending requests"
 
   games:
     index:
@@ -164,7 +171,7 @@ en:
         message: You are not yet a participant in this tournament.
       request_invite_exists:
         title: Invite requested
-        message: Please wait until the admin approves your request.
+        message: Please wait for your request to be approved. Once approved, you should receive an email invitation.
 
   activerecord:
     models:
