@@ -35,4 +35,11 @@ class Notifications < ActionMailer::Base
     @commentable = comment.commentable
     mail(:to => @user.email, :subject => t('notifications.commented.subject', :commentable => @commentable.versus))
   end
+
+  def invite_requested(invite_request)
+    @invite_request = invite_request
+    @tournament = invite_request.tournament
+    @user = @tournament.owner
+    mail(:to => @user.email, :subject => t('notifications.invite_requested.subject', :tournament => @tournament.name))
+  end
 end

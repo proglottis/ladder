@@ -106,4 +106,18 @@ describe Notifications do
       end
     end
   end
+
+  describe "#invite_requested" do
+    before do
+      @invite_request = create(:invite_request)
+      @tournament = @invite_request.tournament
+    end
+
+    it "must contain invite request details" do
+      mail = Notifications.invite_requested(@invite_request)
+      mail.subject.must_equal I18n.t('notifications.invite_requested.subject', :tournament => @tournament.name)
+      mail.to.must_equal [@tournament.owner.email]
+      mail.body.encoded.must_match I18n.t('notifications.invite_requested.invite_requested', :name => @invite_request.user.name, :tournament => @tournament.name)
+    end
+  end
 end

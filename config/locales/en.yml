@@ -159,6 +159,9 @@ en:
     commented:
       subject: New comment on %{commentable}
       commented: "%{name} has commented on a %{type} you participated in."
+    invite_requested:
+      subject: New invite request for %{tournament}
+      invite_requested: "%{name} has requested an invite for %{tournament}."
 
   layouts:
     tournament_title:
