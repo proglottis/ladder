@@ -36,4 +36,10 @@ module ApplicationHelper
   def glyph(name)
     content_tag :span, "", class: "glyphicon glyphicon-#{name}"
   end
+
+  def badge(content)
+    content_tag :span, class: "badge" do
+      "#{content}"
+    end
+  end
 end

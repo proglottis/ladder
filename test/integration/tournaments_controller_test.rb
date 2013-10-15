@@ -62,7 +62,7 @@ describe "TournamentsController Integration Test" do
 
     it "must let owner update" do
       visit tournament_path(@tournament)
-      click_link I18n.t('tournaments.edit.title')
+      click_link I18n.t('tournaments.admin.title')
       fill_in 'Name', :with => 'New Name'
       click_button I18n.t('helpers.submit.update')
       must_have_content 'New Name'
@@ -71,7 +71,7 @@ describe "TournamentsController Integration Test" do
     it "wont let others update" do
       @tournament.update_attributes :owner => @other_user
       visit tournament_path(@tournament)
-      wont_have_link I18n.t('tournaments.edit.title')
+      wont_have_link I18n.t('tournaments.admin.title')
     end
   end
 end
