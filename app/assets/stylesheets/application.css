@@ -10,8 +10,8 @@
  *
  *= require bootstrap
  *= require bootstrap-theme
- *= require_self
  *= require nv.d3
+ *= require_self
  *= require_tree .
  */
 
