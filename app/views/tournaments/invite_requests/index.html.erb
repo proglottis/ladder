@@ -1,0 +1,22 @@
+<% if @pending_invite_requests.any? %>
+  <table class="table table-hover">
+    <thead>
+      <th><%= t('.name') %></th>
+      <th><%= t('.email') %></th>
+      <th><%= t('.date') %></th>
+      <th><%= t('.approve') %></th>
+    </thead>
+    <tbody>
+      <% @pending_invite_requests.each do |i| %>
+        <tr>
+          <td><%= i.user.name %></td>
+          <td><%= i.user.email %></td>
+          <td><%= time_ago_in_words i.created_at %> ago</td>
+          <td><%= link_to t('.btn_approve'), tournament_invite_request_path(@tournament, i, 'approve' => true), :class => 'btn btn-success', :method => :put %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <%= t('.no_pending') %>
+<% end %>

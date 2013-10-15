@@ -8,12 +8,16 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
  *= require bootstrap
  *= require bootstrap-theme
+ *= require_self
  *= require nv.d3
  *= require_tree .
  */
+
+.container .nav {
+  margin-bottom: 20px;
+}
 
 .footer {
   padding: 70px 0;

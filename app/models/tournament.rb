@@ -8,6 +8,7 @@ class Tournament < ActiveRecord::Base
 
   has_many :players, :dependent => :destroy
   has_many :invites, :dependent => :destroy
+  has_many :invite_requests, :dependent => :destroy
   has_many :games, :dependent => :destroy
   has_many :challenges, :dependent => :destroy
   has_many :rating_periods, :dependent => :destroy
@@ -30,6 +31,21 @@ class Tournament < ActiveRecord::Base
           join(players, Arel::Nodes::OuterJoin).on(players[:tournament_id].eq(tournaments[:id])).
           join_sql).
       where(tournaments[:owner_id].eq(user.id).
+            or(players[:user_id].eq(user.id)).
+            or(invites[:user_id].eq(user.id)).
+            or(invites[:email].eq(user.email))).
+      uniq.readonly(false)
+  end
+
+  def self.participant_or_public(user)
+    tournaments = arel_table
+    players = Player.arel_table
+    invites = Invite.arel_table
+    joins(tournaments.join(invites, Arel::Nodes::OuterJoin).on(invites[:tournament_id].eq(tournaments[:id])).
+          join(players, Arel::Nodes::OuterJoin).on(players[:tournament_id].eq(tournaments[:id])).
+          join_sql).
+      where(tournaments[:owner_id].eq(user.id).
+            or(tournaments[:public].eq(true)).
             or(players[:user_id].eq(user.id)).
             or(invites[:user_id].eq(user.id)).
             or(invites[:email].eq(user.email))).
@@ -71,6 +87,22 @@ class Tournament < ActiveRecord::Base
       :name,
       [:name, :id],
     ]
+  end
+
+  def has_invite?(user)
+    invites.where("user_id = ? OR email = ?", user.id, user.email).present?
+  end
+
+  def can_join?(user)
+     (has_invite?(user) || user.id == owner_id) &&
+     !players.find_by(user_id: user)
+  end
+
+  def can_request_invite?(user)
+    public? &&
+    !has_invite?(user) &&
+    user.id != owner_id &&
+    !players.find_by(user_id: user)
   end
 
   private

@@ -13,13 +13,19 @@
 
 <div class="row">
   <div class="col-sm-5 col-sm-push-7">
-    <h2><%= Tournament.model_name.human.pluralize %></h2>
+    <h2><%= t('.mine') %></h2>
     <div class="list-group">
       <%= link_to new_tournament_path, :rel => 'tooltip', :'data-toggle' => 'tooltip', :title => t('.can_start', :count => Tournament.where(:owner_id => current_user).limit_left), :class => 'list-group-item' do %>
         <%= glyph :pencil %> <%= t '.start' %>
       <% end %>
       <%= render @tournaments %>
     </div>
+    <% if @public_tournaments.any? %>
+      <h2><%= t('.public') %></h2>
+      <div class="list-group">
+        <%= render @public_tournaments %>
+      </div>
+    <% end %>
   </div>
 
   <div class="col-sm-7 col-sm-pull-5">
