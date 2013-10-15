@@ -148,33 +148,45 @@ describe Tournament do
   describe "#can_request_invite?" do
     before do
       @owner = create(:owner)
-      @tournament_private = create(:tournament, :owner => @owner)
-      @tournament_public = create(:tournament, :public => true)
-      @player1 = create(:player, :tournament => @tournament_private)
-      @user1 = create(:user)
-      @user2 = create(:user)
-      @user3 = @player1.user
-      @invite_user2 = create(:invite, :tournament => @tournament_public, :user => @user2)
+      @user = create(:user)
     end
 
-    it "must be true if tournament is public and user is not already invited and user is not owner and user is not already a player" do
-      @tournament_public.can_request_invite?(@user1).must_equal true
+    describe "public tournament" do
+      before do
+        @tournament = create(:tournament, :owner => @owner, :public => true)
+      end
+
+      it "must be true if tournament is public and user is not already invited and user is not owner and user is not already a player" do
+        @tournament.can_request_invite?(@user).must_equal true
+      end
+
+      it "must be false if user has already requested invite" do
+        create(:invite_request, :tournament => @tournament, :user => @user)
+        @tournament.can_request_invite?(@user).must_equal false
+      end
+
+      it "must be false if user has an invite" do
+        create(:invite, :tournament => @tournament, :user => @user)
+        @tournament.can_request_invite?(@user).must_equal false
+      end
+
+      it "must be false if user is owner" do
+        @tournament.can_request_invite?(@owner).must_equal false
+      end
     end
 
-    it "must be false if tournament is not public" do
-      @tournament_private.can_request_invite?(@user1).must_equal false
-    end
+    describe "private" do
+      before do
+        @tournament = create(:tournament, :owner => @owner)
+      end
 
-    it "must be false if user has an invite" do
-      @tournament_public.can_request_invite?(@user2).must_equal false
-    end
+      it "must be false for a user" do
+        @tournament.can_request_invite?(@user).must_equal false
+      end
 
-    it "must be false if user is owner" do
-      @tournament_private.can_request_invite?(@owner).must_equal false
-    end
-
-    it "must be false if user is already a player" do
-      @tournament_private.can_request_invite?(@user3).must_equal false
+      it "must be false for the owner" do
+        @tournament.can_request_invite?(@owner).must_equal false
+      end
     end
   end
 end

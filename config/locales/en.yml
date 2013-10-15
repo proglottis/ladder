@@ -169,9 +169,6 @@ en:
       request_invite:
         title: Want to participate?
         message: You are not yet a participant in this tournament.
-      request_invite_exists:
-        title: Invite requested
-        message: Please wait for your request to be approved. Once approved, you should receive an email invitation.
 
   activerecord:
     models:

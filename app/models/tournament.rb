@@ -94,15 +94,12 @@ class Tournament < ActiveRecord::Base
   end
 
   def can_join?(user)
-     (has_invite?(user) || user.id == owner_id) &&
-     !players.find_by(user_id: user)
+     (has_invite?(user) || user.id == owner_id) && !players.find_by(user_id: user)
   end
 
   def can_request_invite?(user)
-    public? &&
-    !has_invite?(user) &&
-    user.id != owner_id &&
-    !players.find_by(user_id: user)
+    public? && !has_invite?(user) && user.id != owner_id && !invite_requests.find_by(user_id: user) &&
+      !players.find_by(user_id: user)
   end
 
   private
