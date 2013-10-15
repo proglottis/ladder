@@ -9,9 +9,6 @@ class Tournaments::InviteRequestsController < ApplicationController
     @pending_invite_requests = @tournament.invite_requests.where(invite_id: nil)
   end
 
-  def show
-  end
-
   def create
     @tournament = Tournament.where(public: true).friendly.find(params[:tournament_id])
     @invite_request = @tournament.invite_requests.build(user: current_user)
@@ -24,20 +21,15 @@ class Tournaments::InviteRequestsController < ApplicationController
 
   def update
     @invite_request = InviteRequest.find(params[:id])
-    if @invite_request && params[:approve]
-      @invite = @tournament.invites.build(email: @invite_request.user.email)
-      @invite.owner = current_user
-      if @invite.save
-        @invite_request.update_attributes(invite_id: @invite.id)
-        Notifications.tournament_invitation(@invite).deliver
-        redirect_to tournament_invite_requests_path(@tournament),
-          :notice => t('tournaments.invites.create.success', :email => @invite.email)
-      else
-        redirect_to tournament_invite_requests_path(@tournament),
-          :notice => t('tournaments.invites.create.failure', :email => @invite.email)
-      end
+    @invite = @tournament.invites.build(email: @invite_request.user.email, owner: current_user)
+    if @invite.save
+      @invite_request.update_attributes!(invite_id: @invite)
+      Notifications.tournament_invitation(@invite).deliver
+      redirect_to tournament_invite_requests_path(@tournament),
+        :notice => t('tournaments.invites.create.success', :email => @invite.email)
     else
-      # TODO: handle invalid params?
+      redirect_to tournament_invite_requests_path(@tournament),
+        :notice => t('tournaments.invites.create.failure', :email => @invite.email)
     end
   end
 
