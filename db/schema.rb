@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130921051636) do
+ActiveRecord::Schema.define(version: 20131012215959) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "challenges", force: true do |t|
     t.integer  "tournament_id", null: false
@@ -53,18 +56,9 @@ ActiveRecord::Schema.define(version: 20130921051636) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
-  create_table "game_events", force: true do |t|
-    t.integer  "game_id"
-    t.string   "state",      null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "game_events", ["game_id"], name: "index_game_events_on_game_id", using: :btree
-
   create_table "game_ranks", force: true do |t|
     t.integer  "game_id",      null: false
-    t.integer  "position"
+    t.integer  "position",     null: false
     t.datetime "confirmed_at"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
@@ -84,6 +78,16 @@ ActiveRecord::Schema.define(version: 20130921051636) do
 
   add_index "games", ["owner_id"], name: "index_games_on_owner_id", using: :btree
   add_index "games", ["tournament_id"], name: "index_games_on_tournament_id", using: :btree
+
+  create_table "invite_requests", force: true do |t|
+    t.integer  "tournament_id", null: false
+    t.integer  "user_id",       null: false
+    t.integer  "invite_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "invite_requests", ["tournament_id", "user_id"], name: "index_invite_requests_on_tournament_id_and_user_id", unique: true, using: :btree
 
   create_table "invites", force: true do |t|
     t.integer  "user_id"
@@ -168,13 +172,15 @@ ActiveRecord::Schema.define(version: 20130921051636) do
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
 
   create_table "tournaments", force: true do |t|
-    t.string   "name",       null: false
-    t.integer  "owner_id",   null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name",                       null: false
+    t.integer  "owner_id",                   null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.string   "slug"
+    t.boolean  "public",     default: false, null: false
   end
 
+  add_index "tournaments", ["public"], name: "index_tournaments_on_public", using: :btree
   add_index "tournaments", ["slug"], name: "index_tournaments_on_slug", unique: true, using: :btree
 
   create_table "users", force: true do |t|
