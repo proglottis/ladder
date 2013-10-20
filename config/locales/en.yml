@@ -64,6 +64,8 @@ en:
       feed: News Feed
       start: Start tournament
       can_start: You can only start %{count} more
+      mine: My Tournaments
+      public: Open Tournaments
     new:
       title: Start tournament
     show:
@@ -78,6 +80,8 @@ en:
     information:
       title: Information
       no_information: No information.
+    admin:
+      title: Admin
     edit:
       title: Edit
     destroy:
@@ -93,6 +97,21 @@ en:
         invited_to: You have been invited to join %{name}.
       create:
         success: Invite to %{email} sent.
+        failure: Invite to %{email} failed.
+
+    invite_requests:
+      index:
+        title: Pending Invite Requests
+        email: Email
+        date: Date Requested
+        approve: Approve
+        btn_approve: Approve
+        no_pending: No pending requests.
+      create:
+        title: Request Invite
+        success: Invite request submitted. When approved, you will receive an invitation by email.
+        failure: Unknown error submitting invite request.
+      pending: "%{count} pending requests"
 
   games:
     index:
@@ -139,6 +158,9 @@ en:
     commented:
       subject: New comment on %{commentable}
       commented: "%{name} has commented on a %{type} you participated in."
+    invite_requested:
+      subject: New invite request for %{tournament}
+      invite_requested: "%{name} has requested an invite for %{tournament}."
 
   layouts:
     tournament_title:
@@ -146,6 +168,9 @@ en:
         title: You are not rated in this tournament
         message: To challenge or log games with other players you first need to join.
         link: Join
+      request_invite:
+        title: Want to participate?
+        message: You are not yet a participant in this tournament.
 
   activerecord:
     models:

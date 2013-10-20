@@ -32,6 +32,11 @@ FactoryGirl.define do
     expires_at { 1.day.from_now }
   end
 
+  factory :invite_request do
+    tournament
+    user
+  end
+
   factory :game do
     owner
     tournament

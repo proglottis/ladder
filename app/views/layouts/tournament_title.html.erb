@@ -5,12 +5,18 @@
     <h1><%= @tournament.name %></h1>
   </div>
 
-  <% if not @player %>
+  <% if @tournament.can_join?(current_user) %>
     <div class="alert alert-info">
       <button type="button" class="close" data-dismiss="alert">&times;</button>
       <h4><%= t '.join.title' %></h4>
       <p><%= t '.join.message' %></p>
       <%= link_to t('.join.link'), join_tournament_path(@tournament), :class => 'btn btn-primary', :method => :post %>
+    </div>
+  <% elsif @tournament.can_request_invite?(current_user) %>
+    <div class="alert alert-info">
+      <h4><%= t('.request_invite.title') %></h4>
+      <p><%= t('.request_invite.message') %></p>
+      <p><%= link_to t('tournaments.invite_requests.create.title'), tournament_invite_requests_path(@tournament), :class => 'btn btn-primary', :method => :post %></p>
     </div>
   <% end %>
 
@@ -22,12 +28,17 @@
     <% if @player || @tournament.owner_id == current_user.id %>
       <li class="<%='active' if ['invites'].include? controller_name %>"><%= link_to t('tournaments.invites.new.title'), new_tournament_invite_path(@tournament), :rel => 'tooltip', :title => t('tournaments.invites.new.invites_left', :count => @tournament.invites.where(:owner_id => current_user).limit_left) %></li>
     <% end %>
-    <% if @tournament.owner_id == current_user.id %>
-      <li class="<%='active' if ['tournaments'].include?(controller_name) && params['action'] == 'edit' %>"><%= link_to t('tournaments.edit.title'), edit_tournament_path(@tournament) %></li>
-    <% end %>
+    <%= link_to_admin(@tournament) %>
   </ul>
 
-  <br />
+  <% if tournament_admin? %>
+    <ul class="nav nav-pills">
+      <li class="<%='active' if ['tournaments'].include?(controller_name) && params['action'] == 'edit' %>"><%= link_to t('tournaments.edit.title'), edit_tournament_path(@tournament) %></li>
+      <li class="<%='active' if ['invite_requests'].include? controller_name %>">
+        <%= link_to tournament_invite_requests_path(@tournament) do %><%= t('tournaments.invite_requests.index.title') %> <%= badge(@pending_invite_requests.count) %><% end %>
+      </li>
+    </ul>
+  <% end %>
 
   <%= yield %>
 <% end %>

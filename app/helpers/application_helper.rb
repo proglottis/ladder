@@ -1,11 +1,4 @@
 module ApplicationHelper
-  class MarkdownHTML < Redcarpet::Render::HTML
-    def header(text, level)
-      slug = text.parameterize
-      "<h#{level} id=\"#{slug}\">#{text}</h#{level}>"
-    end
-  end
-
   def gravatar_image_url(email, size = 16)
     hash = Digest::MD5.hexdigest(email.strip.downcase)
     "https://secure.gravatar.com/avatar/#{hash}?s=#{size}&d=identicon"
@@ -24,9 +17,7 @@ module ApplicationHelper
   end
 
   def markdown(text)
-    extensions = { :fenced_code_blocks => true }
-    render_opts = { :filter_html => true, :no_styles => true, :safe_links_only => true }
-    Redcarpet::Markdown.new(MarkdownHTML.new(render_opts), extensions).render(text).html_safe
+    sanitize Kramdown::Document.new(text).to_html.html_safe
   end
 
   def render_single(model)
@@ -35,5 +26,11 @@ module ApplicationHelper
 
   def glyph(name)
     content_tag :span, "", class: "glyphicon glyphicon-#{name}"
+  end
+
+  def badge(content)
+    content_tag :span, class: "badge" do
+      "#{content}"
+    end
   end
 end

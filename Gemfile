@@ -16,11 +16,12 @@ gem 'kaminari'
 gem 'glicko2'
 gem 'whenever', '~> 0.8.3', :require => false
 gem 'exception_notification', '~> 4.0.0.rc1'
-gem 'redcarpet'
 gem 'minitest-rails'
 gem 'turbolinks'
 gem 'figaro'
 gem 'friendly_id', '5.0.0.beta4'
+gem 'kramdown'
+gem 'maildown'
 
 group :test, :development do
   gem 'capybara_minitest_spec'
