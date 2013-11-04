@@ -28,12 +28,14 @@ GEM
     arel (4.0.1)
     atomic (1.1.14)
     builder (3.1.4)
-    capistrano (2.15.5)
-      highline
-      net-scp (>= 1.0.0)
-      net-sftp (>= 2.0.0)
-      net-ssh (>= 2.0.14)
-      net-ssh-gateway (>= 1.1.0)
+    capistrano (3.0.1)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 0.0.23)
+    capistrano-bundler (1.0.0)
+      capistrano (>= 3.0.0.pre)
+    capistrano-rails (1.0.0)
+      capistrano
     capybara (2.1.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -78,7 +80,6 @@ GEM
       activerecord (~> 4.0.0)
     glicko2 (0.1.2)
     hashie (2.0.5)
-    highline (1.6.20)
     hike (1.2.3)
     httpauth (0.2.0)
     i18n (0.6.5)
@@ -122,11 +123,7 @@ GEM
     multipart-post (1.2.0)
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
-    net-sftp (2.1.2)
-      net-ssh (>= 2.6.5)
     net-ssh (2.7.0)
-    net-ssh-gateway (1.2.0)
-      net-ssh (>= 2.6.5)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     oauth2 (0.8.1)
@@ -178,6 +175,12 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    sshkit (1.1.0)
+      net-scp
+      net-ssh
+      term-ansicolor
+    term-ansicolor (1.2.2)
+      tins (~> 0.8)
     therubyracer (0.11.4)
       libv8 (~> 3.11.8.12)
       ref
@@ -185,6 +188,7 @@ GEM
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
+    tins (0.12.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -204,7 +208,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capistrano (~> 2.15.5)
+  capistrano (~> 3.0.0)
+  capistrano-bundler
+  capistrano-rails
   capybara_minitest_spec
   coffee-rails (~> 4.0.0)
   dalli

@@ -8,7 +8,6 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'therubyracer', :platforms => :ruby
 gem 'uglifier', '~> 2.1.1'
 gem 'jquery-rails'
-gem 'capistrano', '~> 2.15.5'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'dalli'
@@ -22,6 +21,10 @@ gem 'figaro'
 gem 'friendly_id', '5.0.1'
 gem 'kramdown'
 gem 'maildown'
+
+gem 'capistrano', '~> 3.0.0'
+gem 'capistrano-rails'
+gem 'capistrano-bundler'
 
 group :test, :development do
   gem 'capybara_minitest_spec'
