@@ -13,7 +13,7 @@ gem 'omniauth-google-oauth2'
 gem 'dalli'
 gem 'kaminari'
 gem 'glicko2'
-gem 'whenever', '~> 0.8.4', :require => false
+gem 'whenever', :require => false, :github => 'phallstrom/whenever', :ref => "a9093524ae6b11b843f59ddd83fd214bc2ead18e"
 gem 'exception_notification', '~> 4.0.0.rc1'
 gem 'minitest-rails'
 gem 'turbolinks'

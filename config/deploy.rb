@@ -18,8 +18,6 @@ set :linked_files, %w{config/database.yml config/application.yml}
 
 set :rails_env, 'production'
 
-require "whenever/capistrano"
-
 namespace :deploy do
 
   desc 'Restart application'
