@@ -5,7 +5,7 @@
 
 <p><%= raw t '.rules', :defender => profile_link_tag(@defender) %></p>
 
-<%= form_for @game, url: challenge_path(@game) do |f| %>
+<%= form_for @game, url: challenges_path do |f| %>
   <%= hidden_field_tag 'tournament_id', @tournament.id %>
   <%= hidden_field_tag 'user_id', @defender.id %>
   <% if @game.errors.any? %>
