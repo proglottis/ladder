@@ -34,6 +34,10 @@ class Game < ActiveRecord::Base
     joins(:events).merge GameEvent.latest_state("challenged")
   end
 
+  def self.challenged_or_unconfirmed
+    joins(:events).merge GameEvent.latest_state(["challenged", "unconfirmed"])
+  end
+
   def current_state
     (events.order("id ASC").last.try(:state) || STATES.first).inquiry
   end
