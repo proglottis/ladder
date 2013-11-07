@@ -24,7 +24,7 @@ class Tournaments::InviteRequestsController < ApplicationController
     @invite_request = InviteRequest.find(params[:id])
     @invite = @tournament.invites.build(email: @invite_request.user.email, owner: current_user)
     if @invite.save
-      @invite_request.update_attributes!(invite_id: @invite)
+      @invite_request.update_attributes!(invite_id: @invite.id)
       Notifications.tournament_invitation(@invite).deliver
       redirect_to tournament_invite_requests_path(@tournament),
         :notice => t('tournaments.invites.create.success', :email => @invite.email)
