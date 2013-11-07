@@ -145,7 +145,7 @@ class Game < ActiveRecord::Base
   private
 
   def not_already_challenged
-    if tournament.games.challenged.participant(defender).any?
+    if tournament.games.challenged.participant(defender).where.not(:owner => defender).any?
       errors[:base] << "Defender already challenged"
     end
   end

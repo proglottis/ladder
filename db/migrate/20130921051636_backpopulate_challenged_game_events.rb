@@ -10,11 +10,11 @@ class BackpopulateChallengedGameEvents < ActiveRecord::Migration
           challenge.game.events.create! state: "challenged", created_at: challenge.created_at, updated_at: challenge.created_at
           challenge.game.events.create! state: "confirmed", created_at: challenge.game.created_at, updated_at: challenge.game.created_at
         else
-          game = Game.build tournament: challenge.tournament, created_at: challenge.created_at, updated_at: challenge.created_at
-          game.states.build :state => "challenged"
+          game = Game.new tournament_id: challenge.tournament.id, created_at: challenge.created_at, updated_at: challenge.created_at
+          game.events.build :state => "challenged"
           game.owner = challenge.challenger
-          game.game_ranks.build user: challenge.challenger, created_at: challenge.created_at, updated_at: challenge.created_at
-          game.game_ranks.build user: challenge.defender, created_at: challenge.created_at, updated_at: challenge.created_at
+          game.game_ranks.build player_id: Player.find_by!(user_id: challenge.challenger).id, created_at: challenge.created_at, updated_at: challenge.created_at
+          game.game_ranks.build player_id: Player.find_by!(user_id: challenge.defender).id, created_at: challenge.created_at, updated_at: challenge.created_at
           game.save!
         end
       end
