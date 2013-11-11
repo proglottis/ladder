@@ -6,31 +6,49 @@
 <dl class="dl-horizontal">
   <dt><%= Tournament.model_name.human %></dt>
   <dd><%= link_to @tournament.name, tournament_path(@tournament) %></dd>
-  <% if @challenge %>
-    <dt><%= Challenge.model_name.human %></dt>
-    <dd><%= link_to @challenge.versus, challenge_path(@challenge) %></dd></p>
-  <% end %>
 </dl>
 
-<table class="table table-bordered table-condensed">
-  <thead>
-    <th><%= User.model_name.human %></th>
-    <th><%= GameRank.model_name.human %></th>
-    <th><%= t '.status' %></th>
-  </thead>
-  <tbody>
-    <%= render :partial => 'game_rank', :collection => @game_ranks %>
-  </tbody>
-</table>
+<% if @game.was_challenged? %>
+  <% if @game.challenged? %>
+    <p><%= raw t '.rules', :time => time_tag(@game.challenge_processed_at), :defender => profile_link_tag(@game.defender) %></p>
+  <% else %>
+    <p><%= raw t '.responded', :defender => profile_link_tag(@game.defender) %></p>
+  <% end %>
+<% end %>
+
+<% if @game.unconfirmed? || @game.confirmed? %>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <th><%= User.model_name.human %></th>
+      <th><%= GameRank.model_name.human %></th>
+      <th><%= t '.status' %></th>
+    </thead>
+    <tbody>
+      <%= render :partial => 'game_rank', :collection => @game_ranks %>
+    </tbody>
+  </table>
+<% end %>
 
 <%= form_for @game do |f| %>
   <div class="form-group">
     <%= f.text_area :comment, :rows => 2, :maxlength => Comment::MAX_LENGTH, :class => 'form-control', :placeholder => Comment.model_name.human %>
   </div>
+  <% if @game.challenged? && @game.defender == current_user %>
+    <div class="form-group">
+      <label class="radio-inline">
+        <%= f.radio_button :response, :won %> <%= t '.won' %>
+      </label>
+      <label class="radio-inline">
+        <%= f.radio_button :response, :lost %> <%= t '.lost' %>
+      </label>
+    </div>
+  <% end %>
   <div class="form-group">
     <%= f.button :class => 'btn btn-primary' %>
-    <% if @current_game_rank && !@current_game_rank.confirmed? %>
+    <% if @game.unconfirmed? && @current_game_rank && @current_game_rank.unconfirmed? %>
       <%= f.button t('.confirm'), :name => 'confirm', :class => 'btn btn-success' %>
+    <% elsif @game.challenged? && @game.defender == current_user %>
+      <%= f.button t('.respond'), :name => 'respond', :class => 'btn btn-success' %>
     <% end %>
   </div>
 <% end %>

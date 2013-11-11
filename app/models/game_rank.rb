@@ -4,7 +4,7 @@ class GameRank < ActiveRecord::Base
 
   has_one :user, :through => :player
 
-  validates_numericality_of :position, :greater_than => 0, :only_integer => true
+  validates_numericality_of :position, greater_than: 0, only_integer: true, if: -> (game_rank) { game_rank.game.try(:challenged?) }
 
   def self.not_confirmed
     where(:confirmed_at => nil)
@@ -21,6 +21,10 @@ class GameRank < ActiveRecord::Base
   end
 
   def confirmed?
-    confirmed_at != nil
+    !unconfirmed?
+  end
+
+  def unconfirmed?
+    confirmed_at.nil?
   end
 end

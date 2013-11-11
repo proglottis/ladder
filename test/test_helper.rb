@@ -17,6 +17,10 @@ class ActiveSupport::TestCase
     ActionMailer::Base.deliveries.clear
   end
 
+  after do
+    Timecop.return
+  end
+
   def login_service
     service = create(:service)
     OmniAuth.config.add_mock(:developer, "uid" => service.uid, "info" => {"name" => service.name, "email" => service.email})

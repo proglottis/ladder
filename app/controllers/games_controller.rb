@@ -3,8 +3,8 @@ class GamesController < ApplicationController
   before_filter :find_game_and_tournament, :only => [:show, :update]
 
   def index
-    @pending = GameRank.not_confirmed.with_participant(current_user).includes(:user)
-    @unconfirmed = Game.participant(current_user).unconfirmed.includes(:game_ranks => :user)
+    @games = Game.participant(current_user).challenged_or_unconfirmed.includes(:tournament, :game_ranks => :user)
+    @unconfirmed, @pending = @games.partition { |game| game.game_ranks.detect{|rank| rank.user == current_user}.confirmed? }
   end
 
   def new
@@ -18,6 +18,7 @@ class GamesController < ApplicationController
   def create
     @tournament = Tournament.with_rated_user(current_user).friendly.find(params[:tournament_id])
     @game = @tournament.games.build params.require(:game).permit(:comment, :game_ranks_attributes => [:player_id, :position])
+    @game.events.build state: 'unconfirmed'
     @game.owner = current_user
     if @game.save
       CommentService.new(current_user).comment(@game, @game.comment)
@@ -34,12 +35,11 @@ class GamesController < ApplicationController
   def show
     @game_ranks = @game.game_ranks.includes(:user)
     @current_game_rank = @game_ranks.detect {|game_rank| game_rank.user.id == current_user.id }
-    @challenge = @game.challenge
     @comments = @game.comments
   end
 
   def update
-    @game.attributes = params.require(:game).permit(:comment)
+    @game.attributes = params.require(:game).permit(:response, :comment)
     CommentService.new(current_user).comment(@game, @game.comment, @game.game_ranks.map(&:user))
     if params.has_key?(:confirm)
       if @game.confirm_user(current_user)
@@ -47,6 +47,13 @@ class GamesController < ApplicationController
           if game_rank.user != current_user && game_rank.user.game_confirmed_email?
             Notifications.game_confirmed(game_rank.user, @game).deliver
           end
+        end
+      end
+    elsif params.has_key?(:respond)
+      @game.defender_response!
+      if @game.unconfirmed?
+        @game.game_ranks.each do |game_rank|
+          Notifications.game_confirmation(game_rank.user, @game).deliver unless game_rank.confirmed?
         end
       end
     end

@@ -2,11 +2,11 @@ require "test_helper"
 
 describe Game do
   before do
-    @game = create(:game)
     @player1 = create(:player)
     @player2 = create(:player)
     @user1 = @player1.user
     @user2 = @player2.user
+    @game = create(:unconfirmed_game, :owner => @user1)
     @game_rank1 = create(:game_rank, :game => @game, :player => @player1, :position => 1)
     @game_rank2 = create(:game_rank, :game => @game, :player => @player2, :position => 2)
   end
@@ -27,6 +27,58 @@ describe Game do
     it "wont match nonparticipant" do
       @user = create(:user)
       Game.participant(@user).wont_include @game
+    end
+  end
+
+  describe "#defender_response!" do
+    before do
+      @game.events.create!(state: 'challenged')
+    end
+
+    describe "won" do
+      before do
+        @game.response = "won"
+      end
+
+      it "must be unconfirmed" do
+        @game.defender_response!
+        @game.must_be :unconfirmed?
+      end
+
+      it "must mark the defender as winning" do
+        @game.defender_response!
+        @game.game_ranks.detect{ |gr| gr.position == 2 }.user.must_equal @user1
+        @game.game_ranks.detect{ |gr| gr.position == 1 }.user.must_equal @user2
+      end
+
+      it "must mark own rank as confirmed" do
+        @game.defender_response!
+        @game.game_ranks.detect{ |gr| gr.user != @game.owner }.must_be :confirmed?
+        @game.game_ranks.detect{ |gr| gr.user == @game.owner }.wont_be :confirmed?
+      end
+    end
+
+    describe "lost" do
+      before do
+        @game.response = "lost"
+      end
+
+      it "must be unconfirmed" do
+        @game.defender_response!
+        @game.must_be :unconfirmed?
+      end
+
+      it "must mark the defender as losing" do
+        @game.defender_response!
+        @game.game_ranks.detect{ |gr| gr.position == 1 }.user.must_equal @user1
+        @game.game_ranks.detect{ |gr| gr.position == 2 }.user.must_equal @user2
+      end
+
+      it "must mark own rank as confirmed" do
+        @game.defender_response!
+        @game.game_ranks.detect{ |gr| gr.user != @game.owner }.must_be :confirmed?
+        @game.game_ranks.detect{ |gr| gr.user == @game.owner }.wont_be :confirmed?
+      end
     end
   end
 
@@ -80,18 +132,6 @@ describe Game do
         @player2.reload.winning_streak_count.must_equal 0
         @player2.reload.losing_streak_count.must_equal 0
       end
-    end
-  end
-
-  describe "#confirmed?" do
-    it "must be true when confirmed_at is not nil" do
-      @game.confirmed_at = Time.zone.now
-      @game.confirmed?.must_equal true
-    end
-
-    it "wont be true when confirmed_at is nil" do
-      @game.confirmed_at = nil
-      @game.confirmed?.wont_equal true
     end
   end
 end

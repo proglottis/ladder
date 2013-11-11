@@ -11,9 +11,6 @@ describe ActivityFeed do
     @game_without_user = create(:game, :tournament => @tournament)
     create(:game_rank, :game => @game_without_user)
     create(:game_rank, :game => @game_without_user)
-    @challenge_with_user1 = create(:challenge, :tournament => @tournament, :challenger => @user)
-    @challenge_with_user2 = create(:challenge, :tournament => @tournament, :defender => @user)
-    @challenge_without_user = create(:challenge, :tournament => @tournament)
   end
 
   describe "#for_user" do
@@ -24,15 +21,6 @@ describe ActivityFeed do
 
       it "wont include games on a tournament a user did not participate in" do
         ActivityFeed.new(1.week.ago, Time.zone.now).for_user(@user).wont_include(@game_without_user)
-      end
-
-      it "must include challenges on a tournament a user participated in" do
-        ActivityFeed.new(1.week.ago, Time.zone.now).for_user(@user).must_include(@challenge_with_user1)
-        ActivityFeed.new(1.week.ago, Time.zone.now).for_user(@user).must_include(@challenge_with_user2)
-      end
-
-      it "wont include challenges on a tournament a user did not participate in" do
-        ActivityFeed.new(1.week.ago, Time.zone.now).for_user(@user).wont_include(@challenge_without_user)
       end
     end
 
@@ -53,25 +41,11 @@ describe ActivityFeed do
         it "wont include games on a tournament a user did not participate in" do
           ActivityFeed.new(1.week.ago, Time.zone.now).for_user(@user, @other_user).wont_include(@game_without_user)
         end
-
-        it "must include challenges on a tournament a user participated in" do
-          ActivityFeed.new(1.week.ago, Time.zone.now).for_user(@user, @other_user).must_include(@challenge_with_user1)
-          ActivityFeed.new(1.week.ago, Time.zone.now).for_user(@user, @other_user).must_include(@challenge_with_user2)
-        end
-
-        it "wont include challenges on a tournament a user did not participate in" do
-          ActivityFeed.new(1.week.ago, Time.zone.now).for_user(@user, @other_user).wont_include(@challenge_without_user)
-        end
       end
 
       describe "in different tournament" do
         it "wont include games on a tournament a user participated in" do
           ActivityFeed.new(1.week.ago, Time.zone.now).for_user(@user, @other_user).wont_include(@game_with_user)
-        end
-
-        it "wont include challenges on a tournament a user participated in" do
-          ActivityFeed.new(1.week.ago, Time.zone.now).for_user(@user, @other_user).wont_include(@challenge_with_user1)
-          ActivityFeed.new(1.week.ago, Time.zone.now).for_user(@user, @other_user).wont_include(@challenge_with_user2)
         end
       end
     end
@@ -87,20 +61,9 @@ describe ActivityFeed do
       ActivityFeed.new(1.week.ago, Time.zone.now).for_tournament(@tournament).must_include(@game_without_user)
     end
 
-    it "must include challenges on a tournament" do
-      ActivityFeed.new(1.week.ago, Time.zone.now).for_tournament(@tournament).must_include(@challenge_with_user1)
-      ActivityFeed.new(1.week.ago, Time.zone.now).for_tournament(@tournament).must_include(@challenge_with_user2)
-      ActivityFeed.new(1.week.ago, Time.zone.now).for_tournament(@tournament).must_include(@challenge_without_user)
-    end
-
     it "wont include games on a different tournament" do
       @other_game = create(:game, :tournament => @other_tournament)
       ActivityFeed.new(1.week.ago, Time.zone.now).for_tournament(@tournament).wont_include(@other_game)
-    end
-
-    it "wont include games on a different tournament" do
-      @other_challenge = create(:challenge, :tournament => @other_tournament)
-      ActivityFeed.new(1.week.ago, Time.zone.now).for_tournament(@tournament).wont_include(@other_challenge)
     end
   end
 end

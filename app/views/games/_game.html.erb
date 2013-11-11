@@ -1,14 +1,16 @@
 <div class="media">
   <%= link_to game_path(game), :class => 'pull-left' do %>
-    <%= gravatar_image_tag game.game_ranks[0].user.email, 64 %>
+    <%= gravatar_image_tag game.owner.email, 64 %>
   <% end %>
   <div class="media-body">
-    <h4 class="media-heading"><%= link_to game.versus, game_path(game) %> <small><%= time_ago_in_words game.created_at %> ago</small></h4>
+    <h4 class="media-heading"><%= link_to game.versus, game_path(game) %><% if game.was_challenged? %> <span class="label label-primary"><%= t '.challenge' %></span><% end %> <small><%= time_ago_in_words game.created_at %> ago</small></h4>
     <p><small><%= Game.model_name.human %> in <%= link_to game.tournament.name, tournament_path(game.tournament) %>.</small></p>
-    <ul class="nav nav-stacked">
-      <% game.game_ranks.each do |game_rank| %>
-        <li><%= glyph game_rank.confirmed? ? 'check' : 'unchecked' %><%= game_rank.position %>. <%= game_rank.user.name %><% if game_rank.confirmed? %> <small class="text-muted"><%= time_ago_in_words game_rank.confirmed_at %> ago</small><% end %></li>
-      <% end %>
-    </ul>
+    <% if game.unconfirmed? || game.confirmed? %>
+      <ul class="nav nav-stacked">
+        <% game.game_ranks.each do |game_rank| %>
+          <li><%= glyph game_rank.confirmed? ? 'check' : 'unchecked' %><%= game_rank.position %>. <%= game_rank.user.name %><% if game_rank.confirmed? %> <small class="text-muted"><%= time_ago_in_words game_rank.confirmed_at %> ago</small><% end %></li>
+        <% end %>
+      </ul>
+    <% end %>
   </div>
 </div>

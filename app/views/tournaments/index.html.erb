@@ -5,7 +5,6 @@
 
 <ul class="nav nav-tabs">
   <li class="active"><%= link_to t('.feed'), root_path %></li>
-  <li><%= link_to challenges_path do %><%= Challenge.model_name.human.pluralize %> <%= defending_count_badge %><% end %></li>
   <li><%= link_to games_path do %><%= Game.model_name.human.pluralize %> <%= pending_confirmation_badge %><% end %></li>
 </ul>
 

@@ -9,12 +9,8 @@ class ChallengeProcessor
   end
 
   def process
-    Challenge.active.where("expires_at < ?", @expired_at).find_each do |challenge|
-      challenge.with_lock do
-        game = challenge.build_default_game
-        game.save!
-        challenge.update_attribute(:game, game)
-      end
+    Game.challenged.where("games.created_at < ?", @expired_at - 1.week).find_each do |game|
+      game.expire_challenge!
     end
   end
 end

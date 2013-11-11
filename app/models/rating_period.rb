@@ -13,7 +13,7 @@ class RatingPeriod < ActiveRecord::Base
   end
 
   def games
-    tournament.games.where(:confirmed_at => previous_rating_period.period_at..period_at)
+    tournament.games.confirmed_between(previous_rating_period.period_at, period_at)
   end
 
   def process!

@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20131012215959) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "challenges", force: true do |t|
     t.integer  "tournament_id", null: false
     t.integer  "challenger_id", null: false
@@ -56,9 +53,18 @@ ActiveRecord::Schema.define(version: 20131012215959) do
   add_index "friendly_id_slugs", ["sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_id", using: :btree
   add_index "friendly_id_slugs", ["sluggable_type"], name: "index_friendly_id_slugs_on_sluggable_type", using: :btree
 
+  create_table "game_events", force: true do |t|
+    t.integer  "game_id"
+    t.string   "state",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "game_events", ["game_id"], name: "index_game_events_on_game_id", using: :btree
+
   create_table "game_ranks", force: true do |t|
     t.integer  "game_id",      null: false
-    t.integer  "position",     null: false
+    t.integer  "position"
     t.datetime "confirmed_at"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
