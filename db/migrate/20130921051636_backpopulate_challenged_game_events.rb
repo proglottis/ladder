@@ -8,7 +8,11 @@ class BackpopulateChallengedGameEvents < ActiveRecord::Migration
         if challenge.game
           challenge.game.events.destroy_all
           challenge.game.events.create! state: "challenged", created_at: challenge.created_at, updated_at: challenge.created_at
-          challenge.game.events.create! state: "confirmed", created_at: challenge.game.created_at, updated_at: challenge.game.created_at
+          if challenge.game.game_ranks.all?(&:confirmed?)
+            challenge.game.events.create! state: "confirmed", created_at: challenge.game.created_at, updated_at: challenge.game.created_at
+          else
+            challenge.game.events.create! state: "unconfirmed", created_at: challenge.game.created_at, updated_at: challenge.game.created_at
+          end
         else
           game = Game.new tournament_id: challenge.tournament.id, created_at: challenge.created_at, updated_at: challenge.created_at
           game.events.build :state => "challenged"
