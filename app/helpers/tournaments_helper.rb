@@ -20,7 +20,7 @@ module TournamentsHelper
   end
 
   def link_to_admin(tournament)
-    return unless tournament.owner_id == current_user.id
+    return if !user_logged_in? || tournament.owner_id != current_user.id
 
     styles = []
     styles << 'active' if tournament_admin?

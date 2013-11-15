@@ -21,3 +21,14 @@
     <p><%= t '.generic.summary' %></p>
   </div>
 </div>
+
+<% if @public_tournaments.any? %>
+<div class="row">
+  <div class="col-md-4">
+    <h2><%= t('.public_tournaments') %></h2>
+    <div class="list-group">
+      <%= render @public_tournaments %>
+    </div>
+  </div>
+</div>
+<% end %>

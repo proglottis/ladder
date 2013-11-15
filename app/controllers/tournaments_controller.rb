@@ -1,5 +1,5 @@
 class TournamentsController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:show, :information]
   before_filter :find_tournament_and_rating_period_and_player, :only => [:edit, :update, :destroy, :join]
   before_filter :require_owner!, :only => [:edit, :update, :destroy]
 
@@ -31,18 +31,26 @@ class TournamentsController < ApplicationController
   end
 
   def show
-    @tournament = Tournament.participant_or_public(current_user).friendly.find(params[:id])
+    if user_logged_in?
+      @tournament = Tournament.participant_or_public(current_user).friendly.find(params[:id])
+    else
+      @tournament = Tournament.where(public: true).friendly.find(params[:id])
+    end
     @rating_period = @tournament.current_rating_period
     @player = @tournament.players.find_by(user_id: current_user)
     @ratings = @rating_period.ratings.with_defending_tournament.includes(:user).by_rank
     @rating_ranks = @ratings.group_by { |r| view_context.number_with_precision(r.low_rank, :precision => 0)}
-    @rating = @ratings.detect { |rating| rating.user_id == current_user.id }
+    @rating = @ratings.detect { |rating| rating.user_id == current_user.id } if user_logged_in?
     @pending_games = @tournament.games.confirmed_between(@rating_period.period_at, Time.zone.now)
     @show_actions = @player.present?
   end
 
   def information
-    @tournament = Tournament.participant_or_public(current_user).friendly.find(params[:id])
+    if user_logged_in?
+      @tournament = Tournament.participant_or_public(current_user).friendly.find(params[:id])
+    else
+      @tournament = Tournament.where(public: true).friendly.find(params[:id])
+    end
     @page = @tournament.page
   end
 
