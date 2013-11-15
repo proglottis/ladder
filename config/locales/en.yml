@@ -76,7 +76,7 @@ en:
       generic:
         title: Any 1v1 game
         summary: Ladders makes use of Glicko to calculate updates to rankings. This means it can track players of almost any 1v1 game.
-      public_tournaments: Public Tournaments
+      public_tournaments: Open Tournaments
 
   tournaments:
     index:
