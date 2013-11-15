@@ -1,5 +1,5 @@
 class GameEvent < ActiveRecord::Base
-  belongs_to :game
+  belongs_to :game, touch: true
 
   validates_inclusion_of :state, in: Game::STATES
 

@@ -1,5 +1,5 @@
 class GameRank < ActiveRecord::Base
-  belongs_to :game
+  belongs_to :game, touch: true
   belongs_to :player
 
   has_one :user, :through => :player
