@@ -28,6 +28,11 @@
   </div>
 
   <div class="col-sm-7 col-sm-pull-5">
-    <%= render @activity %>
+    <% if @activity.any? %>
+      <%= render @activity %>
+    <% else %>
+      <h2><%= t '.no_activity' %></h2>
+      <p><%= t '.no_activity_description' %></p>
+    <% end %>
   </div>
 </div>

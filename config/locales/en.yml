@@ -85,6 +85,8 @@ en:
       can_start: You can only start %{count} more
       mine: My Tournaments
       public: Open Tournaments
+      no_activity: No activity
+      no_activity_description: Play some games and log them. Your recent activity will be listed here.
     new:
       title: Start tournament
     show:
@@ -136,6 +138,8 @@ en:
     index:
       pending: Pending Confirmation
       unconfirmed: Unconfirmed Games
+      no_pending_or_unconfirmed: No pending or unconfirmed games
+      no_pending_or_unconfirmed_message: Check back here to see games pending your confirmation, or games that you are waiting for others to confirm.
     new:
       title: New game
     show:

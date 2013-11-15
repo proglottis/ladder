@@ -8,6 +8,8 @@
   <li class="active"><%= link_to games_path do %><%= Game.model_name.human.pluralize %> <%= pending_confirmation_badge %><% end %></li>
 </ul>
 
+<br />
+
 <% if @pending.any? %>
   <h2><%= t '.pending' %></h2>
   <%= render @pending %>
@@ -16,4 +18,9 @@
 <% if @unconfirmed.any? %>
   <h2><%= t '.unconfirmed' %></h2>
   <%= render @unconfirmed %>
+<% end %>
+
+<% if !@pending.any? && !@unconfirmed.any? %>
+  <h2><%= t '.no_pending_or_unconfirmed' %></h2>
+  <p><%= t '.no_pending_or_unconfirmed_message' %></p>
 <% end %>
