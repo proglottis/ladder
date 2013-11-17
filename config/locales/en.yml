@@ -30,7 +30,7 @@ en:
       href: https://github.com/proglottis/ladder/issues
     version:
       text: Version %{version}
-      href: https://github.com/proglottis/ladder/tree/%{version}
+      href: https://github.com/proglottis/ladder/tree/v%{version}
 
   sessions:
     login: Login
