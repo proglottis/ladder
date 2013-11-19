@@ -86,7 +86,7 @@ en:
       mine: My Tournaments
       public: Open Tournaments
       no_activity: No activity
-      no_activity_description: Play some games and log them. Your recent activity will be listed here.
+      no_activity_description: There was no activity between %{start_on} and %{end_on}.
     new:
       title: Start tournament
     show:
