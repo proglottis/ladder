@@ -28,11 +28,6 @@
   </div>
 
   <div class="col-sm-7 col-sm-pull-5">
-    <% if @activity.any? %>
-      <%= render @activity %>
-    <% else %>
-      <h2><%= t '.no_activity' %></h2>
-      <p><%= t '.no_activity_description' %></p>
-    <% end %>
+    <%= render :partial => 'activity/activity', :object => @activity, :locals => {:page => @page, :start_on => @start_on, :end_on => @end_on} %>
   </div>
 </div>

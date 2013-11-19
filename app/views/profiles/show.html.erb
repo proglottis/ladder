@@ -25,6 +25,6 @@
   </div>
 
   <div class="col-sm-7 col-sm-pull-5">
-    <%= render @activity %>
+    <%= render :partial => 'activity/activity', :object => @activity, :locals => {:page => @page, :start_on => @start_on, :end_on => @end_on} %>
   </div>
 </div>
