@@ -133,10 +133,11 @@ en:
       pending: "%{count} pending requests"
 
   activity:
-    no_activity: No activity
-    no_activity_description: There was no activity between %{start_on} and %{end_on}.
-    newer: Newer
-    older: Older
+    activity:
+      no_activity: No activity
+      no_activity_description: There was no activity between %{start_on} and %{end_on}.
+      newer: Newer
+      older: Older
 
   games:
     index:
