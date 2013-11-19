@@ -85,8 +85,6 @@ en:
       can_start: You can only start %{count} more
       mine: My Tournaments
       public: Open Tournaments
-      no_activity: No activity
-      no_activity_description: There was no activity between %{start_on} and %{end_on}.
     new:
       title: Start tournament
     show:
@@ -133,6 +131,12 @@ en:
         success: Invite request submitted. When approved, you will receive an invitation by email.
         failure: Unknown error submitting invite request.
       pending: "%{count} pending requests"
+
+  activity:
+    no_activity: No activity
+    no_activity_description: There was no activity between %{start_on} and %{end_on}.
+    newer: Newer
+    older: Older
 
   games:
     index:

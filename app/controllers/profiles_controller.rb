@@ -3,7 +3,10 @@ class ProfilesController < ApplicationController
   before_filter :find_user
 
   def show
-    @activity = ActivityFeed.new(1.weeks.ago.beginning_of_week, Time.zone.now).for_user(@user, current_user)
+    @page = [1, params[:page].to_i].max
+    @start_on = ((@page - 1) * 2).weeks.ago.beginning_of_week.to_date
+    @end_on = @start_on + 2.weeks
+    @activity = ActivityFeed.new(@start_on, @end_on).for_user(@user, current_user)
     @tournaments = Tournament.with_rated_user(current_user, @user).order('tournaments.name ASC')
   end
 

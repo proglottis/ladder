@@ -25,6 +25,19 @@
   </div>
 
   <div class="col-sm-7 col-sm-pull-5">
-    <%= render @activity %>
+    <% if @activity.any? %>
+      <%= render @activity %>
+    <% else %>
+      <h2><%= t 'activity.no_activity' %></h2>
+      <p><%= sanitize t 'activity.no_activity_description', :start_on => time_tag(@start_on), :end_on => time_tag(@end_on) %></p>
+    <% end %>
+    <ul class="pager">
+      <% if @page > 1 %>
+        <li class="previous"><%= link_to t('activity.newer'), :page => (@page - 1) %></li>
+      <% else %>
+        <li class="previous disabled"><%= link_to t('activity.newer'), :page => 1 %></li>
+      <% end %>
+      <li class="next"><%= link_to t('activity.older'), :page => (@page + 1) %></li>
+    </ul>
   </div>
 </div>
