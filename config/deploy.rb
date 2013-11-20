@@ -1,7 +1,7 @@
 set :application, 'ladder'
 set :repo_url, 'git@github.com:proglottis/ladder.git'
 
-# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
+ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 set :deploy_to, '/srv/ladder'
 set :scm, :git
