@@ -7,7 +7,7 @@ require 'rails/all'
 Bundler.require(:default, Rails.env)
 
 module Ladder
-  VERSION = "1.1.0"
+  VERSION = "1.2.0"
 
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
