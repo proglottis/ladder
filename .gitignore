@@ -19,6 +19,8 @@
 .ruby-gemset
 .DS_Store
 
+/public/sitemap.xml.gz
+
 # Ignore application configuration
 /config/application.yml
 /config/database.yml

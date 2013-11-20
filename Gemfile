@@ -21,6 +21,7 @@ gem 'figaro'
 gem 'friendly_id', '5.0.1'
 gem 'kramdown'
 gem 'maildown'
+gem 'sitemap_generator'
 
 gem 'capistrano', '~> 3.0.0'
 gem 'capistrano-rails'
