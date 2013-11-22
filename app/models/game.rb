@@ -1,7 +1,7 @@
 class Game < ActiveRecord::Base
   belongs_to :tournament
   belongs_to :owner, :class_name => 'User'
-  has_many :events, :class_name => 'GameEvent', :dependent => :destroy
+  has_many :events, -> { order("id ASC") }, :class_name => 'GameEvent', :dependent => :destroy
   has_many :game_ranks, -> { order('position') }, :dependent => :destroy
   has_many :comments, -> { order('created_at DESC') }, :as => :commentable, :dependent => :destroy
   has_one :challenge
@@ -43,7 +43,7 @@ class Game < ActiveRecord::Base
   end
 
   def current_state
-    (events.order("id ASC").last.try(:state) || STATES.first).inquiry
+    (events.last.try(:state) || STATES.first).inquiry
   end
 
   def was_challenged?

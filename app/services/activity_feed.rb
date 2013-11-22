@@ -10,7 +10,7 @@ class ActivityFeed
     games = Game.where(:updated_at => @start_at..@end_at).
       where(:tournament_id => tournaments.map(&:id)).
       participant(user).
-      includes(:tournament, :game_ranks => :user)
+      includes(:tournament, :owner, :events, :game_ranks => :user)
 
     games.sort_by(&:updated_at).reverse!
   end
