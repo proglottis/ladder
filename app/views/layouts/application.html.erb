@@ -16,6 +16,14 @@
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   </head>
   <body>
+    <% if ENV['GOOGLE_ANALYTICS'] %>
+      <%= javascript_tag do -%>
+        var _gaq=[['_setAccount','<%= ENV['GOOGLE_ANALYTICS'] %>'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+      <% end -%>
+    <% end %>
 
     <nav class="navbar navbar-default navbar-static-top" role="navigation">
       <div class="navbar-header">
@@ -85,14 +93,5 @@
         </ul>
       </div>
     </footer>
-
-    <% if ENV['GOOGLE_ANALYTICS'] %>
-      <%= javascript_tag do -%>
-        var _gaq=[['_setAccount','<%= ENV['GOOGLE_ANALYTICS'] %>'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
-      <% end -%>
-    <% end %>
   </body>
 </html>
