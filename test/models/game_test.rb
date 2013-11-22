@@ -30,6 +30,31 @@ describe Game do
     end
   end
 
+  describe ".defender" do
+    describe "challenged" do
+      before do
+        @game.events.create! :state => "challenged"
+      end
+
+      it "wont match games that the user owns" do
+        Game.defender(@user1).wont_include @game
+      end
+
+      it "must match games that the owner participated in" do
+        Game.defender(@user2).must_include @game
+      end
+
+      it "wont match games that the user did not participant in" do
+        Game.defender(create(:user)).wont_include @game
+      end
+    end
+
+    it "wont match non-challenged games" do
+      Game.defender(@user1).wont_include @game
+      Game.defender(@user2).wont_include @game
+    end
+  end
+
   describe "#defender_response!" do
     before do
       @game.events.create!(state: 'challenged')
