@@ -9,7 +9,7 @@ class ChallengeProcessor
   end
 
   def process
-    Game.challenged.where("games.created_at < ?", @expired_at - 1.week).find_each do |game|
+    Game.challenged.where("games.created_at < ?", @expired_at - 1.week).readonly(false).find_each do |game|
       game.expire_challenge!
     end
   end
