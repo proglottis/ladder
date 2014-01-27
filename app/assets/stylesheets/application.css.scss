@@ -15,6 +15,9 @@
  *= require_tree .
  */
 
+@import 'nprogress';
+@import 'nprogress-bootstrap';
+
 .container .nav {
   margin-bottom: 20px;
 }

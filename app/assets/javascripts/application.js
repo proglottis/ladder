@@ -17,4 +17,6 @@
 //= require bootstrap
 //= require d3.v3
 //= require nv.d3
+//= require nprogress
+//= require nprogress-turbolinks
 //= require_tree .
