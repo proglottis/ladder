@@ -130,9 +130,9 @@ class Game < ActiveRecord::Base
     with_lock do
       game_ranks.each do |game_rank|
         if game_rank.user == owner
-          game_rank.position = 2
-        else
           game_rank.position = 1
+        else
+          game_rank.position = 2
         end
         game_rank.confirmed_at = Time.zone.now
         game_rank.save!

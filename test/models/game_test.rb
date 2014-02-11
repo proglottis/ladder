@@ -159,4 +159,25 @@ describe Game do
       end
     end
   end
+
+  describe "#expire_challenge!" do
+    describe "expired challenge" do
+      before do
+        Timecop.travel(Time.new(2010))
+        @game.events.create!(state: 'challenged')
+        Timecop.travel(Time.new(2010, 1, 8))
+      end
+
+      it "must confirm the game" do
+        @game.expire_challenge!
+        @game.must_be :confirmed?
+      end
+
+      it "must set the owner as the winner" do
+        @game.expire_challenge!
+        @game_rank1.reload.position.must_equal 1
+        @game_rank2.reload.position.must_equal 2
+      end
+    end
+  end
 end
