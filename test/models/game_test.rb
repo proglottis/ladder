@@ -180,4 +180,16 @@ describe Game do
       end
     end
   end
+
+  describe "#current_state" do
+    it 'should have initial state as unconfirmed' do
+      @game.current_state.must_equal 'unconfirmed'
+    end
+
+    it 'should get latest state as set' do
+      @game.events.create!(state: "confirmed")
+
+      @game.current_state.must_equal 'confirmed'
+    end
+  end
 end

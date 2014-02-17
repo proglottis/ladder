@@ -60,6 +60,7 @@ class TournamentsController < ApplicationController
   def edit
     @pending_invite_requests = @tournament.invite_requests.where(invite_id: nil)
     @tournament.build_page unless @tournament.page.present?
+    @challenged_or_unconfirmed_games = @tournament.games.challenged_or_unconfirmed
   end
 
   def update
