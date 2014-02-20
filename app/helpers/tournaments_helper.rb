@@ -12,6 +12,7 @@ module TournamentsHelper
     case
     when
       ['tournaments'].include?(controller_name) && params['action'] == 'edit',
+      ['games'].include?(controller_name) && params['action'] == 'index',
       ['invite_requests'].include?(controller_name) && params['action'] == 'index'
         true
     else

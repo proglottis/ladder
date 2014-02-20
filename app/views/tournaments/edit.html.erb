@@ -24,24 +24,3 @@
     </div>
   </div>
 <% end %>
-
-<h4>Games</h4>
-
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Status</th>
-      <th>When</th>
-    </tr>
-  </thead>
-  <tbody class="table-striped">
-<% @challenged_or_unconfirmed_games.each do |game| %>
-  <tr>
-  <td><%= link_to game.versus, game_path(game) %></td>
-  <td><%= game.latest_state.humanize %></td>
-  <td><small><%= time_ago_in_words game.created_at %> ago</small></td>
-  </tr>
-<% end %>
-  </tbody>
-</table>

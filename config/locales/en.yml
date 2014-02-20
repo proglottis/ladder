@@ -118,6 +118,14 @@ en:
         success: Invite to %{email} sent.
         failure: Invite to %{email} failed.
 
+    games:
+      index:
+        title: Games
+        name: Name
+        status: Status
+        date: Date Created
+        no_games: No games.
+
     invite_requests:
       index:
         title: Pending Invite Requests

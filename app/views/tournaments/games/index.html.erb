@@ -1,0 +1,22 @@
+<% if @games.any? %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th><%= t('.name') %></th>
+        <th><%= t('.status') %></th>
+        <th><%= t('.date') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @games.each do |game| %>
+        <tr>
+          <td><%= link_to game.versus, game_path(game) %></td>
+          <td><%= game.current_state.humanize %></td>
+          <td><%= time_ago_in_words game.created_at %> ago</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <%= t('.no_games') %>
+<% end %>
