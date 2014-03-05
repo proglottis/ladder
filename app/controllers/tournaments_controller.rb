@@ -43,7 +43,7 @@ class TournamentsController < ApplicationController
     @player = @tournament.players.find_by(user_id: current_user)
     @ratings = @rating_period.ratings.includes(:user, {:rating_period => :tournament}).by_rank
     @rating_ranks = @ratings.group_by { |r| view_context.number_with_precision(r.low_rank, :precision => 0)}
-    @rating = @ratings.detect { |rating| rating.user_id == current_user.id } if user_logged_in?
+    @rating = @ratings.detect { |rating| rating.player_id == @player.id } if user_logged_in?
     @pending_games = @tournament.games.confirmed_between(@rating_period.period_at, Time.zone.now)
     @show_actions = @player.present?
   end
@@ -73,7 +73,7 @@ class TournamentsController < ApplicationController
 
   def join
     @player = @tournament.players.create!(:user => current_user)
-    @rating_period.ratings.with_defaults.create!(:user_id => current_user.id, :player => @player)
+    @rating_period.ratings.with_defaults.create!(:player => @player)
     redirect_to tournament_path(@tournament)
   end
 

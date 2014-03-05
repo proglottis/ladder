@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140305003407) do
+ActiveRecord::Schema.define(version: 20140305010151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -135,7 +135,6 @@ ActiveRecord::Schema.define(version: 20140305003407) do
 
   create_table "ratings", force: true do |t|
     t.integer  "rating_period_id",                           null: false
-    t.integer  "user_id",                                    null: false
     t.decimal  "rating",           precision: 38, scale: 10, null: false
     t.decimal  "rating_deviation", precision: 38, scale: 10, null: false
     t.decimal  "volatility",       precision: 38, scale: 10, null: false
@@ -146,7 +145,6 @@ ActiveRecord::Schema.define(version: 20140305003407) do
 
   add_index "ratings", ["rating_period_id", "player_id"], name: "index_ratings_on_rating_period_id_and_player_id", unique: true, using: :btree
   add_index "ratings", ["rating_period_id"], name: "index_ratings_on_rating_period_id", using: :btree
-  add_index "ratings", ["user_id"], name: "index_ratings_on_user_id", using: :btree
 
   create_table "services", force: true do |t|
     t.integer  "user_id"
