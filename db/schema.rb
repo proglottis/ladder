@@ -11,22 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131012215959) do
+ActiveRecord::Schema.define(version: 20140305003407) do
 
-  create_table "challenges", force: true do |t|
-    t.integer  "tournament_id", null: false
-    t.integer  "challenger_id", null: false
-    t.integer  "defender_id",   null: false
-    t.integer  "game_id"
-    t.datetime "expires_at",    null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
-  add_index "challenges", ["challenger_id"], name: "index_challenges_on_challenger_id", using: :btree
-  add_index "challenges", ["defender_id"], name: "index_challenges_on_defender_id", using: :btree
-  add_index "challenges", ["game_id"], name: "index_challenges_on_game_id", using: :btree
-  add_index "challenges", ["tournament_id"], name: "index_challenges_on_tournament_id", using: :btree
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "comments", force: true do |t|
     t.integer  "commentable_id",   null: false

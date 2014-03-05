@@ -26,7 +26,7 @@
             <td>
               <% if rating.user != current_user %>
                 <div class="btn-group">
-                  <%= link_to Challenge.model_name.human, new_challenge_path(:user_id => rating.user, :tournament_id => @tournament), :class => rating.defending_challenge? ? 'btn btn-default disabled' : 'btn btn-default' %>
+                  <%= link_to t('.challenge'), new_challenge_path(:user_id => rating.user, :tournament_id => @tournament), :class => rating.defending_challenge? ? 'btn btn-default disabled' : 'btn btn-default' %>
                   <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
                     <span class="caret"></span>
                   </a>

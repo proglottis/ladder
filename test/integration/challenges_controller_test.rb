@@ -16,7 +16,7 @@ describe "ChallengesController Integration Test" do
   describe "creation" do
     it "must be created" do
       visit tournament_path @tournament
-      all('a', :text => Challenge.model_name.human).last.click
+      all('a', :text => I18n.t('tournaments.show.challenge')).last.click
       click_button I18n.t('helpers.submit.create')
       must_have_content @rating1.user.name
       must_have_content @rating2.user.name
@@ -24,7 +24,7 @@ describe "ChallengesController Integration Test" do
 
     it "must send challenge email" do
       visit tournament_path @tournament
-      all('a', :text => Challenge.model_name.human).last.click
+      all('a', :text => I18n.t('tournaments.show.challenge')).last.click
       click_button I18n.t('helpers.submit.create')
       ActionMailer::Base.deliveries.length.must_equal 1
       email = ActionMailer::Base.deliveries.first

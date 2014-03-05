@@ -92,6 +92,7 @@ en:
       games_to_process_on:
         one: There is %{count} game to be processed on %{time}.
         other: There are %{count} games to be processed on %{time}.
+      challenge: Challenge
       log_a_game: Log a game
       no_rated_players: There are no rated players.
       rank: Rank
