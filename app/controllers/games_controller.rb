@@ -11,8 +11,8 @@ class GamesController < ApplicationController
     @tournament = Tournament.with_rated_user(current_user).friendly.find(params[:tournament_id])
     @other_user = User.friendly.find(params[:user_id])
     @game = @tournament.games.build
-    @game.game_ranks.build :player => @tournament.players.find_by!(user_id: current_user), :position => 1
-    @game.game_ranks.build :player => @tournament.players.find_by!(user_id: @other_user), :position => 2
+    @game.game_ranks.build :player => @tournament.players.active.find_by!(user_id: current_user), :position => 1
+    @game.game_ranks.build :player => @tournament.players.active.find_by!(user_id: @other_user), :position => 2
   end
 
   def create

@@ -17,6 +17,10 @@ class Rating < ActiveRecord::Base
     order('(ratings.rating - 2.0 * ratings.rating_deviation) DESC')
   end
 
+  def self.active(at = Time.zone.now)
+    joins(:player).merge(Player.active(at))
+  end
+
   def self.for_game(game)
     ratings = arel_table
     players = Player.arel_table

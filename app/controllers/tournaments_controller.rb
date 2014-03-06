@@ -40,10 +40,10 @@ class TournamentsController < ApplicationController
       @tournament = Tournament.where(public: true).friendly.find(params[:id])
     end
     @rating_period = @tournament.current_rating_period
-    @player = @tournament.players.find_by(user_id: current_user)
-    @ratings = @rating_period.ratings.includes(:user, {:rating_period => :tournament}).by_rank
+    @player = @tournament.players.active.find_by(user_id: current_user)
+    @ratings = @rating_period.ratings.includes(:user, {:rating_period => :tournament}).active.by_rank
     @rating_ranks = @ratings.group_by { |r| view_context.number_with_precision(r.low_rank, :precision => 0)}
-    @rating = @ratings.detect { |rating| rating.player_id == @player.id } if user_logged_in?
+    @rating = @ratings.detect { |rating| rating.player_id == @player.id } if @player.present?
     @pending_games = @tournament.games.confirmed_between(@rating_period.period_at, Time.zone.now)
     @show_actions = @player.present?
   end
@@ -82,7 +82,7 @@ class TournamentsController < ApplicationController
   def find_tournament_and_rating_period_and_player
     @tournament = Tournament.participant(current_user).friendly.find(params[:id])
     @rating_period = @tournament.current_rating_period
-    @player = @tournament.players.find_by(:user_id => current_user)
+    @player = @tournament.players.active.find_by(:user_id => current_user)
   end
 
   def require_owner!

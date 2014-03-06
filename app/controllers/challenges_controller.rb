@@ -4,16 +4,16 @@ class ChallengesController < ApplicationController
 
   def new
     @game = @tournament.games.build
-    @game.game_ranks.build :player => @tournament.players.find_by!(user_id: current_user)
-    @game.game_ranks.build :player => @tournament.players.find_by!(user_id: @defender)
+    @game.game_ranks.build :player => @tournament.players.active.find_by!(user_id: current_user)
+    @game.game_ranks.build :player => @tournament.players.active.find_by!(user_id: @defender)
   end
 
   def create
     @game = @tournament.games.build params.require(:game).permit(:comment)
     @game.events.build state: 'challenged'
     @game.owner = current_user
-    @game.game_ranks.build :player => @tournament.players.find_by!(user_id: current_user)
-    @game.game_ranks.build :player => @tournament.players.find_by!(user_id: @defender)
+    @game.game_ranks.build :player => @tournament.players.active.find_by!(user_id: current_user)
+    @game.game_ranks.build :player => @tournament.players.active.find_by!(user_id: @defender)
     if @game.save
       CommentService.new(current_user).comment(@game, @game.comment)
       Notifications.challenged(@game).deliver
