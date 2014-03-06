@@ -5,6 +5,29 @@ describe Player do
     @player = create(:player)
   end
 
+  describe ".active" do
+    it "finds players with end date" do
+      player = create(:player, :end_at => 1.week.from_now)
+      Player.active.must_include player
+    end
+
+    it "finds players without end date" do
+      player = create(:player, :end_at => nil)
+      Player.active.must_include player
+    end
+
+    it "wont find players outside of range" do
+      player = create(:player, :end_at => 1.day.ago)
+      Player.active.wont_include player
+    end
+
+    it "finds players with exclusive end date" do
+      end_date = Time.zone.now
+      player = create(:player, :end_at => end_date)
+      Player.active(end_date).wont_include player
+    end
+  end
+
   describe "#streak?" do
     it "must be true if winning count is 3 or more" do
       @player.winning_streak_count = 3

@@ -7,6 +7,10 @@ class Player < ActiveRecord::Base
 
   STREAK_THRESHOLD = 3
 
+  def self.active(at = Time.zone.now)
+    where('players.end_at IS NULL OR players.end_at > ?', at)
+  end
+
   def streak?
     winning_streak? || losing_streak?
   end
