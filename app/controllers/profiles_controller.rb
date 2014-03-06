@@ -16,7 +16,7 @@ class ProfilesController < ApplicationController
     @series = @users.map do |user|
       {
         :key => user.name,
-        :values => @tournament.ratings.where(:user_id => user).joins(:rating_period).order('rating_periods.period_at').select('ratings.*, rating_periods.period_at')
+        :values => @tournament.ratings.joins(:user).merge(User.where(:id => user)).joins(:rating_period).order('rating_periods.period_at').select('ratings.*, rating_periods.period_at')
       }
     end
 
