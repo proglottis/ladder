@@ -56,11 +56,15 @@
     </nav>
 
     <div class="container">
-      <% if flash[:notice] %>
+      <%
+      change_flash_types = { notice: 'info', error: 'danger', warning: 'warning' }
+      flash.each do |tkey,tmessage|
+      %>
         <div class="row">
           <div class="col-md-12">
-            <div class="alert alert-info">
-              <%= flash[:notice] %>
+            <div class="alert alert-<%= change_flash_types[tkey] %> alert-dismissable">
+              <button type="button" class="close" data-dismiss="alert-<%= change_flash_types[tkey] %>" aria-hidden="true">&times;</button>
+              <%= tmessage %>
             </div>
           </div>
         </div>
