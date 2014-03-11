@@ -41,6 +41,11 @@ class Tournaments::InvitesController < ApplicationController
 
   def find_tournament_with_current_user
     @tournament = Tournament.participant(current_user).friendly.find(params[:tournament_id])
-    @player = @tournament.players.active.find_by!(:user_id => current_user)
+    @player = @tournament.players.where(user: current_user).first
+
+    if @player.nil?
+      flash[:error] = 'Please join the tournament before inviting other players'
+      redirect_to tournament_path(@tournament)
+    end
   end
 end

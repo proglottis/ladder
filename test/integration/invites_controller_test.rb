@@ -14,6 +14,17 @@ describe "InvitesController Integration Test" do
       @tournament.update_attributes!(:owner => @user)
     end
 
+    describe "not a player" do
+      before do
+        @player.destroy
+      end
+
+      it "must refuse sending an invite" do
+        visit new_tournament_invite_path @tournament
+        must_have_content 'Please join the tournament before inviting other players'
+      end
+    end
+
     it "must create invite" do
       visit new_tournament_invite_path @tournament
       fill_in Invite.human_attribute_name("email"), :with => "user@example.com"
