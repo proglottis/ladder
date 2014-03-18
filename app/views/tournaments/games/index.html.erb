@@ -5,6 +5,7 @@
         <th><%= t('.name') %></th>
         <th><%= t('.status') %></th>
         <th><%= t('.date') %></th>
+        <th>&nbsp;</th>
       </tr>
     </thead>
     <tbody>
@@ -13,6 +14,11 @@
           <td><%= link_to game.versus, game_path(game) %></td>
           <td><%= game.current_state.humanize %></td>
           <td><%= time_ago_in_words game.created_at %> ago</td>
+          <td><%= link_to("delete",
+                          url_for(:controller => 'tournaments/games',
+                                  :action => 'destroy',
+                                  :id => game.id),
+                          :method => :delete) %> </td>
         </tr>
       <% end %>
     </tbody>
