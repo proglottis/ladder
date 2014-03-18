@@ -9,6 +9,12 @@ class Tournaments::GamesController < ApplicationController
     @games = @tournament.games.challenged_or_unconfirmed
   end
 
+  def destroy
+    @tournament.games.where(:id => params[:id]).destroy_all
+
+    redirect_to tournament_games_path(@tournament)
+  end
+
   private
 
   def find_tournament
