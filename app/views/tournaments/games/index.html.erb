@@ -5,6 +5,7 @@
         <th><%= t('.name') %></th>
         <th><%= t('.status') %></th>
         <th><%= t('.date') %></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -13,6 +14,7 @@
           <td><%= link_to game.versus, game_path(game) %></td>
           <td><%= game.current_state.humanize %></td>
           <td><%= time_ago_in_words game.created_at %> ago</td>
+          <td><%= delete_link tournament_game_path(@tournament, game) %></td>
         </tr>
       <% end %>
     </tbody>

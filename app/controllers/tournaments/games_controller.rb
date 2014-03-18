@@ -1,18 +1,23 @@
 class Tournaments::GamesController < ApplicationController
-  before_filter :find_tournament
+  before_filter :find_tournament_and_games
   before_filter :require_owner!
 
   layout 'tournament_title', :only => [:index]
 
   def index
     @pending_invite_requests = @tournament.invite_requests.where(invite_id: nil)
-    @games = @tournament.games.challenged_or_unconfirmed
+  end
+
+  def destroy
+    @games.find(params[:id]).destroy
+    redirect_to tournament_games_path(@tournament)
   end
 
   private
 
-  def find_tournament
+  def find_tournament_and_games
     @tournament = Tournament.friendly.find(params[:tournament_id])
+    @games = @tournament.games.challenged_or_unconfirmed.readonly(false)
   end
 
   def require_owner!
