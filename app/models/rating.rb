@@ -13,10 +13,6 @@ class Rating < ActiveRecord::Base
           :volatility => Glicko2::DEFAULT_VOLATILITY)
   end
 
-  def self.by_rank
-    order('(ratings.rating - 2.0 * ratings.rating_deviation) DESC')
-  end
-
   def self.active(at = Time.zone.now)
     joins(:player).merge(Player.active(at))
   end
