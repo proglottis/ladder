@@ -12,16 +12,16 @@
     </tr>
   </thead>
   <tbody>
-    <% @rating_ranks.each_with_index do |(rank, ratings), index| %>
+    <% @rating_ranks.each do |position, ratings| %>
       <% ratings.each do |rating| %>
         <tr>
           <% if rating == ratings.first %>
-            <td rowspan="<%= ratings.length %>"><%= index + 1 %></td>
+            <td rowspan="<%= ratings.length %>"><%= position %></td>
           <% end %>
           <td>
             <%= profile_link_tag rating.user %><%= streak_badge(rating.player) %>
           </td>
-          <td class="hidden-xs"><%= rank %><% if @rating && @rating != rating %> <small class="text-muted">(<%= t '.chance_to_beat', :percentage => number_to_percentage(100.0 * @rating.expected_fractional_score(rating), :precision => 0) %>)</small><% end %></td>
+          <td class="hidden-xs"><%= number_with_precision rating.low_rank, :precision => 0 %><% if @rating && @rating != rating %> <small class="text-muted">(<%= t '.chance_to_beat', :percentage => number_to_percentage(100.0 * @rating.expected_fractional_score(rating), :precision => 0) %>)</small><% end %></td>
           <% if @show_actions %>
             <td>
               <% if rating.user != current_user %>

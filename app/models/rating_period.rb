@@ -32,6 +32,22 @@ class RatingPeriod < ActiveRecord::Base
     end
   end
 
+  def update_player_positions!
+    with_lock do
+      position = 0
+      previous_rank = nil
+      ratings.sort_by{ |rating| rating.low_rank.round }.reverse.each do |rating|
+        if rating.player.active?(period_at)
+          position += 1 if rating.low_rank.round != previous_rank
+          previous_rank = rating.low_rank.round
+          rating.player.update_attributes!(:position => position)
+        else
+          rating.player.update_attributes!(:position => nil)
+        end
+      end
+    end
+  end
+
   private
 
   def glicko2_rating_period_with_games

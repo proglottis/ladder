@@ -21,6 +21,10 @@ class Rating < ActiveRecord::Base
     joins(:player).merge(Player.active(at))
   end
 
+  def self.active_by_position
+    active.order('players.position ASC')
+  end
+
   def self.for_game(game)
     ratings = arel_table
     players = Player.arel_table

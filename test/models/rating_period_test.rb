@@ -104,4 +104,44 @@ describe RatingPeriod do
       @period1.ratings.find_by!(player: @player2).rating.wont_equal @period2.ratings.find_by!(player: @player2).rating
     end
   end
+
+  describe "#update_player_positions!" do
+    before do
+      @player1 = create(:player)
+      @player2 = create(:player)
+      @player3 = create(:player)
+
+      @period = create(:rating_period, :tournament => @tournament, :period_at => Time.new(2010))
+
+      @rating1 = create(:rating, :rating_period => @period, :player => @player1)
+      @rating2 = create(:rating, :rating_period => @period, :player => @player2)
+    end
+
+    it "must set positions of players when ranks are equal" do
+      @period.update_player_positions!
+
+      @player1.reload.position.must_equal 1
+      @player2.reload.position.must_equal 1
+      @player3.reload.position.must_equal nil
+    end
+
+    it "must set positions of players when ranks are not equal" do
+      @rating1.update_attributes! :rating => @rating1.rating + 100
+
+      @period.update_player_positions!
+
+      @player1.reload.position.must_equal 1
+      @player2.reload.position.must_equal 2
+      @player3.reload.position.must_equal nil
+    end
+
+    it "must set position of ended player to nil" do
+      @player1.update_attributes! :end_at => Time.new(2009)
+
+      @period.update_player_positions!
+
+      @player1.reload.position.must_equal nil
+      @player2.reload.position.must_equal 1
+    end
+  end
 end
