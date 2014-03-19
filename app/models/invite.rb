@@ -14,13 +14,11 @@ class Invite < ActiveRecord::Base
   before_validation :generate_expires_at
 
   def self.not_expired
-    invites = arel_table
-    where(invites[:expires_at].gt(Time.zone.now))
+    where("invites.expires_at > ?", Time.zone.now)
   end
 
   def self.available
-    invites = arel_table
-    not_expired.where(invites[:user_id].eq(nil))
+    not_expired.where(:user_id => nil)
   end
 
   def self.limit_left
