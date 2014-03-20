@@ -8,6 +8,7 @@ class Game < ActiveRecord::Base
 
   has_many :users, :through => :game_ranks
 
+  validate :not_already_challenger, :if => :was_challenged?, :on => :create
   validate :not_already_challenged, :if => :was_challenged?, :on => :create
   validate :not_self, :if => :was_challenged?, :on => :create
 
@@ -36,6 +37,10 @@ class Game < ActiveRecord::Base
 
   def self.challenged_or_unconfirmed
     joins(:events).merge GameEvent.latest_state(["challenged", "unconfirmed"])
+  end
+
+  def self.challenger(user)
+    challenged.participant(user).where(:owner_id => user)
   end
 
   def self.defender(user)
@@ -151,6 +156,12 @@ class Game < ActiveRecord::Base
   def not_already_challenged
     if tournament.games.defender(defender).any?
       errors[:base] << "Defender already challenged"
+    end
+  end
+
+  def not_already_challenger
+    if tournament.games.challenger(challenger).any?
+      errors[:base] << "Challenger already challenging"
     end
   end
 
