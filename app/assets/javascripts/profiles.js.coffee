@@ -22,7 +22,7 @@ initHistoryGraph = (id, url)->
   )
 
 initHistoryGraphs = ->
-  $('.tournament').each(() ->
+  $('.player').each(() ->
     initHistoryGraph(@id, $("svg.plot", this).data("url"))
   )
 

@@ -7,7 +7,7 @@ class ProfilesController < ApplicationController
     @start_on = ((@page - 1) * 2).weeks.ago.beginning_of_week.to_date
     @end_on = @start_on + 2.weeks
     @activity = ActivityFeed.new(@start_on, @end_on).for_user(@user, current_user)
-    @tournaments = Tournament.with_rated_user(current_user, @user).order('tournaments.name ASC')
+    @players = @user.players.includes(:tournament).joins(:tournament).merge(Tournament.with_rated_user(current_user, @user)).order('tournaments.name ASC')
   end
 
   def history

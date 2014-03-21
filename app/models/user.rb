@@ -23,4 +23,8 @@ class User < ActiveRecord::Base
       [:name, :id],
     ]
   end
+
+  def can_challenge?(player)
+    !player.tournament.games.challenged.participant([self, player.user]).exists?
+  end
 end

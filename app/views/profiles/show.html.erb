@@ -5,22 +5,22 @@
 
 <div class="row">
   <div class="col-sm-5 col-sm-push-7">
-    <%= div_for @tournaments do |tournament| %>
+    <%= div_for @players do |player| %>
       <div class="clearfix">
-        <%= link_to tournament.name, tournament_path(tournament) %>
+        <%= link_to player.tournament.name, tournament_path(player.tournament) %>
         <% if current_user != @user %>
           <div class="btn-group pull-right">
-            <%= link_to t('tournaments.show.challenge'), new_challenge_path(:user_id => @user, :tournament_id => tournament), :class => tournament.games.defender(@user).any? ? 'btn btn-default disabled' : 'btn btn-default' %>
+            <%= link_to t('tournaments.show.challenge'), new_challenge_path(:user_id => @user, :tournament_id => player.tournament), :class => current_user.can_challenge?(player) ? 'btn btn-default' : 'btn btn-default disabled' %>
             <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><%= link_to t('tournaments.show.log_a_game'), new_game_path(:tournament_id => tournament, :user_id => @user) %></li>
+              <li><%= link_to t('tournaments.show.log_a_game'), new_game_path(:tournament_id => player.tournament, :user_id => @user) %></li>
             </ul>
           </div>
         <% end %>
       </div>
-      <%= content_tag :svg, "", :style => "height: 150px", :class => "plot", :'data-url' => history_profile_path(@user, :tournament_id => tournament, :format => 'json') %>
+      <%= content_tag :svg, "", :style => "height: 150px", :class => "plot", :'data-url' => history_profile_path(@user, :tournament_id => player.tournament, :format => 'json') %>
     <% end %>
   </div>
 
