@@ -34,3 +34,4 @@ group :test, :development do
   gem 'factory_girl_rails', '~> 4.0'
   gem 'timecop'
 end
+gem 'spring', group: :development
