@@ -15,7 +15,6 @@ gem 'kaminari'
 gem 'glicko2'
 gem 'whenever', '~> 0.9.0', :require => false
 gem 'exception_notification', '~> 4.0.0.rc1'
-gem 'minitest-rails'
 gem 'turbolinks'
 gem 'nprogress-rails'
 gem 'figaro'
@@ -30,7 +29,6 @@ gem 'capistrano-bundler'
 
 group :test, :development do
   gem 'capybara_minitest_spec'
-  gem 'minitest-rails-capybara'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'timecop'
 end
