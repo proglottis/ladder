@@ -11,12 +11,15 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
+//= require jquery/dist/jquery
+//= require jquery-ujs/src/rails
 //= require turbolinks
-//= require bootstrap
-//= require d3.v3
-//= require nv.d3
+//= require bootstrap/dist/js/bootstrap
+//= require d3/d3
+//= require nvd3/nv.d3
 //= require nprogress
-//= require nprogress-turbolinks
 //= require_tree .
+
+$(document).on('page:fetch',   function() { NProgress.start(); });
+$(document).on('page:change',  function() { NProgress.done(); });
+$(document).on('page:restore', function() { NProgress.remove(); });

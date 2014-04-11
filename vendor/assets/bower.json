@@ -1,0 +1,9 @@
+{
+  "name": "dsl-generated dependencies",
+  "dependencies": {
+    "jquery-ujs": "latest",
+    "bootstrap": "latest",
+    "nprogress": "latest",
+    "nvd3": "latest"
+  }
+}

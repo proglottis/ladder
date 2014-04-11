@@ -1,0 +1,4 @@
+asset 'jquery-ujs'
+asset 'bootstrap'
+asset 'nprogress'
+asset 'nvd3'

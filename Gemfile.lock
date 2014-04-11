@@ -27,6 +27,7 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.2)
     atomic (1.1.16)
+    bower-rails (0.7.1)
     builder (3.1.4)
     capistrano (3.0.1)
       i18n
@@ -77,9 +78,6 @@ GEM
     hashie (2.0.5)
     hike (1.2.3)
     i18n (0.6.9)
-    jquery-rails (3.1.0)
-      railties (>= 3.0, < 5.0)
-      thor (>= 0.14, < 2.0)
     jwt (0.1.11)
       multi_json (>= 1.5)
     kaminari (0.15.1)
@@ -104,7 +102,6 @@ GEM
     net-ssh (2.8.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
-    nprogress-rails (0.1.2.3)
     oauth2 (0.9.3)
       faraday (>= 0.8, < 0.10)
       jwt (~> 0.1.8)
@@ -194,6 +191,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bower-rails
   capistrano (~> 3.0.0)
   capistrano-bundler
   capistrano-rails
@@ -205,11 +203,9 @@ DEPENDENCIES
   figaro
   friendly_id (= 5.0.1)
   glicko2
-  jquery-rails
   kaminari
   kramdown
   maildown
-  nprogress-rails
   omniauth
   omniauth-google-oauth2
   pg

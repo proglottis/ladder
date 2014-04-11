@@ -26,5 +26,7 @@ module Ladder
     config.action_mailer.default_url_options = { :host => 'ladders.pw' }
 
     config.exceptions_app = self.routes
+
+    config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
   end
 end
