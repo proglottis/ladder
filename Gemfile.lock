@@ -26,7 +26,6 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     arel (4.0.2)
-    atomic (1.1.16)
     builder (3.1.4)
     capistrano (3.0.1)
       i18n
@@ -71,8 +70,8 @@ GEM
     figaro (0.7.0)
       bundler (~> 1.0)
       rails (>= 3, < 5)
-    friendly_id (5.0.1)
-      activerecord (~> 4.0.0)
+    friendly_id (5.0.3)
+      activerecord (>= 4.0.0)
     glicko2 (0.1.2)
     hashie (2.0.5)
     hike (1.2.3)
@@ -170,8 +169,7 @@ GEM
       libv8 (~> 3.16.14.0)
       ref
     thor (0.19.1)
-    thread_safe (0.3.1)
-      atomic (>= 1.1.7, < 2)
+    thread_safe (0.3.3)
     tilt (1.4.1)
     timecop (0.7.1)
     tins (1.0.0)
@@ -203,7 +201,7 @@ DEPENDENCIES
   exception_notification (~> 4.0.0.rc1)
   factory_girl_rails (~> 4.0)
   figaro
-  friendly_id (= 5.0.1)
+  friendly_id (~> 5.0.3)
   glicko2
   jquery-rails
   kaminari
