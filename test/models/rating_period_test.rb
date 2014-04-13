@@ -32,12 +32,12 @@ describe RatingPeriod do
       @period1 = create(:rating_period, :tournament => @tournament, :period_at => Time.new(2010))
       @period2 = create(:rating_period, :tournament => @tournament, :period_at => Time.new(2011))
       @period3 = create(:rating_period, :tournament => @tournament, :period_at => Time.new(2012))
-      Timecop.travel(Time.new(2010, 6))
+      travel_to(Time.new(2010, 6))
       @game1 = create(:confirmed_game, :tournament => @tournament)
       @game2 = create(:confirmed_game, :tournament => @tournament)
-      Timecop.travel(Time.new(2011, 6))
+      travel_to(Time.new(2011, 6))
       @game3 = create(:confirmed_game, :tournament => @tournament)
-      Timecop.travel(Time.new(2012))
+      travel_to(Time.new(2012))
     end
 
     it "must return games between previous period and current period" do
@@ -92,11 +92,11 @@ describe RatingPeriod do
     end
 
     it "must update ratings based on games" do
-      Timecop.travel(Time.new(2010, 6))
+      travel_to(Time.new(2010, 6))
       @game = create(:confirmed_game, :tournament => @tournament)
       @game_rank1 = create(:game_rank, :game => @game, :player => @player1, :position => 1)
       @game_rank2 = create(:game_rank, :game => @game, :player => @player2, :position => 2)
-      Timecop.travel(Time.new(2012))
+      travel_to(Time.new(2012))
 
       @period2.process!
 

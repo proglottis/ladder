@@ -13,10 +13,6 @@ class ActiveSupport::TestCase
   before do
     ActionMailer::Base.deliveries.clear
   end
-
-  after do
-    Timecop.return
-  end
 end
 
 class ActionDispatch::IntegrationTest

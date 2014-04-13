@@ -188,9 +188,9 @@ describe Game do
   describe "#expire_challenge!" do
     describe "expired challenge" do
       before do
-        Timecop.travel(Time.new(2010))
+        travel_to(Time.new(2010))
         @game.events.create!(state: 'challenged')
-        Timecop.travel(Time.new(2010, 1, 8))
+        travel_to(Time.new(2010, 1, 8))
       end
 
       it "must confirm the game" do
