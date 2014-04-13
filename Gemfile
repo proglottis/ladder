@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.4'
+gem 'rails', '4.1.0'
 
 gem 'pg'
 gem 'sass-rails',   '~> 4.0.0'
@@ -28,7 +28,8 @@ gem 'capistrano-rails'
 gem 'capistrano-bundler'
 
 group :test, :development do
-  gem 'capybara_minitest_spec'
+  gem 'minitest'
+  gem 'minitest-capybara'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'timecop'
 end
