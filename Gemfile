@@ -5,8 +5,8 @@ gem 'rails', '4.1.0'
 gem 'pg'
 gem 'sass-rails',   '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
-gem 'therubyracer', :platforms => :ruby
-gem 'uglifier', '~> 2.1.1'
+gem 'therubyracer', platforms: :ruby
+gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
@@ -20,6 +20,7 @@ gem 'friendly_id', '~> 5.0.3'
 gem 'kramdown'
 gem 'maildown'
 gem 'sitemap_generator'
+gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'capistrano', '~> 3.0.0'
 gem 'capistrano-rails'
