@@ -1,7 +1,6 @@
 require "test_helper"
 
-describe "TournamentsController Integration Test" do
-
+class TournamentsIntegrationTest < ActionDispatch::IntegrationTest
   before do
     @service = login_service
   end

@@ -1,7 +1,6 @@
 require "test_helper"
 
-describe "ChallengesController Integration Test" do
-
+class ChallengesIntegrationTest < ActionDispatch::IntegrationTest
   before do
     @service = login_service
     @tournament = create(:started_tournament)

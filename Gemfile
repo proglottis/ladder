@@ -28,8 +28,8 @@ gem 'capistrano-rails'
 gem 'capistrano-bundler'
 
 group :test, :development do
-  gem 'minitest'
-  gem 'minitest-capybara'
+  gem 'minitest-spec-rails'
+  gem 'capybara_minitest_spec'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'timecop'
 end

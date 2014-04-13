@@ -1,7 +1,6 @@
 require "test_helper"
 
-describe "SessionsController Integration Test" do
-
+class SessionsIntegrationTest < ActionDispatch::IntegrationTest
   before do
     @omniauth = OmniAuth.config.add_mock(:developer, "info" => {"name" => "Bob Bobson", "email" => "bob@bob.com"})
   end
