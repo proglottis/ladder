@@ -16,9 +16,9 @@
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   </head>
   <body>
-    <% if ENV['GOOGLE_ANALYTICS'] %>
+    <% if Rails.application.secrets.google_analytics %>
       <%= javascript_tag do -%>
-        var _gaq=[['_setAccount','<%= ENV['GOOGLE_ANALYTICS'] %>'],['_trackPageview']];
+        var _gaq=[['_setAccount','<%= Rails.application.secrets.google_analytics %>'],['_trackPageview']];
         (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
         g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
         s.parentNode.insertBefore(g,s)}(document,'script'));

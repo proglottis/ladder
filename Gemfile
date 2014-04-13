@@ -17,7 +17,6 @@ gem 'whenever', '~> 0.9.0', :require => false
 gem 'exception_notification', '~> 4.0.0.rc1'
 gem 'turbolinks'
 gem 'nprogress-rails'
-gem 'figaro'
 gem 'friendly_id', '~> 5.0.3'
 gem 'kramdown'
 gem 'maildown'

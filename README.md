@@ -11,7 +11,7 @@ cd ladder
 bundle install
 ```
 
-Create `config/application.yml` from the example file `config/application.yml.example`. If you are only running ladder locally these values can be left at their defaults.
+Create `config/secrets.yml` from the example file `config/secrets.yml.example`. If you are only running ladder locally these values can be left at their defaults.
 
 Create `config/database.yml` from the example file `config/database.yml.example`.
 
