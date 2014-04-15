@@ -97,6 +97,10 @@ en:
       no_rated_players: There are no rated players.
       rank: Rank
       chance_to_beat: "%{percentage} chance to beat"
+      championship:
+        title: There is no currently active championship
+        message: You can start a double-elimination championship
+        link: Create Championship
     information:
       title: Information
       no_information: No information.
@@ -140,6 +144,22 @@ en:
         success: Invite request submitted. When approved, you will receive an invitation by email.
         failure: Unknown error submitting invite request.
       pending: "%{count} pending requests"
+
+    championships:
+      show:
+        started: The championship started on %{time}.
+        not_started: The championship will be started by the tournament owner.
+        start: Start Championship
+        champions: Champions
+        bracket: Bracket
+        match: Your next match is with %{name}.
+        waiting: Your next opponent is still to be announced.
+        no_matches: You have no upcoming matches.
+        join:
+          title: You have not joined this championship
+          message: Join this championship to participate in a double elimination championship.
+          link: Join
+
 
   activity:
     activity:

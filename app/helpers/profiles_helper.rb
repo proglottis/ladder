@@ -6,6 +6,7 @@ module ProfilesHelper
   end
 
   def profile_link_tag(user)
+    return unless user
     link_to profile_path(user) do
       profile_tag(user)
     end

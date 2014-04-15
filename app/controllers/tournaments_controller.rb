@@ -46,6 +46,7 @@ class TournamentsController < ApplicationController
     @rating = @ratings.detect { |rating| rating.player_id == @player.id } if @player.present?
     @pending_games = @tournament.games.confirmed_between(@rating_period.period_at, Time.zone.now)
     @show_actions = @player.present?
+    @championship = @tournament.championships.active
   end
 
   def information

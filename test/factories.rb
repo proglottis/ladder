@@ -75,7 +75,7 @@ FactoryGirl.define do
     content 'The content'
   end
 
-  factory :player do
+  factory :player, :aliases => [:player1, :player2] do
     tournament
     user
   end
@@ -97,6 +97,23 @@ FactoryGirl.define do
     association :commentable, :factory => :game
     content 'The content'
     user
+  end
+
+  factory :championship do
+    tournament
+  end
+
+  factory :championship_player do
+    championship
+    player
+  end
+
+  factory :match do
+    championship
+    bracket 0
+    player1
+    player2
+    game nil
   end
 
 end

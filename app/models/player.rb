@@ -2,8 +2,9 @@ class Player < ActiveRecord::Base
   belongs_to :user
   belongs_to :tournament
 
-  has_many :ratings, :dependent => :destroy
-  has_many :game_ranks, :dependent => :destroy
+  has_many :ratings, dependent: :destroy
+  has_many :game_ranks, dependent: :destroy
+  has_many :championship_players, dependent: :destroy
 
   STREAK_THRESHOLD = 3
 

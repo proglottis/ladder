@@ -11,6 +11,13 @@ class ApplicationController < ActionController::Base
     current_user != nil
   end
 
+  helper_method :gravatar_image_url
+  def gravatar_image_url(email, size = 16)
+    return nil unless email
+    hash = Digest::MD5.hexdigest(email.strip.downcase)
+    "https://secure.gravatar.com/avatar/#{hash}?s=#{size}&d=identicon"
+  end
+
   private
 
   def authenticate_user!

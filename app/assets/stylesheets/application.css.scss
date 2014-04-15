@@ -19,13 +19,40 @@
 @import 'nprogress-bootstrap';
 
 .container .nav {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .footer {
-  padding: 70px 0;
-  margin-top: 70px;
-  border-top: 1px solid #E5E5E5;
-  border-bottom: 1px solid #E5E5E5;
-  background-color: whiteSmoke;
+	padding: 70px 0;
+	margin-top: 70px;
+	border-top: 1px solid #E5E5E5;
+	border-bottom: 1px solid #E5E5E5;
+	background-color: whiteSmoke;
+}
+
+.championships {
+	svg.bracket {
+
+		.node rect {
+			stroke: #333;
+			stroke-width: 1.5px;
+			fill: #fff;
+		}
+
+		.node div {
+			padding: 5px;
+			text-align: center;
+		}
+
+		.edgeLabel rect {
+			fill: #fff;
+		}
+
+		.edgePath {
+			stroke: #333;
+			stroke-width: 1.5px;
+			fill: none;
+		}
+
+	}
 }

@@ -11,10 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140319030911) do
+ActiveRecord::Schema.define(version: 20140415043308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "championship_players", force: true do |t|
+    t.integer  "championship_id", null: false
+    t.integer  "player_id",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "championship_players", ["championship_id", "player_id"], name: "index_championship_players_on_championship_id_and_player_id", unique: true, using: :btree
+  add_index "championship_players", ["championship_id"], name: "index_championship_players_on_championship_id", using: :btree
+  add_index "championship_players", ["player_id"], name: "index_championship_players_on_player_id", using: :btree
+
+  create_table "championships", force: true do |t|
+    t.integer  "tournament_id", null: false
+    t.datetime "started_at"
+    t.datetime "ended_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "championships", ["tournament_id"], name: "index_championships_on_tournament_id", using: :btree
 
   create_table "comments", force: true do |t|
     t.integer  "commentable_id",   null: false
@@ -98,6 +119,21 @@ ActiveRecord::Schema.define(version: 20140319030911) do
   add_index "invites", ["owner_id"], name: "index_invites_on_owner_id", using: :btree
   add_index "invites", ["tournament_id"], name: "index_invites_on_tournament_id", using: :btree
   add_index "invites", ["user_id"], name: "index_invites_on_user_id", using: :btree
+
+  create_table "matches", force: true do |t|
+    t.integer  "championship_id",  null: false
+    t.integer  "bracket",          null: false
+    t.integer  "player1_id"
+    t.integer  "player2_id"
+    t.integer  "game_id"
+    t.integer  "winners_match_id"
+    t.integer  "losers_match_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "matches", ["championship_id"], name: "index_matches_on_championship_id", using: :btree
+  add_index "matches", ["game_id"], name: "index_matches_on_game_id", using: :btree
 
   create_table "pages", force: true do |t|
     t.text     "content"

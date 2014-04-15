@@ -33,6 +33,12 @@ Rails.application.routes.draw do
       resources :invites, :only => [:show, :new, :create, :update]
       resources :games, :only => [:index, :destroy]
       resources :invite_requests, :only => [:index, :create, :update]
+      resource :championship do
+        member do
+          get :bracket
+          post :join
+        end
+      end
     end
     get 'games/:id' => redirect('/games/%{id}')
   end

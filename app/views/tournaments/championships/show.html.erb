@@ -1,0 +1,54 @@
+<% content_for :title do %><%= @tournament.name %> <%= Championship.model_name.human %> - <%= t 'application.name' %><% end %>
+
+<div class="championships">
+  <% if @championship.started? %>
+    <p><%= raw t('.started', time: time_tag(@championship.started_at)) %></p>
+  <% else %>
+    <p><%= t '.not_started' %></p>
+    <% if @tournament.owner == current_user %>
+      <p><%= link_to t('.start'), tournament_championship_path(@tournament), :class => 'btn btn-primary', :method => :put %></p>
+    <% end %>
+    <% if @player && !@championship_player %>
+      <div class="alert alert-info">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4><%= t '.join.title' %></h4>
+        <p><%= t '.join.message' %></p>
+        <%= link_to t('.join.link'), join_tournament_championship_path(@tournament), class: 'btn btn-primary', method: :post %>
+      </div>
+    <% end %>
+    <h2><%= Player.model_name.human.pluralize %></h2>
+    <ul>
+      <% @players.each do |player| %>
+        <li><%= profile_link_tag player.user %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <% if @championship.ended? %>
+    <h2><%= t '.champions' %></h2>
+    <ol>
+      <% @championship.champions.each do |player| %>
+        <li><%= profile_link_tag player.user %></li>
+      <% end %>
+    </ol>
+  <% elsif @championship.started? %>
+    <% if @championship_player %>
+      <h2><%= t '.next_match' %></h2>
+      <% if @next_opponent %>
+        <p><%= raw t('.match', name: profile_link_tag(@next_opponent.user)) %> <%= link_to t('tournaments.show.log_a_game'), new_game_path(tournament_id: @tournament, user_id: @next_opponent.user), class: 'btn btn-default' %></p>
+      <% elsif @next_match %>
+        <p><%= t '.waiting' %></p>
+      <% else %>
+        <p><%= t '.no_matches' %></p>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <% if @championship.started? %>
+    <h2><%= t '.bracket' %></h2>
+
+    <%= content_tag :svg, id: "bracket_#{dom_id(@championship)}", class: 'bracket', data: {url: bracket_tournament_championship_path(@tournament)} do %>
+      <g transform="translate(20,20)"/>
+    <% end %>
+  <% end %>
+</div>

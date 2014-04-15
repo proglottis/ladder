@@ -12,6 +12,7 @@ class Tournament < ActiveRecord::Base
   has_many :games, :dependent => :destroy
   has_many :rating_periods, :dependent => :destroy
   has_one :page, :as => :parent, :dependent => :destroy
+  has_many :championships, :dependent => :destroy
 
   has_many :users, :through => :players
   has_many :game_ranks, :through => :games
@@ -99,6 +100,10 @@ class Tournament < ActiveRecord::Base
   def can_request_invite?(user)
     user && public? && !has_invite?(user) && user.id != owner_id && !invite_requests.find_by(user_id: user) &&
       !players.find_by(user_id: user)
+  end
+
+  def can_invite?(user)
+    user && (owner == user || players.active.find_by(user_id: user))
   end
 
   private
