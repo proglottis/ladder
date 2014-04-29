@@ -17,11 +17,15 @@
       </div>
     <% end %>
     <h2><%= Player.model_name.human.pluralize %></h2>
-    <ul>
-      <% @players.each do |player| %>
-        <li><%= profile_link_tag player.user %></li>
-      <% end %>
-    </ul>
+    <% if @players.any? %>
+      <ul>
+        <% @players.each do |player| %>
+          <li><%= profile_link_tag player.user %></li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p><%= t '.no_players' %></p>
+    <% end %>
   <% end %>
 
   <% if @championship.ended? %>

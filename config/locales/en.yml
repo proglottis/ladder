@@ -155,6 +155,7 @@ en:
         match: Your next match is with %{name}.
         waiting: Your next opponent is still to be announced.
         no_matches: You have no upcoming matches.
+        no_players: No players yet.
         join:
           title: You have not joined this championship
           message: Join this championship to participate in a double elimination championship.
