@@ -124,7 +124,6 @@ class Game < ActiveRecord::Base
           end
         end
         events.create! state: "confirmed"
-        tournament.championships.log_game!(self)
         true
       else
         false

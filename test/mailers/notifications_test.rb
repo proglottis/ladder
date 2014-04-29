@@ -111,4 +111,21 @@ describe Notifications do
       mail.body.encoded.must_match I18n.t('notifications.invite_requested.invite_requested', :name => @invite_request.user.name, :tournament => @tournament.name)
     end
   end
+
+  describe "#championship_match" do
+    before do
+      @user = create(:user)
+      @match = create(:match)
+      @championship = @match.championship
+      @tournament = @championship.tournament
+      @other = @match.player1
+    end
+
+    it "must contain match details" do
+      mail = Notifications.championship_match(@user, @match)
+      mail.subject.must_equal I18n.t('notifications.championship_match.subject', tournament: @tournament.name)
+      mail.to.must_equal [@user.email]
+      mail.body.encoded.must_match I18n.t('notifications.championship_match.match', tournament: @tournament.name, other: @other.user.name)
+    end
+  end
 end

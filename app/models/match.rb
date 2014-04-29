@@ -25,6 +25,10 @@ class Match < ActiveRecord::Base
           winner: winning_rank.player, loser: losing_rank.player)
   end
 
+  def self.allocated
+    where.not(player1: nil, player2: nil)
+  end
+
   def self.unallocated
     where("matches.player1_id IS NULL OR matches.player2_id IS NULL")
   end

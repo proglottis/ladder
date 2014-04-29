@@ -47,6 +47,25 @@ describe Match do
     end
   end
 
+  describe ".allocated" do
+    it "must find matches with both players set" do
+      match = create(:match, player1: create(:player), player2: create(:player))
+      Match.allocated.must_include match
+    end
+
+    it "wont find matches with one player set" do
+      match1 = create(:match, player1: nil, player2: create(:player))
+      match2 = create(:match, player1: create(:player), player2: nil)
+      Match.allocated.wont_include match1
+      Match.allocated.wont_include match2
+    end
+
+    it "wont find matches with no players set" do
+      match = create(:match, player1: nil, player2: nil)
+      Match.allocated.wont_include match
+    end
+  end
+
   describe ".unallocated" do
     it "must find matches with missing players" do
       match1 = create(:match, player1: nil, player2: create(:player))

@@ -22,9 +22,11 @@ class Championship < ActiveRecord::Base
   end
 
   def self.log_game!(game)
+    allocated = []
     started.where(tournament_id: game.tournament_id).uniq.find_each do |championship|
-      championship.log_game!(game)
+      allocated += championship.log_game!(game)
     end
+    allocated
   end
 
   def started?
@@ -57,18 +59,21 @@ class Championship < ActiveRecord::Base
 
   def log_game!(game)
     with_lock do
+      allocated = []
       winning_rank, losing_rank = game.game_ranks.minmax_by(&:position)
       matches.incomplete.matches_game(game).find_each do |match|
         # find the winners new match
         if new_match = match.winners_match
           new_match.add_player(winning_rank.player)
           new_match.save!
+          allocated << new_match if new_match.allocated?
         end
         if match.winners?
           # find the losers new match
           if new_match = match.losers_match
             new_match.add_player(losing_rank.player)
             new_match.save!
+            allocated << new_match if new_match.allocated?
           elsif match.previous_matches.count > 1
             # Special case where the loser in the final has not lost before
             previous_winning_rank = match.previous_matches.winners.first.game.game_ranks.min_by(&:position)
@@ -77,6 +82,7 @@ class Championship < ActiveRecord::Base
               new_match.add_player(winning_rank.player)
               new_match.add_player(losing_rank.player)
               new_match.save!
+              allocated << new_match if new_match.allocated?
               match.winners_match = new_match
             end
           end
@@ -84,6 +90,7 @@ class Championship < ActiveRecord::Base
         match.update_attributes!(game: game)
       end
       update_if_ended!
+      allocated
     end
   end
 

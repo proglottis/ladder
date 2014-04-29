@@ -8,7 +8,7 @@ class Tournaments::ChampionshipsController < ApplicationController
 
   def show
     @players = @championship.players.includes(:user).order('users.name ASC')
-    @player = @tournament.players.find_by(user_id: current_user)
+    @player = @tournament.players.active.find_by(user_id: current_user)
     @championship_player = @players.find_by(user_id: current_user)
     @next_match = @championship.matches.incomplete.with_player(@player).first
     if @next_match
@@ -41,7 +41,7 @@ class Tournaments::ChampionshipsController < ApplicationController
   end
 
   def join
-    @player = @championship.tournament.players.find_by!(user_id: current_user)
+    @player = @championship.tournament.players.active.find_by!(user_id: current_user)
     @championship.championship_players.create!(player: @player)
     redirect_to :back
   end
@@ -58,6 +58,10 @@ class Tournaments::ChampionshipsController < ApplicationController
   def update
     unless @championship.started?
       @championship.start!
+      @championship.matches.allocated.incomplete.each do |match|
+        Notifications.championship_match(match.player1.user, match).deliver
+        Notifications.championship_match(match.player2.user, match).deliver
+      end
     end
     redirect_to :back
   end

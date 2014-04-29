@@ -218,6 +218,9 @@ en:
     invite_requested:
       subject: New invite request for %{tournament}
       invite_requested: "%{name} has requested an invite for %{tournament}."
+    championship_match:
+      subject: "New match on the %{tournament} championship"
+      match: "There is a new match on the %{tournament} championship waiting for you to participate. Play and log a game against %{other} in %{tournament} to proceed."
 
   layouts:
     tournament_title:

@@ -49,6 +49,11 @@ class GamesController < ApplicationController
             Notifications.game_confirmed(game_rank.user, @game).deliver
           end
         end
+        allocated = @tournament.championships.log_game!(@game)
+        allocated.each do |match|
+          Notifications.championship_match(match.player1.user, match).deliver
+          Notifications.championship_match(match.player2.user, match).deliver
+        end
       end
     elsif params.has_key?(:respond)
       @game.defender_response!

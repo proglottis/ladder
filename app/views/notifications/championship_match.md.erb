@@ -1,0 +1,3 @@
+<%= t '.match', tournament: @tournament.name, other: @other.user.name %>
+
+[<%= @tournament.name %> <%= Championship.model_name.human %>](<%= tournament_championship_path(@tournament) %>)

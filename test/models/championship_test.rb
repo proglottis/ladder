@@ -203,6 +203,21 @@ describe Championship do
       @championship.matches.losers.find_by!(player1: @match.player2)
     end
 
+    it "returns newly allocated winners match" do
+      match = @championship.matches.where(player1: [@player1, @player2, @player3], player2: nil).first!
+      result = @championship.log_game!(@game)
+      result.must_include match
+      result.length.must_equal 1
+    end
+
+    it "returns newly allocated losers match" do
+      match = @championship.matches.losers.first
+      match.update_attributes(player1: @player3)
+      result = @championship.log_game!(@game)
+      result.must_include match
+      result.length.must_equal 2
+    end
+
     describe "final" do
       before do
         # First winners game
@@ -233,6 +248,18 @@ describe Championship do
           Match.brackets[:winners] => 4,
           Match.brackets[:losers]  => 1
         )
+      end
+
+      it "returns the special final match" do
+        previous_matches = @championship.matches.to_a
+        game = create(:confirmed_game, tournament: @tournament)
+        create(:game_rank, game: game, player: @player2, position: 1)
+        create(:game_rank, game: game, player: @player1, position: 2)
+        result = @championship.log_game!(game)
+        previous_matches.each do |match|
+          result.wont_include match
+        end
+        result.length.must_equal 1
       end
 
       it "wont add a special final match when one has already been created" do
