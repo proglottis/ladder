@@ -1,3 +1,12 @@
+<% if @tournament.championships.where(ended_at: nil).none? %>
+  <div class="alert alert-info">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <h4><%= t '.championship.title' %></h4>
+    <p><%= t '.championship.message' %></p>
+    <%= link_to t('.championship.link'), tournament_championship_path(tournament_id: @tournament), :class => 'btn btn-primary', :method => :post %>
+  </div>
+<% end %>
+
 <%= form_for @tournament do |f| %>
   <div class="form-group">
     <%= f.label :name, :class => 'control-label' %>

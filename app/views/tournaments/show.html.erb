@@ -1,12 +1,3 @@
-<% if @tournament.owner == current_user && @tournament.championships.where(ended_at: nil).none? %>
-  <div class="alert alert-info">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <h4><%= t '.championship.title' %></h4>
-    <p><%= t '.championship.message' %></p>
-    <%= link_to t('.championship.link'), tournament_championship_path(tournament_id: @tournament), :class => 'btn btn-primary', :method => :post %>
-  </div>
-<% end %>
-
 <p><%= raw t '.games_to_process_on', :count => @pending_games.count, :time => time_tag(@rating_period.period_at + 1.week) %></p>
 
 <table class="table table-bordered table-condensed">
