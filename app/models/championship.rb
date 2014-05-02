@@ -103,6 +103,8 @@ class Championship < ActiveRecord::Base
     results = root.game.game_ranks.minmax_by(&:position).map(&:player)
     if previous = root.previous_matches.losers.first
       results << previous.game.game_ranks.max_by(&:position).player
+    elsif previous = root.previous_matches.winners.first.try(:losers).try(:first)
+      results << previous.game.game_ranks.max_by(&:position).player
     end
     results
   end
