@@ -22,6 +22,16 @@
       </div>
     </div>
   <% end %>
+
+  <% if @tournament.users.any? %>
+    <div class="form-group">
+      <%= f.label :owner_id, t("tournament.transfer_ownership"), class: 'control-label' %>
+      <div class="controls">
+        <%= f.select :owner_id, @tournament.users.collect {|u| [ u.name, u.id ] }, {}, {class: "form-control"} %>
+      </div>
+    </div>
+  <% end %>
+
   <div class="checkbox">
     <label><%= f.check_box :public %> <%= Tournament.human_attribute_name('public') %></label>
   </div>

@@ -261,3 +261,7 @@ en:
     array:
       versus:
         two_words_connector: " vs "
+
+  tournament:
+    transfer_ownership: "Transfer the ownership to the other players in the tournament"
+    ownership_transferred: "Ownership of the tournament has been transferred. You are no longer the owner of the tournament."
