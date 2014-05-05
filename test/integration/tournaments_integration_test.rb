@@ -1,4 +1,4 @@
-require "test_helper"
+require File.expand_path("../test_helper", File.dirname(__FILE__))
 
 class TournamentsIntegrationTest < ActionDispatch::IntegrationTest
   before do
@@ -50,7 +50,7 @@ class TournamentsIntegrationTest < ActionDispatch::IntegrationTest
 
   describe "updating" do
     before do
-      @other_user = create(:user)
+      @other_user = create(:user, :name => "Hao")
       @tournament = create(:started_tournament, :owner => @service.user)
       @rating_period = @tournament.current_rating_period
       @player1 = create(:player, :user => @service.user, :tournament => @tournament)
@@ -71,6 +71,16 @@ class TournamentsIntegrationTest < ActionDispatch::IntegrationTest
       @tournament.update_attributes :owner => @other_user
       visit tournament_path(@tournament)
       wont_have_link I18n.t('tournaments.admin.title')
+    end
+
+    it "transfers ownership to others via update" do
+      create(:player, :user => @other_user, :tournament => @tournament)
+
+      visit tournament_path(@tournament)
+      click_link I18n.t('tournaments.admin.title')
+      select @other_user.name, from: "tournament_owner_id"
+      click_button I18n.t('helpers.submit.update')
+      must_have_content 'Ownership of the tournament has been transferred. You are no longer the owner of the tournament.'
     end
   end
 end

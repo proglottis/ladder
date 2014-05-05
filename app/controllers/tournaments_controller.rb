@@ -65,7 +65,14 @@ class TournamentsController < ApplicationController
 
   def update
     @tournament.slug = nil
-    if @tournament.update_attributes(params.require(:tournament).permit(:name, :public, :page_attributes => [:id, :content]))
+
+    original_owner_id = @tournament.owner_id
+
+    if @tournament.update_attributes(params.require(:tournament).permit(:name, :public, :owner_id, :page_attributes => [:id, :content]))
+      if original_owner_id != @tournament.owner_id
+        flash[:notice] = I18n.t("tournament.ownership_transferred")
+      end
+
       redirect_to tournament_path(@tournament)
     else
       render :edit
