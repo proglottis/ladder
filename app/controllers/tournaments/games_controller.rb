@@ -17,7 +17,7 @@ class Tournaments::GamesController < ApplicationController
 
   def find_tournament_and_games
     @tournament = Tournament.friendly.find(params[:tournament_id])
-    @games = @tournament.games.challenged_or_unconfirmed.readonly(false)
+    @games = @tournament.games.challenged_or_unconfirmed.order('games.created_at DESC').readonly(false)
   end
 
   def require_owner!
