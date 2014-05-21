@@ -38,10 +38,12 @@ initChampionshipGraph = (id, url) ->
     renderer = new dagreD3.Renderer().layout(layout)
     renderer.run(g, d3.select("##{id} g"))
 
-    bbox = d3.select("##{id}").node().getBBox()
+    bbox = d3.select("##{id}").node().children[0].getBBox()
     d3.select("##{id}")
-      .attr("height", bbox.height)
-      .attr("width", bbox.width)
+      .attr("height", bbox.height + 40)
+      .attr("width", bbox.width + 40)
+      .attr("viewBox", "0 0 " + (bbox.width + 40) + " " + (bbox.height + 40))
+      .attr("preserveAspectRatio", "xMinYMin meet")
 
 initChampionshipGraphs = ->
   $('.championships svg.bracket').each ->
