@@ -30,6 +30,5 @@ group :test, :development do
   gem 'minitest-spec-rails'
   gem 'capybara_minitest_spec'
   gem 'factory_girl_rails', '~> 4.0'
-  gem 'debugger'
 end
 gem 'spring', group: :development
