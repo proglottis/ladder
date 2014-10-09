@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.6'
 
 gem 'pg'
 gem 'sass-rails',   '~> 4.0.0'
@@ -30,5 +30,6 @@ group :test, :development do
   gem 'minitest-spec-rails'
   gem 'capybara_minitest_spec'
   gem 'factory_girl_rails', '~> 4.0'
+  gem 'debugger'
 end
 gem 'spring', group: :development
