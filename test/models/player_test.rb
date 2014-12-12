@@ -5,6 +5,47 @@ describe Player do
     @player = create(:player)
   end
 
+  describe "#set_position" do
+    describe "when the tournament has 'king of the hill' style ranking" do
+      before do
+        @user = create(:user)
+        @tournament = @player.tournament
+        @tournament.update_attributes!(:ranking_type => 'king_of_the_hill')
+      end
+
+      describe "the first player" do
+        before do
+          @player.destroy
+        end
+
+        it "should be number 1" do
+          @tournament.players.create(:user => @user).position.must_equal 1
+        end
+      end
+
+      describe "consecutive players" do
+        before do
+          @player.update_attributes!(:position => 7)
+        end
+
+        it "should be the next greatest number"  do
+          @tournament.players.create(:user => @user).position.must_equal 8
+        end
+      end
+    end
+
+    describe "when the tournament has 'glicko2' style ranking" do
+      before do
+        @user = create(:user)
+        @tournament = @player.tournament
+      end
+
+      it "should be blank" do
+        @tournament.players.create(:user => @user).position.must_equal nil
+      end
+    end
+  end
+
   describe ".active" do
     it "finds players with end date" do
       player = create(:player, :end_at => 1.week.from_now)
