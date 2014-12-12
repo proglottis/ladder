@@ -15,6 +15,7 @@ FactoryGirl.define do
 
   factory :tournament do
     owner
+    ranking_type 'glicko2'
     sequence(:name) {|n| "Tournament #{n}"}
 
     factory :started_tournament do

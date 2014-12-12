@@ -19,11 +19,12 @@ class TournamentsController < ApplicationController
   end
 
   def create
-    @tournament = Tournament.where(:owner => current_user).build(params.require(:tournament).permit(:name))
+    @tournament = Tournament.where(:owner => current_user).build(params.require(:tournament).permit(:name, :ranking_type))
     if @tournament.save
       @tournament.rating_periods.create!(:period_at => Time.zone.now.beginning_of_week)
       redirect_to tournament_path(@tournament)
     else
+      flash.notice = I18n.t("tournament.creation_failed")
       render :new
     end
   end

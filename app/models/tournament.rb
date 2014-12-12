@@ -1,6 +1,9 @@
 class Tournament < ActiveRecord::Base
   OWNER_LIMIT = 5
 
+  RANKING_TYPES = [:glicko2, :king_of_the_hill]
+  DEFAULT_RANKING_TYPE = RANKING_TYPES.first
+
   extend FriendlyId
   friendly_id :slug_canditates, use: :slugged
 
@@ -21,6 +24,7 @@ class Tournament < ActiveRecord::Base
   accepts_nested_attributes_for :page, :reject_if => :all_blank
 
   validates_presence_of :name, :owner_id
+  validates :ranking_type, inclusion: { in: RANKING_TYPES.map(&:to_s) }
   validate :maximum_allowed
 
   def self.participant(user)

@@ -1,3 +1,4 @@
+<p><%= raw t '.ranking_type', :ranking_type => @tournament.ranking_type.to_s.humanize %></p>
 <p><%= raw t '.games_to_process_on', :count => @pending_games.count, :time => time_tag(@rating_period.period_at + 1.week) %></p>
 
 <table class="table table-bordered table-condensed">

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140415043308) do
+ActiveRecord::Schema.define(version: 20141208054006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -202,12 +202,13 @@ ActiveRecord::Schema.define(version: 20140415043308) do
   add_index "services", ["user_id"], name: "index_services_on_user_id", using: :btree
 
   create_table "tournaments", force: true do |t|
-    t.string   "name",                       null: false
-    t.integer  "owner_id",                   null: false
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.string   "name",                             null: false
+    t.integer  "owner_id",                         null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "slug"
-    t.boolean  "public",     default: false, null: false
+    t.boolean  "public",       default: false,     null: false
+    t.string   "ranking_type", default: "glicko2", null: false
   end
 
   add_index "tournaments", ["public"], name: "index_tournaments_on_public", using: :btree

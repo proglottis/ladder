@@ -11,6 +11,12 @@
     </div>
   </div>
   <div class="form-group">
+    <%= f.label :ladder, :class => 'col-md-2 control-label' %>
+    <div class="col-md-10">
+      <%= f.select :ranking_type, Tournament::RANKING_TYPES.map { |type| [type.to_s.humanize, type] }, :class => "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
       <%= f.submit :class => 'btn btn-primary' %>
       <%= cancel_link tournaments_path %>

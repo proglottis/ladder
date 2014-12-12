@@ -89,6 +89,7 @@ en:
       title: Start tournament
     show:
       title: Ladder
+      ranking_type: This tournament uses the "%{ranking_type}" ranking system.
       games_to_process_on:
         one: There is %{count} game to be processed on %{time}.
         other: There are %{count} games to be processed on %{time}.
@@ -263,5 +264,6 @@ en:
         two_words_connector: " vs "
 
   tournament:
+    creation_failed: "Could not create tournament, check your input and try again."
     transfer_ownership: "Transfer the ownership to the other players in the tournament"
     ownership_transferred: "Ownership of the tournament has been transferred. You are no longer the owner of the tournament."

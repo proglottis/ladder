@@ -24,6 +24,7 @@ class TournamentsIntegrationTest < ActionDispatch::IntegrationTest
       visit tournaments_path
       click_link I18n.t('tournaments.index.start')
       fill_in 'Name', :with => 'Test Tournament'
+      select "Glicko2", from: "tournament_ranking_type"
       click_button I18n.t('helpers.submit.tournament.create')
       must_have_content 'Test Tournament'
     end
@@ -33,6 +34,15 @@ class TournamentsIntegrationTest < ActionDispatch::IntegrationTest
       click_link I18n.t('tournaments.index.start')
       click_button I18n.t('helpers.submit.tournament.create')
       must_have_content I18n.t('tournaments.new.title')
+    end
+
+    it "must be created" do
+      visit tournaments_path
+      click_link I18n.t('tournaments.index.start')
+      fill_in 'Name', :with => 'Test Tournament'
+      select "King of the hill", from: "tournament_ranking_type"
+      click_button I18n.t('helpers.submit.tournament.create')
+      must_have_content 'Test Tournament'
     end
   end
 
