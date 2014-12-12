@@ -117,6 +117,17 @@ describe RatingPeriod do
       @rating2 = create(:rating, :rating_period => @period, :player => @player2)
     end
 
+    describe "when the tournament is using 'king of the hill' ranking" do
+      before do
+        @tournament.update_attributes!(:ranking_type => 'king_of_the_hill')
+      end
+      it "does nothing" do
+        @period.update_player_positions!
+        @player1.reload.position.must_equal nil
+        @player2.reload.position.must_equal nil
+      end
+    end
+
     it "must set positions of players when ranks are equal" do
       @period.update_player_positions!
 
