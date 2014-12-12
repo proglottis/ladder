@@ -151,7 +151,7 @@ class Game < ActiveRecord::Base
 
     winning_player.update_attributes!(:position => :nil)
 
-    players_who_get_shafted = Player.where(:position => (top_position_in_players..winning_player_position))
+    players_who_get_shafted = tournament.players.where(:position => (top_position_in_players..winning_player_position))
     players_who_get_shafted.each do |player|
       player.update_attributes!(:position => player.position + 1)
     end

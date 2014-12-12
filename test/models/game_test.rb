@@ -2,11 +2,12 @@ require "test_helper"
 
 describe Game do
   before do
-    @player1 = create(:player)
-    @player2 = create(:player)
+    @tournament = create(:tournament)
+    @player1 = create(:player, :tournament => @tournament)
+    @player2 = create(:player, :tournament => @tournament)
     @user1 = @player1.user
     @user2 = @player2.user
-    @game = create(:unconfirmed_game, :owner => @user1)
+    @game = create(:unconfirmed_game, :tournament => @tournament, :owner => @user1)
     @game_rank1 = create(:game_rank, :game => @game, :player => @player1, :position => 1)
     @game_rank2 = create(:game_rank, :game => @game, :player => @player2, :position => 2)
   end
@@ -170,8 +171,8 @@ describe Game do
 
       describe "when the player with a higher rank loses" do
         before do
-          @player3 = create(:player, :position => 2)
-          @player4 = create(:player, :position => 3)
+          @player3 = create(:player, :position => 2, :tournament => @tournament)
+          @player4 = create(:player, :position => 3, :tournament => @tournament)
           @game_rank1.update_attributes!(:position => 2)
           @game_rank2.update_attributes!(:position => 1)
         end
