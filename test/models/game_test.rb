@@ -148,6 +148,73 @@ describe Game do
       @game.confirm_user(@user2).must_equal true
     end
 
+    def confirm
+      @game.confirm_user(@user1)
+      @game.confirm_user(@user2)
+    end
+
+    describe "when the tournament has 'king of the hill' style ranking" do
+      before do
+        @player1.update_attributes!(:position => 1)
+        @player2.update_attributes!(:position => 4)
+        @game.tournament.update_attributes!(:ranking_type => 'king_of_the_hill')
+      end
+
+      describe "when the player with a higher rank wins" do
+        it "keeps the rankings" do
+          confirm
+          @player1.reload.position.must_equal 1
+          @player2.reload.position.must_equal 4
+        end
+      end
+
+      describe "when the player with a higher rank loses" do
+        before do
+          @player3 = create(:player, :position => 2)
+          @player4 = create(:player, :position => 3)
+          @game_rank1.update_attributes!(:position => 2)
+          @game_rank2.update_attributes!(:position => 1)
+        end
+
+        it "the lower ranked player takes their place and everyone between moves down" do
+          confirm
+          @player2.reload.position.must_equal 1
+          @player1.reload.position.must_equal 2
+          @player3.reload.position.must_equal 3
+          @player4.reload.position.must_equal 4
+        end
+      end
+    end
+
+    describe "when the tournament has 'glicko' style ranking" do
+      before do
+        @player1.update_attributes!(:position => 1)
+        @player2.update_attributes!(:position => 4)
+      end
+
+      describe "when the player with a higher rank wins" do
+        it "keeps the rankings" do
+          confirm
+          @player1.reload.position.must_equal 1
+          @player2.reload.position.must_equal 4
+        end
+      end
+
+      describe "when the player with a higher rank loses" do
+        before do
+          @game_rank1.update_attributes!(:position => 2)
+          @game_rank2.update_attributes!(:position => 1)
+        end
+
+        it "keeps the rankings" do
+          confirm
+          @player1.reload.position.must_equal 1
+          @player2.reload.position.must_equal 4
+        end
+      end
+
+    end
+
     describe "streaks" do
       it "must increment players winning/losing streaks when game is confirmed" do
         @player1.update_attributes :winning_streak_count => 5, :losing_streak_count => 0

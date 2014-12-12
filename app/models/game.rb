@@ -123,12 +123,40 @@ class Game < ActiveRecord::Base
                                                 :losing_streak_count => 0)
           end
         end
+
+        reposition_winner(game_ranks)
+
         events.create! state: "confirmed"
         true
       else
         false
       end
     end
+  end
+
+  ##
+  # This method is comvoluted becuase we have to factor in multiple players...
+  #
+  def reposition_winner(game_ranks)
+    return unless tournament.instantly_ranked?
+
+    ranks = game_ranks.sort_by(&:position)
+    players = game_ranks.map(&:player).sort_by(&:position)
+
+    winning_player = ranks.first.player
+    winning_player_position = winning_player.position
+    top_position_in_players = players.first.position
+
+    return if winning_player_position == top_position_in_players # Winner is already at the top
+
+    winning_player.update_attributes!(:position => :nil)
+
+    players_who_get_shafted = Player.where(:position => (top_position_in_players..winning_player_position))
+    players_who_get_shafted.each do |player|
+      player.update_attributes!(:position => player.position + 1)
+    end
+
+    winning_player.update_attributes!(:position => top_position_in_players)
   end
 
   def expire_challenge!

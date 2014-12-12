@@ -74,6 +74,10 @@ class Tournament < ActiveRecord::Base
     end
   end
 
+  def instantly_ranked?
+    ranking_type == 'king_of_the_hill'
+  end
+
   def anonymize
     update_attributes :name => "Tournament #{id}"
   end
