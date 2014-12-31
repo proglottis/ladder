@@ -26,5 +26,6 @@ module Ladder
     config.active_record.raise_in_transactional_callbacks = true
 
     config.action_mailer.default_url_options = { :host => 'ladders.pw' }
+    config.exceptions_app = self.routes
   end
 end
