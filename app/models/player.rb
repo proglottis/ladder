@@ -6,8 +6,6 @@ class Player < ActiveRecord::Base
   has_many :game_ranks, dependent: :destroy
   has_many :championship_players, dependent: :destroy
 
-  before_create :set_position
-
   STREAK_THRESHOLD = 3
 
   def self.active(at = Time.zone.now)
@@ -28,12 +26,5 @@ class Player < ActiveRecord::Base
 
   def losing_streak?
     losing_streak_count >= STREAK_THRESHOLD && winning_streak_count < 1
-  end
-
-  private
-  def set_position
-    if tournament.instantly_ranked?
-      self.position ||= (tournament.players.maximum(:position) || 0) + 1
-    end
   end
 end

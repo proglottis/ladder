@@ -17,9 +17,11 @@ class RatingPeriod < ActiveRecord::Base
   end
 
   def process!
-
     return unless previous_rating_period
-    with_lock do
+    transaction do
+      tournament.lock!
+      lock!
+
       period = glicko2_rating_period_with_games
       new_period = period.generate_next
       new_period.players.each do |player|
@@ -36,7 +38,10 @@ class RatingPeriod < ActiveRecord::Base
   def update_player_positions!
     return if tournament.instantly_ranked?
 
-    with_lock do
+    transaction do
+      tournament.lock!
+      lock!
+
       position = 0
       previous_rank = nil
       ratings.sort_by{ |rating| rating.low_rank.round }.reverse.each do |rating|

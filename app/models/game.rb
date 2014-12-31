@@ -100,7 +100,10 @@ class Game < ActiveRecord::Base
 
   def confirm_user(user)
     raise "Cannot confirm if game is incomplete" if incomplete? || challenged?
-    with_lock do
+    transaction do
+      tournament.lock!
+      lock!
+
       total = 0
       confirmed = 0
       game_ranks.each do |game_rank|
@@ -137,8 +140,17 @@ class Game < ActiveRecord::Base
   ##
   # This method is comvoluted becuase we have to factor in multiple players...
   #
+  # Expects locking to be handled by caller
   def reposition_winner(game_ranks)
     return unless tournament.instantly_ranked?
+
+    # if any players in this game have no position, add them to the bottom of the ladder
+    end_position = tournament.players.maximum(:position) || 0
+    game_ranks.map(&:player).each do |player|
+      next if player.position
+      end_position += 1
+      player.update_attributes!(:position => end_position)
+    end
 
     ranks = game_ranks.sort_by(&:position)
     players = game_ranks.map(&:player).sort_by(&:position)
