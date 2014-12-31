@@ -33,7 +33,7 @@ class Tournament < ActiveRecord::Base
     invites = Invite.arel_table
     joins(tournaments.join(invites, Arel::Nodes::OuterJoin).on(invites[:tournament_id].eq(tournaments[:id])).
           join(players, Arel::Nodes::OuterJoin).on(players[:tournament_id].eq(tournaments[:id])).
-          join_sql).
+          join_sources).
       where(tournaments[:owner_id].eq(user.id).
             or(players[:user_id].eq(user.id)).
             or(invites[:user_id].eq(user.id)).
@@ -47,7 +47,7 @@ class Tournament < ActiveRecord::Base
     invites = Invite.arel_table
     joins(tournaments.join(invites, Arel::Nodes::OuterJoin).on(invites[:tournament_id].eq(tournaments[:id])).
           join(players, Arel::Nodes::OuterJoin).on(players[:tournament_id].eq(tournaments[:id])).
-          join_sql).
+          join_sources).
       where(tournaments[:owner_id].eq(user.id).
             or(tournaments[:public].eq(true)).
             or(players[:user_id].eq(user.id)).
@@ -65,7 +65,7 @@ class Tournament < ActiveRecord::Base
       user_joins.join(players).on(players[:tournament_id].eq(tournaments[:id]).
                                   and(players[:user_id].eq(user.id)))
     end
-    joins(user_joins.join_sql).uniq
+    joins(user_joins.join_sources).uniq
   end
 
   def self.anonymize

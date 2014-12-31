@@ -59,8 +59,8 @@ class Tournaments::ChampionshipsController < ApplicationController
     unless @championship.started?
       @championship.start!
       @championship.matches.allocated.incomplete.each do |match|
-        Notifications.championship_match(match.player1.user, match).deliver
-        Notifications.championship_match(match.player2.user, match).deliver
+        Notifications.championship_match(match.player1.user, match).deliver_now
+        Notifications.championship_match(match.player2.user, match).deliver_now
       end
     end
     redirect_to :back

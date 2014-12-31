@@ -13,7 +13,7 @@ class Tournaments::InviteRequestsController < ApplicationController
     @tournament = Tournament.where(public: true).friendly.find(params[:tournament_id])
     @invite_request = @tournament.invite_requests.build(user: current_user)
     if @invite_request.save
-      Notifications.invite_requested(@invite_request).deliver
+      Notifications.invite_requested(@invite_request).deliver_now
       redirect_to root_path, :notice => t('tournaments.invite_requests.create.success')
     else
       redirect_to root_path, :notice => t('tournaments.invite_requests.create.failure')
@@ -25,7 +25,7 @@ class Tournaments::InviteRequestsController < ApplicationController
     @invite = @tournament.invites.build(email: @invite_request.user.email, owner: current_user)
     if @invite.save
       @invite_request.update_attributes!(invite_id: @invite.id)
-      Notifications.tournament_invitation(@invite).deliver
+      Notifications.tournament_invitation(@invite).deliver_now
       redirect_to tournament_invite_requests_path(@tournament),
         :notice => t('tournaments.invites.create.success', :email => @invite.email)
     else
