@@ -79,7 +79,7 @@ class Tournament < ActiveRecord::Base
   end
 
   def anonymize
-    update_attributes :name => "Tournament #{id}"
+    update_attributes :name => "Tournament #{id}", :slug => nil
   end
 
   def current_rating_period

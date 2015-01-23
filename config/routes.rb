@@ -50,6 +50,14 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :api do
+    namespace :v1 do
+      post 'auth/google' => 'auth#google'
+      resources :tournaments
+      resources :games
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

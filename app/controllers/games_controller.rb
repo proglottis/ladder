@@ -17,16 +17,8 @@ class GamesController < ApplicationController
 
   def create
     @tournament = Tournament.with_rated_user(current_user).friendly.find(params[:tournament_id])
-    @game = @tournament.games.build params.require(:game).permit(:comment, :game_ranks_attributes => [:player_id, :position])
-    @game.events.build state: 'unconfirmed'
-    @game.owner = current_user
-    if @game.save
-      CommentService.new(current_user).comment(@game, @game.comment)
-      @game.game_ranks.with_participant(current_user).readonly(false).first!.confirm
-      @game.game_ranks.reload.each do |game_rank|
-        Notifications.game_confirmation(game_rank.user, @game).deliver_now unless game_rank.confirmed?
-      end
-      redirect_to game_path(@game)
+    if game = GameCreator.new(current_user, @tournament).create(params)
+      redirect_to game_path(game)
     else
       render :new
     end
