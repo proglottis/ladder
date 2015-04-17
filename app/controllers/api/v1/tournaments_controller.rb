@@ -1,14 +1,20 @@
 module Api::V1
 
 class TournamentsController < ApiController
-  before_filter :authenticate_user!
-
   def index
-    render json: Tournament.participant(current_user)
+    if user_logged_in?
+      render json: Tournament.participant_or_public(current_user), each_serializer: TournamentListSerializer
+    else
+      render json: Tournament.where(public: true), each_serializer: TournamentListSerializer
+    end
   end
 
   def show
-    render json: Tournament.participant_or_public(current_user).friendly.find(params[:id])
+    if user_logged_in?
+      render json: Tournament.participant_or_public(current_user).friendly.find(params[:id])
+    else
+      render json: Tournament.where(public: true).friendly.find(params[:id])
+    end
   end
 end
 

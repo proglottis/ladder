@@ -1,6 +1,6 @@
 module Api::V1
 class GamesController < ApiController
-  before_filter :authenticate_user!
+  before_filter :require_user!
 
   wrap_parameters include: [:tournament_id, :game_ranks_attributes]
 
