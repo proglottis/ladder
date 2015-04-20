@@ -8,6 +8,8 @@ class Player < ActiveRecord::Base
 
   STREAK_THRESHOLD = 3
 
+  delegate :email, to: :user, allow_nil: true
+
   def self.active(at = Time.zone.now)
     where('players.end_at IS NULL OR players.end_at > ?', at)
   end
@@ -26,5 +28,11 @@ class Player < ActiveRecord::Base
 
   def losing_streak?
     losing_streak_count >= STREAK_THRESHOLD && winning_streak_count < 1
+  end
+
+  def image_url(size = 40)
+    return nil unless email
+    hash = Digest::MD5.hexdigest(email.strip.downcase)
+    "https://secure.gravatar.com/avatar/#{hash}?s=#{size}&d=identicon"
   end
 end
