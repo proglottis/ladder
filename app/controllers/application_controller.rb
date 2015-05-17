@@ -1,3 +1,5 @@
+require 'gravatar'
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
@@ -13,9 +15,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :gravatar_image_url
   def gravatar_image_url(email, size = 16)
-    return nil unless email
-    hash = Digest::MD5.hexdigest(email.strip.downcase)
-    "https://secure.gravatar.com/avatar/#{hash}?s=#{size}&d=identicon"
+    Gravatar.image_url(email, size)
   end
 
   private
