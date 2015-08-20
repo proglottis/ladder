@@ -23,9 +23,8 @@ class ApiController < ActionController::Base
     raise BadToken, "Missing token" if authorization.blank?
     raw_token = authorization.split(" ").last
     token = JWT.decode(raw_token, JWT.base64url_decode(Rails.application.secrets.jwt_secret))
-    @current_user = User.find_by_id(token[0]['sub'])
-    raise BadToken, "Missing user" if @current_user.blank?
-  rescue BadToken, JWT::DecodeError, JWT::ExpiredSignature => e
+    @current_user = User.friendly.find(token[0]['user_id'])
+  rescue BadToken, ActiveRecord::RecordNotFound, JWT::DecodeError, JWT::ExpiredSignature => e
     logger.info("Authentication failed: #{e.message}")
     render json: {message: "Unauthorized"}, status: :unauthorized
   end
