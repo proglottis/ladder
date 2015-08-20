@@ -1,3 +1,5 @@
+require 'net/http'
+
 module Api::V1
 class AuthController < ApiController
 
