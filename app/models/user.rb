@@ -30,10 +30,10 @@ class User < ActiveRecord::Base
 
   def generate_token
     payload = {
-      sub: id,
       iat: Time.zone.now.to_i,
       exp: 2.week.from_now.to_i,
-      name: name,
+      user_id: to_param,
+      user_name: name,
     }
     JWT.encode(payload, JWT.base64url_decode(Rails.application.secrets.jwt_secret))
   end
