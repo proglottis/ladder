@@ -21,7 +21,8 @@ class AuthController < ApiController
     end
     profile = JSON.parse(profile_response.body)
 
-    service = Service.find_by(provider: 'google', uid: profile['sub'])
+    service = Service.find_by(provider: 'google_oauth2', uid: profile['sub'])
+
     if service.blank?
       render json: {message: "Unauthorized"}, status: :unauthorized
       return
