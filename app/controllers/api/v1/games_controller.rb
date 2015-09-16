@@ -4,6 +4,12 @@ class GamesController < ApiController
 
   wrap_parameters include: [:tournament_id, :game_ranks_attributes]
 
+  def show
+    @game = Game.find(params[:id])
+    @tournament = Tournament.with_rated_user(current_user).friendly.find(@game.tournament_id)
+    render json: @game
+  end
+
   def create
     @tournament = Tournament.participant(current_user).friendly.find(params[:tournament_id])
     if game = GameCreator.new(current_user, @tournament).create(params)
@@ -11,6 +17,15 @@ class GamesController < ApiController
     else
       render json: {message: "Bad request"}, status: :bad_request
     end
+  end
+
+  def update
+    @game.attributes = params.require(:game).permit(:response, :comment)
+    CommentService.new(current_user).comment(@game, @game.comment, @game.game_ranks.map(&:user))
+    if params.has_key?(:confirm)
+      GameConfirmer.new(current_user, @game).confirm
+    end
+    render json: @game
   end
 end
 end

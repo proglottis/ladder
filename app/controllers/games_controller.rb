@@ -35,18 +35,7 @@ class GamesController < ApplicationController
     @game.attributes = params.require(:game).permit(:response, :comment)
     CommentService.new(current_user).comment(@game, @game.comment, @game.game_ranks.map(&:user))
     if params.has_key?(:confirm)
-      if @game.confirm_user(current_user)
-        @game.game_ranks.each do |game_rank|
-          if game_rank.user != current_user && game_rank.user.game_confirmed_email?
-            Notifications.game_confirmed(game_rank.user, @game).deliver_now
-          end
-        end
-        allocated = @tournament.championships.log_game!(@game)
-        allocated.each do |match|
-          Notifications.championship_match(match.player1.user, match).deliver_now
-          Notifications.championship_match(match.player2.user, match).deliver_now
-        end
-      end
+      GameConfirmer.new(current_user, @game).confirm
     elsif params.has_key?(:respond)
       @game.defender_response!
       if @game.unconfirmed?
