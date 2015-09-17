@@ -83,11 +83,17 @@ GEM
       multipart-post (>= 1.2, < 3)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
+    gcm (0.1.0)
+      httparty
+      json
     glicko2 (0.1.2)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
     hashie (3.3.1)
     hike (1.2.3)
+    httparty (0.13.5)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jquery-rails (3.1.2)
       railties (>= 3.0, < 5.0)
@@ -224,6 +230,7 @@ DEPENDENCIES
   exception_notification (~> 4.0.0.rc1)
   factory_girl_rails (~> 4.0)
   friendly_id (~> 5.0.3)
+  gcm
   glicko2
   jquery-rails
   jwt
@@ -243,3 +250,6 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   whenever (~> 0.9.0)
+
+BUNDLED WITH
+   1.10.6

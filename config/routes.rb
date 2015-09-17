@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       post 'auth/google' => 'auth#google'
       resources :tournaments
       resources :games
+      resources :push_notification_keys
     end
   end
 

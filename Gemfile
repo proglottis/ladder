@@ -23,6 +23,7 @@ gem 'sitemap_generator'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'jwt'
 gem 'active_model_serializers'
+gem 'gcm'
 
 gem 'capistrano', '~> 3.0.0'
 gem 'capistrano-rails'

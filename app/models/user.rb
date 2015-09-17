@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :services
   has_many :players
   has_many :invite_requests, :dependent => :destroy
+  has_many :push_notification_keys, :dependent => :destroy
 
   def self.anonymize
     find_each do |user|

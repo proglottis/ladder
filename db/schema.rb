@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141208054006) do
+ActiveRecord::Schema.define(version: 20150917030032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "applications", force: :cascade do |t|
+    t.string   "name",          null: false
+    t.integer  "tournament_id", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "applications", ["tournament_id"], name: "index_applications_on_tournament_id", using: :btree
 
   create_table "championship_players", force: :cascade do |t|
     t.integer  "championship_id", null: false
@@ -160,6 +169,15 @@ ActiveRecord::Schema.define(version: 20141208054006) do
   add_index "players", ["tournament_id"], name: "index_players_on_tournament_id", using: :btree
   add_index "players", ["user_id", "tournament_id"], name: "index_players_on_user_id_and_tournament_id", unique: true, using: :btree
   add_index "players", ["user_id"], name: "index_players_on_user_id", using: :btree
+
+  create_table "push_notification_keys", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.string   "gcm"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "push_notification_keys", ["user_id"], name: "index_push_notification_keys_on_user_id", using: :btree
 
   create_table "rating_periods", force: :cascade do |t|
     t.integer  "tournament_id", null: false

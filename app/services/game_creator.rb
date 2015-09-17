@@ -2,6 +2,9 @@ class GameCreator
   def initialize(user, tournament)
     @user = user
     @tournament = tournament
+    if Rails.application.secrets.google_services_key
+      @gcm = GCM.new(Rails.application.secrets.google_services_key)
+    end
   end
 
   def create(params)
@@ -11,9 +14,17 @@ class GameCreator
     if game.save
       CommentService.new(@user).comment(game, game.comment)
       game.game_ranks.with_participant(@user).readonly(false).each(&:confirm)
+      gcm_ids = []
       game.game_ranks.reload.each do |game_rank|
-        Notifications.game_confirmation(game_rank.user, game).deliver_now unless game_rank.confirmed?
+        if !game_rank.confirmed?
+          Notifications.game_confirmation(game_rank.user, game).deliver_now
+          gcm_ids += game_rank.user.push_notification_keys.map(&:gcm)
+        end
       end
+      @gcm.send(gcm_ids, {
+        collapse_key: "game_confirmation",
+        data: { game_id: game.id }
+      }) unless gcm_ids.empty?
       game
     end
   end
