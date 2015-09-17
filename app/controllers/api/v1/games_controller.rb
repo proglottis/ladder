@@ -4,6 +4,12 @@ class GamesController < ApiController
 
   wrap_parameters include: [:tournament_id, :game_ranks_attributes]
 
+  def index
+    @games = Game.participant(current_user).unconfirmed.includes(:tournament, :game_ranks => :user)
+    @pending = @games.select { |game| game.game_ranks.detect{|rank| rank.user == current_user}.unconfirmed? }
+    render json: @pending
+  end
+
   def show
     @game = Game.find(params[:id])
     @tournament = Tournament.with_rated_user(current_user).friendly.find(@game.tournament_id)
