@@ -1,8 +1,9 @@
 module Api::V1
 class GamesController < ApiController
   before_filter :require_user!
+  before_filter :find_game_and_tournament, :only => [:show, :update]
 
-  wrap_parameters include: [:tournament_id, :game_ranks_attributes]
+  wrap_parameters include: [:tournament_id, :confirm, :response, :game_ranks_attributes]
 
   def index
     @games = Game.participant(current_user).unconfirmed.includes(:tournament, :game_ranks => :user)
@@ -11,8 +12,6 @@ class GamesController < ApiController
   end
 
   def show
-    @game = Game.find(params[:id])
-    @tournament = Tournament.with_rated_user(current_user).friendly.find(@game.tournament_id)
     render json: @game
   end
 
@@ -32,6 +31,13 @@ class GamesController < ApiController
       GameConfirmer.new(current_user, @game).confirm
     end
     render json: @game
+  end
+
+  private
+
+  def find_game_and_tournament
+    @game = Game.find(params[:id])
+    @tournament = Tournament.with_rated_user(current_user).friendly.find(@game.tournament_id)
   end
 end
 end
