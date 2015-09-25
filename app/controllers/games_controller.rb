@@ -32,8 +32,8 @@ class GamesController < ApplicationController
   end
 
   def update
-    @game.attributes = params.require(:game).permit(:response, :comment)
-    CommentService.new(current_user).comment(@game, @game.comment, @game.game_ranks.map(&:user))
+    @game.attributes = params.require(:game).permit(:response, :comment, :url)
+    CommentService.new(current_user).comment(@game, @game.comment, @game.url, @game.game_ranks.map(&:user))
     if params.has_key?(:confirm)
       GameConfirmer.new(current_user, @game).confirm
     elsif params.has_key?(:respond)

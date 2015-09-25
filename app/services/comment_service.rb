@@ -3,9 +3,10 @@ class CommentService
     @user = user
   end
 
-  def comment(commentable, content, subscribers=[])
-    return unless content.present?
-    comment = Comment.create!(:commentable => commentable, :user => @user, :content => content)
+  def comment(commentable, content, url, subscribers=[])
+    url = nil if url && !url.starts_with?('http:', 'https:')
+    return if [content.presence, url.presence].compact.empty?
+    comment = Comment.create!(:commentable => commentable, :user => @user, :content => content, :url => url)
     subscribers.each do |subscriber|
       Notifications.commented(subscriber, comment).deliver_now if subscriber != @user && subscriber.commented_email?
     end

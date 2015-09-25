@@ -4,6 +4,11 @@
   <% end %>
   <div class="media-body">
     <h4><%= link_to comment.user.name, profile_path(comment.user) %> <small><%= time_ago_in_words comment.created_at %> ago</small></h4>
-    <p><%= markdown comment.content %></p>
+    <% if comment.content %>
+      <p><%= simple_format comment.content %></p>
+    <% end %>
+    <% if comment.url %>
+      <p><%= sanitize image_tag comment.url %></p>
+    <% end %>
   </div>
 </div>

@@ -18,7 +18,7 @@ class Game < ActiveRecord::Base
 
   accepts_nested_attributes_for :game_ranks
 
-  attr_accessor :response, :comment
+  attr_accessor :response, :comment, :url
 
   def self.participant(user)
     joins(:game_ranks).merge GameRank.with_participant(user)

@@ -9,13 +9,13 @@ class ChallengesController < ApplicationController
   end
 
   def create
-    @game = @tournament.games.build params.require(:game).permit(:comment)
+    @game = @tournament.games.build params.require(:game).permit(:comment, :url)
     @game.events.build state: 'challenged'
     @game.owner = current_user
     @game.game_ranks.build :player => @tournament.players.active.find_by!(user_id: current_user)
     @game.game_ranks.build :player => @tournament.players.active.find_by!(user_id: @defender)
     if @game.save
-      CommentService.new(current_user).comment(@game, @game.comment)
+      CommentService.new(current_user).comment(@game, @game.comment, @game.url)
       Notifications.challenged(@game).deliver_now
       redirect_to game_path(@game)
     else

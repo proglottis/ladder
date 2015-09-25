@@ -241,6 +241,8 @@ en:
     attributes:
       service:
         uid: UID
+      comment:
+        url: Image URL
 
   helpers:
     cancel_link: Cancel
