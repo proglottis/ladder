@@ -34,8 +34,10 @@
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :comment, :class => 'control-label' %>
     <%= f.text_area :comment, :rows => 2, :maxlength => Comment::MAX_LENGTH, :class => 'form-control', :placeholder => Comment.model_name.human %>
+  </div>
+  <div class="form-group">
+    <%= f.url_field :url, :maxlength => 250, :class => 'form-control', :placeholder => Comment.human_attribute_name(:url) %>
   </div>
   <div class="form-group">
     <%= f.submit :class => 'btn btn-primary' %>
