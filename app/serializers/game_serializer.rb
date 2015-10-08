@@ -3,4 +3,5 @@ class GameSerializer < ActiveModel::Serializer
   has_one :tournament, serializer: TournamentListSerializer
   has_one :owner
   has_many :game_ranks
+  has_many :comments
 end
