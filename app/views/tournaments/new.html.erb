@@ -1,24 +1,23 @@
 <% content_for :title do %><%= t '.title' %> - <%= t 'application.name' %><% end %>
-<div class="page-header">
-  <h1><%= t '.title' %></h1>
-</div>
 
-<%= form_for @tournament, :html => {:role => 'form', :class => 'form-horizontal'} do |f| %>
-  <div class="form-group">
-    <%= f.label :name, :class => 'col-md-2 control-label' %>
-    <div class="col-md-10">
-      <%= f.text_field :name, :placeholder => Tournament.human_attribute_name('name'), :class => "form-control" %>
+<h1><%= t '.title' %></h1>
+
+<%= form_for @tournament do |f| %>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.text_field :name, class: "validate" %>
+      <%= f.label :name %>
     </div>
   </div>
-  <div class="form-group">
-    <%= f.label :ladder, :class => 'col-md-2 control-label' %>
-    <div class="col-md-10">
-      <%= f.select :ranking_type, Tournament::RANKING_TYPES.map { |type| [type.to_s.humanize, type] }, :class => "form-control" %>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.select :ranking_type, Tournament::RANKING_TYPES.map { |type| [type.to_s.humanize, type] } %>
+      <%= f.label :ranking_type %>
     </div>
   </div>
-  <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-      <%= f.submit :class => 'btn btn-primary' %>
+  <div class="row">
+    <div class="input-field col s12">
+      <%= f.submit class: 'btn btn-primary' %>
       <%= cancel_link tournaments_path %>
     </div>
   </div>

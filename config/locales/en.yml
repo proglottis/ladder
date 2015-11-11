@@ -36,9 +36,6 @@ en:
     login: Login
     logout: Logout
     authentication_required: You need to sign in before accessing this page
-    show:
-      login_with: Login with %{name}
-      title: Login
     new:
       new_authentication: This authentication is new to Ladder
       confirm: Confirm
@@ -66,7 +63,7 @@ en:
       title: Home
       welcome: Welcome %{name}
       slogan: Create and manage tournaments for pool, foosball or anything. Compete against your friends and colleagues.
-      start: Login to start
+      login_with: Login with %{name}
       skill:
         title: Track your skill
         summary: Ladders will keep track of your skill over time. Each week it will update your rating against others in your tournament.

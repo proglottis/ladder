@@ -1,9 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:callback]
 
-  def show
-  end
-
   def create
     @authhash = session[:authhash]
     if params[:commit] =~ /cancel/i

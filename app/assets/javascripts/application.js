@@ -14,10 +14,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap
+//= require materialize-sprockets
 //= require d3.v3
 //= require nv.d3
 //= require dagre-d3
 //= require nprogress
 //= require nprogress-turbolinks
 //= require_tree .
+
+$(document).on('ready page:load', function(){
+  $('.dropdown-button').dropdown();
+  $('.parallax').parallax();
+  $('select').material_select();
+});

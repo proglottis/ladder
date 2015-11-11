@@ -15,6 +15,7 @@
 
     <%= stylesheet_link_tag "application", :media => "all", "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   </head>
   <body>
     <% if Rails.application.secrets.google_analytics %>
@@ -26,73 +27,55 @@
       <% end -%>
     <% end %>
 
-    <nav class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <%= link_to t('application.name'), root_path, :class => "navbar-brand" %>
-      </div>
+    <header>
+      <ul id="user-menu" class="dropdown-content">
+        <li><%= link_to t('settings.show.title'), setting_path %></li>
+        <li><%= link_to t('sessions.logout'), logout_path %></li>
+      </ul>
+      <nav>
+        <div class="nav-wrapper container">
+          <%= link_to t('application.name'), root_path, class: "brand-logo" %>
 
-      <div class="collapse navbar-collapse">
-        <% if user_logged_in? %>
-          <ul class="nav navbar-nav pull-right">
-            <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= glyph 'user' %> <%= current_user.name %><b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><%= link_to t('settings.show.title'), setting_path %></li>
-              <li><%= link_to t('sessions.logout'), logout_path %></li>
+          <% if user_logged_in? %>
+            <ul class="right hide-on-med-and-down">
+              <li><a href="#!" class="dropdown-button" data-activates="user-menu"><%= glyph 'user' %> <%= current_user.name %><i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
-            </li>
-          </ul>
-        <% else %>
-          <ul class="nav navbar-nav pull-right">
-            <li class="<%='active' if ['sessions'].include? controller_name %>"><%= link_to t('sessions.login'), session_path %></li>
-          </ul>
-        <% end %>
-      </div>
-    </nav>
-
-    <div class="container">
-      <% if flash[:notice] %>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="alert alert-info">
-              <%= flash[:notice] %>
+          <% else %>
+            <ul class="right hide-on-med-and-down">
+              <li class="<%='active' if ['sessions'].include? controller_name %>"><%= link_to t('sessions.login'), session_path %></li>
+            </ul>
+          <% end %>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container">
+        <% if flash[:notice] %>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="alert alert-info">
+                <%= flash[:notice] %>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
-      <div class="row">
-        <% if content_for?(:side) %>
-          <div class="col-md-3">
-            <%= yield :side %>
-          </div>
-          <div class="col-md-9">
-            <%= yield %>
-          </div>
-        <% else %>
-          <div class="col-md-12">
-            <%= content_for?(:content) ? yield(:content) : yield %>
-          </div>
         <% end %>
-      </div><!--/row-->
+        <div class="row">
+          <% if content_for?(:side) %>
+            <div class="col-md-3">
+              <%= yield :side %>
+            </div>
+            <div class="col-md-9">
+              <%= yield %>
+            </div>
+          <% else %>
+            <div class="col-md-12">
+              <%= content_for?(:content) ? yield(:content) : yield %>
+            </div>
+          <% end %>
+        </div><!--/row-->
 
-    </div> <!-- /container -->
-
-    <footer class="footer">
-      <div class="container">
-        <ul class="nav nav-pills pull-left">
-          <li><%= link_to t('application.fork_me.text'), t('application.fork_me.href') %></li>
-          <li><%= link_to t('application.issues.text'), t('application.issues.href') %></li>
-        </ul>
-        <ul class="nav nav-pills pull-right">
-          <li><%= link_to t('application.version.text', :version => Ladder::VERSION), t('application.version.href', :version => Ladder::VERSION) %></li>
-        </ul>
-      </div>
-    </footer>
+      </div> <!-- /container -->
+    </main>
+    <%= render partial: 'footer' %>
   </body>
 </html>

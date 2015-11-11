@@ -1,0 +1,18 @@
+<footer class="page-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col s12">
+        <ul>
+          <li><%= link_to t('application.fork_me.text'), t('application.fork_me.href'), class: "grey-text text-lighten-3" %></li>
+          <li><%= link_to t('application.issues.text'), t('application.issues.href'), class: "grey-text text-lighten-3"%></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright">
+    <div class="container">
+      &copy; 2015 James Fargher
+      <%= link_to t('application.version.text', version: Ladder::VERSION), t('application.version.href', version: Ladder::VERSION), class: 'grey-text text-lighten-4 right' %>
+    </div>
+  </div>
+</footer>

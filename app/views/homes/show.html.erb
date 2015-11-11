@@ -1,34 +1,38 @@
-<br/>
-<div class="jumbotron">
-  <div class="container">
-    <h1><%= t 'application.name' %></h1>
-    <p><%= t '.slogan' %></p>
-    <p><%= link_to t('.start'), session_path, :class => 'btn btn-primary btn-lg' %></p>
-  </div>
+<div class="parallax-container">
+  <div class="parallax"><%= image_tag 'banner.png' %></div>
 </div>
-
-<div class="row">
-  <div class="col-md-4">
-    <h2><%= t '.skill.title' %></h2>
-    <p><%= t '.skill.summary' %></p>
-  </div>
-  <div class="col-md-4">
-    <h2><%= t '.challenges.title' %></h2>
-    <p><%= t '.challenges.summary' %></p>
-  </div>
-  <div class="col-md-4">
-    <h2><%= t '.generic.title' %></h2>
-    <p><%= t '.generic.summary' %></p>
-  </div>
-</div>
-
-<% if @public_tournaments.any? %>
-<div class="row">
-  <div class="col-md-4">
-    <h2><%= t('.public_tournaments') %></h2>
-    <div class="list-group">
-      <%= render @public_tournaments %>
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <h1><%= t 'application.name' %></h1>
+      <p><%= t '.slogan' %></p>
+      <% unless Rails.env.production? %>
+        <%= link_to '/auth/developer', :rel => 'external', :class => 'btn btn-default btn-lg' do %><%= glyph 'sign-blank' %> <%= t '.login_with', :name => 'Developer'%><% end %>
+      <% end %>
+      <%= link_to '/auth/google_oauth2', :rel => 'external', :class => 'btn btn-default btn-lg' do%><%= glyph 'google-plus' %> <%= t '.login_with', :name => 'Google'%><% end %>
     </div>
+
+    <div class="col m4">
+      <h4><%= t '.skill.title' %></h2>
+      <p><%= t '.skill.summary' %></p>
+    </div>
+    <div class="col m4">
+      <h4><%= t '.challenges.title' %></h2>
+      <p><%= t '.challenges.summary' %></p>
+    </div>
+    <div class="col m4">
+      <h4><%= t '.generic.title' %></h2>
+      <p><%= t '.generic.summary' %></p>
+    </div>
+
+    <% if @public_tournaments.any? %>
+    <div class="col m4">
+      <h2><%= t('.public_tournaments') %></h2>
+      <div class="list-group">
+        <%= render @public_tournaments %>
+      </div>
+    </div>
+    <% end %>
+
   </div>
 </div>
-<% end %>
