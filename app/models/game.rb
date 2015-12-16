@@ -147,7 +147,7 @@ class Game < ActiveRecord::Base
     # if any players in this game have no position, add them to the bottom of the ladder
     end_position = tournament.players.maximum(:position) || 0
     game_ranks.map(&:player).each do |player|
-      next if player.position
+      next if player.position || !player.active?
       end_position += 1
       player.update_attributes!(:position => end_position)
     end
@@ -156,9 +156,10 @@ class Game < ActiveRecord::Base
     players = game_ranks.map(&:player).sort_by(&:position)
 
     winning_player = ranks.first.player
+    return unless winning_player.active?
+
     winning_player_position = winning_player.position
     top_position_in_players = players.first.position
-
     return if winning_player_position == top_position_in_players # Winner is already at the top
 
     winning_player.update_attributes!(:position => :nil)
