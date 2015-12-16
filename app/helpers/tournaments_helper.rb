@@ -29,4 +29,8 @@ module TournamentsHelper
 
     content_tag(:li, link_to(t('tournaments.admin.title'), edit_tournament_path(tournament)), :class => styles.join(' '))
   end
+
+  def pending_invite_requests_count(tournament)
+    badge tournament.invite_requests.not_completed.count
+  end
 end

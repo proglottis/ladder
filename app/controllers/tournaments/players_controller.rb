@@ -5,7 +5,6 @@ class Tournaments::PlayersController < ApplicationController
   layout 'tournament_title', :only => [:index]
 
   def index
-    @pending_invite_requests = @tournament.invite_requests.where(invite_id: nil)
   end
 
   def destroy

@@ -60,7 +60,6 @@ class TournamentsController < ApplicationController
   end
 
   def edit
-    @pending_invite_requests = @tournament.invite_requests.where(invite_id: nil)
     @tournament.build_page unless @tournament.page.present?
   end
 
