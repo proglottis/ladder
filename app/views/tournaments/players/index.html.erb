@@ -1,0 +1,34 @@
+<% if @players.any? %>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th><%= Player.model_name.human %></th>
+        <th><%= Player.human_attribute_name('created_at') %></th>
+        <th><%= Player.human_attribute_name('end_at') %></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @players.each do |player| %>
+        <tr>
+          <td><%= profile_link_tag player.user %></td>
+          <td><%= time_tag player.created_at %></td>
+          <td>
+            <% if player.end_at %>
+              <%= time_tag player.end_at %>
+            <% else %>
+              -
+            <% end %>
+          </td>
+          <td>
+            <% if player.active? %>
+              <%= delete_link tournament_player_path(@tournament, player) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <%= t('.no_players') %>
+<% end %>

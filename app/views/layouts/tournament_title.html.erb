@@ -40,6 +40,9 @@
       <li class="<%='active' if ['games'].include? controller_name %>">
         <%= link_to tournament_games_path(@tournament) do %><%= t('tournaments.games.index.title') %><% end %>
       </li>
+      <li class="<%='active' if ['players'].include? controller_name %>">
+        <%= link_to tournament_players_path(@tournament) do %><%= t('tournaments.players.index.title') %><% end %>
+      </li>
       <li class="<%='active' if ['invite_requests'].include? controller_name %>">
         <%= link_to tournament_invite_requests_path(@tournament) do %><%= t('tournaments.invite_requests.index.title') %> <%= badge(@pending_invite_requests.count) %><% end %>
       </li>

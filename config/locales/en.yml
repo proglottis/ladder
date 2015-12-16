@@ -132,6 +132,11 @@ en:
         date: Date Created
         no_games: No games.
 
+    players:
+      index:
+        title: Players
+        no_players: No players.
+
     invite_requests:
       index:
         title: Pending Invite Requests
