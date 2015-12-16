@@ -1,7 +1,7 @@
 class Tournaments::InvitesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_invite_for_tournament, :only => [:show, :update]
-  before_filter :find_tournament_with_current_user, :only => [:new, :create]
+  before_filter :find_tournament, :only => [:new, :create]
 
   layout 'tournament_title', :only => [:new, :create]
 
@@ -39,8 +39,7 @@ class Tournaments::InvitesController < ApplicationController
     @invite = @tournament.invites.available.find_by_code!(params[:id])
   end
 
-  def find_tournament_with_current_user
+  def find_tournament
     @tournament = Tournament.participant(current_user).friendly.find(params[:tournament_id])
-    @player = @tournament.players.active.find_by!(:user_id => current_user)
   end
 end
