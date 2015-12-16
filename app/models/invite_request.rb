@@ -3,7 +3,11 @@ class InviteRequest < ActiveRecord::Base
   belongs_to :user
   belongs_to :invite
 
+  def self.not_completed
+    where(completed_at: nil)
+  end
+
   def completed?
-    invite.present?
+    completed_at.present?
   end
 end

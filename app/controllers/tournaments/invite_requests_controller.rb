@@ -6,7 +6,7 @@ class Tournaments::InviteRequestsController < ApplicationController
   layout 'tournament_title', :only => [:index]
 
   def index
-    @pending_invite_requests = @tournament.invite_requests.where(invite_id: nil)
+    @pending_invite_requests = @tournament.invite_requests.not_completed
   end
 
   def create
@@ -24,10 +24,10 @@ class Tournaments::InviteRequestsController < ApplicationController
     @invite_request = InviteRequest.find(params[:id])
     if InviteRequestAcceptor.new(@invite_request, current_user).accept
       redirect_to tournament_invite_requests_path(@tournament),
-        :notice => t('tournaments.invites.create.success', :email => @invite_request.user.email)
+        :notice => t('tournaments.invite_requests.update.success')
     else
       redirect_to tournament_invite_requests_path(@tournament),
-        :notice => t('tournaments.invites.create.failure', :email => @invite_request.user.email)
+        :notice => t('tournaments.invite_requests.update.failure')
     end
   end
 

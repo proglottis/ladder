@@ -11,12 +11,9 @@ class InviteRequestAcceptor
       @invite_request.lock!
       return if @invite_request.completed?
 
-      invite = @tournament.invites.build(email: @user.email, owner: @acceptor)
-      if invite.save
-        @invite_request.update_attributes!(invite: invite)
-        Notifications.tournament_invitation(invite).deliver_now
-        invite
-      end
+      @invite_request.update_attributes!(completed_at: Time.zone.now)
+      TournamentJoiner.new(@tournament, @user).join
+      Notifications.invite_request_accepted(@invite_request).deliver_now
     end
   end
 end

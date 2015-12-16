@@ -112,6 +112,20 @@ describe Notifications do
     end
   end
 
+  describe "#invite_request_accepted" do
+    before do
+      @invite_request = create(:invite_request)
+      @tournament = @invite_request.tournament
+    end
+
+    it "must contain invite acceptance details" do
+      mail = Notifications.invite_request_accepted(@invite_request)
+      mail.subject.must_equal I18n.t('notifications.invite_request_accepted.subject', :tournament => @tournament.name)
+      mail.to.must_equal [@tournament.owner.email]
+      mail.body.encoded.must_match I18n.t('notifications.invite_request_accepted.invite_accepted', :name => @invite_request.user.name, :tournament => @tournament.name)
+    end
+  end
+
   describe "#championship_match" do
     before do
       @user = create(:user)

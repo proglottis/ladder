@@ -81,8 +81,7 @@ class TournamentsController < ApplicationController
   end
 
   def join
-    @player = @tournament.players.create!(:user => current_user)
-    @rating_period.ratings.with_defaults.create!(:player => @player)
+    TournamentJoiner.new(@tournament, current_user).join
     redirect_to tournament_path(@tournament)
   end
 
