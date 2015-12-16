@@ -24,6 +24,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'jwt'
 gem 'active_model_serializers'
 gem 'gcm'
+gem 'less-rails-bootstrap'
 
 gem 'capistrano', '~> 3.0.0'
 gem 'capistrano-rails'

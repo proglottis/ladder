@@ -68,6 +68,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
+    commonjs (0.2.7)
     dalli (2.7.5)
     erubis (2.7.0)
     exception_notification (4.0.1)
@@ -102,6 +103,15 @@ GEM
     json (1.8.3)
     jwt (1.5.2)
     kramdown (1.9.0)
+    less (2.6.0)
+      commonjs (~> 0.2.7)
+    less-rails (2.7.0)
+      actionpack (>= 4.0)
+      less (~> 2.6.0)
+      sprockets (> 2, < 4)
+      tilt
+    less-rails-bootstrap (3.3.5.0)
+      less-rails (>= 2.6, <= 2.8)
     libv8 (3.16.14.13)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
@@ -236,6 +246,7 @@ DEPENDENCIES
   jquery-rails
   jwt
   kramdown
+  less-rails-bootstrap
   maildown
   minitest-spec-rails
   nprogress-rails
