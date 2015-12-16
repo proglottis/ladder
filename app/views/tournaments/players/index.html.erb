@@ -23,6 +23,8 @@
           <td>
             <% if player.active? %>
               <%= delete_link tournament_player_path(@tournament, player) %>
+            <% else %>
+              <%= link_to t(".add"), tournament_player_path(@tournament, player), method: "PUT", data: {confirm: 'Are you sure?'}, class: 'btn btn-primary pull-right' %>
             <% end %>
           </td>
         </tr>

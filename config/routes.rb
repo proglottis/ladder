@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     scope :module => "tournaments" do
       resources :invites, :only => [:show, :new, :create, :update]
       resources :games, :only => [:index, :destroy]
-      resources :players, :only => [:index, :destroy]
+      resources :players, :only => [:index, :update, :destroy]
       resources :invite_requests, :only => [:index, :create, :update]
       resource :championship do
         member do

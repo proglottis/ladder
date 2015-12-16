@@ -7,6 +7,12 @@ class Tournaments::PlayersController < ApplicationController
   def index
   end
 
+  def update
+    @player = @players.find(params[:id])
+    TournamentJoiner.new(@tournament,  @player.user).join
+    redirect_to tournament_players_path
+  end
+
   def destroy
     @player = @players.find(params[:id])
     PlayerRemover.new(@player).remove

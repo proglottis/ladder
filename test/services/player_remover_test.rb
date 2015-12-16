@@ -30,6 +30,8 @@ describe PlayerRemover do
     it "wont touch players when another player has the same position" do
       @player2_equal = create(:player, tournament: @tournament, position: 2)
       PlayerRemover.new(@player2).remove
+      @player2.reload.end_at.wont_equal nil
+      @player2.position.must_equal nil
       @player1.reload.position.must_equal 1
       @player2_equal.reload.position.must_equal 2
       @player3.reload.position.must_equal 3
