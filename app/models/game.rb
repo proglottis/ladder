@@ -71,7 +71,8 @@ class Game < ActiveRecord::Base
   def defender_response!
     raise "Cannot respond if game not challenge" unless challenged?
     return unless ['won', 'lost'].include?(response)
-    with_lock do
+    tournament.with_lock do
+      lock!
       if response == 'won'
         game_ranks.each do |game_rank|
           if game_rank.user == owner
@@ -100,8 +101,7 @@ class Game < ActiveRecord::Base
 
   def confirm_user(user)
     raise "Cannot confirm if game is incomplete" if incomplete? || challenged?
-    transaction do
-      tournament.lock!
+    tournament.with_lock do
       lock!
 
       total = 0
@@ -174,7 +174,8 @@ class Game < ActiveRecord::Base
 
   def expire_challenge!
     raise "Cannot expire if game not challenge" unless challenged?
-    with_lock do
+    tournament.with_lock do
+      lock!
       game_ranks.each do |game_rank|
         if game_rank.user == owner
           game_rank.position = 1
