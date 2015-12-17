@@ -1,14 +1,4 @@
 <% content_for :title do %><%= Game.model_name.human.pluralize %> - <%= t 'application.name' %><% end %>
-<div class="page-header">
-  <h1><%= profile_tag current_user, 64 %></h1>
-</div>
-
-<ul class="nav nav-tabs">
-  <li><%= link_to t('tournaments.index.feed'), root_path %></li>
-  <li class="active"><%= link_to games_path do %><%= Game.model_name.human.pluralize %> <%= pending_confirmation_badge %><% end %></li>
-</ul>
-
-<br />
 
 <% if @pending.any? %>
   <h2><%= t '.pending' %></h2>

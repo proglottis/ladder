@@ -12,5 +12,8 @@
         <% end %>
       </ul>
     <% end %>
+    <% game.comments.each do |comment| %>
+      <%= render comment %>
+    <% end %>
   </div>
 </div>

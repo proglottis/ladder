@@ -6,8 +6,6 @@ class TournamentsController < ApplicationController
   layout 'tournament_title', :only => [:show, :information, :edit]
 
   def index
-    @tournaments = Tournament.participant(current_user).order('tournaments.name ASC')
-    @public_tournaments = Tournament.where(public: true).order('tournaments.name ASC')
     @page = [1, params[:page].to_i].max
     @start_on = ((@page - 1) * 2).weeks.ago.beginning_of_week.to_date
     @end_on = @start_on + 2.weeks

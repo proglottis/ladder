@@ -80,6 +80,7 @@ en:
 
   tournaments:
     index:
+      title: Tournaments
       feed: News Feed
       start: Start tournament
       can_start: You can only start %{count} more

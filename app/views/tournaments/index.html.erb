@@ -1,33 +1,3 @@
 <% content_for :title do %><%= t '.feed' %> - <%= t 'application.name' %><% end %>
-<div class="page-header">
-  <h1><%= profile_tag current_user, 64 %></h1>
-</div>
 
-<ul class="nav nav-tabs">
-  <li class="active"><%= link_to t('.feed'), root_path %></li>
-  <li><%= link_to games_path do %><%= Game.model_name.human.pluralize %> <%= pending_confirmation_badge %><% end %></li>
-</ul>
-
-<br />
-
-<div class="row">
-  <div class="col-sm-5 col-sm-push-7">
-    <h2><%= t('.mine') %></h2>
-    <div class="list-group">
-      <%= link_to new_tournament_path, :rel => 'tooltip', :'data-toggle' => 'tooltip', :title => t('.can_start', :count => Tournament.where(:owner_id => current_user).limit_left), :class => 'list-group-item' do %>
-        <%= glyph :pencil %> <%= t '.start' %>
-      <% end %>
-      <%= render @tournaments %>
-    </div>
-    <% if @public_tournaments.any? %>
-      <h2><%= t('.public') %></h2>
-      <div class="list-group">
-        <%= render @public_tournaments %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="col-sm-7 col-sm-pull-5">
-    <%= render :partial => 'activity/activity', :object => @activity, :locals => {:page => @page, :start_on => @start_on, :end_on => @end_on} %>
-  </div>
-</div>
+<%= render :partial => 'activity/activity', :object => @activity, :locals => {:page => @page, :start_on => @start_on, :end_on => @end_on} %>
