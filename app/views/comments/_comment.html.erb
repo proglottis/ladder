@@ -8,7 +8,7 @@
       <p><%= simple_format comment.content %></p>
     <% end %>
     <% if comment.url %>
-      <p><%= sanitize image_tag comment.url %></p>
+      <p><%= sanitize image_tag comment.url, class: 'img-responsive' %></p>
     <% end %>
   </div>
 </div>
