@@ -65,7 +65,7 @@ describe Notifications do
     end
 
     it "must contain challenge details" do
-      mail = Notifications.challenged(@game)
+      mail = Notifications.challenged(@game.reload)
       mail.subject.must_equal I18n.t('notifications.challenged.subject', :tournament => @game.tournament.name)
       mail.to.must_equal [@game.defender.email]
       mail.body.encoded.must_match @game.tournament.name

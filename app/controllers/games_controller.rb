@@ -9,6 +9,7 @@ class GamesController < ApplicationController
 
   def new
     @tournament = Tournament.with_rated_user(current_user).friendly.find(params[:tournament_id])
+    @players = @tournament.players.active.joins(:user).order('users.name ASC')
     @other_user = User.friendly.find(params[:user_id])
     @game = @tournament.games.build
     @game.game_ranks.build :player => @tournament.players.active.find_by!(user_id: current_user), :position => 1
@@ -17,8 +18,10 @@ class GamesController < ApplicationController
 
   def create
     @tournament = Tournament.with_rated_user(current_user).friendly.find(params[:tournament_id])
-    if game = GameCreator.new(current_user, @tournament).create(params)
-      redirect_to game_path(game)
+    @players = @tournament.players.active.joins(:user).order('users.name ASC')
+    @game = GameCreator.new(current_user, @tournament).create(params)
+    if @game.valid?
+      redirect_to game_path(@game)
     else
       render :new
     end

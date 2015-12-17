@@ -25,7 +25,7 @@ class GameCreator
         collapse_key: "game_confirmation",
         data: { game_id: game.id }
       }) unless gcm_ids.empty?
-      game
     end
+    game
   end
 end

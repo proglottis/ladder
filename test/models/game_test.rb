@@ -10,6 +10,7 @@ describe Game do
     @game = create(:unconfirmed_game, :tournament => @tournament, :owner => @user1)
     @game_rank1 = create(:game_rank, :game => @game, :player => @player1, :position => 1)
     @game_rank2 = create(:game_rank, :game => @game, :player => @player2, :position => 2)
+    @game.reload
   end
 
   describe ".destroy" do

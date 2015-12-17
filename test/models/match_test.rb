@@ -22,6 +22,7 @@ describe Match do
       @rank1 = create(:game_rank, game: @game, position: 1, player: @player1)
       @rank2 = create(:game_rank, game: @game, position: 2, player: @player2)
       @championship = create(:championship, tournament: @tournament)
+      @game.reload
     end
 
     it "must find matches with the same players in any order" do

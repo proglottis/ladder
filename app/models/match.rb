@@ -19,6 +19,7 @@ class Match < ActiveRecord::Base
 
   def self.matches_game(game)
     winning_rank, losing_rank = game.game_ranks.minmax_by(&:position)
+    return none unless winning_rank && losing_rank
     joins(:championship).merge(Championship.where(:tournament_id => game.tournament_id)).
       where("(matches.player1_id = :winner AND matches.player2_id = :loser) OR " +
           "(matches.player1_id = :loser AND matches.player2_id = :winner)",

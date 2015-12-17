@@ -5,10 +5,10 @@ class Game < ActiveRecord::Base
   has_many :game_ranks, -> { order('position') }, :dependent => :destroy
   has_many :comments, -> { order('created_at DESC') }, :as => :commentable, :dependent => :destroy
   has_one :match, :dependent => :nullify
-  has_one :challenge
 
   has_many :users, :through => :game_ranks
 
+  validate :not_duplicate
   validate :not_already_challenger, :if => :was_challenged?, :on => :create
   validate :not_already_challenged, :if => :was_challenged?, :on => :create
   validate :not_self, :if => :was_challenged?, :on => :create
@@ -212,6 +212,13 @@ class Game < ActiveRecord::Base
   def not_self
     if challenger == defender || defender.nil?
       errors[:base] << "Can't challenge yourself"
+    end
+  end
+
+  def not_duplicate
+    game_ranks = self.game_ranks.to_a
+    if game_ranks.map(&:player_id).sort != game_ranks.map(&:player_id).uniq.sort
+      errors[:base] << "Can't have duplicate players"
     end
   end
 end

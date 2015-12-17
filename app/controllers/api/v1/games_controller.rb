@@ -17,8 +17,9 @@ class GamesController < ApiController
 
   def create
     @tournament = Tournament.participant(current_user).friendly.find(params[:tournament_id])
-    if game = GameCreator.new(current_user, @tournament).create(params)
-      render json: game, status: :created
+    @game = GameCreator.new(current_user, @tournament).create(params)
+    if game.valid?
+      render json: @game, status: :created
     else
       render json: {message: "Bad request"}, status: :bad_request
     end

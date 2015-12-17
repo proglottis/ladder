@@ -59,6 +59,8 @@ class Championship < ActiveRecord::Base
 
   def log_game!(game)
     with_lock do
+      game.lock!
+
       allocated = []
       winning_rank, losing_rank = game.game_ranks.minmax_by(&:position)
       matches.incomplete.matches_game(game).find_each do |match|
