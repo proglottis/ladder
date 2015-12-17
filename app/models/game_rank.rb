@@ -14,6 +14,11 @@ class GameRank < ActiveRecord::Base
     joins(:player).where(:players => {:user_id => user})
   end
 
+  def self.created_today
+    t = Time.zone.now
+    where(created_at: t.beginning_of_day..t.end_of_day)
+  end
+
   def confirm
     with_lock do
       update_attributes!(:confirmed_at => Time.zone.now) unless confirmed?
