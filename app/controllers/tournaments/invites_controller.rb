@@ -9,7 +9,7 @@ class Tournaments::InvitesController < ApplicationController
   end
 
   def update
-    if @invite.update_attributes(:user => current_user)
+    if InviteAcceptor.new(@invite, current_user).accept
       redirect_to tournament_path(@tournament)
     else
       render :show
