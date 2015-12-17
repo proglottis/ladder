@@ -184,6 +184,7 @@ class Game < ActiveRecord::Base
         game_rank.confirmed_at = Time.zone.now
         game_rank.save!
       end
+      reposition_winner(game_ranks)
       events.build state: "confirmed"
       save!
     end
