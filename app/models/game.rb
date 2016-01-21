@@ -12,6 +12,7 @@ class Game < ActiveRecord::Base
   validate :not_already_challenger, :if => :was_challenged?, :on => :create
   validate :not_already_challenged, :if => :was_challenged?, :on => :create
   validate :not_self, :if => :was_challenged?, :on => :create
+  validate :not_duplicate_game_ranks
 
   STATES = %w[incomplete challenged unconfirmed confirmed]
   delegate :incomplete?, :challenged?, :unconfirmed?, :confirmed?, :to => :current_state
@@ -199,26 +200,33 @@ class Game < ActiveRecord::Base
 
   def not_already_challenged
     if tournament.games.defender(defender).any?
-      errors[:base] << "Defender already challenged"
+      errors[:tournament] << "Defender already challenged"
     end
   end
 
   def not_already_challenger
     if tournament.games.challenger(challenger).any?
-      errors[:base] << "Challenger already challenging"
+      errors[:tournament] << "Challenger already challenging"
     end
   end
 
   def not_self
     if challenger == defender || defender.nil?
-      errors[:base] << "Can't challenge yourself"
+      errors[:tournament] << "Can't challenge yourself"
     end
   end
 
   def not_duplicate
     game_ranks = self.game_ranks.to_a
     if game_ranks.map(&:player_id).sort != game_ranks.map(&:player_id).uniq.sort
-      errors[:base] << "Can't have duplicate players"
+      errors[:tournament] << "Can't have duplicate players"
+    end
+  end
+
+  def not_duplicate_game_ranks
+    game_ranks = self.game_ranks.to_a
+    if game_ranks.map(&:position).sort != game_ranks.map(&:position).uniq.sort
+      errors[:tournament] << "Can't have duplicate game positions"
     end
   end
 end

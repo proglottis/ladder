@@ -26,5 +26,4 @@ class ApplicationController < ActionController::Base
       redirect_to session_path, :notice => t('sessions.authentication_required')
     end
   end
-
 end
