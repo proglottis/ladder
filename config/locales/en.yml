@@ -236,6 +236,9 @@ en:
     championship_match:
       subject: "New match on the %{tournament} championship"
       match: "There is a new match on the %{tournament} championship waiting for you to participate. Play and log a game against %{other} in %{tournament} to proceed."
+    unconfirmed_games:
+      subject: You have unconfirmed games
+      pending_confirmation: "You have participated in the following games that have not been confirmed. Follow the link to confirm:"
 
   layouts:
     tournament_title:

@@ -1,0 +1,7 @@
+<%= t '.pending_confirmation' %>
+
+<% @game_ranks.each do |game_rank| %>
+  <% game = game_rank.game %>
+  [<%= game.tournament.name %> - <%= game.versus %>](<%= game_url game %>)
+  <br />
+<% end %>

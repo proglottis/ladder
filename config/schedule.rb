@@ -11,3 +11,7 @@ end
 every :day, :at => "00:00" do
   runner "ChallengeProcessor.perform"
 end
+
+every :day, :at => "12:00" do
+  runner "UnconfirmedGameNotificationProcessor.perform"
+end
