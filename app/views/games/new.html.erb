@@ -25,7 +25,7 @@
           <%= f.fields_for :game_ranks do |builder| %>
             <tr>
               <td><%= builder.select :player_id, options_from_collection_for_select(@players, :id, ->(p){p.user.name}, builder.object.player_id), {}, {class: 'form-control input-sm'} %></td>
-              <td><%= builder.number_field :position, :class => 'form-control input-sm', :min => 1 %></td>
+              <td><%= builder.number_field :position, :class => 'form-control input-sm', :min => 1, :required => true %></td>
             </tr>
           <% end %>
         </tbody>

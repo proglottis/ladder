@@ -1,6 +1,7 @@
 class GamesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :find_game_and_tournament, :only => [:show, :update]
+  before_filter :find_tournament_and_players, :only => [:new, :create]
 
   def index
     @games = Game.participant(current_user).challenged_or_unconfirmed.includes(:tournament, :game_ranks => :user)
@@ -8,8 +9,6 @@ class GamesController < ApplicationController
   end
 
   def new
-    @tournament = Tournament.with_rated_user(current_user).friendly.find(params[:tournament_id])
-    @players = @tournament.players.active.joins(:user).order('users.name ASC')
     @other_user = User.friendly.find(params[:user_id])
     @game = @tournament.games.build
     @game.game_ranks.build :player => @tournament.players.active.find_by!(user_id: current_user), :position => 1
@@ -17,8 +16,6 @@ class GamesController < ApplicationController
   end
 
   def create
-    @tournament = Tournament.with_rated_user(current_user).friendly.find(params[:tournament_id])
-    @players = @tournament.players.active.joins(:user).order('users.name ASC')
     @game = GameCreator.new(current_user, @tournament).create(params)
     if @game.valid?
       redirect_to game_path(@game)
@@ -55,5 +52,10 @@ class GamesController < ApplicationController
   def find_game_and_tournament
     @game = Game.find(params[:id])
     @tournament = Tournament.with_rated_user(current_user).friendly.find(@game.tournament_id)
+  end
+
+  def find_tournament_and_players
+    @tournament = Tournament.with_rated_user(current_user).friendly.find(params[:tournament_id])
+    @players = @tournament.players.active.joins(:user).order('users.name ASC')
   end
 end

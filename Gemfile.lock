@@ -41,6 +41,7 @@ GEM
     addressable (2.4.0)
     arel (6.0.3)
     builder (3.2.2)
+    byebug (6.0.2)
     capistrano (3.0.1)
       i18n
       rake (>= 10.0.0)
@@ -232,6 +233,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  byebug
   capistrano (~> 3.0.0)
   capistrano-bundler
   capistrano-rails
@@ -264,4 +266,4 @@ DEPENDENCIES
   whenever (~> 0.9.0)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
