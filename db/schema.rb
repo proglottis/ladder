@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216214251) do
+ActiveRecord::Schema.define(version: 20160217211332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -235,14 +235,15 @@ ActiveRecord::Schema.define(version: 20151216214251) do
   add_index "tournaments", ["slug"], name: "index_tournaments_on_slug", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",                 limit: 255
-    t.string   "email",                limit: 255
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.string   "name",                   limit: 255
+    t.string   "email",                  limit: 255
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.integer  "preferred_service_id"
-    t.boolean  "game_confirmed_email",             default: true, null: false
-    t.boolean  "commented_email",                  default: true, null: false
-    t.string   "slug",                 limit: 255
+    t.boolean  "game_confirmed_email",               default: true, null: false
+    t.boolean  "commented_email",                    default: true, null: false
+    t.string   "slug",                   limit: 255
+    t.boolean  "game_unconfirmed_email",             default: true, null: false
   end
 
   add_index "users", ["preferred_service_id"], name: "index_users_on_preferred_service_id", using: :btree
