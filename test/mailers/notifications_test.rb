@@ -142,4 +142,25 @@ describe Notifications do
       mail.body.encoded.must_match I18n.t('notifications.championship_match.match', tournament: @tournament.name, other: @other.user.name)
     end
   end
+
+  describe "#unconfirmed_games" do
+    before do
+      @game = create(:game)
+      @player1 = create(:player)
+      @player2 = create(:player)
+      @user1 = @player1.user
+      @game_rank1 = create(:game_rank, :game => @game, :player => @player1, :position => 1)
+      @game_rank2 = create(:game_rank, :game => create(:game), :player => @player1, :position => 1)
+    end
+
+    it "must contain game details" do
+      mail = Notifications.unconfirmed_games(@user1, [@game_rank1, @game_rank2])
+      mail.subject.must_equal I18n.t('notifications.unconfirmed_games.subject')
+      mail.to.must_equal [@user1.email]
+      mail.body.encoded.must_match @game_rank1.game.tournament.name
+      mail.body.encoded.must_match @game_rank1.game.versus
+      mail.body.encoded.must_match @game_rank2.game.tournament.name
+      mail.body.encoded.must_match @game_rank2.game.versus
+    end
+  end
 end

@@ -17,6 +17,9 @@
       <div class="checkbox">
         <label><%= f.check_box :game_confirmed_email %> <%= User.human_attribute_name('game_confirmed_email') %></label>
       </div>
+      <div class="checkbox">
+        <label><%= f.check_box :game_unconfirmed_email %> <%= User.human_attribute_name('game_unconfirmed_email') %></label>
+      </div>
       <div class="form-group">
         <%= f.submit :class => 'btn btn-primary' %>
         <%= cancel_link :back %>

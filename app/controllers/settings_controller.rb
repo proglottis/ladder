@@ -6,7 +6,7 @@ class SettingsController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(params.require(:user).permit(:game_confirmed_email, :commented_email))
+    if @user.update_attributes(params.require(:user).permit(:game_confirmed_email, :commented_email, :game_unconfirmed_email))
       redirect_to setting_path, :notice => I18n.t('settings.update.updated')
     else
       render :show

@@ -22,4 +22,8 @@ class NotificationsPreview < ActionMailer::Preview
   def invite_requested
     Notifications.invite_requested(InviteRequest.last)
   end
+
+  def unconfirmed_games
+    Notifications.unconfirmed_games(User.last, [GameRank.first, GameRank.last])
+  end
 end

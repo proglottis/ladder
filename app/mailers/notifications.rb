@@ -58,4 +58,10 @@ class Notifications < ActionMailer::Base
     @tournament = match.championship.tournament
     mail(to: @user.email, subject: t('notifications.championship_match.subject', tournament: @tournament.name))
   end
+
+  def unconfirmed_games(user, game_ranks)
+    @user = user
+    @game_ranks = game_ranks
+    mail(to: @user.email, subject: t('notifications.unconfirmed_games.subject'))
+  end
 end
