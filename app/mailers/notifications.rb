@@ -46,7 +46,7 @@ class Notifications < ActionMailer::Base
   def invite_request_accepted(invite_request)
     @invite_request = invite_request
     @tournament = invite_request.tournament
-    @user = @tournament.owner
+    @user = @invite_request.user
     mail(to: @user.email, subject: t('notifications.invite_request_accepted.subject', tournament: @tournament.name))
   end
 

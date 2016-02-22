@@ -121,7 +121,7 @@ describe Notifications do
     it "must contain invite acceptance details" do
       mail = Notifications.invite_request_accepted(@invite_request)
       mail.subject.must_equal I18n.t('notifications.invite_request_accepted.subject', :tournament => @tournament.name)
-      mail.to.must_equal [@tournament.owner.email]
+      mail.to.must_equal [@invite_request.user.email]
       mail.body.encoded.must_match I18n.t('notifications.invite_request_accepted.invite_accepted', :name => @invite_request.user.name, :tournament => @tournament.name)
     end
   end
