@@ -1,6 +1,7 @@
 require 'gravatar'
 
 class ApplicationController < ActionController::Base
+  force_ssl if: :ssl_configured?
   protect_from_forgery
 
   helper_method :current_user
@@ -25,6 +26,10 @@ class ApplicationController < ActionController::Base
       session[:redirect] = request.fullpath
       redirect_to session_path, :notice => t('sessions.authentication_required')
     end
+  end
+
+  def ssl_configured?
+    Rails.env.production?
   end
 
 end
