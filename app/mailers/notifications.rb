@@ -1,6 +1,8 @@
 class Notifications < ActionMailer::Base
   default from: "ladders@ladders.pw"
 
+  helper :application
+
   def tournament_invitation(invite)
     @invite = invite
     @tournament = invite.tournament
@@ -11,6 +13,7 @@ class Notifications < ActionMailer::Base
     @user = user
     @game = game
     @tournament = @game.tournament
+    @comment = @game.comments.last
     mail(to: @user.email, subject: t('notifications.game_confirmation.subject', game: @game.versus))
   end
 

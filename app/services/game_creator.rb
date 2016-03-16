@@ -12,7 +12,7 @@ class GameCreator
     game.events.build state: 'unconfirmed'
     game.owner = @user
     if game.save
-      CommentService.new(@user).comment(game, game.comment, game.url)
+      CommentService.new(@user, false).comment(game, game.comment, game.url)
       game.game_ranks.with_participant(@user).readonly(false).each(&:confirm)
       gcm_ids = []
       game.game_ranks.reload.each do |game_rank|

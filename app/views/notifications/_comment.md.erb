@@ -1,0 +1,10 @@
+<% if comment.url.present? %>
+
+![<%= image_alt comment.url %>](<%= sanitize comment.url %>)
+<% end %>
+<% if comment.content.present? %>
+
+<% strip_tags(markdown(comment.content)).each_line do |line| %>
+> <%= line %>
+<% end %>
+<% end %>

@@ -1,5 +1,4 @@
 <%= t '.commented', :name => @comment.user.name, :type => @commentable.class.model_name.human.downcase %>
-
-> <%= @comment.content %>
+<%= render partial: 'comment', object: @comment %>
 
 [<%= @commentable.tournament.name %> - <%= @commentable.versus %>](<%= polymorphic_url @commentable %>)

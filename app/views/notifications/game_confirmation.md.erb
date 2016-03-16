@@ -1,3 +1,7 @@
 <%= t '.game_logged' %>
 
 [<%= @tournament.name %> - <%= @game.versus %>](<%= game_url @game %>)
+
+<% if @comment.present? %>
+<%= render partial: 'comment', :object => @comment %>
+<% end %>
