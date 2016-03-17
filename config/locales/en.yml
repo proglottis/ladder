@@ -217,6 +217,7 @@ en:
     game_confirmation:
       subject: Confirm game %{game}
       game_logged: "A game you participated in has been logged. Follow the link to confirm:"
+      view_game: "View game"
     game_confirmed:
       subject: "%{game} confirmed"
       confirmed: "A game you participated in has been confirmed."
@@ -227,6 +228,7 @@ en:
     commented:
       subject: New comment on %{commentable}
       commented: "%{name} has commented on a %{type} you participated in."
+      view_comment: "View comment"
     invite_requested:
       subject: New invite request for %{tournament}
       invite_requested: "%{name} has requested an invite for %{tournament}."

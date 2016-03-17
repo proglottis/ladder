@@ -5,3 +5,16 @@
 <% if @comment.present? %>
 <%= render partial: 'comment', :object => @comment %>
 <% end %>
+
+<% content_for :action do %>
+{
+  "@context": "http://schema.org",
+  "@type": "EmailMessage",
+  "potentialAction": {
+    "@type": "ViewAction",
+    "target": "<%= game_url @game %>",
+    "url": "<%= game_url @game %>",
+    "name": "<%= t '.view_game' %>"
+  }
+}
+<% end %>

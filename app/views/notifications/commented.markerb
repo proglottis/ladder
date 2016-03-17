@@ -2,3 +2,16 @@
 <%= render partial: 'comment', object: @comment %>
 
 [<%= @commentable.tournament.name %> - <%= @commentable.versus %>](<%= polymorphic_url @commentable %>)
+
+<% content_for :action do %>
+{
+  "@context": "http://schema.org",
+  "@type": "EmailMessage",
+  "potentialAction": {
+    "@type": "ViewAction",
+    "target": "<%= polymorphic_url @commentable %>",
+    "url": "<%= polymorphic_url @commentable %>",
+    "name": "<%= t '.view_comment' %>"
+  }
+}
+<% end %>

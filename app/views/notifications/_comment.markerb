@@ -5,6 +5,6 @@
 <% if comment.content.present? %>
 
 <% strip_tags(markdown(comment.content)).each_line do |line| %>
-> <%= line %>
+> <%= line.strip %>
 <% end %>
 <% end %>

@@ -1,6 +1,22 @@
-<h1><%= t 'application.name' %></h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <% if content_for?(:action) %>
+    <script type="application/ld+json">
+    <%= yield :action %>
+    </script>
+    <% end %>
 
-<%= yield %>
+    <h1><%= t 'application.name' %></h1>
 
-<hr>
-<%= link_to root_url, root_url %>
+    <%= yield %>
+
+    <hr>
+    <%= link_to root_url, root_url %>
+  </body>
+</html>
