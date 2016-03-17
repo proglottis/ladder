@@ -117,9 +117,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    maildown (1.0.4)
-      kramdown
-      rails (>= 4.0.0)
+    markerb (1.1.0)
     mime-types (2.99.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
@@ -247,7 +245,7 @@ DEPENDENCIES
   jwt
   kramdown
   less-rails-bootstrap
-  maildown
+  markerb
   minitest-spec-rails
   nprogress-rails
   omniauth
@@ -264,4 +262,4 @@ DEPENDENCIES
   whenever (~> 0.9.0)
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

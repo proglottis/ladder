@@ -18,7 +18,7 @@ gem 'turbolinks'
 gem 'nprogress-rails'
 gem 'friendly_id', '~> 5.0.3'
 gem 'kramdown'
-gem 'maildown'
+gem 'markerb'
 gem 'sitemap_generator'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'jwt'
