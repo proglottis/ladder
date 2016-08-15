@@ -1,6 +1,6 @@
 class Tournaments::GamesController < ApplicationController
-  before_filter :find_tournament_and_games
-  before_filter :require_owner!
+  before_action :find_tournament_and_games
+  before_action :require_owner!
 
   layout 'tournament_title', :only => [:index]
 

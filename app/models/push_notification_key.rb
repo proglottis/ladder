@@ -1,3 +1,3 @@
-class PushNotificationKey < ActiveRecord::Base
+class PushNotificationKey < ApplicationRecord
   belongs_to :user
 end

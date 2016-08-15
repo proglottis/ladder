@@ -1,7 +1,7 @@
 module Api::V1
 class GamesController < ApiController
-  before_filter :require_user!
-  before_filter :find_game_and_tournament, :only => [:show, :update]
+  before_action :require_user!
+  before_action :find_game_and_tournament, :only => [:show, :update]
 
   wrap_parameters include: [:tournament_id, :confirm, :response, :game_ranks_attributes]
 

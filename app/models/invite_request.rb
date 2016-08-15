@@ -1,4 +1,4 @@
-class InviteRequest < ActiveRecord::Base
+class InviteRequest < ApplicationRecord
   belongs_to :tournament
   belongs_to :user
   belongs_to :invite

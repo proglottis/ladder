@@ -1,4 +1,4 @@
-class ChampionshipPlayer < ActiveRecord::Base
+class ChampionshipPlayer < ApplicationRecord
   belongs_to :championship
   belongs_to :player
 

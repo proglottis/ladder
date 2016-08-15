@@ -36,7 +36,7 @@ describe Tournament do
     it "must destroy descendant pages" do
       create(:page, :parent => @tournament)
       @tournament.destroy
-      Page.where(:parent_type => Tournament, :parent_id => @tournament.id).count.must_equal 0
+      Page.where(:parent_type => "Tournament", :parent_id => @tournament.id).count.must_equal 0
     end
 
     it "must destroy descendant championships" do

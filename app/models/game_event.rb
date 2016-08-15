@@ -1,4 +1,4 @@
-class GameEvent < ActiveRecord::Base
+class GameEvent < ApplicationRecord
   belongs_to :game, touch: true
 
   validates_inclusion_of :state, in: Game::STATES

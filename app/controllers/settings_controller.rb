@@ -1,6 +1,6 @@
 class SettingsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :find_user_and_services
+  before_action :authenticate_user!
+  before_action :find_user_and_services
 
   def show
   end

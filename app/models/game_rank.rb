@@ -1,4 +1,4 @@
-class GameRank < ActiveRecord::Base
+class GameRank < ApplicationRecord
   belongs_to :game, touch: true
   belongs_to :player
 

@@ -193,6 +193,8 @@ GEM
     rake (11.2.2)
     rdoc (4.2.2)
       json (~> 1.4)
+    record_tag_helper (1.0.0)
+      actionview (~> 5.x)
     ref (2.0.0)
     sass (3.4.22)
     sass-rails (5.0.6)
@@ -265,6 +267,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   pg
   rails (= 5.0.0.1)
+  record_tag_helper
   sass-rails
   sdoc (~> 0.4.0)
   sitemap_generator

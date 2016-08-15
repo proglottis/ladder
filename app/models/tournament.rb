@@ -1,4 +1,4 @@
-class Tournament < ActiveRecord::Base
+class Tournament < ApplicationRecord
   OWNER_LIMIT = 5
 
   RANKING_TYPES = [:glicko2, :king_of_the_hill]
@@ -38,7 +38,7 @@ class Tournament < ActiveRecord::Base
             or(players[:user_id].eq(user.id)).
             or(invites[:user_id].eq(user.id)).
             or(invites[:email].eq(user.email))).
-      uniq.readonly(false)
+      distinct.readonly(false)
   end
 
   def self.participant_or_public(user)
@@ -53,7 +53,7 @@ class Tournament < ActiveRecord::Base
             or(players[:user_id].eq(user.id)).
             or(invites[:user_id].eq(user.id)).
             or(invites[:email].eq(user.email))).
-      uniq.readonly(false)
+      distinct.readonly(false)
   end
 
   def self.with_rated_user(*users)
@@ -65,7 +65,7 @@ class Tournament < ActiveRecord::Base
       user_joins.join(players).on(players[:tournament_id].eq(tournaments[:id]).
                                   and(players[:user_id].eq(user.id)))
     end
-    joins(user_joins.join_sources).uniq
+    joins(user_joins.join_sources).distinct
   end
 
   def self.anonymize

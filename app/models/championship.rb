@@ -1,4 +1,4 @@
-class Championship < ActiveRecord::Base
+class Championship < ApplicationRecord
   belongs_to :tournament
 
   has_many :championship_players, dependent: :destroy
@@ -23,7 +23,7 @@ class Championship < ActiveRecord::Base
 
   def self.log_game!(game)
     allocated = []
-    started.where(tournament_id: game.tournament_id).uniq.find_each do |championship|
+    started.where(tournament_id: game.tournament_id).distinct.find_each do |championship|
       allocated += championship.log_game!(game)
     end
     allocated

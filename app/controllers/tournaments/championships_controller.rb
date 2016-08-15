@@ -1,8 +1,8 @@
 class Tournaments::ChampionshipsController < ApplicationController
-  before_filter :authenticate_user!, only: [:create, :update, :join]
-  before_filter :find_tournament
-  before_filter :find_championship, except: [:create]
-  before_filter :require_owner!, only: [:create, :update]
+  before_action :authenticate_user!, only: [:create, :update, :join]
+  before_action :find_tournament
+  before_action :find_championship, except: [:create]
+  before_action :require_owner!, only: [:create, :update]
 
   layout 'tournament_title', only: [:show]
 

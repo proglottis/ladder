@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :find_game_and_tournament, :only => [:show, :update]
+  before_action :authenticate_user!
+  before_action :find_game_and_tournament, :only => [:show, :update]
 
   def index
     @games = Game.participant(current_user).challenged_or_unconfirmed.includes(:tournament, :game_ranks => :user)

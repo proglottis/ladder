@@ -4,7 +4,7 @@ class ApiController < ActionController::Base
 
   class BadToken < StandardError; end
 
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
 
   helper_method :current_user
   def current_user

@@ -1,6 +1,6 @@
 class ChallengesController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :find_tournament_and_defender
+  before_action :authenticate_user!
+  before_action :find_tournament_and_defender
 
   def new
     @game = @tournament.games.build

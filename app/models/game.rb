@@ -1,4 +1,4 @@
-class Game < ActiveRecord::Base
+class Game < ApplicationRecord
   belongs_to :tournament
   belongs_to :owner, :class_name => 'User'
   has_many :events, -> { order("id ASC") }, :class_name => 'GameEvent', :dependent => :destroy

@@ -1,7 +1,7 @@
 class TournamentsController < ApplicationController
-  before_filter :authenticate_user!, :except => [:show, :information]
-  before_filter :find_tournament_and_rating_period_and_player, :only => [:edit, :update, :destroy, :join]
-  before_filter :require_owner!, :only => [:edit, :update, :destroy]
+  before_action :authenticate_user!, :except => [:show, :information]
+  before_action :find_tournament_and_rating_period_and_player, :only => [:edit, :update, :destroy, :join]
+  before_action :require_owner!, :only => [:edit, :update, :destroy]
 
   layout 'tournament_title', :only => [:show, :information, :edit]
 

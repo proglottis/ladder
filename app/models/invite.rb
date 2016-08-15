@@ -1,6 +1,6 @@
 require 'securerandom'
 
-class Invite < ActiveRecord::Base
+class Invite < ApplicationRecord
   OWNER_LIMIT = 10
 
   belongs_to :owner, :class_name => 'User'

@@ -1,6 +1,6 @@
 module Api::V1
 class PushNotificationKeysController < ApiController
-  before_filter :require_user!
+  before_action :require_user!
 
   def create
     @push_notification = current_user.push_notification_keys.find_or_initialize_by(gcm: params[:gcm])

@@ -1,7 +1,7 @@
 class Tournaments::InviteRequestsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :find_tournament, :only => [:index, :update]
-  before_filter :require_owner!, :only => [:index, :update]
+  before_action :authenticate_user!
+  before_action :find_tournament, :only => [:index, :update]
+  before_action :require_owner!, :only => [:index, :update]
 
   layout 'tournament_title', :only => [:index]
 

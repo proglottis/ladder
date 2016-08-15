@@ -1,4 +1,4 @@
-class RatingPeriod < ActiveRecord::Base
+class RatingPeriod < ApplicationRecord
   belongs_to :tournament
 
   has_many :ratings, :dependent => :destroy

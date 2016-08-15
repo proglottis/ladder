@@ -25,6 +25,7 @@ gem 'jwt'
 gem 'active_model_serializers'
 gem 'gcm'
 gem 'less-rails-bootstrap'
+gem 'record_tag_helper'
 
 gem 'capistrano', '~> 3.0.0'
 gem 'capistrano-rails'

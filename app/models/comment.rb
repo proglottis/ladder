@@ -1,4 +1,4 @@
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
   MAX_LENGTH = 500
 
   belongs_to :user
