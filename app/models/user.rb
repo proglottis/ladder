@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :invite_requests, :dependent => :destroy
   has_many :push_notification_keys, :dependent => :destroy
 
+  validates_presence_of :name, :email
+
   def self.anonymize
     find_each do |user|
       user.anonymize

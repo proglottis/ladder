@@ -21,7 +21,7 @@ class ActionDispatch::IntegrationTest
 
   def login_service
     service = create(:service)
-    OmniAuth.config.add_mock(:developer, "uid" => service.uid, "info" => {"name" => service.name, "email" => service.email})
+    OmniAuth.config.add_mock("developer", "uid" => service.uid, "info" => {"name" => service.name, "email" => service.email})
     visit session_path
     click_link "Developer"
     must_have_content I18n.t('sessions.create.success', :provider => 'Developer')
