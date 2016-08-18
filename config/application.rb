@@ -14,6 +14,7 @@ module Ladder
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
+    config.time_zone = 'Auckland'
     config.action_mailer.default_url_options = { :host => 'ladders.pw', :protocol => 'https' }
     config.exceptions_app = self.routes
   end
