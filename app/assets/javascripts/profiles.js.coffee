@@ -26,5 +26,4 @@ initHistoryGraphs = ->
     initHistoryGraph(@id, $("svg.plot", this).data("url"))
   )
 
-jQuery -> initHistoryGraphs()
-$(document).on 'page:load', initHistoryGraphs
+$(document).on 'turbolinks:load', initHistoryGraphs

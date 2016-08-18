@@ -49,5 +49,4 @@ initChampionshipGraphs = ->
   $('.championships svg.bracket').each ->
     initChampionshipGraph(@id, $(@).data('url'))
 
-jQuery -> initChampionshipGraphs()
-$(document).on 'page:load', initChampionshipGraphs
+$(document).on 'turbolinks:load', initChampionshipGraphs
