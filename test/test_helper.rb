@@ -24,7 +24,7 @@ class ActionDispatch::IntegrationTest
     OmniAuth.config.add_mock("developer", "uid" => service.uid, "info" => {"name" => service.name, "email" => service.email})
     visit session_path
     click_link "Developer"
-    must_have_content I18n.t('sessions.create.success', :provider => 'Developer')
+    assert_page_has_content I18n.t('sessions.create.success', :provider => 'Developer')
     service
   end
 end
