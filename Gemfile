@@ -28,7 +28,7 @@ gem 'gcm'
 gem 'less-rails-bootstrap'
 gem 'record_tag_helper'
 
-gem 'capistrano', '~> 3.0.0'
+gem 'capistrano', '~> 3.6.1'
 gem 'capistrano-rails'
 gem 'capistrano-bundler'
 

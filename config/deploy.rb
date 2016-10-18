@@ -3,7 +3,7 @@ set :repo_url, 'git@github.com:proglottis/ladder.git'
 
 ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
-set :deploy_to, '/srv/ladder'
+set :deploy_to, '/var/www/ladders'
 set :scm, :git
 
 # set :format, :pretty

@@ -44,18 +44,23 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    airbrussh (1.1.1)
+      sshkit (>= 1.6.1, != 1.7.0)
     arel (7.1.4)
     builder (3.2.2)
-    capistrano (3.0.1)
+    capistrano (3.6.1)
+      airbrussh (>= 1.0.0)
+      capistrano-harrow
       i18n
       rake (>= 10.0.0)
-      sshkit (>= 0.0.23)
-    capistrano-bundler (1.1.2)
-      capistrano (~> 3.0)
+      sshkit (>= 1.9.0)
+    capistrano-bundler (1.2.0)
+      capistrano (~> 3.1)
       sshkit (~> 1.2)
-    capistrano-rails (1.1.0)
-      capistrano (>= 3.0.0)
-      capistrano-bundler (>= 1.0.0)
+    capistrano-harrow (0.5.3)
+    capistrano-rails (1.1.8)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
     capybara (2.10.1)
       addressable
       mime-types (>= 1.16)
@@ -247,7 +252,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
-  capistrano (~> 3.0.0)
+  capistrano (~> 3.6.1)
   capistrano-bundler
   capistrano-rails
   capybara_minitest_spec
@@ -281,4 +286,4 @@ DEPENDENCIES
   whenever (~> 0.9.0)
 
 BUNDLED WITH
-   1.13.1
+   1.13.5
