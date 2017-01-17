@@ -2,7 +2,7 @@ env :PATH, ENV['PATH']
 set :output, "#{path}/log/cron.log"
 
 every :monday, at: "00:01" do
-  runner "RatingPeriodProcessor.perform"
+  runner "RatingPeriodProcessorJob.perform_now"
 end
 
 every :monday, :at => "12:00" do
