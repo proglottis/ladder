@@ -10,7 +10,7 @@ every :monday, :at => "12:00" do
 end
 
 every :day, :at => "00:00" do
-  runner "ChallengeProcessor.perform"
+  runner "ChallengeProcessorJob.perform_now"
 end
 
 every :day, :at => "12:00" do
