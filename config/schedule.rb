@@ -14,5 +14,5 @@ every :day, :at => "00:00" do
 end
 
 every :day, :at => "12:00" do
-  runner "UnconfirmedGameNotificationProcessor.perform"
+  runner "UnconfirmedGameNotificationJob.perform_now"
 end
