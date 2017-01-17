@@ -16,7 +16,7 @@ class ChallengesController < ApplicationController
     @game.game_ranks.build :player => @tournament.players.active.find_by!(user_id: @defender)
     if @game.save
       CommentService.new(current_user).comment(@game, @game.comment, @game.url)
-      Notifications.challenged(@game).deliver_now
+      Notifications.challenged(@game).deliver_later
       redirect_to game_path(@game)
     else
       render :new

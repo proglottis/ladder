@@ -13,7 +13,7 @@ class InviteRequestAcceptor
 
       @invite_request.update_attributes!(completed_at: Time.zone.now)
       TournamentJoiner.new(@tournament, @user).join
-      Notifications.invite_request_accepted(@invite_request).deliver_now
+      Notifications.invite_request_accepted(@invite_request).deliver_later
     end
   end
 end

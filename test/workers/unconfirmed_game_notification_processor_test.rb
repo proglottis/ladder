@@ -9,21 +9,25 @@ describe UnconfirmedGameNotificationProcessor do
 
   describe ".perform" do
     it "sends an email for unconfirmed games that are older than the beginning of today" do
-      travel_to(Time.new(2016, 1, 1))
-      create_game
+      perform_enqueued_jobs do
+        travel_to(Time.new(2016, 1, 1))
+        create_game
 
-      travel_to(Time.new(2016, 1, 22))
-      UnconfirmedGameNotificationProcessor.perform
+        travel_to(Time.new(2016, 1, 22))
+        UnconfirmedGameNotificationProcessor.perform
 
-      ActionMailer::Base.deliveries.length.must_equal 1
+        ActionMailer::Base.deliveries.length.must_equal 1
+      end
     end
 
     it "won't send an email for unconfirmed games created today" do
-      create_game
+      perform_enqueued_jobs do
+        create_game
 
-      UnconfirmedGameNotificationProcessor.perform
+        UnconfirmedGameNotificationProcessor.perform
 
-      ActionMailer::Base.deliveries.length.must_equal 0
+        ActionMailer::Base.deliveries.length.must_equal 0
+      end
     end
   end
 end

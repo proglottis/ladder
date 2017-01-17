@@ -22,13 +22,14 @@ class ChallengesIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     it "must send challenge email" do
-      visit tournament_path @tournament
-      all('a', :text => I18n.t('tournaments.show.challenge')).last.click
-      click_button I18n.t('helpers.submit.create')
-      ActionMailer::Base.deliveries.length.must_equal 1
-      email = ActionMailer::Base.deliveries.first
-      email.to.must_equal [@user2.email]
+      perform_enqueued_jobs do
+        visit tournament_path @tournament
+        all('a', :text => I18n.t('tournaments.show.challenge')).last.click
+        click_button I18n.t('helpers.submit.create')
+        ActionMailer::Base.deliveries.length.must_equal 1
+        email = ActionMailer::Base.deliveries.first
+        email.to.must_equal [@user2.email]
+      end
     end
   end
-
 end

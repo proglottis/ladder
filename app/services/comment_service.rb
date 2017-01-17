@@ -10,7 +10,7 @@ class CommentService
     comment = Comment.create!(:commentable => commentable, :user => @user, :content => content, :url => url)
     return unless @notify
     subscribers.each do |subscriber|
-      Notifications.commented(subscriber, comment).deliver_now if subscriber != @user && subscriber.commented_email?
+      Notifications.commented(subscriber, comment).deliver_later if subscriber != @user && subscriber.commented_email?
     end
   end
 end

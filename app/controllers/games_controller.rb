@@ -43,7 +43,7 @@ class GamesController < ApplicationController
       @game.defender_response!
       if @game.unconfirmed?
         @game.game_ranks.each do |game_rank|
-          Notifications.game_confirmation(game_rank.user, @game).deliver_now unless game_rank.confirmed?
+          Notifications.game_confirmation(game_rank.user, @game).deliver_later unless game_rank.confirmed?
         end
       end
     end

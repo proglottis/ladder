@@ -17,7 +17,7 @@ class GameCreator
       gcm_ids = []
       game.game_ranks.reload.each do |game_rank|
         if !game_rank.confirmed?
-          Notifications.game_confirmation(game_rank.user, game).deliver_now
+          Notifications.game_confirmation(game_rank.user, game).deliver_later
           gcm_ids += game_rank.user.push_notification_keys.map(&:gcm)
         end
       end

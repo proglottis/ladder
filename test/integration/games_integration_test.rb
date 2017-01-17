@@ -22,12 +22,14 @@ class GamesIntegrationTest < ActionDispatch::IntegrationTest
     end
 
     it "must send confirmation email" do
-      visit tournament_path @tournament
-      click_link I18n.t('tournaments.show.log_a_game')
-      click_button I18n.t('helpers.submit.create')
-      ActionMailer::Base.deliveries.length.must_equal 1
-      email = ActionMailer::Base.deliveries.first
-      email.to.must_equal [@player2.user.email]
+      perform_enqueued_jobs do
+        visit tournament_path @tournament
+        click_link I18n.t('tournaments.show.log_a_game')
+        click_button I18n.t('helpers.submit.create')
+        ActionMailer::Base.deliveries.length.must_equal 1
+        email = ActionMailer::Base.deliveries.first
+        email.to.must_equal [@player2.user.email]
+      end
     end
   end
 
@@ -53,12 +55,14 @@ class GamesIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       it "must send game confirmed email to other users" do
-        @game_rank2.confirm
-        visit game_path @game
-        click_button I18n.t('games.show.confirm')
-        ActionMailer::Base.deliveries.length.must_equal 1
-        email = ActionMailer::Base.deliveries.first
-        email.to.must_equal [@player2.user.email]
+        perform_enqueued_jobs do
+          @game_rank2.confirm
+          visit game_path @game
+          click_button I18n.t('games.show.confirm')
+          ActionMailer::Base.deliveries.length.must_equal 1
+          email = ActionMailer::Base.deliveries.first
+          email.to.must_equal [@player2.user.email]
+        end
       end
     end
   end
@@ -72,9 +76,11 @@ class GamesIntegrationTest < ActionDispatch::IntegrationTest
 
     describe "won" do
       before do
-        visit game_path @game
-        choose I18n.t('games.show.won')
-        click_button I18n.t('games.show.respond')
+        perform_enqueued_jobs do
+          visit game_path @game
+          choose I18n.t('games.show.won')
+          click_button I18n.t('games.show.respond')
+        end
       end
 
       it "must respond" do
@@ -90,9 +96,11 @@ class GamesIntegrationTest < ActionDispatch::IntegrationTest
 
     describe "lost" do
       before do
-        visit game_path @game
-        choose I18n.t('games.show.lost')
-        click_button I18n.t('games.show.respond')
+        perform_enqueued_jobs do
+          visit game_path @game
+          choose I18n.t('games.show.lost')
+          click_button I18n.t('games.show.respond')
+        end
       end
 
       it "must respond" do
