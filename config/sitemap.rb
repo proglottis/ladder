@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "http://#{Ladder::Application.config.action_mailer.default_url_options[:host]}"
+SitemapGenerator::Sitemap.default_host = "https://#{Ladder::Application.config.action_mailer.default_url_options[:host]}"
 
 SitemapGenerator::Sitemap.create do
   # Put links creation logic here.
