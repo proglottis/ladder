@@ -26,15 +26,19 @@ gem 'active_model_serializers'
 gem 'gcm'
 gem 'less-rails-bootstrap'
 gem 'record_tag_helper'
+gem 'sidekiq'
 
-gem 'capistrano', '~> 3.6.1'
-gem 'capistrano-rails'
-gem 'capistrano-bundler'
-gem 'capistrano-passenger'
+group :development do
+  gem 'capistrano', '~> 3.6.1'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-passenger'
+
+  gem 'spring'
+end
 
 group :test, :development do
   gem 'minitest-spec-rails'
   gem 'capybara_minitest_spec'
   gem 'factory_girl_rails', '~> 4.0'
 end
-gem 'spring', group: :development

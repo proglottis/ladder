@@ -17,5 +17,6 @@ module Ladder
     config.time_zone = 'Auckland'
     config.action_mailer.default_url_options = { :host => 'ladders.pw', :protocol => 'https' }
     config.exceptions_app = self.routes
+    config.active_job.queue_adapter = :sidekiq
   end
 end
