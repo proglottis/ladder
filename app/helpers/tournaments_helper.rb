@@ -1,5 +1,6 @@
 module TournamentsHelper
   def streak_badge(player)
+    return "&#128169;" if player.user.email =~ "kunal.madhav"
     return unless player.streak?
 
     colors = {true => 'success', false => 'danger'}
