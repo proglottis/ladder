@@ -26,7 +26,7 @@
           <td>
             <%= profile_link_tag rating.user %><%= streak_badge(rating.player) %>
           </td>
-          <td class="hidden-xs"><%= number_with_precision rating.low_rank, :precision => 0 %><% if @rating && @rating != rating %> <small class="text-muted">(<%= t '.chance_to_beat', :percentage => number_to_percentage(100.0 * @rating.expected_fractional_score(rating), :precision => 0) %>)</small><% end %></td>
+          <td class="hidden-xs"><%= number_with_precision rating.low_rank, :precision => 0 %><% if @rating && @rating != rating %> <small class="text-muted">(<%= t '.chance_to_beat', :percentage => number_to_percentage(100.0 * @rating.chance_to_beat(rating), :precision => 0) %>)</small><% end %></td>
           <% if @show_actions %>
             <td>
               <% if rating.user != current_user %>

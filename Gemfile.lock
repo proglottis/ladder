@@ -101,7 +101,7 @@ GEM
     gcm (0.1.1)
       httparty
       json
-    glicko2 (0.1.2)
+    glicko2 (0.2.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hashie (3.4.6)
@@ -287,4 +287,4 @@ DEPENDENCIES
   whenever (~> 0.9.0)
 
 BUNDLED WITH
-   1.13.5
+   1.13.6

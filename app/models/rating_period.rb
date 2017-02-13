@@ -23,7 +23,7 @@ class RatingPeriod < ApplicationRecord
       lock!
 
       period = glicko2_rating_period_with_games
-      new_period = period.generate_next
+      new_period = period.generate_next(0.5)
       new_period.players.each do |player|
         player.update_obj
         rating = ratings.find_or_initialize_by(:player_id => player.obj.player_id)

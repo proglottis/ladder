@@ -57,10 +57,14 @@ class Rating < ApplicationRecord
   end
 
   def glicko2_rating
-    @glicko2_rating ||= Glicko2::Player.from_obj(self)
+    @glicko2_rating ||= Glicko2::Rating.from_glicko_rating(rating, rating_deviation, volatility)
   end
 
-  def expected_fractional_score(other)
-    glicko2_rating.e(other.glicko2_rating)
+  def chance_to_beat(other)
+    mean = glicko2_rating.mean - other.glicko2_rating.mean
+    sd = Math.sqrt(glicko2_rating.sd**2 + other.glicko2_rating.sd**2)
+    x = -mean / sd
+    cdf = 0.5 * (1 + Math.erf((x - mean) / (sd * Math.sqrt(2))))
+    1 - cdf
   end
 end

@@ -23,4 +23,18 @@ describe Rating do
       @rating_period.ratings.for_game(@game).wont_include @rating3
     end
   end
+
+  describe "#chance_to_beat" do
+    before do
+      @rating1 = create(:rating, rating: 1500)
+      @rating2 = create(:rating, rating: 1300)
+    end
+
+    it "roughly predicts who would win" do
+      r1_v_r2 = @rating1.chance_to_beat(@rating2)
+      r2_v_r1 = @rating2.chance_to_beat(@rating1)
+
+      assert_operator r1_v_r2, :>, r2_v_r1
+    end
+  end
 end
