@@ -7,7 +7,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 module Ladder
-  VERSION = "1.6.13"
+  VERSION = "1.6.14"
 
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
