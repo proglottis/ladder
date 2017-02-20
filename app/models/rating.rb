@@ -61,10 +61,7 @@ class Rating < ApplicationRecord
   end
 
   def chance_to_beat(other)
-    mean = glicko2_rating.mean - other.glicko2_rating.mean
-    sd = Math.sqrt(glicko2_rating.sd**2 + other.glicko2_rating.sd**2)
-    x = -mean / sd
-    cdf = 0.5 * (1 + Math.erf((x - mean) / (sd * Math.sqrt(2))))
-    1 - cdf
+    _, e = other.glicko2_rating.gravity_expected_score(glicko2_rating.mean)
+    e
   end
 end
