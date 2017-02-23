@@ -46,6 +46,14 @@
         <p><%= t '.no_matches' %></p>
       <% end %>
     <% end %>
+    <% if @matches.any? %>
+      <h2><%= t '.upcoming_matches' %></h2>
+      <ul>
+        <% @matches.each do |match| %>
+          <li><%= raw t('.upcoming_match', name1: profile_link_tag(match.player1.user), name2: profile_link_tag(match.player2.user)) %></li>
+        <% end %>
+      </ul>
+    <% end %>
   <% end %>
 
   <% if @championship.started? %>

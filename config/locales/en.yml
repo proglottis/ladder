@@ -171,6 +171,7 @@ en:
           title: You have not joined this championship
           message: Join this championship to participate in a double elimination championship.
           link: Join
+        upcoming_match: "%{name1} vs %{name2}"
 
 
   activity:

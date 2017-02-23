@@ -10,7 +10,8 @@ class Tournaments::ChampionshipsController < ApplicationController
     @players = @championship.players.includes(:user).order('users.name ASC')
     @player = @tournament.players.active.find_by(user_id: current_user)
     @championship_player = @players.find_by(user_id: current_user)
-    @next_match = @championship.matches.incomplete.with_player(@player).first
+    @matches = @championship.matches.incomplete.allocated
+    @next_match = @matches.with_player(@player).first
     if @next_match
       @next_opponent = @next_match.player1 == @player ? @next_match.player2 : @next_match.player1
     end
