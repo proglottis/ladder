@@ -11,9 +11,9 @@ describe TournamentJoiner do
     it "creates a player and rating" do
       player = TournamentJoiner.new(@tournament, @user).join
 
-      player.tournament.must_equal @tournament
-      player.user.must_equal @user
-      player.ratings.count.must_equal 1
+      assert_equal @tournament, player.tournament
+      assert_equal @user, player.user
+      assert_equal 1, player.ratings.count
     end
 
     it "enables a player if they were already joined" do
@@ -21,9 +21,9 @@ describe TournamentJoiner do
 
       new_player = TournamentJoiner.new(@tournament, @user).join
 
-      new_player.must_equal player
-      new_player.end_at.must_equal nil
-      new_player.position.must_equal nil
+      assert_equal player, new_player
+      assert_nil new_player.end_at
+      assert_nil new_player.position
     end
   end
 end

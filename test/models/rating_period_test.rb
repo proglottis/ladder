@@ -19,11 +19,11 @@ describe RatingPeriod do
     end
 
     it "must return nil if first period" do
-      @period1.previous_rating_period.must_equal nil
+      assert_nil @period1.previous_rating_period
     end
 
     it "wont return periods on a different tournament" do
-      @other_period.previous_rating_period.must_equal nil
+      assert_nil @other_period.previous_rating_period
     end
   end
 
@@ -123,17 +123,17 @@ describe RatingPeriod do
       end
       it "does nothing" do
         @period.update_player_positions!
-        @player1.reload.position.must_equal nil
-        @player2.reload.position.must_equal nil
+        assert_nil @player1.reload.position
+        assert_nil @player2.reload.position
       end
     end
 
     it "must set positions of players when ranks are equal" do
       @period.update_player_positions!
 
-      @player1.reload.position.must_equal 1
-      @player2.reload.position.must_equal 1
-      @player3.reload.position.must_equal nil
+      assert_equal 1, @player1.reload.position
+      assert_equal 1, @player2.reload.position
+      assert_nil @player3.reload.position
     end
 
     it "must set positions of players when ranks are not equal" do
@@ -141,9 +141,9 @@ describe RatingPeriod do
 
       @period.update_player_positions!
 
-      @player1.reload.position.must_equal 1
-      @player2.reload.position.must_equal 2
-      @player3.reload.position.must_equal nil
+      assert_equal 1, @player1.reload.position
+      assert_equal 2, @player2.reload.position
+      assert_nil @player3.reload.position
     end
 
     it "must set position of ended player to nil" do
@@ -151,8 +151,8 @@ describe RatingPeriod do
 
       @period.update_player_positions!
 
-      @player1.reload.position.must_equal nil
-      @player2.reload.position.must_equal 1
+      assert_nil @player1.reload.position
+      assert_equal 1, @player2.reload.position
     end
   end
 end

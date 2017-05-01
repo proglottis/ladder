@@ -56,7 +56,7 @@ describe Championship do
 
     it "returns nil if there are no championships" do
       Championship.all.destroy_all
-      Championship.active.must_equal nil
+      assert_nil Championship.active
     end
   end
 
@@ -242,7 +242,7 @@ describe Championship do
         create(:game_rank, game: game, player: @player2, position: 1)
         create(:game_rank, game: game, player: @player1, position: 2)
         @championship.log_game!(game)
-        @championship.reload.ended_at.must_equal nil
+        assert_nil @championship.reload.ended_at
         game.match.wont_equal nil
         @championship.matches.group(:bracket).count.must_equal(
           'winners' => 4,
@@ -299,7 +299,7 @@ describe Championship do
 
     it "wont set ended_at when some matches have not been played" do
       @championship.update_if_ended!
-      @championship.ended_at.must_equal nil
+      assert_nil @championship.ended_at
     end
 
     it "sets ended_at when all matches have been played" do

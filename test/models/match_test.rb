@@ -94,29 +94,29 @@ describe Match do
 
     it "sets player1 if nil" do
       @match.add_player(@player)
-      @match.player1.must_equal @player
-      @match.player2.must_equal nil
+      assert_equal @player, @match.player1
+      assert_nil @match.player2
     end
 
     it "sets player2 if player1 is set" do
       @match.player1 = create(:player)
       @match.add_player(@player)
-      @match.player1.wont_equal nil
-      @match.player2.must_equal @player
+      refute_nil @match.player1
+      assert_equal @player, @match.player2
     end
 
     it "does nothing if player1 is equal" do
       @match.player1 = @player
       @match.add_player(@player)
-      @match.player1.must_equal @player
-      @match.player2.must_equal nil
+      assert_equal @player, @match.player1
+      assert_nil @match.player2
     end
 
     it "does nothing if player2 is equal" do
       @match.player2 = @player
       @match.add_player(@player)
-      @match.player1.must_equal nil
-      @match.player2.must_equal @player
+      assert_nil @match.player1
+      assert_equal @player, @match.player2
     end
   end
 end
