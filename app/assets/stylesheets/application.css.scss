@@ -9,7 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require custom_bootstrap/custom_bootstrap
- *= require nv.d3
+ *= require nvd3
  *= require_self
  *= require_tree .
  */

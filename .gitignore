@@ -25,3 +25,4 @@
 /config/application.yml
 /config/database.yml
 /config/secrets.yml
+/node_modules/

@@ -15,7 +15,7 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require turbolinks
-//= require d3.v3
-//= require nv.d3
+//= require d3/d3
+//= require nvd3
 //= require dagre-d3
 //= require_tree .
