@@ -85,8 +85,8 @@ describe Championship do
         #   L
         @championship.start!
         @championship.matches.group(:bracket).count.must_equal(
-          Match.brackets[:winners] => 3,
-          Match.brackets[:losers]  => 1
+          'winners' => 3,
+          'losers'  => 1
         )
       end
 
@@ -121,8 +121,8 @@ describe Championship do
         #   L
         @championship.start!
         @championship.matches.group(:bracket).count.must_equal(
-          Match.brackets[:winners] => 7,
-          Match.brackets[:losers]  => 5
+          'winners' => 7,
+          'losers'  => 5
         )
       end
 
@@ -159,8 +159,8 @@ describe Championship do
         # L-L
         @championship.start!
         @championship.matches.group(:bracket).count.must_equal(
-          Match.brackets[:winners] => 8,
-          Match.brackets[:losers]  => 6
+          'winners' => 8,
+          'losers'  => 6
         )
       end
 
@@ -245,8 +245,8 @@ describe Championship do
         @championship.reload.ended_at.must_equal nil
         game.match.wont_equal nil
         @championship.matches.group(:bracket).count.must_equal(
-          Match.brackets[:winners] => 4,
-          Match.brackets[:losers]  => 1
+          'winners' => 4,
+          'losers'  => 1
         )
       end
 
@@ -274,8 +274,8 @@ describe Championship do
         @championship.log_game!(game)
         @championship.reload.ended_at.wont_equal nil
         @championship.matches.group(:bracket).count.must_equal(
-          Match.brackets[:winners] => 4,
-          Match.brackets[:losers]  => 1
+          'winners' => 4,
+          'losers'  => 1
         )
       end
 

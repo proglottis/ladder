@@ -1,16 +1,15 @@
 class Match < ApplicationRecord
   belongs_to :championship
-  belongs_to :game
-  belongs_to :player1, class_name: 'Player'
-  belongs_to :player2, class_name: 'Player'
-  belongs_to :winners_match, class_name: 'Match'
-  belongs_to :losers_match, class_name: 'Match'
+  belongs_to :game, optional: true
+  belongs_to :player1, class_name: 'Player', optional: true
+  belongs_to :player2, class_name: 'Player', optional: true
+  belongs_to :winners_match, class_name: 'Match', optional: true
+  belongs_to :losers_match, class_name: 'Match', optional: true
 
   has_many :previous_matches, class_name: 'Match', foreign_key: 'winners_match_id'
 
   enum bracket: [:winners, :losers]
 
-  validates_presence_of :championship
   validates_presence_of :bracket
 
   def self.incomplete

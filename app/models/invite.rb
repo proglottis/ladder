@@ -4,7 +4,7 @@ class Invite < ApplicationRecord
   OWNER_LIMIT = 10
 
   belongs_to :owner, :class_name => 'User'
-  belongs_to :user
+  belongs_to :user, optional: true
   belongs_to :tournament
 
   validates_presence_of :tournament_id, :code, :email

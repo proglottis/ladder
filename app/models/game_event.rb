@@ -1,5 +1,5 @@
 class GameEvent < ApplicationRecord
-  belongs_to :game, touch: true
+  belongs_to :game, touch: true, optional: true
 
   validates_inclusion_of :state, in: Game::STATES
 

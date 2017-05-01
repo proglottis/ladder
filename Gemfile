@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.0.1'
+gem 'rails', '5.1.0'
 
 gem 'pg'
 gem 'sass-rails'
@@ -33,6 +33,7 @@ gem 'capistrano-bundler'
 gem 'capistrano-passenger'
 
 group :test, :development do
+  gem 'listen'
   gem 'minitest-spec-rails'
   gem 'capybara_minitest_spec'
   gem 'factory_girl_rails', '~> 4.0'

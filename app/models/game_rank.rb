@@ -1,5 +1,5 @@
 class GameRank < ApplicationRecord
-  belongs_to :game, touch: true
+  belongs_to :game, touch: true, optional: true
   belongs_to :player
 
   has_one :user, :through => :player

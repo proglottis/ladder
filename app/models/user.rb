@@ -2,7 +2,7 @@ class User < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_canditates, use: :slugged
 
-  belongs_to :preferred_service, :class_name => 'Service'
+  belongs_to :preferred_service, class_name: 'Service', optional: true
   has_many :services
   has_many :players
   has_many :invite_requests, :dependent => :destroy
