@@ -28,7 +28,6 @@
 
 .championships {
 	svg.bracket {
-
 		.node rect {
 			stroke: #333;
 			stroke-width: 1.5px;
@@ -38,6 +37,7 @@
 		.node div {
 			padding: 5px;
 			text-align: center;
+			color: #333;
 		}
 
 		.edgeLabel rect {

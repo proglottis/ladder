@@ -17,5 +17,5 @@
 //= require turbolinks
 //= require d3/d3
 //= require nvd3
-//= require dagre-d3
+//= require dagre-d3/dist/dagre-d3
 //= require_tree .

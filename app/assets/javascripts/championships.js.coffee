@@ -22,26 +22,26 @@ class MatchPresenter
     "#{player1.profile_tag()}<br>vs<br>#{player2.profile_tag()}"
 
 initChampionshipGraph = (id, url) ->
-  g = new dagreD3.Digraph()
+  g = new dagreD3.graphlib.Graph()
+  g.setGraph({
+    rankdir: "LR",
+  })
+  g.setDefaultEdgeLabel(-> {})
 
   $.get(url).success (bracket)->
     for match in bracket
       presenter = new MatchPresenter(match)
-      g.addNode("match_#{match.id}", label: presenter.match_tag(), width: 200)
+      g.setNode("match_#{match.id}", labelType: "html", label: presenter.match_tag(), width: 150)
 
     for match in bracket
       if match.winners_match_id
-        g.addEdge(null, "match_#{match.id}", "match_#{match.winners_match_id}")
+        g.setEdge("match_#{match.id}", "match_#{match.winners_match_id}")
 
-    layout = dagreD3.layout().rankDir("LR")
-
-    renderer = new dagreD3.Renderer().layout(layout)
-    renderer.run(g, d3.select("##{id} g"))
+    render = new dagreD3.render()
+    render(d3.select("##{id} g"), g)
 
     bbox = d3.select("##{id}").node().children[0].getBBox()
     d3.select("##{id}")
-      .attr("height", bbox.height + 40)
-      .attr("width", bbox.width + 40)
       .attr("viewBox", "0 0 " + (bbox.width + 40) + " " + (bbox.height + 40))
       .attr("preserveAspectRatio", "xMinYMin meet")
 
