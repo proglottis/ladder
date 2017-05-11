@@ -1,6 +1,6 @@
-require File.expand_path("../test_helper", File.dirname(__FILE__))
+require "application_system_test_case"
 
-class TournamentsIntegrationTest < ActionDispatch::IntegrationTest
+class TournamentsTest < ApplicationSystemTestCase
   before do
     @service = login_service
   end
@@ -12,37 +12,41 @@ class TournamentsIntegrationTest < ActionDispatch::IntegrationTest
 
     it "must show tournaments" do
       visit tournaments_path
+      click_link I18n.t('tournaments.index.title')
       @tournaments.each do |tournament|
-        must_have_link tournament.name
+        assert_link tournament.name
       end
-      must_have_link I18n.t('tournaments.index.start')
+      assert_link I18n.t('tournaments.index.start')
     end
   end
 
   describe "creation" do
     it "must be created" do
       visit tournaments_path
+      click_link I18n.t('tournaments.index.title')
       click_link I18n.t('tournaments.index.start')
       fill_in 'Name', :with => 'Test Tournament'
       select "Glicko2", from: "tournament_ranking_type"
       click_button I18n.t('helpers.submit.tournament.create')
-      must_have_content 'Test Tournament'
+      assert_text 'Test Tournament'
     end
 
     it "must fail with empty name" do
       visit tournaments_path
+      click_link I18n.t('tournaments.index.title')
       click_link I18n.t('tournaments.index.start')
       click_button I18n.t('helpers.submit.tournament.create')
-      must_have_content I18n.t('tournaments.new.title')
+      assert_text I18n.t('tournaments.new.title')
     end
 
     it "must be created" do
       visit tournaments_path
+      click_link I18n.t('tournaments.index.title')
       click_link I18n.t('tournaments.index.start')
       fill_in 'Name', :with => 'Test Tournament'
       select "King of the hill", from: "tournament_ranking_type"
       click_button I18n.t('helpers.submit.tournament.create')
-      must_have_content 'Test Tournament'
+      assert_text 'Test Tournament'
     end
   end
 
@@ -54,7 +58,7 @@ class TournamentsIntegrationTest < ActionDispatch::IntegrationTest
     it "must let owner join" do
       visit tournament_path(@tournament)
       click_link I18n.t('layouts.tournament_title.join.link')
-      wont_have_link I18n.t('layouts.tournaments_title.join.link')
+      refute_link I18n.t('layouts.tournaments_title.join.link')
     end
   end
 
@@ -74,13 +78,13 @@ class TournamentsIntegrationTest < ActionDispatch::IntegrationTest
       click_link I18n.t('tournaments.admin.title')
       fill_in 'Name', :with => 'New Name'
       click_button I18n.t('helpers.submit.update')
-      must_have_content 'New Name'
+      assert_text 'New Name'
     end
 
     it "wont let others update" do
       @tournament.update_attributes :owner => @other_user
       visit tournament_path(@tournament)
-      wont_have_link I18n.t('tournaments.admin.title')
+      refute_link I18n.t('tournaments.admin.title')
     end
 
     it "transfers ownership to others via update" do
@@ -90,7 +94,7 @@ class TournamentsIntegrationTest < ActionDispatch::IntegrationTest
       click_link I18n.t('tournaments.admin.title')
       select @other_user.name, from: "tournament_owner_id"
       click_button I18n.t('helpers.submit.update')
-      must_have_content 'Ownership of the tournament has been transferred. You are no longer the owner of the tournament.'
+      assert_text 'Ownership of the tournament has been transferred. You are no longer the owner of the tournament.'
     end
   end
 end

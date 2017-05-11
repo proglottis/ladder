@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '5.1.0'
 
 gem 'pg'
+gem 'puma', '~> 3.7'
 gem 'sass-rails'
 gem 'sprockets', '3.6.3' # remove when fixed: DEPRECATION WARNING: Sprockets method `register_engine` is deprecated.
 gem 'coffee-rails'
@@ -35,7 +36,9 @@ gem 'capistrano-passenger'
 group :test, :development do
   gem 'listen'
   gem 'minitest-spec-rails'
-  gem 'capybara_minitest_spec'
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'capybara', '~> 2.13.0'
+  gem 'selenium-webdriver'
   gem 'factory_girl_rails', '~> 4.0'
 end
 gem 'spring', group: :development

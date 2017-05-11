@@ -1,6 +1,6 @@
-require "test_helper"
+require "application_system_test_case"
 
-class InvitesIntegrationTest < ActionDispatch::IntegrationTest
+class InvitesTest < ApplicationSystemTestCase
   before do
     @service = login_service
     @tournament = create(:started_tournament)
@@ -17,7 +17,7 @@ class InvitesIntegrationTest < ActionDispatch::IntegrationTest
       visit new_tournament_invite_path @tournament
       fill_in Invite.human_attribute_name("email"), :with => "user@example.com"
       click_button Invite.model_name.human
-      must_have_content @tournament.name
+      assert_text @tournament.name
       Invite.last.email.must_equal "user@example.com"
     end
 
@@ -25,7 +25,7 @@ class InvitesIntegrationTest < ActionDispatch::IntegrationTest
       visit new_tournament_invite_path @tournament
       fill_in Invite.human_attribute_name("email"), :with => "user@example.com"
       click_button Invite.model_name.human
-      must_have_content @tournament.name
+      assert_text @tournament.name
       ActionMailer::Base.deliveries.length.must_equal 1
       email = ActionMailer::Base.deliveries.first
       email.to.must_equal ["user@example.com"]
@@ -39,16 +39,16 @@ class InvitesIntegrationTest < ActionDispatch::IntegrationTest
 
     it "must show invite page" do
       visit tournament_invite_path @tournament, @invite
-      must_have_content @tournament.name
-      must_have_button I18n.t("helpers.submit.invite.update")
-      must_have_link I18n.t("helpers.cancel_link")
+      assert_text @tournament.name
+      assert_button I18n.t("helpers.submit.invite.update")
+      assert_link I18n.t("helpers.cancel_link")
     end
 
     it "must join player" do
       visit tournament_invite_path @tournament, @invite
       click_button I18n.t("helpers.submit.invite.update")
-      must_have_content @tournament.name
-      must_have_content @user.name
+      assert_text @tournament.name
+      assert_text @user.name
     end
   end
 

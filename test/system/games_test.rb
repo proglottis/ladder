@@ -1,6 +1,6 @@
-require "test_helper"
+require "application_system_test_case"
 
-class GamesIntegrationTest < ActionDispatch::IntegrationTest
+class GamesTest < ApplicationSystemTestCase
   before do
     @service = login_service
     @tournament = create(:started_tournament)
@@ -14,15 +14,17 @@ class GamesIntegrationTest < ActionDispatch::IntegrationTest
   describe "creation" do
     it "must be created" do
       visit tournament_path @tournament
+      find('a.dropdown-toggle span.caret').click
       click_link I18n.t('tournaments.show.log_a_game')
       click_button I18n.t('helpers.submit.create')
-      must_have_content @rating1.user.name
-      must_have_content @rating2.user.name
-      must_have_content I18n.t('games.game_rank.unconfirmed')
+      assert_text @rating1.user.name
+      assert_text @rating2.user.name
+      assert_text I18n.t('games.game_rank.unconfirmed')
     end
 
     it "must send confirmation email" do
       visit tournament_path @tournament
+      find('a.dropdown-toggle span.caret').click
       click_link I18n.t('tournaments.show.log_a_game')
       click_button I18n.t('helpers.submit.create')
       ActionMailer::Base.deliveries.length.must_equal 1
@@ -41,7 +43,7 @@ class GamesIntegrationTest < ActionDispatch::IntegrationTest
     it "must be confirmed" do
       visit game_path @game
       click_button I18n.t('games.show.confirm')
-      must_have_content I18n.t('games.game_rank.confirmed', :time => 'less than a minute')
+      assert_text I18n.t('games.game_rank.confirmed', :time => 'less than a minute')
     end
 
     describe "on final confirmation" do
@@ -78,13 +80,10 @@ class GamesIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       it "must respond" do
-        must_have_content I18n.t('games.game_rank.confirmed', :time => 'less than a minute')
-      end
-
-      it "must send confirmation email" do
-        ActionMailer::Base.deliveries.length.must_equal 1
+        assert_text I18n.t('games.game_rank.confirmed', :time => 'less than a minute')
+        assert_equal 1, ActionMailer::Base.deliveries.length
         email = ActionMailer::Base.deliveries.first
-        email.to.must_equal [@player2.user.email]
+        assert_equal [@player2.user.email], email.to
       end
     end
 
@@ -96,13 +95,10 @@ class GamesIntegrationTest < ActionDispatch::IntegrationTest
       end
 
       it "must respond" do
-        must_have_content I18n.t('games.game_rank.confirmed', :time => 'less than a minute')
-      end
-
-      it "must send confirmation email" do
-        ActionMailer::Base.deliveries.length.must_equal 1
+        assert_text I18n.t('games.game_rank.confirmed', :time => 'less than a minute')
+        assert_equal 1, ActionMailer::Base.deliveries.length
         email = ActionMailer::Base.deliveries.first
-        email.to.must_equal [@player2.user.email]
+        assert_equal [@player2.user.email], email.to
       end
     end
   end

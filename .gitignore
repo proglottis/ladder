@@ -18,6 +18,7 @@
 .ruby-version
 .ruby-gemset
 .DS_Store
+.byebug_history
 
 /public/sitemap.xml.gz
 
