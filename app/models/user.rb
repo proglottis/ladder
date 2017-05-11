@@ -17,7 +17,7 @@ class User < ApplicationRecord
   end
 
   def anonymize
-    update_attributes :name => "User #{id}", :email => "user_#{id}@example.com", :slug => nil
+    update_attributes! :name => "User #{id}", :email => "user_#{id}@example.com", :slug => nil
   end
 
   def slug_canditates

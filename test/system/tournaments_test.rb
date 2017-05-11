@@ -82,7 +82,7 @@ class TournamentsTest < ApplicationSystemTestCase
     end
 
     it "wont let others update" do
-      @tournament.update_attributes :owner => @other_user
+      @tournament.update_attributes! :owner => @other_user
       visit tournament_path(@tournament)
       refute_link I18n.t('tournaments.admin.title')
     end

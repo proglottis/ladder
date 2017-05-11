@@ -262,8 +262,8 @@ describe Game do
 
     describe "streaks" do
       it "must increment players winning/losing streaks when game is confirmed" do
-        @player1.update_attributes :winning_streak_count => 5, :losing_streak_count => 0
-        @player2.update_attributes :winning_streak_count => 0, :losing_streak_count => 5
+        @player1.update_attributes! :winning_streak_count => 5, :losing_streak_count => 0
+        @player2.update_attributes! :winning_streak_count => 0, :losing_streak_count => 5
         @game.confirm_user(@user1)
         @game.confirm_user(@user2)
         @player1.reload.winning_streak_count.must_equal 6
@@ -273,8 +273,8 @@ describe Game do
       end
 
       it "must reset players winning/losing streaks when game is confirmed" do
-        @player1.update_attributes :winning_streak_count => 0, :losing_streak_count => 5
-        @player2.update_attributes :winning_streak_count => 5, :losing_streak_count => 0
+        @player1.update_attributes! :winning_streak_count => 0, :losing_streak_count => 5
+        @player2.update_attributes! :winning_streak_count => 5, :losing_streak_count => 0
         @game.confirm_user(@user1)
         @game.confirm_user(@user2)
         @player1.reload.winning_streak_count.must_equal 1
@@ -284,9 +284,9 @@ describe Game do
       end
 
       it "must reset all streaks when game is a draw" do
-        @game_rank2.update_attributes :position => 1
-        @player1.update_attributes :winning_streak_count => 5, :losing_streak_count => 0
-        @player2.update_attributes :winning_streak_count => 5, :losing_streak_count => 0
+        @game_rank2.update_attributes! :position => 1
+        @player1.update_attributes! :winning_streak_count => 5, :losing_streak_count => 0
+        @player2.update_attributes! :winning_streak_count => 5, :losing_streak_count => 0
         @game.confirm_user(@user1)
         @game.confirm_user(@user2)
         @player1.reload.winning_streak_count.must_equal 0

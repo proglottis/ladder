@@ -212,7 +212,7 @@ describe Championship do
 
     it "returns newly allocated losers match" do
       match = @championship.matches.losers.first
-      match.update_attributes(player1: @player3)
+      match.update_attributes!(player1: @player3)
       result = @championship.log_game!(@game)
       result.must_include match
       result.length.must_equal 2

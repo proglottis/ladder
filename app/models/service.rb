@@ -8,6 +8,6 @@ class Service < ApplicationRecord
   end
 
   def anonymize
-    update_attributes :name => "User #{id}", :email => "user_#{id}@example.com", :provider => 'developer', :uid => "user_#{id}@example.com", :first_name => nil, :last_name => nil, :image_url => nil
+    update_attributes! :name => "User #{id}", :email => "user_#{id}@example.com", :provider => 'developer', :uid => "user_#{id}@example.com", :first_name => nil, :last_name => nil, :image_url => nil
   end
 end
