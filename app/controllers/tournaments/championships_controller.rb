@@ -44,7 +44,7 @@ class Tournaments::ChampionshipsController < ApplicationController
   def join
     @player = @championship.tournament.players.active.find_by!(user_id: current_user)
     @championship.championship_players.create!(player: @player)
-    redirect_to :back
+    redirect_back
   end
 
   def create
@@ -52,7 +52,7 @@ class Tournaments::ChampionshipsController < ApplicationController
     if @championship.save
       redirect_to tournament_championship_path(@tournament)
     else
-      redirect_to :back
+      redirect_back
     end
   end
 
@@ -64,7 +64,7 @@ class Tournaments::ChampionshipsController < ApplicationController
         Notifications.championship_match(match.player2.user, match).deliver_now
       end
     end
-    redirect_to :back
+    redirect_back
   end
 
   private
