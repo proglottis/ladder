@@ -5,7 +5,6 @@ gem 'rails', '5.1.0'
 gem 'pg'
 gem 'puma', '~> 3.7'
 gem 'sass-rails'
-gem 'sprockets', '3.6.3' # remove when fixed: DEPRECATION WARNING: Sprockets method `register_engine` is deprecated.
 gem 'coffee-rails'
 gem 'therubyracer', platforms: :ruby
 gem 'uglifier', '>= 1.3.0'

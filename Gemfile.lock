@@ -300,7 +300,6 @@ DEPENDENCIES
   selenium-webdriver
   sitemap_generator
   spring
-  sprockets (= 3.6.3)
   therubyracer
   turbolinks
   uglifier (>= 1.3.0)
