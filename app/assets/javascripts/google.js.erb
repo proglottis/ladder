@@ -1,0 +1,33 @@
+// Google API forces this function to be in the global namespace
+function laddersGoogleStart() {
+  gapi.load('auth2', function() {
+    auth2 = gapi.auth2.init({
+      client_id: '<%= Rails.application.secrets.google_key %>',
+      scope: 'profile email'
+    });
+  });
+}
+
+(function() {
+  function signIn(authResult) {
+    if (!authResult.code) {
+      return
+    }
+    $.ajax({
+      type: 'POST',
+      url: '/auth/google',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      data: {code: authResult.code}
+    });
+  }
+
+  function error(error) {
+    console.log(error);
+  }
+
+  $(document).on('click', '#googleLogin', function() {
+    auth2.grantOfflineAccess().then(signIn, error);
+  });
+})();

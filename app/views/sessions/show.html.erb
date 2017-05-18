@@ -5,7 +5,7 @@
 
 <div class="btn-group-vertical" data-no-turbolink>
   <% unless Rails.env.production? %>
-    <%= link_to '/auth/developer', :rel => 'external', :class => 'btn btn-default btn-lg' do %><%= glyph 'sign-blank' %> <%= t '.login_with', :name => 'Developer'%><% end %>
+    <%= link_to '/auth/developer', :rel => 'external', :class => 'btn btn-default btn-lg', :data => {turbolinks: false} do %><%= glyph 'sign-blank' %> <%= t '.login_with', :name => 'Developer'%><% end %>
   <% end %>
-  <%= link_to '/auth/google_oauth2', :rel => 'external', :class => 'btn btn-default btn-lg' do%><%= glyph 'google-plus' %> <%= t '.login_with', :name => 'Google'%><% end %>
+  <%= button_tag :id => 'googleLogin', :rel => 'external', :class => 'btn btn-default btn-lg' do%><%= glyph 'google-plus' %> <%= t '.login_with', :name => 'Google'%><% end %>
 </div>

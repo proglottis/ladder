@@ -16,8 +16,9 @@ Rails.application.routes.draw do
   get 'auth/:service/callback' => 'sessions#callback'
   post 'auth/:service/callback' => 'sessions#callback'
   get 'auth/failure' => 'sessions#failure'
+  post 'auth/google' => 'sessions#google'
   get 'logout' => 'sessions#destroy'
-  resource :session, :only => [:show, :create, :destroy]
+  resource :session, :only => [:show, :create, :destroy, :new]
 
   resource :home, :only => [:show]
 
