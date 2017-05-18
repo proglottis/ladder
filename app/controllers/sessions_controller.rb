@@ -68,24 +68,8 @@ class SessionsController < ApplicationController
       return
     end
 
-    access_token_uri = URI('https://accounts.google.com/o/oauth2/token')
-    people_api_uri = URI('https://www.googleapis.com/plus/v1/people/me/openIdConnect')
-
-    access_token_response = Net::HTTP.post_form(access_token_uri, {
-      code: params['code'],
-      client_id: Rails.application.secrets.google_key,
-      client_secret: Rails.application.secrets.google_secret,
-      redirect_uri: root_url.chomp('/'),
-      grant_type: 'authorization_code'
-    })
-    token = JSON.parse(access_token_response.body)
-
-    profile_request = Net::HTTP::Get.new(people_api_uri)
-    profile_request['Authorization'] = "#{token['token_type']} #{token['access_token']}"
-    profile_response = Net::HTTP.start(people_api_uri.hostname, people_api_uri.port, use_ssl: people_api_uri.scheme == 'https') do |http|
-      http.request(profile_request)
-    end
-    profile = JSON.parse(profile_response.body)
+    authenticator = GoogleAuthenticator.new
+    profile = authenticator.fetch_profile(params['code'], redirect_uri: root_url.chomp('/'))
 
     if !profile['sub']
       redirect_to auth_failure_path
