@@ -7,7 +7,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 
 module Ladder
-  VERSION = "1.6.20"
+  VERSION = "1.6.21"
 
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
