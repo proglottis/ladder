@@ -40,7 +40,7 @@ class TournamentsController < ApplicationController
     end
     @rating_period = @tournament.current_rating_period
     @player = @tournament.players.active.find_by(user_id: current_user)
-    @ratings = @rating_period.ratings.includes(:user, {:rating_period => :tournament}).active_by_position
+    @ratings = @rating_period.ratings.includes(:user, :player => :tournament).active_by_position
     @rating_ranks = @ratings.group_by { |rating| rating.player.position }
     @rating = @ratings.detect { |rating| rating.player_id == @player.id } if @player.present?
     @suggested_game = GameSuggester.new(@rating, @ratings).suggest if @player && @player.game_ranks.created_today.empty?

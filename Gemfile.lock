@@ -49,6 +49,9 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     arel (8.0.0)
     builder (3.2.3)
+    bullet (5.5.1)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.10.0)
     byebug (9.0.6)
     capistrano (3.6.1)
       airbrussh (>= 1.0.0)
@@ -255,6 +258,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (3.0.2)
       execjs (>= 0.3.0, < 3)
+    uniform_notifier (1.10.0)
     websocket (1.2.4)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
@@ -269,6 +273,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  bullet
   byebug
   capistrano (~> 3.6.1)
   capistrano-bundler

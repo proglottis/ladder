@@ -28,7 +28,7 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game_ranks = @game.game_ranks.includes(:user)
+    @game_ranks = @game.game_ranks
     @current_game_rank = @game_ranks.detect {|game_rank| game_rank.user.id == current_user.id }
     @comments = @game.comments
     @championship = @game.match.try(:championship)
@@ -53,7 +53,7 @@ class GamesController < ApplicationController
   private
 
   def find_game_and_tournament
-    @game = Game.find(params[:id])
+    @game = Game.includes(:events, {:comments => :user}, {:game_ranks => [{:player => :user}, :user]}).find(params[:id])
     @tournament = Tournament.with_rated_user(current_user).friendly.find(@game.tournament_id)
   end
 end
