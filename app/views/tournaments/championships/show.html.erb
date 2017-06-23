@@ -31,6 +31,7 @@
   <% if @championship.ended? %>
     <h2><%= t '.champions' %></h2>
     <ol>
+      <li><%= profile_link_tag User.find(1) %></li>
       <% @championship.champions.each do |player| %>
         <li><%= profile_link_tag player.user %></li>
       <% end %>
