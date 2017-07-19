@@ -90,7 +90,7 @@ class SessionsController < ApplicationController
     if auth && auth.update_attributes(@authhash)
       authenticate_and_redirect(auth.user, auth)
     else
-      redirect_to auth_failure_path
+      redirect_to new_session_path
     end
   end
 
