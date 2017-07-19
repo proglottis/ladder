@@ -40,7 +40,7 @@ class Championship < ApplicationRecord
   def start!
     with_lock do
       matches.destroy_all
-      players_array = players.to_a
+      players_array = players.to_a.shuffle
       if players_array.length <= 2
         match = matches.winners.build
         players.each do |player|

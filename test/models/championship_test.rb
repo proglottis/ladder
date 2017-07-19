@@ -182,7 +182,7 @@ describe Championship do
       create(:championship_player, championship: @championship, player: @player2)
       create(:championship_player, championship: @championship, player: @player3)
       @championship.start!
-      @match = @championship.matches.winners.where.not(player1_id: nil, player2_id: nil).first!
+      @match = @championship.matches.incomplete.allocated.first!
       @game = create(:confirmed_game, tournament: @tournament)
       create(:game_rank, game: @game, player: @match.player1, position: 1)
       create(:game_rank, game: @game, player: @match.player2, position: 2)
@@ -203,88 +203,75 @@ describe Championship do
       @championship.matches.losers.find_by!(player1: @match.player2)
     end
 
-    it "returns newly allocated winners match" do
+    it "returns newly allocated matches" do
       match = @championship.matches.where(player1: [@player1, @player2, @player3], player2: nil).first!
       result = @championship.log_game!(@game)
       result.must_include match
       result.length.must_equal 1
     end
 
-    it "returns newly allocated losers match" do
-      match = @championship.matches.losers.first
-      match.update_attributes!(player1: @player3)
-      result = @championship.log_game!(@game)
-      result.must_include match
-      result.length.must_equal 2
-    end
-
     describe "final" do
       before do
         # First winners game
+        match = @championship.matches.incomplete.allocated.winners.first!
         game = create(:confirmed_game, tournament: @tournament)
-        create(:game_rank, game: game, player: @player1, position: 1)
-        create(:game_rank, game: game, player: @player2, position: 2)
+        create(:game_rank, game: game, player: match.player1, position: 1)
+        create(:game_rank, game: game, player: match.player2, position: 2)
         @championship.log_game!(game)
         # Second winners game
+        match = @championship.matches.incomplete.allocated.winners.first!
         game = create(:confirmed_game, tournament: @tournament)
-        create(:game_rank, game: game, player: @player1, position: 1)
-        create(:game_rank, game: game, player: @player3, position: 2)
+        create(:game_rank, game: game, player: match.player1, position: 1)
+        create(:game_rank, game: game, player: match.player2, position: 2)
         @championship.log_game!(game)
         # Losers game
+        match = @championship.matches.incomplete.allocated.losers.first!
         game = create(:confirmed_game, tournament: @tournament)
-        create(:game_rank, game: game, player: @player2, position: 1)
-        create(:game_rank, game: game, player: @player3, position: 2)
+        create(:game_rank, game: game, player: match.player1, position: 1)
+        create(:game_rank, game: game, player: match.player2, position: 2)
         @championship.log_game!(game)
       end
 
       it "adds a special final match when the loser of the final has not lost before" do
+        previous_matches = @championship.matches.to_a
+        match = @championship.matches.incomplete.allocated.winners.first!
+        previous_winning_player = match.previous_matches.winners.first!.game.game_ranks.min_by(&:position).player
+        other_player = previous_winning_player == match.player1 ? match.player2 : match.player1
         game = create(:confirmed_game, tournament: @tournament)
-        create(:game_rank, game: game, player: @player2, position: 1)
-        create(:game_rank, game: game, player: @player1, position: 2)
-        @championship.log_game!(game)
+        create(:game_rank, game: game, player: other_player, position: 1)
+        create(:game_rank, game: game, player: previous_winning_player, position: 2)
+        result = @championship.log_game!(game)
         assert_nil @championship.reload.ended_at
-        game.match.wont_equal nil
-        @championship.matches.group(:bracket).count.must_equal(
+        refute_nil game.match
+        assert_equal({
           'winners' => 4,
           'losers'  => 1
-        )
-      end
-
-      it "returns the special final match" do
-        previous_matches = @championship.matches.to_a
-        game = create(:confirmed_game, tournament: @tournament)
-        create(:game_rank, game: game, player: @player2, position: 1)
-        create(:game_rank, game: game, player: @player1, position: 2)
-        result = @championship.log_game!(game)
+        }, @championship.matches.group(:bracket).count)
         previous_matches.each do |match|
-          result.wont_include match
+          refute_includes result, match
         end
-        result.length.must_equal 1
+        assert_equal 1, result.length
       end
 
       it "wont add a special final match when one has already been created" do
+        match = @championship.matches.incomplete.allocated.winners.first!
+        previous_winning_player = match.previous_matches.winners.first!.game.game_ranks.min_by(&:position).player
+        other_player = previous_winning_player == match.player1 ? match.player2 : match.player1
         game = create(:confirmed_game, tournament: @tournament)
-        create(:game_rank, game: game, player: @player2, position: 1)
-        create(:game_rank, game: game, player: @player1, position: 2)
+        create(:game_rank, game: game, player: previous_winning_player, position: 1)
+        create(:game_rank, game: game, player: other_player, position: 2)
         @championship.log_game!(game)
         @championship.reload
         game = create(:confirmed_game, tournament: @tournament)
-        create(:game_rank, game: game, player: @player1, position: 1)
-        create(:game_rank, game: game, player: @player2, position: 2)
+        create(:game_rank, game: game, player: other_player, position: 2)
+        create(:game_rank, game: game, player: previous_winning_player, position: 1)
         @championship.log_game!(game)
-        @championship.reload.ended_at.wont_equal nil
-        @championship.matches.group(:bracket).count.must_equal(
-          'winners' => 4,
-          'losers'  => 1
-        )
-      end
 
-      it "sets the ended_at flag" do
-        game = create(:confirmed_game, tournament: @tournament)
-        create(:game_rank, game: game, player: @player1, position: 1)
-        create(:game_rank, game: game, player: @player2, position: 2)
-        @championship.log_game!(game)
-        @championship.reload.ended_at.wont_equal nil
+        refute_nil @championship.reload.ended_at
+        assert_equal({
+          'winners' => 3,
+          'losers'  => 1
+        }, @championship.matches.group(:bracket).count)
       end
     end
   end
