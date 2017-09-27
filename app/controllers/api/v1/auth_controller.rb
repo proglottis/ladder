@@ -8,7 +8,7 @@ class AuthController < ApiController
     profile = authenticator.fetch_profile(
       params['code'],
       client_id: params['clientId'],
-      redirect_uri: params['redirectUri']
+      redirect_uri: params['redirectUri'] || root_url.chomp('/')
     )
     service = Service.find_by(provider: 'google_oauth2', uid: profile['sub'])
 
