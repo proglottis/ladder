@@ -1,22 +1,20 @@
 module Api::V1
 
-class ApiController < ActionController::Base
+class ApiController < ActionController::API
 
   class BadToken < StandardError; end
 
   before_action :authenticate_user!
 
-  helper_method :current_user
+  protected
+
   def current_user
     @current_user
   end
 
-  helper_method :user_logged_in?
   def user_logged_in?
     current_user != nil
   end
-
-  protected
 
   def require_user!
     authorization = request.headers['Authorization']
