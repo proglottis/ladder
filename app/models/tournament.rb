@@ -31,13 +31,15 @@ class Tournament < ApplicationRecord
     tournaments = arel_table
     players = Player.arel_table
     invites = Invite.arel_table
+    conditions = tournaments[:owner_id].eq(user.id).
+      or(players[:user_id].eq(user.id)).
+      or(invites[:user_id].eq(user.id)).
+      or(invites[:email].eq(user.email)).
+      or(tournaments[:domain].not_eq(nil).and(tournaments[:domain].eq(user.domain)))
     joins(tournaments.join(invites, Arel::Nodes::OuterJoin).on(invites[:tournament_id].eq(tournaments[:id])).
           join(players, Arel::Nodes::OuterJoin).on(players[:tournament_id].eq(tournaments[:id])).
           join_sources).
-      where(tournaments[:owner_id].eq(user.id).
-            or(players[:user_id].eq(user.id)).
-            or(invites[:user_id].eq(user.id)).
-            or(invites[:email].eq(user.email))).
+      where(conditions).
       distinct.readonly(false)
   end
 
@@ -45,14 +47,16 @@ class Tournament < ApplicationRecord
     tournaments = arel_table
     players = Player.arel_table
     invites = Invite.arel_table
+    conditions = tournaments[:owner_id].eq(user.id).
+      or(players[:user_id].eq(user.id)).
+      or(invites[:user_id].eq(user.id)).
+      or(invites[:email].eq(user.email)).
+      or(tournaments[:domain].not_eq(nil).and(tournaments[:domain].eq(user.domain))).
+      or(tournaments[:public].eq(true))
     joins(tournaments.join(invites, Arel::Nodes::OuterJoin).on(invites[:tournament_id].eq(tournaments[:id])).
           join(players, Arel::Nodes::OuterJoin).on(players[:tournament_id].eq(tournaments[:id])).
           join_sources).
-      where(tournaments[:owner_id].eq(user.id).
-            or(tournaments[:public].eq(true)).
-            or(players[:user_id].eq(user.id)).
-            or(invites[:user_id].eq(user.id)).
-            or(invites[:email].eq(user.email))).
+      where(conditions).
       distinct.readonly(false)
   end
 
@@ -97,12 +101,16 @@ class Tournament < ApplicationRecord
     ]
   end
 
+  def matching_domain?(user)
+    user && domain.present? && user.domain.downcase == domain.downcase
+  end
+
   def has_invite?(user)
     user && invites.where("user_id = ? OR email = ?", user.id, user.email).present?
   end
 
   def can_join?(user)
-    user && (has_invite?(user) || user.id == owner_id) && !players.find_by(user_id: user)
+    user && (matching_domain?(user) || has_invite?(user) || user.id == owner_id) && !players.find_by(user_id: user)
   end
 
   def can_request_invite?(user)

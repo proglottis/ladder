@@ -1,3 +1,5 @@
+require 'mail'
+
 class User < ApplicationRecord
   extend FriendlyId
   friendly_id :slug_canditates, use: :slugged
@@ -39,5 +41,9 @@ class User < ApplicationRecord
       user_name: name,
     }
     JWT.encode(payload, JWT.base64url_decode(Rails.application.secrets.jwt_secret))
+  end
+
+  def domain
+    Mail::Address.new(email).domain
   end
 end
