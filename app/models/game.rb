@@ -99,7 +99,7 @@ class Game < ApplicationRecord
     end
   end
 
-  def confirm_user(user)
+  def confirm_user(current_user)
     raise "Cannot confirm if game is incomplete" if incomplete? || challenged?
     tournament.with_lock do
       lock!
@@ -107,7 +107,7 @@ class Game < ApplicationRecord
       total = 0
       confirmed = 0
       game_ranks.each do |game_rank|
-        game_rank.confirm if game_rank.user == user
+        game_rank.confirm if game_rank.user == current_user || tournament.owner == current_user
         confirmed += 1 if game_rank.confirmed?
         total += 1
       end

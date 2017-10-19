@@ -259,6 +259,7 @@ en:
         url: Image URL
 
   helpers:
+    confirm_link: Confirm
     cancel_link: Cancel
     submit:
       create: Create

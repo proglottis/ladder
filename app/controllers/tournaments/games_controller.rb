@@ -7,6 +7,13 @@ class Tournaments::GamesController < ApplicationController
   def index
   end
 
+  def confirm
+    @game = @games.find(params[:game_id])
+    GameConfirmer.new(current_user, @game).confirm
+
+    redirect_to tournament_games_path(@tournament)
+  end
+
   def destroy
     @games.find(params[:id]).destroy
     redirect_to tournament_games_path(@tournament)

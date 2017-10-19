@@ -295,6 +295,20 @@ describe Game do
         @player2.reload.losing_streak_count.must_equal 0
       end
     end
+
+    describe "when the tournament owner confirms a game" do
+      before do
+        assert_includes(Game.unconfirmed, @game)
+      end
+
+      it "confirms the game" do
+        @game.confirm_user(@tournament.owner)
+
+        assert_not_includes(Game.unconfirmed, @game)
+        @game_rank1.reload.confirmed?.must_equal true
+        @game_rank2.reload.confirmed?.must_equal true
+      end
+    end
   end
 
   describe "#expire_challenge!" do

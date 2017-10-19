@@ -34,7 +34,9 @@ Rails.application.routes.draw do
     end
     scope :module => "tournaments" do
       resources :invites, :only => [:show, :new, :create, :update]
-      resources :games, :only => [:index, :destroy]
+      resources :games, :only => [:index, :destroy] do
+        get :confirm
+      end
       resources :players, :only => [:index, :update, :destroy]
       resources :invite_requests, :only => [:index, :create, :update]
       resource :championship do

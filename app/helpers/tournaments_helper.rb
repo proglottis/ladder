@@ -33,4 +33,8 @@ module TournamentsHelper
   def pending_invite_requests_count(tournament)
     badge tournament.invite_requests.not_completed.count
   end
+
+  def unconfirmed_games_count(tournament)
+    badge tournament.games.unconfirmed.count
+  end
 end

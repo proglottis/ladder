@@ -3,12 +3,16 @@ module ApplicationHelper
     image_tag gravatar_image_url(email, size), opts.merge!(:size => "#{size}x#{size}")
   end
 
+  def confirm_link(path)
+    link_to t('helpers.confirm_link'), path, :class => 'btn btn-success'
+  end
+
   def cancel_link(path)
     link_to t('helpers.cancel_link'), path, :class => 'btn btn-default'
   end
 
   def delete_link(path)
-    link_to t('helpers.submit.delete'), path, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger pull-right'
+    link_to t('helpers.submit.delete'), path, method: :delete, data: {confirm: 'Are you sure?'}, :class => 'btn btn-danger'
   end
 
   def markdown(text)
