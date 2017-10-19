@@ -1,19 +1,23 @@
 class Tournaments::ChampionshipsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :update, :join]
+  before_action :authenticate_user!, only: [:create, :update, :join, :destroy]
   before_action :find_tournament
   before_action :find_championship, except: [:create]
-  before_action :require_owner!, only: [:create, :update]
+  before_action :require_owner!, only: [:create, :update, :destroy]
 
   layout 'tournament_title', only: [:show]
 
   def show
-    @players = @championship.players.includes(:user).order('users.name ASC')
-    @player = @tournament.players.active.find_by(user_id: current_user)
-    @championship_player = @players.find_by(user_id: current_user)
-    @matches = @championship.matches.incomplete.allocated
-    @next_match = @matches.with_player(@player).first
-    if @next_match
-      @next_opponent = @next_match.player1 == @player ? @next_match.player2 : @next_match.player1
+    if @championship
+      @players = @championship.players.includes(:user).order('users.name ASC')
+      @player = @tournament.players.active.find_by(user_id: current_user)
+      @championship_player = @players.find_by(user_id: current_user)
+      @matches = @championship.matches.incomplete.allocated
+      @next_match = @matches.with_player(@player).first
+      if @next_match
+        @next_opponent = @next_match.player1 == @player ? @next_match.player2 : @next_match.player1
+      end
+    else
+      redirect_to tournament_path(@tournament)
     end
   end
 
@@ -65,6 +69,11 @@ class Tournaments::ChampionshipsController < ApplicationController
       end
     end
     redirect_back fallback_location: tournament_championship_path(@tournament)
+  end
+
+  def destroy
+    @championship.destroy
+    redirect_to edit_tournament_path(@tournament)
   end
 
   private

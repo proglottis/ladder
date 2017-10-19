@@ -156,6 +156,7 @@ en:
         started: The championship started on %{time}.
         not_started: The championship will be started by the tournament owner.
         start: Start Championship
+        delete: Delete Championship
         champions: Champions
         bracket: Bracket
         match: Your next match is with %{name}.

@@ -37,7 +37,7 @@ Rails.application.routes.draw do
       resources :games, :only => [:index, :destroy]
       resources :players, :only => [:index, :update, :destroy]
       resources :invite_requests, :only => [:index, :create, :update]
-      resource :championship do
+      resource :championship, :except => [:index] do
         member do
           get :bracket
           post :join
