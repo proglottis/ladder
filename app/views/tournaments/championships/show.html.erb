@@ -18,10 +18,8 @@
     <% end %>
     <h2><%= Player.model_name.human.pluralize %></h2>
     <% if @players.any? %>
-      <ul>
-        <% @players.each do |player| %>
-          <li><%= profile_link_tag player.user %></li>
-        <% end %>
+      <ul class="list-group">
+        <%= render partial: 'player', collection: @players %>
       </ul>
     <% else %>
       <p><%= t '.no_players' %></p>

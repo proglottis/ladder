@@ -1,8 +1,8 @@
 class Tournaments::ChampionshipsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :update, :join]
+  before_action :authenticate_user!, only: [:create, :update, :join, :remove_player]
   before_action :find_tournament
   before_action :find_championship, except: [:create]
-  before_action :require_owner!, only: [:create, :update]
+  before_action :require_owner!, only: [:create, :update, :remove_player]
 
   layout 'tournament_title', only: [:show]
 
@@ -45,6 +45,12 @@ class Tournaments::ChampionshipsController < ApplicationController
     @player = @championship.tournament.players.active.find_by!(user_id: current_user)
     @championship.championship_players.create!(player: @player)
     redirect_back fallback_location: tournament_championship_path(@tournament)
+  end
+
+  def remove_player
+    championship_player = @championship.championship_players.find_by!(player_id: params[:id])
+    championship_player.destroy
+    redirect_to tournament_championship_path(@tournament)
   end
 
   def create
