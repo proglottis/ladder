@@ -41,6 +41,7 @@ Rails.application.routes.draw do
         member do
           get :bracket
           post :join
+          post '/player/:id' => "championships#remove_player", :as => :remove_player
         end
       end
     end

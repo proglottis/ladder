@@ -1,0 +1,7 @@
+<li class="list-group-item">
+  <%= profile_link_tag player.user %>
+
+  <% if @tournament.owner == current_user %>
+    <%= link_to t('.join.remove'), remove_player_tournament_championship_path(@tournament, player), class: 'btn btn-sm btn-danger pull-right', method: :post %>
+  <% end %>
+</li>
