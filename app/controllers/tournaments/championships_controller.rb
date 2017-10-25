@@ -7,17 +7,14 @@ class Tournaments::ChampionshipsController < ApplicationController
   layout 'tournament_title', only: [:show]
 
   def show
-    if @championship
-      @players = @championship.players.includes(:user).order('users.name ASC')
-      @player = @tournament.players.active.find_by(user_id: current_user)
-      @championship_player = @players.find_by(user_id: current_user)
-      @matches = @championship.matches.incomplete.allocated
-      @next_match = @matches.with_player(@player).first
-      if @next_match
-        @next_opponent = @next_match.player1 == @player ? @next_match.player2 : @next_match.player1
-      end
-    else
-      redirect_to tournament_path(@tournament)
+    return redirect_to tournament_path(@tournament) unless @championship
+    @players = @championship.players.includes(:user).order('users.name ASC')
+    @player = @tournament.players.active.find_by(user_id: current_user)
+    @championship_player = @players.find_by(user_id: current_user)
+    @matches = @championship.matches.incomplete.allocated
+    @next_match = @matches.with_player(@player).first
+    if @next_match
+      @next_opponent = @next_match.player1 == @player ? @next_match.player2 : @next_match.player1
     end
   end
 
