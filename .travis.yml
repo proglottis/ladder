@@ -1,0 +1,10 @@
+language: ruby
+rvm:
+  - 2.3
+services:
+  - postgresql
+before_script:
+  - cp config/database.yml.example config/database.yml
+  - cp config/secrets.yml.example config/secrets.yml
+  - psql -c "create role ladder with createdb login password 'ladder';" -U postgres
+  - psql -c "create database ladder_test owner ladder;" -U postgres
