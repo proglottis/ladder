@@ -32,11 +32,13 @@ gem 'capistrano-rails'
 gem 'capistrano-bundler'
 gem 'capistrano-passenger'
 
+gem 'bootsnap', '>= 1.1.0', require: false
+
 group :test, :development do
   gem 'listen'
   gem 'minitest-spec-rails'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'capybara', '~> 2.13.0'
+  gem 'capybara', '~> 2.15.0'
   gem 'selenium-webdriver'
   gem 'factory_girl_rails', '~> 4.0'
   gem 'bullet'
