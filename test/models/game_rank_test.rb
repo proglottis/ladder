@@ -38,7 +38,7 @@ describe GameRank do
       time = 1.day.ago
       @game_rank = create(:game_rank, :confirmed_at => time)
       @game_rank.confirm
-      @game_rank.confirmed_at.must_equal time
+      assert_in_delta @game_rank.confirmed_at, time, 1.second
     end
   end
 end
