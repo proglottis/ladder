@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
 
   factory :user, :aliases => [:owner] do
     name 'Bob Bobson'
@@ -20,7 +20,7 @@ FactoryGirl.define do
 
     factory :started_tournament do
       after :create do |tournament, evaluator|
-        FactoryGirl.create :rating_period, :tournament => tournament
+        FactoryBot.create :rating_period, :tournament => tournament
       end
     end
   end
