@@ -38,7 +38,7 @@
     <ul class="nav nav-pills">
       <li class="<%='active' if ['tournaments'].include?(controller_name) && params['action'] == 'edit' %>"><%= link_to t('tournaments.edit.title'), edit_tournament_path(@tournament) %></li>
       <li class="<%='active' if ['games'].include? controller_name %>">
-        <%= link_to tournament_games_path(@tournament) do %><%= t('tournaments.games.index.title') %><% end %>
+        <%= link_to tournament_games_path(@tournament) do %><%= t('tournaments.games.index.title') %> <%= unconfirmed_games_count(@tournament) %><% end %>
       </li>
       <li class="<%='active' if ['players'].include? controller_name %>">
         <%= link_to tournament_players_path(@tournament) do %><%= t('tournaments.players.index.title') %><% end %>

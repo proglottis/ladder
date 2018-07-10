@@ -37,7 +37,10 @@
     <div class="controls">
       <%= f.submit :class => 'btn btn-primary' %>
       <%= cancel_link tournament_path(@tournament) %>
-      <%= delete_link tournament_path(@tournament) %>
+
+      <span class='pull-right'>
+        <%= delete_link tournament_path(@tournament) %>
+      </span>
     </div>
   </div>
 <% end %>
